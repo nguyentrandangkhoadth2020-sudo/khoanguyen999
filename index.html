@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HỆ THỐNG TÍNH ĐIỂM TRUNG BÌNH - KHOA NGUYỄN [1.0 chính thức (14:25 - 18/10/2026)]</title>
+    <title>CÔNG CỤ TÍNH TOÁN CỦA KHOA NGUYỄN 999 [1.0 chính thức (14:32 - 18/10/2026)]</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,9 +19,9 @@
                     },
                     colors: {
                         nqd: {
-                            blue: '#0072bc',
-                            dark: '#004b87',
-                            vivid: '#0284c7'
+                            blue: '#0284c7',
+                            dark: '#0369a1',
+                            vivid: '#38bdf8'
                         }
                     }
                 }
@@ -40,7 +40,7 @@
             color: #0f172a;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.015em;
         }
 
         input[type=number]::-webkit-inner-spin-button,
@@ -82,7 +82,7 @@
             width: 100%;
             height: 44px;
             text-align: center;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 14px;
             color: #0f172a;
             background-color: transparent;
@@ -94,7 +94,7 @@
         .cell-input:focus:not(:disabled) {
             background-color: #ffffff;
             border-color: #0284c7;
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
         }
 
         .cell-input::placeholder {
@@ -125,10 +125,11 @@
             animation: shake 0.38s ease-in-out;
         }
 
-        .modern-login-bg {
-            background: radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.25), transparent 40%),
-                        radial-gradient(circle at 85% 80%, rgba(59, 130, 246, 0.2), transparent 45%),
-                        linear-gradient(135deg, #090d16 0%, #0f172a 60%, #1e293b 100%);
+        /* NỀN ĐĂNG NHẬP MỚI HIỆN ĐẠI FRESH & SANG TRỌNG */
+        .fresh-login-bg {
+            background: radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.35), transparent 45%),
+                        radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.3), transparent 50%),
+                        linear-gradient(135deg, #090e17 0%, #0f172a 65%, #1e1b4b 100%);
             background-attachment: fixed;
         }
     </style>
@@ -139,42 +140,43 @@
     <div id="toastBox" class="fixed bottom-4 right-4 z-[9999] flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- ========================================================================= -->
-    <!-- 1. MÀN HÌNH ĐĂNG NHẬP -->
+    <!-- 1. MÀN HÌNH ĐĂNG NHẬP: CÔNG CỤ TÍNH TOÁN CỦA KHOA NGUYỄN 999 -->
     <!-- ========================================================================= -->
-    <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center p-4 modern-login-bg smooth-fade overflow-y-auto">
+    <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center p-4 fresh-login-bg smooth-fade overflow-y-auto">
         
         <div class="fixed top-4 right-4 flex items-center gap-2.5 z-10">
             <span class="px-3.5 py-1.5 rounded-full bg-sky-500/20 text-sky-300 font-extrabold text-xs border border-sky-400/30 backdrop-blur-md shadow-inner">
-                1.0 chính thức (14:25 - 18/10/2026)
+                1.0 chính thức (14:32 - 18/10/2026)
             </span>
         </div>
 
-        <div id="loginCard" class="w-full max-w-md bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-6 sm:p-8 space-y-6 my-auto transition-all duration-300">
+        <div id="loginCard" class="w-full max-w-md bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/60 p-6 sm:p-8 space-y-6 my-auto transition-all duration-300">
             
-            <div class="text-center space-y-1.5">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-600 to-blue-500 text-white flex items-center justify-center mx-auto text-2xl shadow-lg shadow-sky-500/30">
+            <div class="text-center space-y-2">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-sky-500 via-blue-600 to-indigo-600 text-white flex items-center justify-center mx-auto text-3xl shadow-xl shadow-sky-500/30">
                     ⚡
                 </div>
-                <h2 class="text-2xl font-black text-slate-900 tracking-tight">XÁC THỰC TRUY CẬP</h2>
-                <p class="text-xs text-slate-500 font-medium">Hệ thống tính điểm học tập tự động</p>
+                <h2 class="text-xl sm:text-2xl font-black bg-gradient-to-r from-slate-900 via-sky-900 to-blue-800 bg-clip-text text-transparent tracking-tight leading-snug">
+                    CÔNG CỤ TÍNH TOÁN CỦA KHOA NGUYỄN 999
+                </h2>
             </div>
 
             <!-- BẢNG THÔNG BÁO SỐ 01 -->
-            <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-300/80 rounded-2xl p-4 shadow-sm space-y-1.5">
-                <div class="flex items-center justify-between border-b border-amber-200/60 pb-1.5">
+            <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-300/80 rounded-2xl p-4 shadow-sm space-y-1">
+                <div class="flex items-center justify-between border-b border-amber-200/60 pb-1">
                     <span class="text-xs font-black text-amber-900 uppercase flex items-center gap-1.5">
                         📢 Thông báo số 01:
                     </span>
-                    <span class="text-[11px] font-bold text-amber-700 font-mono">12:59 ngày 18/10/2026</span>
+                    <span class="text-[11px] font-bold text-amber-700 font-mono">12:59 - 18/10/2026</span>
                 </div>
                 <p class="text-xs font-semibold text-amber-950 leading-relaxed pt-0.5">
-                    Chức năng tính mục tiêu điểm Cuối kì đã được cập nhật hoàn tất theo yêu cầu!
+                    Đã hoàn thiện tính năng Mục tiêu cuối kì và Tính điểm THPTQG 2027!
                 </p>
             </div>
 
             <form id="loginForm" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                    <label class="block text-xs font-black text-slate-700 uppercase tracking-wider mb-2">
                         👤 Nhập tên của bạn:
                     </label>
                     <input 
@@ -184,7 +186,7 @@
                         autofocus
                         required 
                         placeholder="" 
-                        class="w-full px-4 py-3.5 text-sm rounded-xl border border-slate-300 bg-white focus:border-nqd-blue focus:ring-4 focus:ring-sky-100 outline-none transition font-bold text-slate-800"
+                        class="w-full px-4 py-3.5 text-sm rounded-xl border-2 border-slate-200 bg-white focus:border-nqd-blue focus:ring-4 focus:ring-sky-100 outline-none transition font-black text-slate-800"
                     />
                 </div>
 
@@ -193,23 +195,23 @@
                 <button 
                     type="submit" 
                     id="btnLoginSubmit"
-                    class="w-full py-3.5 rounded-xl bg-gradient-to-r from-nqd-blue to-sky-600 hover:from-nqd-dark hover:to-nqd-blue active:scale-[0.98] text-white font-black text-sm shadow-xl shadow-sky-600/25 transition duration-200 flex items-center justify-center gap-2"
+                    class="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 active:scale-[0.98] text-white font-black text-sm shadow-xl shadow-sky-600/30 transition duration-200 flex items-center justify-center gap-2"
                 >
                     🚀 Vào Hệ Thống
                 </button>
             </form>
 
             <div class="pt-2 text-center text-[11px] font-bold text-slate-400">
-                Phiên bản hệ thống: <span class="text-slate-600">1.0 chính thức (14:25 - 18/10/2026)</span>
+                Phiên bản hệ thống: <span class="text-slate-600">1.0 chính thức (14:32 - 18/10/2026)</span>
             </div>
         </div>
     </div>
 
     <!-- ========================================================================= -->
-    <!-- 2. MENU LỰA CHỌN CHỨC NĂNG (HUB OPTIONS) -->
+    <!-- 2. MENU LỰA CHỌN CHỨC NĂNG (3 OPTION: TÍNH ĐTB, MỤC TIÊU CK, THPTQG 2027) -->
     <!-- ========================================================================= -->
-    <div id="optionHubScreen" class="fixed inset-0 z-40 hidden opacity-0 flex items-center justify-center p-4 modern-login-bg smooth-fade overflow-y-auto">
-        <div class="w-full max-w-xl bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-6 sm:p-8 space-y-6 my-auto">
+    <div id="optionHubScreen" class="fixed inset-0 z-40 hidden opacity-0 flex items-center justify-center p-4 fresh-login-bg smooth-fade overflow-y-auto">
+        <div class="w-full max-w-4xl bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/60 p-6 sm:p-8 space-y-6 my-auto">
             
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
@@ -220,10 +222,11 @@
                 </button>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- 3 OPTION GỌN GÀNG, ĐẸP MẮT -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 
                 <!-- OPTION 1: TÍNH ĐIỂM TRUNG BÌNH -->
-                <div id="cardOptCalcGpa" class="group bg-white hover:bg-sky-50/60 rounded-2xl p-7 border-2 border-slate-200 hover:border-nqd-blue shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col items-center justify-center text-center gap-3">
+                <div id="cardOptCalcGpa" class="group bg-white hover:bg-sky-50/70 rounded-2xl p-6 border-2 border-slate-200 hover:border-nqd-blue shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col items-center justify-center text-center gap-3">
                     <div class="w-16 h-16 rounded-2xl bg-sky-100 text-nqd-blue flex items-center justify-center text-3xl group-hover:scale-110 transition-transform shadow-inner">
                         📊
                     </div>
@@ -233,7 +236,7 @@
                 </div>
 
                 <!-- OPTION 2: MỤC TIÊU CUỐI KÌ -->
-                <div id="cardOptTargetCk" class="group bg-white hover:bg-amber-50/60 rounded-2xl p-7 border-2 border-slate-200 hover:border-amber-500 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col items-center justify-center text-center gap-3">
+                <div id="cardOptTargetCk" class="group bg-white hover:bg-amber-50/70 rounded-2xl p-6 border-2 border-slate-200 hover:border-amber-500 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col items-center justify-center text-center gap-3">
                     <div class="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform shadow-inner">
                         🎯
                     </div>
@@ -242,16 +245,26 @@
                     </h3>
                 </div>
 
+                <!-- OPTION 3: TÍNH ĐIỂM THPTQG 2027 (MỚI) -->
+                <div id="cardOptThptqg" class="group bg-white hover:bg-emerald-50/70 rounded-2xl p-6 border-2 border-slate-200 hover:border-emerald-500 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col items-center justify-center text-center gap-3">
+                    <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform shadow-inner">
+                        🎓
+                    </div>
+                    <h3 class="text-base font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
+                        TÍNH ĐIỂM THPTQG 2027
+                    </h3>
+                </div>
+
             </div>
 
             <div class="text-center text-[11px] font-bold text-slate-400 pt-1">
-                ⭐ Hệ thống của Khoa Nguyễn • Phiên bản 1.0 chính thức (14:25 - 18/10/2026)
+                ⭐ Công cụ tính toán của Khoa Nguyễn 999 • Phiên bản 1.0 chính thức
             </div>
         </div>
     </div>
 
     <!-- ========================================================================= -->
-    <!-- MODAL LỚN CHỌN MÔN TRƯỚC CHO MỤC TIÊU CUỐI KÌ -->
+    <!-- MODAL LỚN CHỌN MÔN CHO MỤC TIÊU CUỐI KÌ -->
     <!-- ========================================================================= -->
     <div id="targetSubjectPickerModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-md p-4 smooth-fade">
         <div class="w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 sm:p-7 space-y-5 my-auto">
@@ -263,8 +276,6 @@
                 <button type="button" id="btnCloseSubjectPicker" class="text-slate-400 hover:text-slate-700 text-xl font-black p-1">&times;</button>
             </div>
 
-            <p class="text-xs text-slate-500 font-medium">Bấm chọn một môn học dưới đây để mở bảng nhập điểm:</p>
-
             <div id="modalSubjectButtonsGrid" class="grid grid-cols-3 gap-3">
                 <!-- 9 nút chọn môn lớn -->
             </div>
@@ -272,7 +283,7 @@
     </div>
 
     <!-- ========================================================================= -->
-    <!-- 3. GIAO DIỆN MỤC TIÊU CUỐI KÌ (CHỈ HIỆN KHI ĐÃ CHỌN MÔN TRONG POPUP) -->
+    <!-- 3. GIAO DIỆN MỤC TIÊU CUỐI KÌ (CHỈ CÒN ĐIỂM REAL-TIME, BỎ DÒNG PHỤ) -->
     <!-- ========================================================================= -->
     <div id="targetCkWrapper" class="hidden opacity-0 py-5 px-3 sm:px-6 pb-20 max-w-[700px] mx-auto space-y-5 smooth-fade">
         
@@ -281,18 +292,15 @@
                 <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl shadow-inner shrink-0">
                     🎯
                 </div>
-                <div>
-                    <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                        MỤC TIÊU CUỐI KÌ
-                    </h1>
-                </div>
+                <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                    MỤC TIÊU CUỐI KÌ
+                </h1>
             </div>
             <button type="button" class="btnBackToHubGlobal px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-black text-xs transition flex items-center gap-1.5 shadow-sm">
                 ↩ Menu chức năng
             </button>
         </header>
 
-        <!-- KHỐI NHẬP ĐIỂM DỌC TO RÕ (HIỂN THỊ REAL-TIME) -->
         <section class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm space-y-6">
             
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -312,9 +320,7 @@
                 <label class="block text-xs font-black text-slate-700 uppercase">
                     🎯 Chọn mức mục tiêu cần đạt:
                 </label>
-                <div id="targetGoalButtonsGroup" class="flex flex-wrap gap-2.5">
-                    <!-- Nút 6.5, 8.0 (và 8.5 cho Tin học) -->
-                </div>
+                <div id="targetGoalButtonsGroup" class="flex flex-wrap gap-2.5"></div>
             </div>
 
             <!-- SỐ CỘT 15P -->
@@ -329,9 +335,7 @@
             </div>
 
             <!-- CÁC Ô NHẬP DỌC TO RÕ -->
-            <div id="target15InputsContainer" class="space-y-2.5">
-                <!-- Các ô 15p xếp dọc to rõ -->
-            </div>
+            <div id="target15InputsContainer" class="space-y-2.5"></div>
 
             <!-- Ô NHẬP GK TO RÕ -->
             <div class="bg-amber-50/60 p-4 rounded-2xl border border-amber-200 space-y-1.5">
@@ -349,19 +353,12 @@
                 />
             </div>
 
-            <!-- HIỂN THỊ ĐIỂM CK CẦN ĐẠT REAL-TIME SIÊU GỌN GÀNG -->
+            <!-- HIỂN THỊ ĐIỂM CK CẦN ĐẠT REAL-TIME GỌN GÀNG -->
             <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl p-5 shadow-xl flex items-center justify-between gap-4">
-                <div class="space-y-0.5">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">
-                        ĐIỂM CUỐI KÌ (CK) CẦN ĐẠT:
-                    </span>
-                    <span id="targetStatusText" class="text-xs font-bold text-amber-300">
-                        Nhập điểm để xem
-                    </span>
-                </div>
-                <div class="flex items-baseline gap-1.5">
-                    <span id="targetResultCkValue" class="text-4xl sm:text-5xl font-black text-amber-400 tracking-tight">--</span>
-                </div>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">
+                    ĐIỂM CUỐI KÌ (CK) CẦN ĐẠT:
+                </span>
+                <span id="targetResultCkValue" class="text-4xl sm:text-5xl font-black text-amber-400 tracking-tight">--</span>
             </div>
 
         </section>
@@ -369,7 +366,208 @@
     </div>
 
     <!-- ========================================================================= -->
-    <!-- 4. TRANG TÍNH ĐIỂM TRUNG BÌNH CHÍNH (OPTION 1) -->
+    <!-- 4. GIAO DIỆN TÍNH ĐIỂM THPTQG 2027 (MỚI: 4 MÔN THI + KHU VỰC + GIẢM ƯU TIÊN) -->
+    <!-- ========================================================================= -->
+    <div id="thptqgWrapper" class="hidden opacity-0 py-5 px-3 sm:px-6 pb-20 max-w-[860px] mx-auto space-y-5 smooth-fade">
+        
+        <header class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl shadow-inner shrink-0">
+                    🎓
+                </div>
+                <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                    TÍNH ĐIỂM THPTQG 2027
+                </h1>
+            </div>
+            <button type="button" class="btnBackToHubGlobal px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-black text-xs transition flex items-center gap-1.5 shadow-sm">
+                ↩ Menu chức năng
+            </button>
+        </header>
+
+        <!-- KHỐI NHẬP 4 MÔN THI (GDPT 2018: 2 BẮT BUỘC + 2 TỰ CHỌN) -->
+        <section class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm space-y-5">
+            <span class="text-xs font-black uppercase text-slate-500 tracking-wider block">
+                📝 4 MÔN THI TỐT NGHIỆP THPT 2027:
+            </span>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <!-- MÔN 1: BẮT BUỘC TOÁN -->
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-black text-slate-800 uppercase">Môn 1: Bắt buộc</span>
+                        <span class="px-2 py-0.5 rounded-md bg-sky-100 text-nqd-blue font-extrabold text-[11px]">TOÁN</span>
+                    </div>
+                    <input 
+                        type="number" 
+                        id="thptScoreToan" 
+                        step="0.01" 
+                        min="0" 
+                        max="10" 
+                        placeholder="Nhập điểm Toán..." 
+                        class="w-full px-3.5 py-2.5 text-lg font-black rounded-xl border border-slate-300 focus:border-nqd-blue focus:ring-4 focus:ring-sky-100 outline-none transition text-slate-900 bg-white"
+                    />
+                </div>
+
+                <!-- MÔN 2: BẮT BUỘC NGỮ VĂN -->
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-black text-slate-800 uppercase">Môn 2: Bắt buộc</span>
+                        <span class="px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 font-extrabold text-[11px]">NGỮ VĂN</span>
+                    </div>
+                    <input 
+                        type="number" 
+                        id="thptScoreVan" 
+                        step="0.01" 
+                        min="0" 
+                        max="10" 
+                        placeholder="Nhập điểm Ngữ văn..." 
+                        class="w-full px-3.5 py-2.5 text-lg font-black rounded-xl border border-slate-300 focus:border-nqd-blue focus:ring-4 focus:ring-sky-100 outline-none transition text-slate-900 bg-white"
+                    />
+                </div>
+
+                <!-- MÔN 3: TỰ CHỌN 1 -->
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-black text-slate-800 uppercase">Môn 3: Tự chọn 1</span>
+                        <select id="thptSelectTc1" class="text-xs font-black text-emerald-800 bg-emerald-50 border border-emerald-300 rounded-lg px-2 py-1 outline-none">
+                            <option value="Tiếng Anh">Tiếng Anh</option>
+                            <option value="Vật lí" selected>Vật lí</option>
+                            <option value="Hóa học">Hóa học</option>
+                            <option value="Sinh học">Sinh học</option>
+                            <option value="Tin học">Tin học</option>
+                            <option value="Lịch sử">Lịch sử</option>
+                            <option value="Địa lí">Địa lí</option>
+                            <option value="GDKT & PL">GDKT & PL</option>
+                            <option value="Công nghệ">Công nghệ</option>
+                        </select>
+                    </div>
+                    <input 
+                        type="number" 
+                        id="thptScoreTc1" 
+                        step="0.01" 
+                        min="0" 
+                        max="10" 
+                        placeholder="Nhập điểm tự chọn 1..." 
+                        class="w-full px-3.5 py-2.5 text-lg font-black rounded-xl border border-slate-300 focus:border-nqd-blue focus:ring-4 focus:ring-sky-100 outline-none transition text-slate-900 bg-white"
+                    />
+                </div>
+
+                <!-- MÔN 4: TỰ CHỌN 2 -->
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-black text-slate-800 uppercase">Môn 4: Tự chọn 2</span>
+                        <select id="thptSelectTc2" class="text-xs font-black text-emerald-800 bg-emerald-50 border border-emerald-300 rounded-lg px-2 py-1 outline-none">
+                            <option value="Tiếng Anh">Tiếng Anh</option>
+                            <option value="Vật lí">Vật lí</option>
+                            <option value="Hóa học" selected>Hóa học</option>
+                            <option value="Sinh học">Sinh học</option>
+                            <option value="Tin học">Tin học</option>
+                            <option value="Lịch sử">Lịch sử</option>
+                            <option value="Địa lí">Địa lí</option>
+                            <option value="GDKT & PL">GDKT & PL</option>
+                            <option value="Công nghệ">Công nghệ</option>
+                        </select>
+                    </div>
+                    <input 
+                        type="number" 
+                        id="thptScoreTc2" 
+                        step="0.01" 
+                        min="0" 
+                        max="10" 
+                        placeholder="Nhập điểm tự chọn 2..." 
+                        class="w-full px-3.5 py-2.5 text-lg font-black rounded-xl border border-slate-300 focus:border-nqd-blue focus:ring-4 focus:ring-sky-100 outline-none transition text-slate-900 bg-white"
+                    />
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ĐIỂM ƯU TIÊN KHU VỰC & ĐỐI TƯỢNG (CÓ GIẢM ƯU TIÊN THEO QUY CHẾ) -->
+        <section class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm space-y-4">
+            <span class="text-xs font-black uppercase text-slate-500 tracking-wider block">
+                🎯 KHU VỰC & ĐỐI TƯỢNG ƯU TIÊN:
+            </span>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Khu vực ưu tiên:</label>
+                    <select id="thptSelectKv" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-extrabold text-xs text-slate-800 bg-slate-50 outline-none">
+                        <option value="0.75">Khu vực 1 (+0.75 điểm)</option>
+                        <option value="0.5" selected>Khu vực 2 - Nông thôn (+0.50 điểm)</option>
+                        <option value="0.25">Khu vực 2 (+0.25 điểm)</option>
+                        <option value="0.0">Khu vực 3 (Không ưu tiên)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Đối tượng ưu tiên:</label>
+                    <select id="thptSelectDt" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-extrabold text-xs text-slate-800 bg-slate-50 outline-none">
+                        <option value="0.0" selected>Không thuộc diện ưu tiên (0đ)</option>
+                        <option value="2.0">Nhóm ưu tiên 1: ĐT 1, 2, 3, 4 (+2.0 điểm)</option>
+                        <option value="1.0">Nhóm ưu tiên 2: ĐT 5, 6, 7 (+1.0 điểm)</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- CHỌN 3 MÔN XÉT TUYỂN ĐẠI HỌC (THANG 30) -->
+            <div class="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                <span class="text-xs font-black text-slate-700">Tổ hợp 3 môn xét tuyển ĐH:</span>
+                <select id="thptSelectToHop" class="px-3.5 py-2 rounded-xl bg-sky-50 text-nqd-blue font-black text-xs border border-sky-300 outline-none">
+                    <option value="toan_van_tc1">Toán + Ngữ văn + Tự chọn 1</option>
+                    <option value="toan_van_tc2">Toán + Ngữ văn + Tự chọn 2</option>
+                    <option value="toan_tc1_tc2" selected>Toán + Tự chọn 1 + Tự chọn 2 (VD: KHTN / Khối A, B...)</option>
+                    <option value="van_tc1_tc2">Ngữ văn + Tự chọn 1 + Tự chọn 2</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- KẾT QUẢ ĐIỂM THPTQG 2027 REAL-TIME -->
+        <section class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-6 sm:p-7 shadow-xl space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-700 gap-4 sm:gap-0">
+                
+                <!-- ĐIỂM XÉT TUYỂN ĐẠI HỌC THANG 30 (CÓ GIẢM ƯU TIÊN) -->
+                <div class="sm:pr-6 space-y-1">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider block">
+                        ĐIỂM XÉT TUYỂN ĐH / 30:
+                    </span>
+                    <div class="flex items-baseline gap-2">
+                        <span id="thptResultDhFinal" class="text-4xl sm:text-5xl font-black text-amber-400 tracking-tight">--</span>
+                        <span class="text-sm font-bold text-slate-400">/ 30 điểm</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 pt-1 space-y-0.5">
+                        <div>Điểm gốc 3 môn: <b id="thptResultRaw30" class="text-slate-200">--</b></div>
+                        <div>Điểm ưu tiên thực tế: <b id="thptResultRealUt" class="text-emerald-400">--</b></div>
+                    </div>
+                </div>
+
+                <!-- ĐIỂM TRUNG BÌNH 4 MÔN TỐT NGHIỆP -->
+                <div class="sm:pl-6 pt-3 sm:pt-0 space-y-1">
+                    <span class="text-xs font-bold text-sky-400 uppercase tracking-wider block">
+                        ĐTB 4 MÔN TỐT NGHIỆP:
+                    </span>
+                    <div class="flex items-baseline gap-2">
+                        <span id="thptResultTnAvg" class="text-4xl sm:text-5xl font-black text-white tracking-tight">--</span>
+                        <span class="text-sm font-bold text-slate-400">/ 10.0</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 pt-1">
+                        Tổng điểm 4 bài thi: <b id="thptResultTotal4" class="text-slate-200">--</b> / 40
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="text-[11px] text-slate-400 leading-relaxed italic border-t border-slate-700/80 pt-3">
+                * Quy chế Bộ GD&ĐT: Khi tổng 3 môn đạt từ 22.5 điểm trở lên, mức điểm ưu tiên được giảm tuyến tính theo công thức: [(30 - Tổng điểm)/7.5] &times; Mức ưu tiên.
+            </p>
+        </section>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 5. TRANG TÍNH ĐIỂM TRUNG BÌNH CHÍNH (OPTION 1) -->
     <!-- ========================================================================= -->
     <div id="mainAppWrapper" class="hidden opacity-0 py-4 px-3 sm:px-6 pb-20 max-w-[1360px] mx-auto space-y-4 smooth-fade">
 
@@ -408,7 +606,7 @@
                                 📊 TÍNH ĐIỂM TRUNG BÌNH
                             </h1>
                             <span class="px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 font-extrabold text-[10px] border border-sky-300">
-                                1.0 chính thức (14:25 - 18/10/2026)
+                                1.0 chính thức (14:32 - 18/10/2026)
                             </span>
                         </div>
                         <span class="inline-block mt-1 bg-slate-900 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-md shadow-sm">
@@ -598,7 +796,7 @@
         let appState = getDefaultState();
 
         let targetState = {
-            selectedSubjectId: null, // Chưa chọn môn ban đầu
+            selectedSubjectId: null,
             num15Cols: 4,
             s15: ['', '', '', ''],
             gk: '',
@@ -631,12 +829,13 @@
         }
 
         // =========================================================================
-        // ĐIỀU HƯỚNG MÀN HÌNH
+        // ROUTER ĐIỀU HƯỚNG MÀN HÌNH
         // =========================================================================
         const loginScreen = document.getElementById('loginScreen');
         const optionHubScreen = document.getElementById('optionHubScreen');
         const mainAppWrapper = document.getElementById('mainAppWrapper');
         const targetCkWrapper = document.getElementById('targetCkWrapper');
+        const thptqgWrapper = document.getElementById('thptqgWrapper');
         const targetSubjectPickerModal = document.getElementById('targetSubjectPickerModal');
 
         const loginForm = document.getElementById('loginForm');
@@ -687,9 +886,20 @@
             }, 250);
         });
 
-        // 2. Vào Mục tiêu cuối kì: HIỆN POPUP LỚN CHỌN MÔN TRƯỚC
+        // 2. Vào Mục tiêu cuối kì: Hiện Modal chọn môn
         document.getElementById('cardOptTargetCk').addEventListener('click', () => {
             openSubjectPickerModal();
+        });
+
+        // 3. Vào Tính điểm THPTQG 2027 (MỚI)
+        document.getElementById('cardOptThptqg').addEventListener('click', () => {
+            optionHubScreen.classList.add('opacity-0');
+            setTimeout(() => {
+                optionHubScreen.classList.add('hidden');
+                thptqgWrapper.classList.remove('hidden');
+                setTimeout(() => thptqgWrapper.classList.remove('opacity-0'), 50);
+                calculateThptqgRealtime();
+            }, 250);
         });
 
         function openSubjectPickerModal() {
@@ -741,7 +951,6 @@
 
             closeSubjectPickerModal();
 
-            // Chuyển sang màn hình Mục tiêu cuối kì
             optionHubScreen.classList.add('opacity-0');
             setTimeout(() => {
                 optionHubScreen.classList.add('hidden');
@@ -754,14 +963,16 @@
             }, 200);
         }
 
-        // Quay lại Menu Hub
+        // Nút quay lại Menu Hub
         document.querySelectorAll('.btnBackToHubGlobal').forEach(btn => {
             btn.addEventListener('click', () => {
                 mainAppWrapper.classList.add('opacity-0');
                 targetCkWrapper.classList.add('opacity-0');
+                thptqgWrapper.classList.add('opacity-0');
                 setTimeout(() => {
                     mainAppWrapper.classList.add('hidden');
                     targetCkWrapper.classList.add('hidden');
+                    thptqgWrapper.classList.add('hidden');
                     optionHubScreen.classList.remove('hidden');
                     setTimeout(() => optionHubScreen.classList.remove('opacity-0'), 50);
                 }, 250);
@@ -770,6 +981,100 @@
 
         document.getElementById('btnHubLogout').addEventListener('click', () => window.location.reload());
         document.getElementById('btnLogout').addEventListener('click', () => window.location.reload());
+
+        // =========================================================================
+        // TÍNH ĐIỂM THPTQG 2027 REAL-TIME (CÓ GIẢM ĐIỂM ƯU TIÊN CHUẨN BỘ GD)
+        // =========================================================================
+        const thptScoreToan = document.getElementById('thptScoreToan');
+        const thptScoreVan = document.getElementById('thptScoreVan');
+        const thptScoreTc1 = document.getElementById('thptScoreTc1');
+        const thptScoreTc2 = document.getElementById('thptScoreTc2');
+
+        const thptSelectKv = document.getElementById('thptSelectKv');
+        const thptSelectDt = document.getElementById('thptSelectDt');
+        const thptSelectToHop = document.getElementById('thptSelectToHop');
+
+        [thptScoreToan, thptScoreVan, thptScoreTc1, thptScoreTc2, thptSelectKv, thptSelectDt, thptSelectToHop].forEach(el => {
+            el.addEventListener('input', calculateThptqgRealtime);
+            el.addEventListener('change', calculateThptqgRealtime);
+        });
+
+        function calculateThptqgRealtime() {
+            const toan = parseFloat(thptScoreToan.value);
+            const van = parseFloat(thptScoreVan.value);
+            const tc1 = parseFloat(thptScoreTc1.value);
+            const tc2 = parseFloat(thptScoreTc2.value);
+
+            const hasToan = (!isNaN(toan) && toan >= 0 && toan <= 10);
+            const hasVan = (!isNaN(van) && van >= 0 && van <= 10);
+            const hasTc1 = (!isNaN(tc1) && tc1 >= 0 && tc1 <= 10);
+            const hasTc2 = (!isNaN(tc2) && tc2 >= 0 && tc2 <= 10);
+
+            // 1. TÍNH ĐIỂM TRUNG BÌNH 4 MÔN TỐT NGHIỆP
+            const validScores4 = [];
+            if (hasToan) validScores4.push(toan);
+            if (hasVan) validScores4.push(van);
+            if (hasTc1) validScores4.push(tc1);
+            if (hasTc2) validScores4.push(tc2);
+
+            const total4El = document.getElementById('thptResultTotal4');
+            const avgTnEl = document.getElementById('thptResultTnAvg');
+
+            if (validScores4.length === 4) {
+                const total4 = validScores4.reduce((a, b) => a + b, 0);
+                const avgTn = total4 / 4;
+                total4El.textContent = total4.toFixed(2);
+                avgTnEl.textContent = avgTn.toFixed(2);
+            } else {
+                total4El.textContent = '--';
+                avgTnEl.textContent = '--';
+            }
+
+            // 2. TÍNH ĐIỂM XÉT TUYỂN ĐẠI HỌC /30 (CHỌN 3 MÔN)
+            const tohop = thptSelectToHop.value;
+            let m1 = null, m2 = null, m3 = null;
+
+            if (tohop === 'toan_van_tc1' && hasToan && hasVan && hasTc1) {
+                m1 = toan; m2 = van; m3 = tc1;
+            } else if (tohop === 'toan_van_tc2' && hasToan && hasVan && hasTc2) {
+                m1 = toan; m2 = van; m3 = tc2;
+            } else if (tohop === 'toan_tc1_tc2' && hasToan && hasTc1 && hasTc2) {
+                m1 = toan; m2 = tc1; m3 = tc2;
+            } else if (tohop === 'van_tc1_tc2' && hasVan && hasTc1 && hasTc2) {
+                m1 = van; m2 = tc1; m3 = tc2;
+            }
+
+            const raw30El = document.getElementById('thptResultRaw30');
+            const realUtEl = document.getElementById('thptResultRealUt');
+            const finalDhEl = document.getElementById('thptResultDhFinal');
+
+            if (m1 !== null && m2 !== null && m3 !== null) {
+                const rawScore = m1 + m2 + m3;
+                const utKv = parseFloat(thptSelectKv.value) || 0;
+                const utDt = parseFloat(thptSelectDt.value) || 0;
+                const baseUt = utKv + utDt;
+
+                // CÔNG THỨC GIẢM ƯU TIÊN KHI TỔNG ĐIỂM >= 22.5
+                let realUt = 0;
+                if (baseUt > 0) {
+                    if (rawScore >= 22.5) {
+                        realUt = ((30.0 - rawScore) / 7.5) * baseUt;
+                    } else {
+                        realUt = baseUt;
+                    }
+                }
+
+                const finalScore = Math.min(30.0, rawScore + realUt);
+
+                raw30El.textContent = rawScore.toFixed(2);
+                realUtEl.textContent = `+${realUt.toFixed(3)}đ (Gốc: ${baseUt.toFixed(2)}đ)`;
+                finalDhEl.textContent = finalScore.toFixed(2);
+            } else {
+                raw30El.textContent = '--';
+                realUtEl.textContent = '--';
+                finalDhEl.textContent = '--';
+            }
+        }
 
         // =========================================================================
         // LOGIC MỤC TIÊU CUỐI KÌ (REAL-TIME NHẬP TỚI ĐÂU TÍNH TỚI ĐÓ)
@@ -856,7 +1161,7 @@
 
         function calculateTargetCkRealtime() {
             const targetVal = targetState.targetGoal || 8.0;
-            const threshold = targetVal - 0.05; // 6.45, 7.95, 8.45
+            const threshold = targetVal - 0.05;
 
             const s15Nums = [];
             for (let i = 0; i < targetState.num15Cols; i++) {
@@ -870,12 +1175,10 @@
             const hasGk = (!isNaN(rawGk) && rawGk >= 0 && rawGk <= 10);
 
             const resultValEl = document.getElementById('targetResultCkValue');
-            const statusTextEl = document.getElementById('targetStatusText');
 
             if (s15Nums.length === 0 || !hasGk) {
                 resultValEl.textContent = '--';
-                statusTextEl.textContent = 'Nhập đủ 15p & GK để xem';
-                statusTextEl.className = 'text-xs font-bold text-slate-400';
+                resultValEl.className = "text-4xl sm:text-5xl font-black text-amber-400 tracking-tight";
                 return;
             }
 
@@ -890,18 +1193,12 @@
             if (neededCkRounded <= 0) {
                 resultValEl.textContent = "0.0";
                 resultValEl.className = "text-4xl sm:text-5xl font-black text-emerald-400 tracking-tight";
-                statusTextEl.textContent = "✅ ĐÃ CHẮC CHẮN ĐẠT MỤC TIÊU";
-                statusTextEl.className = "text-xs font-black text-emerald-400";
             } else if (neededCkRounded > 10.0) {
-                resultValEl.textContent = neededCkRounded.toFixed(2);
+                resultValEl.textContent = "> 10.0";
                 resultValEl.className = "text-4xl sm:text-5xl font-black text-rose-400 tracking-tight";
-                statusTextEl.textContent = "❌ BẤT KHẢ THI (> 10 ĐIỂM)";
-                statusTextEl.className = "text-xs font-black text-rose-400";
             } else {
                 resultValEl.textContent = neededCkRounded.toFixed(2);
                 resultValEl.className = "text-4xl sm:text-5xl font-black text-amber-400 tracking-tight";
-                statusTextEl.textContent = `🎯 CẦN TỐI THIỂU: ${neededCkRounded.toFixed(2)} ĐIỂM`;
-                statusTextEl.className = "text-xs font-black text-amber-300";
             }
         }
 
