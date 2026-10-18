@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TÍNH ĐIỂM TRUNG BÌNH 2026-2027 - Khoa Nguyễn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        nqd: {
+                            blue: '#0072bc',
+                            dark: '#004b87'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: #0f172a;
+            font-family: 'Inter', sans-serif;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .grade-table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 940px;
+            table-layout: fixed;
+        }
+
+        .grade-table th,
+        .grade-table td {
+            border: 1px solid #cbd5e1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cell-input {
+            width: 100%;
+            height: 42px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: #0f172a;
+            background-color: transparent;
+            border: 2px solid transparent;
+            outline: none;
+            transition: background-color 0.1s, border-color 0.1s;
+        }
+
+        .cell-input:focus:not(:disabled) {
+            background-color: #ffffff;
+            border-color: #0072bc;
+        }
+
+        .cell-input::placeholder {
+            color: #cbd5e1;
+            font-weight: 400;
+        }
+
+        .cell-input:disabled {
+            background-color: #f1f5f9;
+            color: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        /* Đóng khung chữ Tin học */
+        .tinhoc-box {
+            display: inline-block;
+            border: 2px solid #0072bc;
+            background-color: #f0f9ff;
+            color: #004b87;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-weight: 800;
+        }
+
+        .step-btn {
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 18px;
+            user-select: none;
+            cursor: pointer;
+            transition: transform 0.06s ease, background-color 0.1s ease;
+        }
+
+        .step-btn:active {
+            transform: scale(0.92);
+        }
+    </style>
+</head>
+<body class="py-4 px-3 sm:px-6 pb-20">
+
+    <!-- Toast Thông báo -->
+    <div id="toastBox" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Modal Xác nhận xóa trắng -->
+    <div id="resetModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 p-4">
+        <div class="bg-white rounded-xl max-w-sm w-full p-5 shadow-xl border border-slate-200">
+            <h3 class="text-base font-bold text-slate-900">Xóa trắng toàn bộ dữ liệu?</h3>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                Tất cả điểm số đã nhập, mục tiêu và số lần vi phạm sẽ được đặt lại về ban đầu.
+            </p>
+            <div class="flex items-center justify-end gap-2 mt-5">
+                <button type="button" id="btnCancelReset" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs">
+                    Hủy
+                </button>
+                <button type="button" id="btnConfirmReset" class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold text-xs">
+                    Đồng ý xóa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-[1360px] mx-auto space-y-4">
+
+        <!-- 1. HEADER -->
+        <header class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                
+                <div class="flex flex-wrap sm:flex-nowrap items-center gap-3.5">
+                    <!-- Logo Trường THPT Chuyên Nguyễn Quang Diêu -->
+                    <div class="relative shrink-0 cursor-pointer" id="logoTrigger" title="Nhấn để đổi ảnh logo">
+                        <input type="file" id="logoUpload" accept="image/*" class="hidden">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white flex items-center justify-center overflow-hidden border border-slate-200">
+                            <img id="customLogoImg" class="w-full h-full object-contain hidden" alt="Logo NQD">
+                            <svg id="defaultLogoSvg" viewBox="0 0 300 300" class="w-full h-full">
+                                <defs>
+                                    <path id="textArcTop" d="M 38,150 A 112,112 0 1,1 262,150" />
+                                    <path id="textArcBottom" d="M 26,150 A 124,124 0 0,0 274,150" />
+                                </defs>
+                                <circle cx="150" cy="150" r="145" fill="#0072bc" stroke="#002e5d" stroke-width="4.5" />
+                                <circle cx="150" cy="150" r="95" fill="#ffffff" stroke="#002e5d" stroke-width="3.5" />
+                                <text fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="16.2" font-weight="800" letter-spacing="0.3">
+                                    <textPath href="#textArcTop" startOffset="50%" text-anchor="middle">
+                                        TRƯỜNG THPT CHUYÊN NGUYỄN QUANG DIÊU
+                                    </textPath>
+                                </text>
+                                <text fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" letter-spacing="3.5">
+                                    <textPath href="#textArcBottom" startOffset="50%" text-anchor="middle">
+                                        ĐỒNG THÁP
+                                    </textPath>
+                                </text>
+                                <g transform="translate(27, 194) scale(0.72)">
+                                    <path d="M0,2 C-4,-10 -2,-20 0,-25 C2,-20 4,-10 0,2 Z" fill="#ffffff" stroke="#eab308" stroke-width="1.2"/>
+                                    <path d="M-2,2 C-11,-6 -14,-16 -12,-21 C-7,-17 -4,-8 -2,2 Z" fill="#ffffff" stroke="#eab308" stroke-width="1.2"/>
+                                    <path d="M2,2 C11,-6 14,-16 12,-21 C7,-17 4,-8 2,2 Z" fill="#ffffff" stroke="#eab308" stroke-width="1.2"/>
+                                    <path d="M-4,3 C-15,0 -22,-8 -21,-13 C-14,-11 -8,-4 -4,3 Z" fill="#ffffff" stroke="#22c55e" stroke-width="1.2"/>
+                                    <path d="M4,3 C15,0 22,-8 21,-13 C14,-11 8,-4 4,3 Z" fill="#ffffff" stroke="#22c55e" stroke-width="1.2"/>
+                                </g>
+                                <g transform="translate(273, 194) scale(0.72)">
+                                    <path d="M0,2 C-4,-10 -2,-20 0,-25 C2,-20 4,-10 0,2 Z" fill="#ffffff" stroke="#eab308" stroke-width="1.2"/>
+                                    <path d="M-2,2 C-11,-6 -14,-16 -12,-21 C-7,-17 -4,-8 -2,2 Z" fill="#ffffff" stroke="#eab308" stroke-width="1.2"/>
+                                    <path d="M2,2 C11,-6 14,-16 12,-21 C7,-17 4,-8 2,2 Z" fill="#ffffff" stroke="#eab308" stroke-width="1.2"/>
+                                    <path d="M-4,3 C-15,0 -22,-8 -21,-13 C-14,-11 -8,-4 -4,3 Z" fill="#ffffff" stroke="#22c55e" stroke-width="1.2"/>
+                                    <path d="M4,3 C15,0 22,-8 21,-13 C14,-11 8,-4 4,3 Z" fill="#ffffff" stroke="#22c55e" stroke-width="1.2"/>
+                                </g>
+                                <path d="M148,204 C132,170 106,154 78,150 C92,165 108,182 148,204 Z" fill="#e65586"/>
+                                <path d="M148,204 C116,184 85,176 60,181 C65,190 70,197 74,203 C100,195 125,197 148,204 Z" fill="#c61662"/>
+                                <path d="M150,204 C156,162 172,138 193,128 C196,138 200,145 202,150 C178,162 162,182 150,204 Z" fill="#e65586"/>
+                                <path d="M151,204 C172,172 198,156 223,156 C221,165 219,173 218,180 C191,180 171,189 151,204 Z" fill="#c61662"/>
+                                <path d="M152,204 C180,185 212,177 238,183 C234,191 229,197 225,203 C200,196 175,197 152,204 Z" fill="#c61662"/>
+                                <path d="M148,198 C140,158 144,122 106,96 C128,95 148,105 159,120 C176,105 205,105 228,116 C198,115 174,122 162,144 C153,160 150,178 148,198 Z" fill="#0072bc"/>
+                                <circle cx="170" cy="94" r="11.5" fill="#0072bc"/>
+                                <polygon points="142,76 170,66 198,76 170,85" fill="#0072bc"/>
+                                <polyline points="194,77 197,94" fill="none" stroke="#0072bc" stroke-width="2.4"/>
+                                <circle cx="197" cy="96" r="3" fill="#0072bc"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Kế bên Logo đúng 2 dòng -->
+                    <div class="border-r border-slate-200 pr-3.5 sm:pr-4">
+                        <div class="text-xs sm:text-sm font-extrabold text-nqd-blue leading-snug tracking-wide">
+                            TRƯỜNG THPT CHUYÊN<br>
+                            NGUYỄN QUANG DIÊU
+                        </div>
+                    </div>
+
+                    <!-- Tiêu đề -->
+                    <div>
+                        <h1 class="text-base sm:text-xl font-extrabold text-slate-900 tracking-tight">
+                            TÍNH ĐIỂM TRUNG BÌNH 2026-2027
+                        </h1>
+                        <span class="inline-block mt-1 bg-slate-900 text-white text-[11px] font-bold px-2.5 py-0.5 rounded">
+                            của Khoa Nguyễn
+                        </span>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end">
+                    <button type="button" id="btnOpenReset" class="px-3 py-2 rounded-lg bg-red-50 hover:bg-red-100 active:bg-red-200 text-red-600 font-semibold text-xs border border-red-200">
+                        🗑️ Xóa trắng bảng điểm
+                    </button>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- 2. BẢNG TỔNG HỢP: ĐTB TỔNG | HỌC LỰC | HỌC BỔNG -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+            
+            <!-- ĐTB Tổng -->
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase text-slate-500">ĐTB Tổng 9 Môn</span>
+                        <span id="subjectEnteredCount" class="text-xs font-semibold text-nqd-blue bg-sky-50 px-2 py-0.5 rounded border border-sky-200">0/9 môn</span>
+                    </div>
+                    <div class="flex items-baseline gap-2 mt-2">
+                        <span id="overallGpa" class="text-3xl font-extrabold text-slate-900">--</span>
+                        <span class="text-xs font-semibold text-slate-400">/ 10.0</span>
+                    </div>
+                </div>
+                <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span class="text-slate-500">Mục tiêu TB: <b id="avgTargetDisplay">--</b></span>
+                    <span id="overallDiffPercent" class="font-bold text-slate-700">--</span>
+                </div>
+            </div>
+
+            <!-- Học lực -->
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase text-slate-500">Học Lực</span>
+                        <span class="text-[11px] font-semibold text-slate-400">2026-2027</span>
+                    </div>
+                    <div class="mt-1.5">
+                        <span id="academicRankText" class="text-2xl font-extrabold text-slate-400">Chưa xếp loại</span>
+                    </div>
+                    <p id="academicNoteText" class="text-xs text-slate-500 mt-1">
+                        Nhập điểm các môn bên dưới để xét tự động.
+                    </p>
+                </div>
+                <div class="mt-3 pt-2.5 border-t border-slate-100 grid grid-cols-3 gap-1.5 text-center text-xs">
+                    <div class="bg-slate-50 py-1 rounded border border-slate-200">
+                        <span class="text-[10px] text-slate-500 block">&ge; 9.0</span>
+                        <b id="stat90" class="text-slate-800">0/6</b>
+                    </div>
+                    <div class="bg-slate-50 py-1 rounded border border-slate-200">
+                        <span class="text-[10px] text-slate-500 block">&ge; 8.0</span>
+                        <b id="stat80" class="text-slate-800">0/6</b>
+                    </div>
+                    <div class="bg-slate-50 py-1 rounded border border-slate-200">
+                        <span class="text-[10px] text-slate-500 block">&ge; 6.5</span>
+                        <b id="stat65" class="text-slate-800">0/9</b>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Học bổng -->
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase text-slate-500">Học Bổng</span>
+                        <span id="scholarshipBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600">Đang chờ</span>
+                    </div>
+                    <div class="mt-1.5">
+                        <span id="scholarshipMainText" class="text-2xl font-extrabold text-slate-400">Chờ nhập điểm</span>
+                    </div>
+                    <p id="scholarshipSubText" class="text-xs text-slate-500 mt-1">
+                        Phải thỏa đủ 3 điều kiện bên dưới.
+                    </p>
+                </div>
+                <div class="mt-3 pt-2 border-t border-slate-100 space-y-1 text-xs">
+                    <div id="condRank" class="flex items-center justify-between text-slate-600">
+                        <span>1. Học lực XS hoặc Giỏi:</span>
+                        <b class="font-bold">--</b>
+                    </div>
+                    <div id="condMajor" class="flex items-center justify-between text-slate-600">
+                        <span>2. Tin học &ge; 8.5:</span>
+                        <b class="font-bold">--</b>
+                    </div>
+                    <div id="condActivity" class="flex items-center justify-between text-slate-600">
+                        <span>3. Điểm hoạt động &ge; 900:</span>
+                        <b class="font-bold">1000đ (Đạt)</b>
+                    </div>
+                    <p class="pt-1 text-[11px] italic text-slate-500 leading-snug">
+                        (Chưa bao gồm điều kiện xếp loại của câu lạc bộ, thể chất,...)
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- CẢNH BÁO QUÁ 45 BUỔI NGHỈ (TỪ BUỔI 46 TRỞ ĐI) -->
+        <div id="over45Banner" class="hidden bg-red-600 text-white rounded-xl p-3.5 shadow-sm items-center justify-between gap-3">
+            <div class="text-xs sm:text-sm font-extrabold">
+                🚨 KHÔNG ĐỦ ĐIỀU KIỆN LÊN LỚP! (Tổng số buổi nghỉ Có phép + Không phép đã tới <span id="over45CountText">46</span>/45 buổi)
+            </div>
+        </div>
+
+        <!-- 3. ĐIỂM HOẠT ĐỘNG GỌN TRỰC QUAN -->
+        <section class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+                
+                <!-- Trái: Điểm hoạt động -->
+                <div id="activityCard" class="lg:col-span-5 bg-slate-50 rounded-xl border border-slate-200 p-4 cursor-pointer select-none">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase text-slate-600">Điểm Hoạt Động (Gốc 1000)</span>
+                        <span id="activityDeductSummary" class="text-xs font-semibold text-slate-500">Tổng trừ: 0đ</span>
+                    </div>
+
+                    <div class="flex items-baseline justify-between mt-2">
+                        <div>
+                            <span id="activityScoreValue" class="text-3xl font-extrabold text-slate-900">1000</span>
+                            <span class="text-xs font-semibold text-slate-400">/ 1000</span>
+                        </div>
+                        <span id="totalAbsentBadge" class="text-xs font-semibold px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700">
+                            Nghỉ: 0 / 45 buổi
+                        </span>
+                    </div>
+
+                    <!-- Thanh màu -->
+                    <div class="w-full h-3.5 bg-slate-200 rounded-full overflow-hidden mt-3">
+                        <div id="activityProgressBar" class="h-full transition-all duration-300" style="width: 100%; background-color: #10b981;"></div>
+                    </div>
+
+                    <div id="activityRemainBox" class="mt-2.5 text-xs font-semibold text-slate-600 flex items-center justify-between">
+                        <span id="activityRemainText">Còn lại <b class="text-slate-900">100 điểm</b> nữa là mất học bổng (dưới 900)</span>
+                    </div>
+                </div>
+
+                <!-- Phải: 3 mục Đi trễ (-10), Có phép (-10), Không phép (-25) -->
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    
+                    <!-- 1. Đi trễ (-10) -->
+                    <div class="bg-slate-50 rounded-xl border border-slate-200 p-3 flex sm:flex-col items-center sm:items-stretch justify-between gap-2">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-sm font-bold text-slate-800">Đi trễ</div>
+                                <div class="text-xs font-semibold text-red-600">-10đ / lần</div>
+                            </div>
+                            <span id="deductLateText" class="text-xs font-bold text-slate-400">0đ</span>
+                        </div>
+                        <div class="flex items-center justify-between gap-1.5 bg-white p-1 rounded-lg border border-slate-200">
+                            <button type="button" data-action="step" data-field="late" data-delta="-1" class="step-btn bg-slate-100 hover:bg-slate-200 text-slate-800">−</button>
+                            <input id="inputLate" type="number" min="0" value="0" class="w-12 text-center font-extrabold text-sm text-slate-900 bg-transparent outline-none">
+                            <button type="button" data-action="step" data-field="late" data-delta="1" class="step-btn bg-nqd-blue text-white">+</button>
+                        </div>
+                    </div>
+
+                    <!-- 2. Có phép (-10) -->
+                    <div class="bg-slate-50 rounded-xl border border-slate-200 p-3 flex sm:flex-col items-center sm:items-stretch justify-between gap-2">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-sm font-bold text-slate-800">Có phép</div>
+                                <div class="text-xs font-semibold text-red-600">-10đ / lần</div>
+                            </div>
+                            <span id="deductExcusedText" class="text-xs font-bold text-slate-400">0đ</span>
+                        </div>
+                        <div class="flex items-center justify-between gap-1.5 bg-white p-1 rounded-lg border border-slate-200">
+                            <button type="button" data-action="step" data-field="excused" data-delta="-1" class="step-btn bg-slate-100 hover:bg-slate-200 text-slate-800">−</button>
+                            <input id="inputExcused" type="number" min="0" value="0" class="w-12 text-center font-extrabold text-sm text-slate-900 bg-transparent outline-none">
+                            <button type="button" data-action="step" data-field="excused" data-delta="1" class="step-btn bg-nqd-blue text-white">+</button>
+                        </div>
+                    </div>
+
+                    <!-- 3. Không phép (-25) -->
+                    <div class="bg-slate-50 rounded-xl border border-slate-200 p-3 flex sm:flex-col items-center sm:items-stretch justify-between gap-2">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-sm font-bold text-slate-800">Không phép</div>
+                                <div class="text-xs font-semibold text-red-600">-25đ / lần</div>
+                            </div>
+                            <span id="deductUnexcusedText" class="text-xs font-bold text-slate-400">0đ</span>
+                        </div>
+                        <div class="flex items-center justify-between gap-1.5 bg-white p-1 rounded-lg border border-slate-200">
+                            <button type="button" data-action="step" data-field="unexcused" data-delta="-1" class="step-btn bg-slate-100 hover:bg-slate-200 text-slate-800">−</button>
+                            <input id="inputUnexcused" type="number" min="0" value="0" class="w-12 text-center font-extrabold text-sm text-slate-900 bg-transparent outline-none">
+                            <button type="button" data-action="step" data-field="unexcused" data-delta="1" class="step-btn bg-nqd-blue text-white">+</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. NHẬN DIỆN ĐIỂM THÔNG QUA ẢNH CHỤP MÀN HÌNH TỪ APP VIETSCHOOL (TỐI ĐA 3 ẢNH) -->
+        <section class="bg-white rounded-xl border border-slate-200 p-3.5 shadow-sm">
+            <input type="file" id="ocrImageInput" accept="image/*" multiple class="hidden">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="text-xs text-slate-600">
+                    <b class="text-slate-800 uppercase">Nhận diện điểm thông qua ảnh chụp màn hình từ app Vietschool:</b>
+                    <span class="block sm:inline text-slate-500 mt-0.5 sm:mt-0">Cho phép chọn tối đa 3 tấm ảnh xử lý cùng lúc để tự điền điểm vào bảng.</span>
+                </div>
+                <button type="button" id="btnScanImage" class="px-4 py-2 rounded-lg bg-nqd-blue hover:bg-nqd-dark active:scale-95 text-white font-bold text-xs transition shrink-0">
+                    📷 Chọn tối đa 3 ảnh Vietschool
+                </button>
+            </div>
+
+            <div id="ocrStatusPanel" class="hidden mt-3 pt-3 border-t border-slate-100 space-y-2">
+                <div class="flex items-center justify-between gap-2 text-xs">
+                    <div class="flex items-center gap-2 min-w-0">
+                        <div id="ocrThumbsContainer" class="flex items-center gap-1.5 shrink-0"></div>
+                        <div class="min-w-0">
+                            <div id="ocrStatusTitle" class="font-bold text-slate-800 truncate">Đang phân tích...</div>
+                            <div id="ocrStatusDesc" class="text-[11px] text-slate-500 truncate">Đang đọc dữ liệu điểm...</div>
+                        </div>
+                    </div>
+                    <span id="aiPercentText" class="text-sm font-extrabold text-nqd-blue shrink-0">0%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div id="aiProgressBar" class="h-full bg-nqd-blue transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <div id="unlabeledRowAssignBox" class="hidden flex-wrap items-center justify-between gap-2 bg-amber-50 border border-amber-300 px-3 py-1.5 rounded-lg text-xs">
+                    <span id="unlabeledRowText" class="font-semibold text-amber-900">Môn bị khuất tên ở đầu ảnh:</span>
+                    <select id="unlabeledSubjectSelect" class="bg-white border border-amber-400 rounded px-2 py-1 font-bold text-slate-800 text-xs outline-none">
+                        <option value="">-- Chọn môn --</option>
+                        <option value="toan">Toán</option>
+                        <option value="ly">Lý</option>
+                        <option value="hoa">Hoá</option>
+                        <option value="qp">Quốc phòng</option>
+                        <option value="van">Văn</option>
+                        <option value="anh">Tiếng Anh</option>
+                        <option value="sinh">Sinh</option>
+                        <option value="tin">Tin học</option>
+                        <option value="su">Sử</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. BẢNG NHẬP ĐIỂM THỦ CÔNG 9 MÔN (ĐÃ HIỂN THỊ TĨNH HOÀN TOÀN) -->
+        <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="px-4 py-2.5 bg-slate-800 text-white flex flex-wrap items-center justify-between gap-2">
+                <span class="font-bold text-xs sm:text-sm uppercase">✍️ Bảng Nhập Điểm 9 Môn (15p: HS1 • GK: HS2 • CK: HS3)</span>
+                <span class="text-[11px] text-slate-300">Chọn số cột 15 phút (2 → 5 cột) riêng cho từng môn</span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="grade-table text-sm">
+                    <thead id="gradeTableHead"></thead>
+                    <tbody id="gradeTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 6. BIỂU ĐỒ ĐƯỜNG 9 MÔN TỪ CAO -> THẤP (CÓ CHẤM MIN, MAX VÀ TRUNG BÌNH) -->
+        <section class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <div>
+                    <h2 class="text-xs sm:text-sm font-bold uppercase text-slate-800">
+                        Biểu Đồ ĐTB 9 Môn (Sắp xếp từ Cao → Thấp)
+                    </h2>
+                </div>
+                <div class="flex flex-wrap items-center gap-3.5 text-xs font-semibold">
+                    <span class="inline-flex items-center gap-1.5 text-nqd-blue">
+                        <span class="w-2.5 h-2.5 rounded-full bg-nqd-blue inline-block"></span> ĐTB
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 text-emerald-600">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 inline-block"></span> Max (Cao nhất)
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 text-rose-600">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-600 inline-block"></span> Min (Thấp nhất)
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 text-purple-600">
+                        <span class="w-2.5 h-2.5 rounded-full bg-purple-600 inline-block"></span> Trung bình
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 text-emerald-700">
+                        <span class="w-3.5 border-b-2 border-dashed border-emerald-600 inline-block"></span> Mục tiêu
+                    </span>
+                </div>
+            </div>
+            <div class="w-full overflow-x-auto">
+                <div class="min-w-[680px]">
+                    <svg id="lineChartSvg" viewBox="0 0 900 310" class="w-full h-auto bg-slate-50/60 rounded-lg border border-slate-200"></svg>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const SUBJECTS = [
+            { id: 'toan', name: 'Toán', isFramed: false },
+            { id: 'van',  name: 'Văn', isFramed: false },
+            { id: 'anh',  name: 'Tiếng Anh', isFramed: false },
+            { id: 'ly',   name: 'Lý', isFramed: false },
+            { id: 'hoa',  name: 'Hoá', isFramed: false },
+            { id: 'sinh', name: 'Sinh', isFramed: false },
+            { id: 'tin',  name: 'Tin học', isFramed: true },
+            { id: 'su',   name: 'Sử', isFramed: false },
+            { id: 'qp',   name: 'Quốc phòng', isFramed: false }
+        ];
+
+        const MIN_15P_COLS = 2;
+        const MAX_15P_LIMIT = 5;
+        const MAX_TOTAL_ABSENT = 45;
+        const STORAGE_KEY = 'KHOA_NGUYEN_DATA_V9_FINAL';
+        const LOGO_KEY = 'KHOA_NGUYEN_LOGO_V9';
+
+        let appState = getDefaultState();
+        let detectedUnnamedSubjectData = null;
+
+        function getDefaultState() {
+            const grades = {};
+            SUBJECTS.forEach(sub => {
+                grades[sub.id] = {
+                    num15Cols: 4,
+                    s15: Array(MAX_15P_LIMIT).fill(''),
+                    gk: '',
+                    ck: '',
+                    target: ''
+                };
+            });
+            return {
+                grades,
+                violations: {
+                    late: 0,
+                    excused: 0,
+                    unexcused: 0
+                }
+            };
+        }
+
+        function loadState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    const def = getDefaultState();
+
+                    SUBJECTS.forEach(sub => {
+                        if (parsed.grades && parsed.grades[sub.id]) {
+                            const g = parsed.grades[sub.id];
+                            def.grades[sub.id].num15Cols = Math.min(MAX_15P_LIMIT, Math.max(MIN_15P_COLS, parseInt(g.num15Cols) || 4));
+                            if (Array.isArray(g.s15)) {
+                                for (let i = 0; i < MAX_15P_LIMIT; i++) {
+                                    def.grades[sub.id].s15[i] = g.s15[i] ?? '';
+                                }
+                            }
+                            def.grades[sub.id].gk = g.gk ?? '';
+                            def.grades[sub.id].ck = g.ck ?? '';
+                            def.grades[sub.id].target = g.target ?? '';
+                        }
+                    });
+
+                    if (parsed.violations) {
+                        def.violations.late = Math.max(0, parseInt(parsed.violations.late) || 0);
+                        def.violations.excused = Math.max(0, parseInt(parsed.violations.excused) || 0);
+                        def.violations.unexcused = Math.max(0, parseInt(parsed.violations.unexcused) || 0);
+                    }
+                    appState = def;
+                }
+                const savedLogo = localStorage.getItem(LOGO_KEY);
+                if (savedLogo) applyLogo(savedLogo);
+            } catch (e) {
+                appState = getDefaultState();
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+            } catch (e) {}
+        }
+
+        // =========================================================================
+        // 1. ĐIỂM HOẠT ĐỘNG & QUY TẮC NGHỈ (>= 46 BUỔI -> KHÔNG ĐỦ ĐK LÊN LỚP)
+        // =========================================================================
+
+        function changeViolation(field, delta) {
+            const v = appState.violations;
+            const next = Math.max(0, (v[field] || 0) + delta);
+            v[field] = next;
+
+            const totalAbsent = (v.excused || 0) + (v.unexcused || 0);
+            if ((field === 'excused' || field === 'unexcused') && delta > 0 && totalAbsent > MAX_TOTAL_ABSENT) {
+                showToast(`🚨 Đã nghỉ ${totalAbsent} buổi (> 45 buổi): Không đủ điều kiện lên lớp!`);
+            }
+
+            saveState();
+            updateAllCalculations();
+        }
+
+        function setViolationDirect(field, rawValue) {
+            const v = appState.violations;
+            v[field] = Math.max(0, parseInt(rawValue) || 0);
+            saveState();
+            updateAllCalculations();
+        }
+
+        function getBarColorByScore(score) {
+            if (score >= 970) return '#10b981';
+            if (score >= 950) return '#84cc16';
+            if (score >= 940) return '#eab308';
+            if (score >= 930) return '#f59e0b';
+            if (score >= 920) return '#f97316';
+            if (score >= 910) return '#ea580c';
+            if (score >= 900) return '#dc2626';
+            return '#7f1d1d';
+        }
+
+        // =========================================================================
+        // 2. BẢNG NHẬP ĐIỂM THỦ CÔNG 9 MÔN
+        // =========================================================================
+
+        function setSubject15Cols(subjectId, val) {
+            const num = Math.min(MAX_15P_LIMIT, Math.max(MIN_15P_COLS, parseInt(val) || 4));
+            appState.grades[subjectId].num15Cols = num;
+            saveState();
+            renderTable();
+            updateAllCalculations();
+        }
+
+        function renderTable() {
+            const thead = document.getElementById('gradeTableHead');
+            const tbody = document.getElementById('gradeTableBody');
+            const maxCols = MAX_15P_LIMIT; // 5 cột
+
+            let s15Headers = '';
+            for (let i = 0; i < maxCols; i++) {
+                s15Headers += `<th class="w-16 py-2.5 text-center bg-slate-50">15p (${i + 1})</th>`;
+            }
+
+            thead.innerHTML = `
+                <tr class="bg-slate-100 text-slate-700 text-xs font-bold uppercase">
+                    <th class="w-10 py-2.5 text-center">#</th>
+                    <th class="w-40 py-2.5 px-3 text-left">Môn Học</th>
+                    <th class="w-24 py-2.5 text-center bg-slate-100">Số cột 15p</th>
+                    ${s15Headers}
+                    <th class="w-20 py-2.5 text-center bg-amber-50/70 text-amber-900">GK (x2)</th>
+                    <th class="w-20 py-2.5 text-center bg-rose-50/70 text-rose-900">CK (x3)</th>
+                    <th class="w-20 py-2.5 text-center bg-sky-50 text-nqd-dark">ĐTB</th>
+                    <th class="w-24 py-2.5 text-center bg-emerald-50 text-emerald-900">Mục Tiêu</th>
+                    <th class="w-32 py-2.5 text-center">Lệch (%)</th>
+                </tr>
+            `;
+
+            tbody.innerHTML = '';
+            SUBJECTS.forEach((sub, rowIdx) => {
+                const rowData = appState.grades[sub.id];
+                const active15Cols = Math.min(MAX_15P_LIMIT, Math.max(MIN_15P_COLS, rowData.num15Cols || 4));
+                const tr = document.createElement('tr');
+                tr.className = 'bg-white hover:bg-slate-50/80';
+
+                let s15Cells = '';
+                for (let i = 0; i < maxCols; i++) {
+                    const isDisabled = i >= active15Cols;
+                    const val = isDisabled ? '' : (rowData.s15[i] ?? '');
+                    s15Cells += `
+                        <td class="p-0">
+                            <input
+                                type="number"
+                                step="0.1"
+                                min="0"
+                                max="10"
+                                placeholder="${isDisabled ? '×' : '-'}"
+                                ${isDisabled ? 'disabled' : ''}
+                                data-sub="${sub.id}"
+                                data-field="s15"
+                                data-idx="${i}"
+                                value="${val}"
+                                class="cell-input"
+                            />
+                        </td>
+                    `;
+                }
+
+                const subjectNameHtml = sub.isFramed
+                    ? `<span class="tinhoc-box">${sub.name}</span>`
+                    : `<span class="font-bold text-slate-800">${sub.name}</span>`;
+
+                tr.innerHTML = `
+                    <td class="py-2 text-center font-semibold text-slate-400 text-xs">${rowIdx + 1}</td>
+                    <td class="py-2 px-3">${subjectNameHtml}</td>
+                    <td class="p-1 text-center bg-slate-50/60">
+                        <select
+                            data-sub-cols="${sub.id}"
+                            class="w-16 h-7 text-xs font-bold text-slate-700 bg-white border border-slate-300 rounded px-1 outline-none"
+                        >
+                            ${[2,3,4,5].map(n => `<option value="${n}" ${n === active15Cols ? 'selected' : ''}>${n} cột</option>`).join('')}
+                        </select>
+                    </td>
+                    ${s15Cells}
+                    <td class="p-0 bg-amber-50/20">
+                        <input
+                            type="number"
+                            step="0.1"
+                            min="0"
+                            max="10"
+                            placeholder="-"
+                            data-sub="${sub.id}"
+                            data-field="gk"
+                            value="${rowData.gk}"
+                            class="cell-input font-bold text-amber-950"
+                        />
+                    </td>
+                    <td class="p-0 bg-rose-50/20">
+                        <input
+                            type="number"
+                            step="0.1"
+                            min="0"
+                            max="10"
+                            placeholder="-"
+                            data-sub="${sub.id}"
+                            data-field="ck"
+                            value="${rowData.ck}"
+                            class="cell-input font-bold text-rose-950"
+                        />
+                    </td>
+                    <td class="py-2 px-2 text-center bg-sky-50/40">
+                        <span id="avg-${sub.id}" class="font-extrabold text-sm text-slate-400">--</span>
+                    </td>
+                    <td class="p-0 bg-emerald-50/30">
+                        <input
+                            type="number"
+                            step="0.1"
+                            min="0"
+                            max="10"
+                            placeholder="Tự nhập"
+                            data-sub="${sub.id}"
+                            data-field="target"
+                            value="${rowData.target}"
+                            class="cell-input font-bold text-emerald-800"
+                        />
+                    </td>
+                    <td id="diff-${sub.id}" class="py-2 px-2 text-center text-xs font-bold text-slate-400">
+                        --
+                    </td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // =========================================================================
+        // 3. TÍNH TOÁN REAL-TIME & BIỂU ĐỒ MIN, MAX, TRUNG BÌNH
+        // =========================================================================
+
+        function round1(num) {
+            return Math.round((num + Number.EPSILON) * 10) / 10;
+        }
+
+        function evaluateSubject(subjectId) {
+            const g = appState.grades[subjectId];
+            const active15Cols = Math.min(MAX_15P_LIMIT, Math.max(MIN_15P_COLS, g.num15Cols || 4));
+            let currentSum = 0;
+            let currentWeight = 0;
+
+            for (let i = 0; i < active15Cols; i++) {
+                const v = g.s15[i];
+                if (v !== '' && v !== undefined && !isNaN(parseFloat(v))) {
+                    currentSum += parseFloat(v) * 1;
+                    currentWeight += 1;
+                }
+            }
+
+            if (g.gk !== '' && !isNaN(parseFloat(g.gk))) {
+                currentSum += parseFloat(g.gk) * 2;
+                currentWeight += 2;
+            }
+
+            if (g.ck !== '' && !isNaN(parseFloat(g.ck))) {
+                currentSum += parseFloat(g.ck) * 3;
+                currentWeight += 3;
+            }
+
+            const avg = currentWeight > 0 ? round1(currentSum / currentWeight) : null;
+            const target = (g.target !== '' && !isNaN(parseFloat(g.target))) ? parseFloat(g.target) : null;
+
+            return { avg, target };
+        }
+
+        function updateAllCalculations() {
+            const subjectResults = {};
+            const enteredAvgs = [];
+            const targetValues = [];
+
+            SUBJECTS.forEach(sub => {
+                const res = evaluateSubject(sub.id);
+                subjectResults[sub.id] = res;
+
+                const avgEl = document.getElementById(`avg-${sub.id}`);
+                const diffEl = document.getElementById(`diff-${sub.id}`);
+                if (!avgEl || !diffEl) return;
+
+                if (res.avg === null) {
+                    avgEl.textContent = '--';
+                    avgEl.className = 'font-extrabold text-sm text-slate-400';
+                } else {
+                    avgEl.textContent = res.avg.toFixed(1);
+                    enteredAvgs.push({ id: sub.id, name: sub.name, avg: res.avg });
+
+                    if (res.avg >= 9.0) avgEl.className = 'font-extrabold text-sm text-nqd-blue';
+                    else if (res.avg >= 8.0) avgEl.className = 'font-extrabold text-sm text-sky-700';
+                    else if (res.avg >= 6.5) avgEl.className = 'font-extrabold text-sm text-emerald-700';
+                    else avgEl.className = 'font-extrabold text-sm text-red-600';
+                }
+
+                if (res.target !== null) targetValues.push(res.target);
+
+                if (res.avg !== null && res.target !== null && res.target > 0) {
+                    const diffPoint = round1(res.avg - res.target);
+                    const diffPercent = ((res.avg - res.target) / res.target) * 100;
+                    const sign = diffPoint > 0 ? '+' : '';
+                    diffEl.className = diffPoint >= 0
+                        ? 'py-2 px-2 text-center text-xs font-bold text-emerald-700'
+                        : 'py-2 px-2 text-center text-xs font-bold text-red-600';
+                    diffEl.textContent = `${sign}${diffPoint.toFixed(1)} (${sign}${diffPercent.toFixed(1)}%)`;
+                } else {
+                    diffEl.className = 'py-2 px-2 text-center text-xs font-bold text-slate-400';
+                    diffEl.textContent = '--';
+                }
+            });
+
+            const v = appState.violations;
+            const lateCount = v.late || 0;
+            const excusedCount = v.excused || 0;
+            const unexcusedCount = v.unexcused || 0;
+
+            const deductLate = lateCount * 10;
+            const deductExcused = excusedCount * 10;
+            const deductUnexcused = unexcusedCount * 25;
+            const totalDeduct = deductLate + deductExcused + deductUnexcused;
+            const totalAbsent = excusedCount + unexcusedCount;
+            const isOver45Absent = totalAbsent > MAX_TOTAL_ABSENT; // >= 46 buổi
+            const activityScore = Math.max(0, 1000 - totalDeduct);
+            const remainToLose = activityScore - 900;
+            const isActivityOk = activityScore >= 900 && !isOver45Absent;
+
+            const over45Banner = document.getElementById('over45Banner');
+            if (isOver45Absent) {
+                document.getElementById('over45CountText').textContent = totalAbsent;
+                over45Banner.classList.remove('hidden');
+                over45Banner.classList.add('flex');
+            } else {
+                over45Banner.classList.add('hidden');
+                over45Banner.classList.remove('flex');
+            }
+
+            const countEntered = enteredAvgs.length;
+            document.getElementById('subjectEnteredCount').textContent = `${countEntered}/9 môn`;
+
+            const overallGpaEl = document.getElementById('overallGpa');
+            const avgTargetDisplay = document.getElementById('avgTargetDisplay');
+            const overallDiffPercent = document.getElementById('overallDiffPercent');
+
+            const avgTarget = targetValues.length > 0
+                ? round1(targetValues.reduce((a, b) => a + b, 0) / targetValues.length)
+                : null;
+            avgTargetDisplay.textContent = avgTarget !== null ? avgTarget.toFixed(1) : '--';
+
+            let gpaVal = null;
+            if (countEntered === 0) {
+                overallGpaEl.textContent = '--';
+                overallDiffPercent.textContent = '--';
+                overallDiffPercent.className = 'font-bold text-slate-500';
+            } else {
+                gpaVal = round1(enteredAvgs.reduce((acc, item) => acc + item.avg, 0) / countEntered);
+                overallGpaEl.textContent = gpaVal.toFixed(1);
+
+                if (avgTarget !== null && avgTarget > 0) {
+                    const diffP = ((gpaVal - avgTarget) / avgTarget) * 100;
+                    const diffVal = round1(gpaVal - avgTarget);
+                    const sign = diffVal > 0 ? '+' : '';
+                    overallDiffPercent.textContent = `${sign}${diffVal.toFixed(1)} (${sign}${diffP.toFixed(1)}%)`;
+                    overallDiffPercent.className = diffVal >= 0 ? 'font-bold text-emerald-700' : 'font-bold text-red-600';
+                } else {
+                    overallDiffPercent.textContent = '--';
+                }
+            }
+
+            const c90 = enteredAvgs.filter(x => x.avg >= 9.0).length;
+            const c80 = enteredAvgs.filter(x => x.avg >= 8.0).length;
+            const c65 = enteredAvgs.filter(x => x.avg >= 6.5).length;
+            const below65 = enteredAvgs.filter(x => x.avg < 6.5);
+
+            document.getElementById('stat90').textContent = `${c90}/6`;
+            document.getElementById('stat80').textContent = `${c80}/6`;
+            document.getElementById('stat65').textContent = `${c65}/9`;
+
+            const academicRankText = document.getElementById('academicRankText');
+            const academicNoteText = document.getElementById('academicNoteText');
+
+            let rankCode = 'NONE';
+            const noSubjectBelow65 = below65.length === 0 && countEntered > 0;
+
+            if (isOver45Absent) {
+                rankCode = 'OVER45';
+                academicRankText.textContent = 'KHÔNG ĐỦ ĐK LÊN LỚP';
+                academicRankText.className = 'text-lg sm:text-xl font-extrabold text-red-600';
+                academicNoteText.textContent = `Nghỉ ${totalAbsent} buổi (vượt quá 45 buổi quy định).`;
+            } else if (countEntered === 0) {
+                academicRankText.textContent = 'Chưa xếp loại';
+                academicRankText.className = 'text-2xl font-extrabold text-slate-400';
+                academicNoteText.textContent = 'Nhập điểm các môn bên dưới để xét tự động.';
+            } else if (noSubjectBelow65 && c90 >= 6) {
+                rankCode = 'XS';
+                academicRankText.textContent = 'XUẤT SẮC';
+                academicRankText.className = 'text-2xl font-extrabold text-nqd-blue';
+                academicNoteText.textContent = `Đạt ${c90} môn >= 9.0, các môn còn lại >= 6.5.`;
+            } else if (noSubjectBelow65 && c80 >= 6) {
+                rankCode = 'GIOI';
+                academicRankText.textContent = 'GIỎI';
+                academicRankText.className = 'text-2xl font-extrabold text-sky-700';
+                academicNoteText.textContent = `Đạt ${c80} môn >= 8.0, các môn còn lại >= 6.5.`;
+            } else if (below65.length > 0) {
+                rankCode = 'BELOW65';
+                academicRankText.textContent = 'CHƯA ĐẠT GIỎI/XS';
+                academicRankText.className = 'text-xl font-extrabold text-amber-600';
+                academicNoteText.textContent = `Có môn dưới 6.5: ${below65.map(b => b.name).join(', ')}.`;
+            } else {
+                rankCode = 'KHA';
+                academicRankText.textContent = 'KHÁ / ĐẠT';
+                academicRankText.className = 'text-2xl font-extrabold text-emerald-700';
+                academicNoteText.textContent = `Mới đạt ${c80}/6 môn >= 8.0.`;
+            }
+
+            const inputLate = document.getElementById('inputLate');
+            const inputExcused = document.getElementById('inputExcused');
+            const inputUnexcused = document.getElementById('inputUnexcused');
+            if (document.activeElement !== inputLate) inputLate.value = lateCount;
+            if (document.activeElement !== inputExcused) inputExcused.value = excusedCount;
+            if (document.activeElement !== inputUnexcused) inputUnexcused.value = unexcusedCount;
+
+            document.getElementById('deductLateText').textContent = deductLate > 0 ? `-${deductLate}đ` : '0đ';
+            document.getElementById('deductExcusedText').textContent = deductExcused > 0 ? `-${deductExcused}đ` : '0đ';
+            document.getElementById('deductUnexcusedText').textContent = deductUnexcused > 0 ? `-${deductUnexcused}đ` : '0đ';
+
+            const barColor = getBarColorByScore(activityScore);
+            const activityScoreValue = document.getElementById('activityScoreValue');
+            const activityProgressBar = document.getElementById('activityProgressBar');
+            const totalAbsentBadge = document.getElementById('totalAbsentBadge');
+
+            activityScoreValue.textContent = activityScore;
+            activityScoreValue.style.color = barColor;
+            document.getElementById('activityDeductSummary').textContent = `Tổng trừ: -${totalDeduct}đ`;
+
+            if (isOver45Absent) {
+                totalAbsentBadge.textContent = `Nghỉ: ${totalAbsent} / 45 buổi (Không đủ ĐK lên lớp)`;
+                totalAbsentBadge.className = 'text-xs font-extrabold px-2 py-0.5 rounded bg-red-600 text-white';
+            } else {
+                totalAbsentBadge.textContent = `Nghỉ: ${totalAbsent} / ${MAX_TOTAL_ABSENT} buổi`;
+                totalAbsentBadge.className = 'text-xs font-semibold px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700';
+            }
+
+            const pct = Math.min(100, Math.max(0, (activityScore / 1000) * 100));
+            activityProgressBar.style.width = `${pct}%`;
+            activityProgressBar.style.backgroundColor = barColor;
+
+            const remainTextEl = document.getElementById('activityRemainText');
+            if (isOver45Absent) {
+                remainTextEl.innerHTML = `<span class="text-red-600 font-bold">Nghỉ quá 45 buổi (${totalAbsent} buổi) — Không đủ điều kiện lên lớp!</span>`;
+            } else if (remainToLose > 0) {
+                remainTextEl.innerHTML = `Còn lại <b class="text-slate-900">${remainToLose} điểm</b> nữa là mất học bổng (dưới 900)`;
+            } else if (remainToLose === 0) {
+                remainTextEl.innerHTML = `<span class="text-red-600 font-bold">Còn 0 điểm! Trừ thêm là mất học bổng!</span>`;
+            } else {
+                remainTextEl.innerHTML = `<span class="text-red-700 font-bold">Đã dưới 900đ — MẤT HỌC BỔNG!</span>`;
+            }
+
+            const tinAvg = subjectResults['tin'] ? subjectResults['tin'].avg : null;
+            const isRankOk = (rankCode === 'XS' || rankCode === 'GIOI');
+            const isMajorOk = (tinAvg !== null && tinAvg >= 8.5);
+
+            document.getElementById('condRank').innerHTML = `
+                <span>1. Học lực XS hoặc Giỏi:</span>
+                <b class="${isRankOk ? 'text-emerald-700' : 'text-red-600'}">${isRankOk ? 'Đạt' : 'Chưa đạt'}</b>
+            `;
+            document.getElementById('condMajor').innerHTML = `
+                <span>2. Tin học &ge; 8.5:</span>
+                <b class="${isMajorOk ? 'text-emerald-700' : 'text-red-600'}">${tinAvg !== null ? `${tinAvg.toFixed(1)} (${isMajorOk ? 'Đạt' : 'Chưa đạt'})` : 'Chưa nhập'}</b>
+            `;
+            document.getElementById('condActivity').innerHTML = `
+                <span>3. Điểm hoạt động &ge; 900:</span>
+                <b class="${isActivityOk ? 'text-emerald-700' : 'text-red-600'}">${isOver45Absent ? `Nghỉ ${totalAbsent}/45b` : `${activityScore}đ (${isActivityOk ? 'Đạt' : 'Mất HB'})`}</b>
+            `;
+
+            const scholarshipBadge = document.getElementById('scholarshipBadge');
+            const scholarshipMainText = document.getElementById('scholarshipMainText');
+            const scholarshipSubText = document.getElementById('scholarshipSubText');
+
+            if (isOver45Absent) {
+                scholarshipBadge.textContent = 'Quá 45 buổi';
+                scholarshipBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-red-600 text-white';
+                scholarshipMainText.textContent = 'KHÔNG ĐỦ ĐK LÊN LỚP';
+                scholarshipMainText.className = 'text-lg sm:text-xl font-extrabold text-red-600';
+                scholarshipSubText.textContent = `Nghỉ ${totalAbsent}/45 buổi (từ buổi 46 trở đi không đủ ĐK lên lớp).`;
+            } else if (!isActivityOk) {
+                scholarshipBadge.textContent = 'Không đạt';
+                scholarshipBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-red-50 text-red-600 border border-red-200';
+                scholarshipMainText.textContent = 'MẤT HỌC BỔNG';
+                scholarshipMainText.className = 'text-2xl font-extrabold text-red-600';
+                scholarshipSubText.textContent = `Điểm hoạt động dưới 900đ (${activityScore}đ).`;
+            } else if (countEntered === 0) {
+                scholarshipBadge.textContent = 'Đang chờ';
+                scholarshipBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600';
+                scholarshipMainText.textContent = 'Chờ nhập điểm';
+                scholarshipMainText.className = 'text-2xl font-extrabold text-slate-400';
+                scholarshipSubText.textContent = 'Phải thỏa đủ 3 điều kiện bên dưới.';
+            } else if (isRankOk && isMajorOk && isActivityOk) {
+                scholarshipBadge.textContent = 'Đủ điều kiện';
+                scholarshipBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800';
+                scholarshipMainText.textContent = 'ĐẠT HỌC BỔNG 🎉';
+                scholarshipMainText.className = 'text-2xl font-extrabold text-emerald-700';
+                scholarshipSubText.textContent = 'Đạt đủ cả 3 điều kiện học bổng.';
+            } else {
+                scholarshipBadge.textContent = 'Chưa đủ ĐK';
+                scholarshipBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800';
+                scholarshipMainText.textContent = 'CHƯA ĐẠT HỌC BỔNG';
+                scholarshipMainText.className = 'text-xl font-extrabold text-amber-600';
+                scholarshipSubText.textContent = !isMajorOk ? 'Cần ĐTB Tin học >= 8.5.' : 'Cần Học lực Giỏi hoặc Xuất sắc.';
+            }
+
+            renderLineChart(subjectResults, gpaVal);
+        }
+
+        function renderLineChart(subjectResults, gpaVal) {
+            const svg = document.getElementById('lineChartSvg');
+            const width = 900;
+            const height = 310;
+            const padLeft = 48;
+            const padRight = 36;
+            const padTop = 34;
+            const padBottom = 46;
+
+            const plotW = width - padLeft - padRight;
+            const plotH = height - padTop - padBottom;
+
+            const sortedSubjects = SUBJECTS.map((sub, originalIdx) => {
+                const res = subjectResults[sub.id];
+                return { ...sub, originalIdx, avg: res.avg, target: res.target };
+            }).sort((a, b) => {
+                const aHas = a.avg !== null;
+                const bHas = b.avg !== null;
+                if (aHas && bHas) return b.avg !== a.avg ? b.avg - a.avg : a.originalIdx - b.originalIdx;
+                if (aHas && !bHas) return -1;
+                if (!aHas && bHas) return 1;
+                return a.originalIdx - b.originalIdx;
+            });
+
+            const getX = (i) => padLeft + (i * (plotW / (sortedSubjects.length - 1)));
+            const getY = (s) => padTop + plotH - ((s / 10) * plotH);
+
+            let html = '';
+
+            [0, 2, 4, 6, 8, 10].forEach(val => {
+                const y = getY(val);
+                html += `
+                    <line x1="${padLeft}" y1="${y}" x2="${width - padRight}" y2="${y}" stroke="#e2e8f0" stroke-width="1" />
+                    <text x="${padLeft - 8}" y="${y + 4}" text-anchor="end" font-size="11" font-weight="600" fill="#64748b">${val}.0</text>
+                `;
+            });
+
+            const y65 = getY(6.5);
+            html += `<line x1="${padLeft}" y1="${y65}" x2="${width - padRight}" y2="${y65}" stroke="#f43f5e" stroke-width="1" stroke-dasharray="3,3" />`;
+
+            // Đường & Chấm Trung bình
+            if (gpaVal !== null) {
+                const yAvg = getY(gpaVal);
+                const xMid = padLeft + plotW / 2;
+                html += `
+                    <line x1="${padLeft}" y1="${yAvg}" x2="${width - padRight}" y2="${yAvg}" stroke="#9333ea" stroke-width="1.8" stroke-dasharray="6,4" />
+                    <circle cx="${xMid}" cy="${yAvg}" r="5.5" fill="#9333ea" stroke="#ffffff" stroke-width="2" />
+                    <rect x="${xMid - 46}" y="${yAvg - 22}" width="92" height="16" rx="4" fill="#9333ea" />
+                    <text x="${xMid}" y="${yAvg - 11}" text-anchor="middle" font-size="10" font-weight="700" fill="#ffffff">TB: ${gpaVal.toFixed(1)}</text>
+                `;
+            }
+
+            sortedSubjects.forEach((sub, idx) => {
+                const x = getX(idx);
+                html += `<line x1="${x}" y1="${padTop}" x2="${x}" y2="${height - padBottom}" stroke="#f1f5f9" stroke-width="1" />`;
+                if (sub.isFramed) {
+                    html += `
+                        <rect x="${x - 28}" y="${height - 32}" width="56" height="20" rx="4" fill="#f0f9ff" stroke="#0072bc" stroke-width="1.5" />
+                        <text x="${x}" y="${height - 18}" text-anchor="middle" font-size="11" font-weight="800" fill="#004b87">${sub.name}</text>
+                    `;
+                } else {
+                    html += `<text x="${x}" y="${height - 18}" text-anchor="middle" font-size="12" font-weight="600" fill="#334155">${sub.name}</text>`;
+                }
+            });
+
+            const targetPoints = [];
+            sortedSubjects.forEach((sub, idx) => {
+                if (sub.target !== null) targetPoints.push({ x: getX(idx), y: getY(sub.target) });
+            });
+            if (targetPoints.length > 1) {
+                const tPath = targetPoints.map((pt, i) => `${i === 0 ? 'M' : 'L'} ${pt.x} ${pt.y}`).join(' ');
+                html += `<path d="${tPath}" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="5,4" />`;
+            }
+
+            const avgPoints = sortedSubjects.map((sub, idx) => {
+                const hasScore = sub.avg !== null;
+                return { x: getX(idx), y: getY(hasScore ? sub.avg : 0), val: sub.avg, hasScore, name: sub.name };
+            });
+
+            const validIndices = avgPoints.map((p, i) => p.hasScore ? i : -1).filter(i => i !== -1);
+            const maxIdx = validIndices.length > 0 ? validIndices[0] : -1;
+            const minIdx = validIndices.length > 0 ? validIndices[validIndices.length - 1] : -1;
+
+            const linePath = avgPoints.map((pt, i) => `${i === 0 ? 'M' : 'L'} ${pt.x} ${pt.y}`).join(' ');
+            html += `<path d="${linePath}" fill="none" stroke="#0072bc" stroke-width="3" />`;
+
+            avgPoints.forEach((pt, idx) => {
+                const isMax = idx === maxIdx;
+                const isMin = idx === minIdx && minIdx !== maxIdx;
+
+                let dotColor = pt.hasScore ? '#0072bc' : '#94a3b8';
+                let badgeBg = pt.hasScore ? '#0f172a' : '#94a3b8';
+                let labelText = pt.hasScore ? pt.val.toFixed(1) : '0.0';
+                let badgeW = 32;
+                let radius = 5;
+
+                if (isMax) {
+                    dotColor = '#10b981';
+                    badgeBg = '#059669';
+                    labelText = `MAX: ${pt.val.toFixed(1)}`;
+                    badgeW = 58;
+                    radius = 7;
+                } else if (isMin) {
+                    dotColor = '#e11d48';
+                    badgeBg = '#be123c';
+                    labelText = `MIN: ${pt.val.toFixed(1)}`;
+                    badgeW = 56;
+                    radius = 7;
+                }
+
+                html += `
+                    <circle cx="${pt.x}" cy="${pt.y}" r="${radius}" fill="${dotColor}" stroke="#ffffff" stroke-width="2" />
+                    <rect x="${pt.x - badgeW / 2}" y="${pt.y - 25}" width="${badgeW}" height="16" rx="4" fill="${badgeBg}" />
+                    <text x="${pt.x}" y="${pt.y - 14}" text-anchor="middle" font-size="10" font-weight="700" fill="#ffffff">${labelText}</text>
+                `;
+            });
+
+            svg.innerHTML = html;
+        }
+
+        // =========================================================================
+        // 4. QUÉT TỐI ĐA 3 ẢNH VIETSCHOOL
+        // =========================================================================
+
+        function normalizeVi(str) {
+            if (!str) return '';
+            return String(str)
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/[^a-z0-9\s]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function mapDetectedSubjectToId(rawName) {
+            if (!rawName) return null;
+            const norm = normalizeVi(rawName);
+            if (!norm || norm.includes('unknown')) return null;
+            if (norm.includes('toan')) return 'toan';
+            if (norm.includes('ngu van') || norm === 'van' || norm.startsWith('van ')) return 'van';
+            if (norm.includes('ngoai ngu') || norm.includes('tieng anh') || norm === 'anh') return 'anh';
+            if (norm.includes('vat ly') || norm.includes('vat li') || norm === 'ly') return 'ly';
+            if (norm.includes('hoa hoc') || norm === 'hoa') return 'hoa';
+            if (norm.includes('sinh hoc') || norm === 'sinh') return 'sinh';
+            if (norm.includes('tin hoc') || norm === 'tin') return 'tin';
+            if (norm.includes('lich su') || norm === 'su') return 'su';
+            if (norm.includes('quoc phong') || norm.includes('gdqp')) return 'qp';
+            return null;
+        }
+
+        function parseScoreNumber(val) {
+            if (val === null || val === undefined || val === '') return null;
+            const clean = String(val).trim().replace(',', '.');
+            const num = parseFloat(clean);
+            if (isNaN(num)) return null;
+            if (num >= 0 && num <= 10) return num;
+            if (num > 10 && num <= 100 && !clean.includes('.')) return num / 10;
+            return null;
+        }
+
+        function applyRecognizedGrades(detectedList) {
+            if (!Array.isArray(detectedList) || detectedList.length === 0) return [];
+            const filledNames = [];
+            detectedUnnamedSubjectData = null;
+
+            detectedList.forEach(item => {
+                const subId = item.subjectId || mapDetectedSubjectToId(item.subjectName);
+                const cleanS15 = (item.s15 || []).map(parseScoreNumber).filter(v => v !== null);
+                const cleanGk = parseScoreNumber(item.gk);
+                const cleanCk = parseScoreNumber(item.ck);
+                const totalCols = parseInt(item.totalCols15) || cleanS15.length || 4;
+
+                if (!subId) {
+                    if (cleanS15.length > 0 || cleanGk !== null || cleanCk !== null) {
+                        detectedUnnamedSubjectData = { s15: cleanS15, totalCols15: totalCols, gk: cleanGk, ck: cleanCk };
+                    }
+                    return;
+                }
+
+                if (!appState.grades[subId]) return;
+                const row = appState.grades[subId];
+                const desiredCols = Math.min(MAX_15P_LIMIT, Math.max(MIN_15P_COLS, cleanS15.length, totalCols));
+                row.num15Cols = desiredCols;
+
+                if (cleanS15.length > 0) {
+                    row.s15 = Array(MAX_15P_LIMIT).fill('');
+                    cleanS15.slice(0, MAX_15P_LIMIT).forEach((val, idx) => { row.s15[idx] = String(val); });
+                }
+                if (cleanGk !== null) row.gk = String(cleanGk);
+                if (cleanCk !== null) row.ck = String(cleanCk);
+
+                const subObj = SUBJECTS.find(s => s.id === subId);
+                if (subObj && !filledNames.includes(subObj.name)) filledNames.push(subObj.name);
+            });
+
+            saveState();
+            renderTable();
+            updateAllCalculations();
+
+            const unlabeledBox = document.getElementById('unlabeledRowAssignBox');
+            if (detectedUnnamedSubjectData) {
+                document.getElementById('unlabeledRowText').textContent =
+                    `Môn bị khuất tên ở đầu ảnh (15p: ${detectedUnnamedSubjectData.s15.join(', ')}) là môn:`;
+                unlabeledBox.classList.remove('hidden');
+                unlabeledBox.classList.add('flex');
+            } else {
+                unlabeledBox.classList.add('hidden');
+                unlabeledBox.classList.remove('flex');
+            }
+
+            return filledNames;
+        }
+
+        function updateAiProgressBar(percent, titleText, descText) {
+            const pct = Math.min(100, Math.max(0, Math.round(percent)));
+            document.getElementById('aiProgressBar').style.width = `${pct}%`;
+            document.getElementById('aiPercentText').textContent = `${pct}%`;
+            if (titleText) document.getElementById('ocrStatusTitle').textContent = titleText;
+            if (descText) document.getElementById('ocrStatusDesc').textContent = descText;
+        }
+
+        async function callGeminiVisionBatchOcr(imagesPayload) {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+            const parts = [
+                { text: "Trích xuất điểm tất cả các môn học từ các ảnh chụp màn hình app Vietschool này thành 1 mảng JSON hợp nhất gồm: subjectName (nếu khuất tên đặt là UNKNOWN), s15 (mảng điểm 15p), totalCols15 (2 đến 5), gk (giữa kì), ck (cuối kì)." }
+            ];
+            imagesPayload.forEach(img => {
+                parts.push({ inlineData: { mimeType: img.mimeType || "image/jpeg", data: img.base64 } });
+            });
+            const payload = {
+                contents: [{ role: "user", parts }],
+                generationConfig: { responseMimeType: "application/json" }
+            };
+            const res = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error('API Error');
+            const data = await res.json();
+            return JSON.parse(data?.candidates?.[0]?.content?.parts?.[0]?.text || '[]');
+        }
+
+        function readFileAsDataUrl(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = e => resolve({ dataUrl: e.target.result, mimeType: file.type });
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function processUploadedScoreImages(fileList) {
+            const allFiles = Array.from(fileList || []).filter(f => f.type && f.type.startsWith('image/'));
+            if (allFiles.length === 0) return;
+
+            if (allFiles.length > 3) {
+                showToast('Chỉ xử lý tối đa 3 tấm ảnh cùng lúc! Đã lấy 3 ảnh đầu tiên.');
+            }
+            const files = allFiles.slice(0, 3);
+
+            const panel = document.getElementById('ocrStatusPanel');
+            const thumbsContainer = document.getElementById('ocrThumbsContainer');
+            panel.classList.remove('hidden');
+            thumbsContainer.innerHTML = '';
+
+            updateAiProgressBar(15, `Đang nạp ${files.length} ảnh Vietschool...`, 'Đang chuẩn bị dữ liệu hình ảnh...');
+
+            try {
+                const loadedImages = await Promise.all(files.map(readFileAsDataUrl));
+                loadedImages.forEach(imgObj => {
+                    const imgEl = document.createElement('img');
+                    imgEl.src = imgObj.dataUrl;
+                    imgEl.className = 'w-9 h-9 object-cover rounded border border-slate-300';
+                    thumbsContainer.appendChild(imgEl);
+                });
+
+                updateAiProgressBar(50, `AI đang phân tích ${files.length} ảnh cùng lúc...`, 'Đang nhận diện các môn học và điểm số...');
+
+                const imagesPayload = loadedImages.map(item => ({
+                    base64: item.dataUrl.split(',')[1],
+                    mimeType: item.mimeType,
+                    dataUrl: item.dataUrl
+                }));
+
+                let combinedList = [];
+                try {
+                    combinedList = await callGeminiVisionBatchOcr(imagesPayload);
+                } catch (err) {
+                    if (typeof Tesseract !== 'undefined') {
+                        const worker = await Tesseract.createWorker('vie+eng');
+                        for (let i = 0; i < imagesPayload.length; i++) {
+                            updateAiProgressBar(55 + Math.round(((i + 1) / imagesPayload.length) * 35), `Đang quét OCR ảnh ${i + 1}/${imagesPayload.length}...`, 'Đang bóc tách điểm số...');
+                            const ret = await worker.recognize(imagesPayload[i].dataUrl);
+                            const parsed = parseFallbackOcrText(ret?.data?.text || '');
+                            combinedList.push(...parsed);
+                        }
+                        await worker.terminate();
+                    }
+                }
+
+                const filled = applyRecognizedGrades(combinedList);
+                if (filled.length > 0 || detectedUnnamedSubjectData) {
+                    updateAiProgressBar(100, `✅ Đã điền từ ${files.length} ảnh: ${filled.join(', ')}`, 'Bạn có thể chỉnh sửa thêm trực tiếp ở bảng dưới.');
+                    showToast(`Đã điền điểm môn: ${filled.join(', ')}`);
+                } else {
+                    updateAiProgressBar(100, '⚠️ Không tìm thấy môn khớp trong ảnh', 'Vui lòng chọn ảnh rõ hơn hoặc nhập trực tiếp.');
+                }
+            } catch (err) {
+                updateAiProgressBar(100, '⚠️ Không thể đọc ảnh này', 'Vui lòng nhập trực tiếp vào bảng bên dưới.');
+            }
+        }
+
+        function parseFallbackOcrText(rawText) {
+            const lines = rawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+            const results = [];
+            let current = null;
+
+            lines.forEach(line => {
+                const norm = normalizeVi(line);
+                if (norm.includes('xem diem') || norm.includes('trang chu')) return;
+                const subId = mapDetectedSubjectToId(norm.replace(/dtb.*$/, '').trim());
+                if (subId) {
+                    current = { subjectId: subId, s15: [], totalCols15: 4, gk: null, ck: null };
+                    results.push(current);
+                    return;
+                }
+                const matches = line.match(/\d+(?:[.,]\d+)?/g) || [];
+                const nums = matches.map(parseScoreNumber).filter(v => v !== null);
+                if (nums.length >= 3 && current && current.s15.length === 0) {
+                    current.ck = nums[nums.length - 1];
+                    current.gk = nums[nums.length - 2];
+                    current.s15 = nums.slice(0, nums.length - 2);
+                }
+            });
+            return results;
+        }
+
+        // =========================================================================
+        // 5. GẮN SỰ KIỆN TOÀN DIỆN (ĐẢM BẢO TƯƠNG TÁC 100%)
+        // =========================================================================
+
+        function showToast(msg) {
+            const box = document.getElementById('toastBox');
+            const item = document.createElement('div');
+            item.className = 'bg-slate-900 text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-lg';
+            item.textContent = msg;
+            box.appendChild(item);
+            setTimeout(() => item.remove(), 2200);
+        }
+
+        function applyLogo(dataUrl) {
+            const img = document.getElementById('customLogoImg');
+            const svg = document.getElementById('defaultLogoSvg');
+            img.src = dataUrl;
+            img.classList.remove('hidden');
+            svg.classList.add('hidden');
+        }
+
+        function bindAllEvents() {
+            document.querySelectorAll('button[data-action="step"]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const field = this.getAttribute('data-field');
+                    const delta = parseInt(this.getAttribute('data-delta')) || 0;
+                    changeViolation(field, delta);
+                });
+            });
+
+            document.getElementById('inputLate').addEventListener('input', function() {
+                setViolationDirect('late', this.value);
+            });
+            document.getElementById('inputExcused').addEventListener('input', function() {
+                setViolationDirect('excused', this.value);
+            });
+            document.getElementById('inputUnexcused').addEventListener('input', function() {
+                setViolationDirect('unexcused', this.value);
+            });
+
+            document.getElementById('activityCard').addEventListener('click', function() {
+                const v = appState.violations;
+                const score = Math.max(0, 1000 - ((v.late * 10) + (v.excused * 10) + (v.unexcused * 25)));
+                const remain = score - 900;
+                if (remain > 0) showToast(`Còn lại ${remain} điểm nữa là mất học bổng (dưới 900đ)!`);
+                else showToast(`Đã dưới 900đ — Mất học bổng!`);
+            });
+
+            const tableBody = document.getElementById('gradeTableBody');
+            tableBody.addEventListener('input', function(e) {
+                const target = e.target;
+                if (!target.classList.contains('cell-input')) return;
+
+                const subId = target.getAttribute('data-sub');
+                const field = target.getAttribute('data-field');
+                const idx = parseInt(target.getAttribute('data-idx')) || 0;
+
+                let raw = target.value.trim();
+                if (raw !== '') {
+                    let val = parseFloat(raw);
+                    if (isNaN(val) || val < 0) {
+                        raw = '0';
+                        target.value = '0';
+                    } else if (val > 10) {
+                        if (val >= 11 && val <= 100 && !raw.includes('.')) {
+                            val = val / 10;
+                            raw = String(val);
+                            target.value = raw;
+                        } else {
+                            raw = '10';
+                            target.value = '10';
+                        }
+                    }
+                }
+
+                if (field === 's15') appState.grades[subId].s15[idx] = raw;
+                else if (field === 'gk') appState.grades[subId].gk = raw;
+                else if (field === 'ck') appState.grades[subId].ck = raw;
+                else if (field === 'target') appState.grades[subId].target = raw;
+
+                saveState();
+                updateAllCalculations();
+            });
+
+            tableBody.addEventListener('change', function(e) {
+                const subId = e.target.getAttribute('data-sub-cols');
+                if (subId) {
+                    setSubject15Cols(subId, e.target.value);
+                }
+            });
+
+            document.getElementById('btnOpenReset').addEventListener('click', () => {
+                const m = document.getElementById('resetModal');
+                m.classList.remove('hidden');
+                m.classList.add('flex');
+            });
+            document.getElementById('btnCancelReset').addEventListener('click', () => {
+                const m = document.getElementById('resetModal');
+                m.classList.add('hidden');
+                m.classList.remove('flex');
+            });
+            document.getElementById('btnConfirmReset').addEventListener('click', () => {
+                appState = getDefaultState();
+                saveState();
+                renderTable();
+                updateAllCalculations();
+                const m = document.getElementById('resetModal');
+                m.classList.add('hidden');
+                m.classList.remove('flex');
+                showToast('Đã xóa trắng bảng điểm!');
+            });
+
+            document.getElementById('btnScanImage').addEventListener('click', () => {
+                document.getElementById('ocrImageInput').click();
+            });
+            document.getElementById('ocrImageInput').addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    processUploadedScoreImages(this.files);
+                }
+                this.value = '';
+            });
+            document.getElementById('unlabeledSubjectSelect').addEventListener('change', function() {
+                const subId = this.value;
+                if (!subId || !detectedUnnamedSubjectData) return;
+                const d = detectedUnnamedSubjectData;
+                detectedUnnamedSubjectData = null;
+                applyRecognizedGrades([{ subjectId: subId, s15: d.s15, totalCols15: d.totalCols15, gk: d.gk, ck: d.ck }]);
+            });
+
+            document.getElementById('logoTrigger').addEventListener('click', () => {
+                document.getElementById('logoUpload').click();
+            });
+            document.getElementById('logoUpload').addEventListener('change', function() {
+                const file = this.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    applyLogo(e.target.result);
+                    try { localStorage.setItem(LOGO_KEY, e.target.result); } catch (err) {}
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadState();
+            renderTable();
+            bindAllEvents();
+            updateAllCalculations();
+        });
+    </script>
+</body>
+</html>
