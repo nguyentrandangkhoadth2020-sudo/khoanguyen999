@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HỆ THỐNG TÍNH ĐIỂM TRUNG BÌNH - KHOA NGUYỄN [1.0 chính thức (14:05 - 18/10/2026)]</title>
+    <title>HỆ THỐNG TÍNH ĐIỂM TRUNG BÌNH - KHOA NGUYỄN [1.0 chính thức (14:25 - 18/10/2026)]</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -145,7 +145,7 @@
         
         <div class="fixed top-4 right-4 flex items-center gap-2.5 z-10">
             <span class="px-3.5 py-1.5 rounded-full bg-sky-500/20 text-sky-300 font-extrabold text-xs border border-sky-400/30 backdrop-blur-md shadow-inner">
-                1.0 chính thức (14:05 - 18/10/2026)
+                1.0 chính thức (14:25 - 18/10/2026)
             </span>
         </div>
 
@@ -168,7 +168,7 @@
                     <span class="text-[11px] font-bold text-amber-700 font-mono">12:59 ngày 18/10/2026</span>
                 </div>
                 <p class="text-xs font-semibold text-amber-950 leading-relaxed pt-0.5">
-                    Chức năng tính mục tiêu điểm Cuối kì sẽ được update sau , dự kiến sau khi ADMIN kiểm tra giữa kì xong
+                    Chức năng tính mục tiêu điểm Cuối kì đã được cập nhật hoàn tất theo yêu cầu!
                 </p>
             </div>
 
@@ -200,13 +200,13 @@
             </form>
 
             <div class="pt-2 text-center text-[11px] font-bold text-slate-400">
-                Phiên bản hệ thống: <span class="text-slate-600">1.0 chính thức (14:05 - 18/10/2026)</span>
+                Phiên bản hệ thống: <span class="text-slate-600">1.0 chính thức (14:25 - 18/10/2026)</span>
             </div>
         </div>
     </div>
 
     <!-- ========================================================================= -->
-    <!-- 2. MENU LỰA CHỌN CHỨC NĂNG -->
+    <!-- 2. MENU LỰA CHỌN CHỨC NĂNG (HUB OPTIONS) -->
     <!-- ========================================================================= -->
     <div id="optionHubScreen" class="fixed inset-0 z-40 hidden opacity-0 flex items-center justify-center p-4 modern-login-bg smooth-fade overflow-y-auto">
         <div class="w-full max-w-xl bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-6 sm:p-8 space-y-6 my-auto">
@@ -222,6 +222,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
+                <!-- OPTION 1: TÍNH ĐIỂM TRUNG BÌNH -->
                 <div id="cardOptCalcGpa" class="group bg-white hover:bg-sky-50/60 rounded-2xl p-7 border-2 border-slate-200 hover:border-nqd-blue shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col items-center justify-center text-center gap-3">
                     <div class="w-16 h-16 rounded-2xl bg-sky-100 text-nqd-blue flex items-center justify-center text-3xl group-hover:scale-110 transition-transform shadow-inner">
                         📊
@@ -231,48 +232,144 @@
                     </h3>
                 </div>
 
-                <div id="cardOptTargetCk" class="bg-slate-100/70 opacity-60 rounded-2xl p-7 border-2 border-dashed border-slate-300 cursor-not-allowed flex flex-col items-center justify-center text-center gap-3 select-none">
-                    <div class="w-16 h-16 rounded-2xl bg-slate-200 text-slate-400 flex items-center justify-center text-3xl">
+                <!-- OPTION 2: MỤC TIÊU CUỐI KÌ -->
+                <div id="cardOptTargetCk" class="group bg-white hover:bg-amber-50/60 rounded-2xl p-7 border-2 border-slate-200 hover:border-amber-500 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col items-center justify-center text-center gap-3">
+                    <div class="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform shadow-inner">
                         🎯
                     </div>
-                    <div class="flex items-center gap-1.5">
-                        <h3 class="text-base font-black text-slate-600">
-                            MỤC TIÊU CUỐI KÌ
-                        </h3>
-                        <span>🔒</span>
-                    </div>
+                    <h3 class="text-base font-black text-slate-900 group-hover:text-amber-600 transition-colors">
+                        MỤC TIÊU CUỐI KÌ
+                    </h3>
                 </div>
 
             </div>
 
             <div class="text-center text-[11px] font-bold text-slate-400 pt-1">
-                ⭐ Hệ thống của Khoa Nguyễn • Phiên bản 1.0 chính thức (14:05 - 18/10/2026)
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Xác nhận xóa trắng -->
-    <div id="resetModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200">
-            <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                ⚠️ Xóa trắng toàn bộ dữ liệu?
-            </h3>
-            <p class="text-xs text-slate-600 mt-2 leading-relaxed font-medium">
-                Tất cả điểm số các môn và điểm hoạt động sẽ được đặt lại về ban đầu.
-            </p>
-            <div class="flex items-center justify-end gap-2.5 mt-6">
-                <button type="button" id="btnCancelReset" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
-                    ❌ Hủy
-                </button>
-                <button type="button" id="btnConfirmReset" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs transition shadow-md shadow-red-600/20">
-                    🗑️ Đồng ý xóa
-                </button>
+                ⭐ Hệ thống của Khoa Nguyễn • Phiên bản 1.0 chính thức (14:25 - 18/10/2026)
             </div>
         </div>
     </div>
 
     <!-- ========================================================================= -->
-    <!-- 3. TRANG TÍNH ĐIỂM TRUNG BÌNH CHÍNH -->
+    <!-- MODAL LỚN CHỌN MÔN TRƯỚC CHO MỤC TIÊU CUỐI KÌ -->
+    <!-- ========================================================================= -->
+    <div id="targetSubjectPickerModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-md p-4 smooth-fade">
+        <div class="w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 sm:p-7 space-y-5 my-auto">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <span class="text-2xl">🎯</span>
+                    <h3 class="text-lg font-black text-slate-900 uppercase tracking-tight">Chọn môn học cần tính mục tiêu</h3>
+                </div>
+                <button type="button" id="btnCloseSubjectPicker" class="text-slate-400 hover:text-slate-700 text-xl font-black p-1">&times;</button>
+            </div>
+
+            <p class="text-xs text-slate-500 font-medium">Bấm chọn một môn học dưới đây để mở bảng nhập điểm:</p>
+
+            <div id="modalSubjectButtonsGrid" class="grid grid-cols-3 gap-3">
+                <!-- 9 nút chọn môn lớn -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 3. GIAO DIỆN MỤC TIÊU CUỐI KÌ (CHỈ HIỆN KHI ĐÃ CHỌN MÔN TRONG POPUP) -->
+    <!-- ========================================================================= -->
+    <div id="targetCkWrapper" class="hidden opacity-0 py-5 px-3 sm:px-6 pb-20 max-w-[700px] mx-auto space-y-5 smooth-fade">
+        
+        <header class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl shadow-inner shrink-0">
+                    🎯
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                        MỤC TIÊU CUỐI KÌ
+                    </h1>
+                </div>
+            </div>
+            <button type="button" class="btnBackToHubGlobal px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-black text-xs transition flex items-center gap-1.5 shadow-sm">
+                ↩ Menu chức năng
+            </button>
+        </header>
+
+        <!-- KHỐI NHẬP ĐIỂM DỌC TO RÕ (HIỂN THỊ REAL-TIME) -->
+        <section class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm space-y-6">
+            
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-black uppercase text-slate-500 tracking-wider">Đang tính môn:</span>
+                    <span id="targetSelectedSubjectBadge" class="px-3.5 py-1 rounded-xl bg-nqd-blue text-white font-black text-xs shadow-sm">
+                        Toán
+                    </span>
+                </div>
+                <button type="button" id="btnChangeSubjectTrigger" class="px-3 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 text-nqd-blue font-black text-xs border border-sky-200 transition">
+                    🔄 Đổi môn khác
+                </button>
+            </div>
+
+            <!-- CHỌN MỤC TIÊU (6.5, 8.0, 8.5) -->
+            <div class="space-y-2">
+                <label class="block text-xs font-black text-slate-700 uppercase">
+                    🎯 Chọn mức mục tiêu cần đạt:
+                </label>
+                <div id="targetGoalButtonsGroup" class="flex flex-wrap gap-2.5">
+                    <!-- Nút 6.5, 8.0 (và 8.5 cho Tin học) -->
+                </div>
+            </div>
+
+            <!-- SỐ CỘT 15P -->
+            <div class="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <label class="text-xs font-extrabold text-slate-700">Số cột 15 phút:</label>
+                <select id="targetSelect15Cols" class="px-3 py-1.5 rounded-lg border border-slate-300 font-bold text-xs bg-white outline-none shadow-sm">
+                    <option value="2">2 cột</option>
+                    <option value="3">3 cột</option>
+                    <option value="4" selected>4 cột</option>
+                    <option value="5">5 cột</option>
+                </select>
+            </div>
+
+            <!-- CÁC Ô NHẬP DỌC TO RÕ -->
+            <div id="target15InputsContainer" class="space-y-2.5">
+                <!-- Các ô 15p xếp dọc to rõ -->
+            </div>
+
+            <!-- Ô NHẬP GK TO RÕ -->
+            <div class="bg-amber-50/60 p-4 rounded-2xl border border-amber-200 space-y-1.5">
+                <label class="block text-xs font-black text-amber-950 uppercase">
+                    📝 Điểm Giữa kì (GK):
+                </label>
+                <input 
+                    type="number" 
+                    id="targetInputGk" 
+                    step="0.01" 
+                    min="0" 
+                    max="10" 
+                    placeholder="-" 
+                    class="w-full px-4 py-3 text-xl font-black rounded-xl border-2 border-amber-300 focus:border-amber-600 focus:ring-4 focus:ring-amber-100 outline-none transition text-slate-900 bg-white"
+                />
+            </div>
+
+            <!-- HIỂN THỊ ĐIỂM CK CẦN ĐẠT REAL-TIME SIÊU GỌN GÀNG -->
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl p-5 shadow-xl flex items-center justify-between gap-4">
+                <div class="space-y-0.5">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">
+                        ĐIỂM CUỐI KÌ (CK) CẦN ĐẠT:
+                    </span>
+                    <span id="targetStatusText" class="text-xs font-bold text-amber-300">
+                        Nhập điểm để xem
+                    </span>
+                </div>
+                <div class="flex items-baseline gap-1.5">
+                    <span id="targetResultCkValue" class="text-4xl sm:text-5xl font-black text-amber-400 tracking-tight">--</span>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 4. TRANG TÍNH ĐIỂM TRUNG BÌNH CHÍNH (OPTION 1) -->
     <!-- ========================================================================= -->
     <div id="mainAppWrapper" class="hidden opacity-0 py-4 px-3 sm:px-6 pb-20 max-w-[1360px] mx-auto space-y-4 smooth-fade">
 
@@ -311,7 +408,7 @@
                                 📊 TÍNH ĐIỂM TRUNG BÌNH
                             </h1>
                             <span class="px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 font-extrabold text-[10px] border border-sky-300">
-                                1.0 chính thức (14:05 - 18/10/2026)
+                                1.0 chính thức (14:25 - 18/10/2026)
                             </span>
                         </div>
                         <span class="inline-block mt-1 bg-slate-900 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-md shadow-sm">
@@ -321,7 +418,7 @@
                 </div>
 
                 <div class="flex flex-wrap items-center justify-end gap-2">
-                    <button type="button" id="btnBackToHub" class="px-3.5 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 text-nqd-blue font-extrabold text-xs border border-sky-200 transition flex items-center gap-1 shadow-sm">
+                    <button type="button" class="btnBackToHubGlobal px-3.5 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 text-nqd-blue font-extrabold text-xs border border-sky-200 transition flex items-center gap-1 shadow-sm">
                         ↩ Menu chức năng
                     </button>
 
@@ -500,6 +597,14 @@
 
         let appState = getDefaultState();
 
+        let targetState = {
+            selectedSubjectId: null, // Chưa chọn môn ban đầu
+            num15Cols: 4,
+            s15: ['', '', '', ''],
+            gk: '',
+            targetGoal: 8.0
+        };
+
         function getDefaultState() {
             const grades = {};
             SUBJECT_KEYS.forEach(sub => {
@@ -531,6 +636,8 @@
         const loginScreen = document.getElementById('loginScreen');
         const optionHubScreen = document.getElementById('optionHubScreen');
         const mainAppWrapper = document.getElementById('mainAppWrapper');
+        const targetCkWrapper = document.getElementById('targetCkWrapper');
+        const targetSubjectPickerModal = document.getElementById('targetSubjectPickerModal');
 
         const loginForm = document.getElementById('loginForm');
         const loginNameInput = document.getElementById('loginNameInput');
@@ -570,6 +677,7 @@
             }
         });
 
+        // 1. Vào Tính điểm trung bình
         document.getElementById('cardOptCalcGpa').addEventListener('click', () => {
             optionHubScreen.classList.add('opacity-0');
             setTimeout(() => {
@@ -579,21 +687,223 @@
             }, 250);
         });
 
+        // 2. Vào Mục tiêu cuối kì: HIỆN POPUP LỚN CHỌN MÔN TRƯỚC
         document.getElementById('cardOptTargetCk').addEventListener('click', () => {
-            showToast('🔒 Chức năng đang phát triển — Dự kiến mở sau kì thi Giữa kì!');
+            openSubjectPickerModal();
         });
 
-        document.getElementById('btnBackToHub').addEventListener('click', () => {
-            mainAppWrapper.classList.add('opacity-0');
+        function openSubjectPickerModal() {
+            renderModalSubjectButtons();
+            targetSubjectPickerModal.classList.remove('hidden');
+            targetSubjectPickerModal.classList.add('flex');
+        }
+
+        function closeSubjectPickerModal() {
+            targetSubjectPickerModal.classList.add('hidden');
+            targetSubjectPickerModal.classList.remove('flex');
+        }
+
+        document.getElementById('btnCloseSubjectPicker').addEventListener('click', closeSubjectPickerModal);
+        document.getElementById('btnChangeSubjectTrigger').addEventListener('click', openSubjectPickerModal);
+
+        function renderModalSubjectButtons() {
+            const grid = document.getElementById('modalSubjectButtonsGrid');
+            grid.innerHTML = SUBJECT_KEYS.map(sub => {
+                return `
+                    <button 
+                        type="button" 
+                        data-modal-sub="${sub.id}"
+                        class="p-4 rounded-2xl border-2 border-slate-200 hover:border-nqd-blue bg-slate-50 hover:bg-sky-50 transition-all font-black text-sm text-slate-800 hover:text-nqd-blue flex flex-col items-center justify-center gap-1.5 shadow-sm active:scale-95"
+                    >
+                        <span class="text-xl">📖</span>
+                        <span>${sub.name}</span>
+                    </button>
+                `;
+            }).join('');
+
+            grid.querySelectorAll('button[data-modal-sub]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const subId = this.getAttribute('data-modal-sub');
+                    selectSubjectAndOpenTarget(subId);
+                });
+            });
+        }
+
+        function selectSubjectAndOpenTarget(subId) {
+            targetState.selectedSubjectId = subId;
+
+            if (subId !== 'tin' && targetState.targetGoal === 8.5) {
+                targetState.targetGoal = 8.0;
+            }
+
+            const subObj = SUBJECT_KEYS.find(s => s.id === subId);
+            document.getElementById('targetSelectedSubjectBadge').textContent = subObj ? subObj.name : '';
+
+            closeSubjectPickerModal();
+
+            // Chuyển sang màn hình Mục tiêu cuối kì
+            optionHubScreen.classList.add('opacity-0');
             setTimeout(() => {
-                mainAppWrapper.classList.add('hidden');
-                optionHubScreen.classList.remove('hidden');
-                setTimeout(() => optionHubScreen.classList.remove('opacity-0'), 50);
-            }, 250);
+                optionHubScreen.classList.add('hidden');
+                targetCkWrapper.classList.remove('hidden');
+                setTimeout(() => targetCkWrapper.classList.remove('opacity-0'), 50);
+
+                renderTargetGoalButtons();
+                renderTarget15Inputs();
+                calculateTargetCkRealtime();
+            }, 200);
+        }
+
+        // Quay lại Menu Hub
+        document.querySelectorAll('.btnBackToHubGlobal').forEach(btn => {
+            btn.addEventListener('click', () => {
+                mainAppWrapper.classList.add('opacity-0');
+                targetCkWrapper.classList.add('opacity-0');
+                setTimeout(() => {
+                    mainAppWrapper.classList.add('hidden');
+                    targetCkWrapper.classList.add('hidden');
+                    optionHubScreen.classList.remove('hidden');
+                    setTimeout(() => optionHubScreen.classList.remove('opacity-0'), 50);
+                }, 250);
+            });
         });
 
         document.getElementById('btnHubLogout').addEventListener('click', () => window.location.reload());
         document.getElementById('btnLogout').addEventListener('click', () => window.location.reload());
+
+        // =========================================================================
+        // LOGIC MỤC TIÊU CUỐI KÌ (REAL-TIME NHẬP TỚI ĐÂU TÍNH TỚI ĐÓ)
+        // =========================================================================
+        function renderTargetGoalButtons() {
+            const group = document.getElementById('targetGoalButtonsGroup');
+            const isTin = targetState.selectedSubjectId === 'tin';
+
+            const goals = [
+                { val: 6.5, label: "Mục tiêu 6.5" },
+                { val: 8.0, label: "Mục tiêu 8.0" }
+            ];
+
+            if (isTin) {
+                goals.push({ val: 8.5, label: "Mục tiêu 8.5 (Học bổng)" });
+            }
+
+            group.innerHTML = goals.map(g => {
+                const isActive = targetState.targetGoal === g.val;
+                return `
+                    <button 
+                        type="button" 
+                        data-target-goal="${g.val}"
+                        class="px-4 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${isActive ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 ring-2 ring-amber-500' : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-300'}"
+                    >
+                        <span>${isActive ? '🎯' : '⚪'}</span> ${g.label}
+                    </button>
+                `;
+            }).join('');
+
+            group.querySelectorAll('button[data-target-goal]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    targetState.targetGoal = parseFloat(this.getAttribute('data-target-goal'));
+                    renderTargetGoalButtons();
+                    calculateTargetCkRealtime();
+                });
+            });
+        }
+
+        function renderTarget15Inputs() {
+            const container = document.getElementById('target15InputsContainer');
+            const cols = targetState.num15Cols;
+
+            let html = '';
+            for (let i = 0; i < cols; i++) {
+                const val = targetState.s15[i] ?? '';
+                html += `
+                    <div class="flex items-center justify-between gap-3 bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm">
+                        <label class="text-xs font-extrabold text-slate-700 w-28 shrink-0">15p (Đ${i + 1}):</label>
+                        <input 
+                            type="number" 
+                            step="0.01" 
+                            min="0" 
+                            max="10" 
+                            placeholder="-"
+                            data-target-idx="${i}"
+                            value="${val}"
+                            class="target-15-input flex-1 px-3 py-2 text-center font-black text-sm rounded-lg border border-slate-300 focus:border-nqd-blue focus:ring-2 focus:ring-sky-100 outline-none transition"
+                        />
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+
+            container.querySelectorAll('.target-15-input').forEach(inp => {
+                inp.addEventListener('input', function() {
+                    const idx = parseInt(this.getAttribute('data-target-idx'));
+                    targetState.s15[idx] = this.value.trim();
+                    calculateTargetCkRealtime();
+                });
+            });
+        }
+
+        document.getElementById('targetSelect15Cols').addEventListener('change', function() {
+            targetState.num15Cols = parseInt(this.value);
+            renderTarget15Inputs();
+            calculateTargetCkRealtime();
+        });
+
+        document.getElementById('targetInputGk').addEventListener('input', function() {
+            targetState.gk = this.value.trim();
+            calculateTargetCkRealtime();
+        });
+
+        function calculateTargetCkRealtime() {
+            const targetVal = targetState.targetGoal || 8.0;
+            const threshold = targetVal - 0.05; // 6.45, 7.95, 8.45
+
+            const s15Nums = [];
+            for (let i = 0; i < targetState.num15Cols; i++) {
+                const v = parseFloat(targetState.s15[i]);
+                if (!isNaN(v) && v >= 0 && v <= 10) {
+                    s15Nums.push(v);
+                }
+            }
+
+            const rawGk = parseFloat(targetState.gk);
+            const hasGk = (!isNaN(rawGk) && rawGk >= 0 && rawGk <= 10);
+
+            const resultValEl = document.getElementById('targetResultCkValue');
+            const statusTextEl = document.getElementById('targetStatusText');
+
+            if (s15Nums.length === 0 || !hasGk) {
+                resultValEl.textContent = '--';
+                statusTextEl.textContent = 'Nhập đủ 15p & GK để xem';
+                statusTextEl.className = 'text-xs font-bold text-slate-400';
+                return;
+            }
+
+            const n15 = s15Nums.length;
+            const totalWeight = n15 * 1 + 2 + 3;
+            const sum15 = s15Nums.reduce((a, b) => a + b, 0);
+            const sumGk = rawGk * 2;
+
+            const neededCkRaw = (threshold * totalWeight - sum15 - sumGk) / 3;
+            const neededCkRounded = Math.round((neededCkRaw + Number.EPSILON) * 100) / 100;
+
+            if (neededCkRounded <= 0) {
+                resultValEl.textContent = "0.0";
+                resultValEl.className = "text-4xl sm:text-5xl font-black text-emerald-400 tracking-tight";
+                statusTextEl.textContent = "✅ ĐÃ CHẮC CHẮN ĐẠT MỤC TIÊU";
+                statusTextEl.className = "text-xs font-black text-emerald-400";
+            } else if (neededCkRounded > 10.0) {
+                resultValEl.textContent = neededCkRounded.toFixed(2);
+                resultValEl.className = "text-4xl sm:text-5xl font-black text-rose-400 tracking-tight";
+                statusTextEl.textContent = "❌ BẤT KHẢ THI (> 10 ĐIỂM)";
+                statusTextEl.className = "text-xs font-black text-rose-400";
+            } else {
+                resultValEl.textContent = neededCkRounded.toFixed(2);
+                resultValEl.className = "text-4xl sm:text-5xl font-black text-amber-400 tracking-tight";
+                statusTextEl.textContent = `🎯 CẦN TỐI THIỂU: ${neededCkRounded.toFixed(2)} ĐIỂM`;
+                statusTextEl.className = "text-xs font-black text-amber-300";
+            }
+        }
 
         // =========================================================================
         // PARSER VĂN BẢN
@@ -1035,7 +1345,7 @@
         }
 
         // =========================================================================
-        // THUẬT TOÁN OCR CHUYÊN BIỆT CHO APP VIETSCHOOL (AN TOÀN TUYỆT ĐỐI)
+        // THUẬT TOÁN OCR CHUYÊN BIỆT CHO APP VIETSCHOOL
         // =========================================================================
         function normalizeVi(str) {
             if (!str) return '';
@@ -1052,7 +1362,6 @@
             if (!rawName) return null;
             const norm = normalizeVi(rawName);
 
-            // Bắt chuẩn xác từng môn trong Vietschool
             if (/\b(giao duc quoc phong|quoc phong|gdqp|an ninh|qp)\b/i.test(norm)) return 'qp';
             if (/\b(vat ly|vat li|ly)\b/i.test(norm)) return 'ly';
             if (/\b(toan|dai so|hinh hoc)\b/i.test(norm)) return 'toan';
@@ -1075,7 +1384,6 @@
             return null;
         }
 
-        // Bóc tách siêu chuẩn từng dòng của Vietschool (Chống lấy số thứ tự và cột ĐTB)
         function parseVietschoolSmartText(rawText) {
             const rawLines = rawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
             const finalResults = [];
@@ -1083,7 +1391,6 @@
             rawLines.forEach(line => {
                 const norm = normalizeVi(line);
 
-                // Bỏ qua dòng tiêu đề app Vietschool
                 if (norm.includes('bang diem') || norm.includes('he so') || norm.includes('dgtx') || 
                     norm.includes('dggk') || norm.includes('chi tiet tung mon') || norm.includes('xem diem')) {
                     return;
@@ -1092,7 +1399,6 @@
                 const subId = mapDetectedSubjectToId(norm);
                 if (!subId) return;
 
-                // Tách số trên chính dòng môn học đó (loại bỏ STT đầu dòng như "2 ", "9 ")
                 const cleanedLine = line.replace(/^\s*\d+\s*[.)-]?\s*/, ' ');
                 const matches = cleanedLine.match(/\b\d+(?:[.,]\d+)?\b/g) || [];
                 const nums = matches.map(parseScoreNumber).filter(v => v !== null && v <= 10);
@@ -1103,7 +1409,6 @@
                 let gk = null;
                 let ck = null;
 
-                // Xử lý cột Vietschool: Nếu có 2 số giống hệt nhau (như 9.0 9.0 hoặc 7.5 7.5) -> Số thứ 2 là cột ĐTB
                 if (nums.length === 1) {
                     s15 = [nums[0]];
                 } else if (nums.length === 2) {
@@ -1203,7 +1508,6 @@
                 updateAiProgressBar(45, `Đang phân tích bảng điểm Vietschool...`, 'Đang bóc tách điểm từng môn...');
 
                 let combinedList = [];
-                // Sử dụng hàm Tesseract.recognize trực tiếp để tránh lỗi crash worker
                 for (let i = 0; i < loadedImages.length; i++) {
                     updateAiProgressBar(50 + Math.round(((i + 1) / loadedImages.length) * 45), `Đang quét ảnh ${i + 1}/${loadedImages.length}...`, 'Đang xử lý...');
                     const ret = await Tesseract.recognize(loadedImages[i].dataUrl, 'vie+eng', {
