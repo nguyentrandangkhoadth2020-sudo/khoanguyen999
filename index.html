@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HỆ THỐNG TÍNH ĐIỂM TRUNG BÌNH - KHOA NGUYỄN [1.0 chính thức (18/10/2026)]</title>
+    <title>HỆ THỐNG TÍNH ĐIỂM TRUNG BÌNH - KHOA NGUYỄN [1.0 chính thức (14:05 - 18/10/2026)]</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -145,7 +145,7 @@
         
         <div class="fixed top-4 right-4 flex items-center gap-2.5 z-10">
             <span class="px-3.5 py-1.5 rounded-full bg-sky-500/20 text-sky-300 font-extrabold text-xs border border-sky-400/30 backdrop-blur-md shadow-inner">
-                1.0 chính thức (18/10/2026)
+                1.0 chính thức (14:05 - 18/10/2026)
             </span>
         </div>
 
@@ -200,13 +200,13 @@
             </form>
 
             <div class="pt-2 text-center text-[11px] font-bold text-slate-400">
-                Phiên bản hệ thống: <span class="text-slate-600">1.0 chính thức (18/10/2026)</span>
+                Phiên bản hệ thống: <span class="text-slate-600">1.0 chính thức (14:05 - 18/10/2026)</span>
             </div>
         </div>
     </div>
 
     <!-- ========================================================================= -->
-    <!-- 2. MENU LỰA CHỌN CHỨC NĂNG (ĐÃ BỎ HẾT DÒNG PHỤ, CHỈ CÒN ICON + TIÊU ĐỀ) -->
+    <!-- 2. MENU LỰA CHỌN CHỨC NĂNG -->
     <!-- ========================================================================= -->
     <div id="optionHubScreen" class="fixed inset-0 z-40 hidden opacity-0 flex items-center justify-center p-4 modern-login-bg smooth-fade overflow-y-auto">
         <div class="w-full max-w-xl bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-6 sm:p-8 space-y-6 my-auto">
@@ -220,10 +220,8 @@
                 </button>
             </div>
 
-            <!-- 2 OPTION: CHỈ GIỮ ICON + TIÊU ĐỀ GỌN GÀNG -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
-                <!-- OPTION 1: TÍNH ĐIỂM TRUNG BÌNH -->
                 <div id="cardOptCalcGpa" class="group bg-white hover:bg-sky-50/60 rounded-2xl p-7 border-2 border-slate-200 hover:border-nqd-blue shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col items-center justify-center text-center gap-3">
                     <div class="w-16 h-16 rounded-2xl bg-sky-100 text-nqd-blue flex items-center justify-center text-3xl group-hover:scale-110 transition-transform shadow-inner">
                         📊
@@ -233,7 +231,6 @@
                     </h3>
                 </div>
 
-                <!-- OPTION 2: MỤC TIÊU CUỐI KÌ (LÀM MỜ) -->
                 <div id="cardOptTargetCk" class="bg-slate-100/70 opacity-60 rounded-2xl p-7 border-2 border-dashed border-slate-300 cursor-not-allowed flex flex-col items-center justify-center text-center gap-3 select-none">
                     <div class="w-16 h-16 rounded-2xl bg-slate-200 text-slate-400 flex items-center justify-center text-3xl">
                         🎯
@@ -249,7 +246,7 @@
             </div>
 
             <div class="text-center text-[11px] font-bold text-slate-400 pt-1">
-                ⭐ Hệ thống của Khoa Nguyễn • Phiên bản 1.0 chính thức
+                ⭐ Hệ thống của Khoa Nguyễn • Phiên bản 1.0 chính thức (14:05 - 18/10/2026)
             </div>
         </div>
     </div>
@@ -314,7 +311,7 @@
                                 📊 TÍNH ĐIỂM TRUNG BÌNH
                             </h1>
                             <span class="px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 font-extrabold text-[10px] border border-sky-300">
-                                1.0 chính thức (18/10/2026)
+                                1.0 chính thức (14:05 - 18/10/2026)
                             </span>
                         </div>
                         <span class="inline-block mt-1 bg-slate-900 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-md shadow-sm">
@@ -453,9 +450,7 @@
             </div>
         </section>
 
-        <!-- ========================================================================= -->
-        <!-- BẢNG ĐIỂM (ĐỔI TÊN THÀNH "BẢNG ĐIỂM", BỎ RÌA CHỮ KÊU CHỌN...) -->
-        <!-- ========================================================================= -->
+        <!-- BẢNG ĐIỂM -->
         <section class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
             <div class="px-5 py-3 bg-slate-900 text-white flex items-center justify-between">
                 <span class="font-black text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2">
@@ -906,7 +901,6 @@
                 overallGpaEl.textContent = gpaVal.toFixed(1);
             }
 
-            // HỌC LỰC: >= 2 MÔN MỚI XẾP LOẠI
             const academicRankText = document.getElementById('academicRankText');
             let isHSXS = false;
             let isHSG = false;
@@ -937,7 +931,6 @@
                 }
             }
 
-            // HỌC BỔNG: FULL 9 MÔN + HĐ >= 900
             const curActivityScore = appState.activityScore;
             const scholarshipMainText = document.getElementById('scholarshipMainText');
 
@@ -1042,7 +1035,7 @@
         }
 
         // =========================================================================
-        // THUẬT TOÁN OCR VIETSCHOOL
+        // THUẬT TOÁN OCR CHUYÊN BIỆT CHO APP VIETSCHOOL (AN TOÀN TUYỆT ĐỐI)
         // =========================================================================
         function normalizeVi(str) {
             if (!str) return '';
@@ -1059,6 +1052,7 @@
             if (!rawName) return null;
             const norm = normalizeVi(rawName);
 
+            // Bắt chuẩn xác từng môn trong Vietschool
             if (/\b(giao duc quoc phong|quoc phong|gdqp|an ninh|qp)\b/i.test(norm)) return 'qp';
             if (/\b(vat ly|vat li|ly)\b/i.test(norm)) return 'ly';
             if (/\b(toan|dai so|hinh hoc)\b/i.test(norm)) return 'toan';
@@ -1081,75 +1075,47 @@
             return null;
         }
 
-        function parseVietschoolSpatialLines(linesData, imgWidth) {
-            const rowBuckets = [];
-
-            linesData.forEach(line => {
-                const text = line.text.trim();
-                if (!text) return;
-                const bbox = line.bbox;
-                const midY = (bbox.y0 + bbox.y1) / 2;
-
-                let bucket = rowBuckets.find(b => Math.abs(b.midY - midY) < 14);
-                if (!bucket) {
-                    bucket = { midY: midY, words: [] };
-                    rowBuckets.push(bucket);
-                }
-
-                (line.words || []).forEach(w => {
-                    bucket.words.push({
-                        text: w.text.trim(),
-                        x0: w.bbox.x0,
-                        x1: w.bbox.x1
-                    });
-                });
-            });
-
-            rowBuckets.sort((a, b) => a.midY - b.midY);
-
+        // Bóc tách siêu chuẩn từng dòng của Vietschool (Chống lấy số thứ tự và cột ĐTB)
+        function parseVietschoolSmartText(rawText) {
+            const rawLines = rawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
             const finalResults = [];
 
-            rowBuckets.forEach(b => {
-                b.words.sort((w1, w2) => w1.x0 - w2.x0);
-                const lineFullText = b.words.map(w => w.text).join(' ');
-                const subId = mapDetectedSubjectToId(lineFullText);
+            rawLines.forEach(line => {
+                const norm = normalizeVi(line);
 
+                // Bỏ qua dòng tiêu đề app Vietschool
+                if (norm.includes('bang diem') || norm.includes('he so') || norm.includes('dgtx') || 
+                    norm.includes('dggk') || norm.includes('chi tiet tung mon') || norm.includes('xem diem')) {
+                    return;
+                }
+
+                const subId = mapDetectedSubjectToId(norm);
                 if (!subId) return;
 
-                const scoreWords = b.words.filter(w => {
-                    const isLeftBorder = (w.x0 < imgWidth * 0.14);
-                    return !isLeftBorder;
-                });
+                // Tách số trên chính dòng môn học đó (loại bỏ STT đầu dòng như "2 ", "9 ")
+                const cleanedLine = line.replace(/^\s*\d+\s*[.)-]?\s*/, ' ');
+                const matches = cleanedLine.match(/\b\d+(?:[.,]\d+)?\b/g) || [];
+                const nums = matches.map(parseScoreNumber).filter(v => v !== null && v <= 10);
 
-                const rawNums = [];
-                scoreWords.forEach(w => {
-                    const m = w.text.match(/\b\d+(?:[.,]\d+)?\b/g);
-                    if (m) {
-                        m.forEach(val => {
-                            const parsed = parseScoreNumber(val);
-                            if (parsed !== null && parsed <= 10) rawNums.push(parsed);
-                        });
-                    }
-                });
-
-                if (rawNums.length === 0) return;
+                if (nums.length === 0) return;
 
                 let s15 = [];
                 let gk = null;
                 let ck = null;
 
-                if (rawNums.length === 1) {
-                    s15 = [rawNums[0]];
-                } else if (rawNums.length === 2) {
-                    if (rawNums[0] === rawNums[1]) {
-                        s15 = [rawNums[0]];
+                // Xử lý cột Vietschool: Nếu có 2 số giống hệt nhau (như 9.0 9.0 hoặc 7.5 7.5) -> Số thứ 2 là cột ĐTB
+                if (nums.length === 1) {
+                    s15 = [nums[0]];
+                } else if (nums.length === 2) {
+                    if (nums[0] === nums[1]) {
+                        s15 = [nums[0]];
                     } else {
-                        s15 = [rawNums[0], rawNums[1]];
+                        s15 = [nums[0], nums[1]];
                     }
                 } else {
-                    ck = rawNums[rawNums.length - 1];
-                    gk = rawNums[rawNums.length - 2];
-                    s15 = rawNums.slice(0, rawNums.length - 2);
+                    ck = nums[nums.length - 1];
+                    gk = nums[nums.length - 2];
+                    s15 = nums.slice(0, nums.length - 2);
                 }
 
                 finalResults.push({
@@ -1223,7 +1189,7 @@
             panel.classList.remove('hidden');
             thumbsContainer.innerHTML = '';
 
-            updateAiProgressBar(15, `Đang xử lý ${files.length} ảnh...`, 'Tối ưu hoá nhận diện cột điểm...');
+            updateAiProgressBar(20, `Đang nạp ${files.length} ảnh...`, 'Chuẩn bị dữ liệu bảng điểm...');
 
             try {
                 const loadedImages = await Promise.all(files.map(readFileAsDataUrl));
@@ -1234,35 +1200,33 @@
                     thumbsContainer.appendChild(imgEl);
                 });
 
-                updateAiProgressBar(40, `Đang quét bảng điểm Vietschool...`, 'Lọc bỏ số thứ tự & gom toạ độ dòng...');
+                updateAiProgressBar(45, `Đang phân tích bảng điểm Vietschool...`, 'Đang bóc tách điểm từng môn...');
 
                 let combinedList = [];
-                if (typeof Tesseract !== 'undefined') {
-                    const worker = await Tesseract.createWorker('vie');
-                    for (let i = 0; i < loadedImages.length; i++) {
-                        updateAiProgressBar(45 + Math.round(((i + 1) / loadedImages.length) * 45), `Đang quét ảnh ${i + 1}/${loadedImages.length}...`, 'Đọc chính xác điểm từng môn...');
-                        
-                        const img = new Image();
-                        img.src = loadedImages[i].dataUrl;
-                        await new Promise(r => img.onload = r);
-
-                        const ret = await worker.recognize(loadedImages[i].dataUrl);
-                        const linesData = ret?.data?.lines || [];
-                        const parsed = parseVietschoolSpatialLines(linesData, img.width || 800);
-                        combinedList.push(...parsed);
-                    }
-                    await worker.terminate();
+                // Sử dụng hàm Tesseract.recognize trực tiếp để tránh lỗi crash worker
+                for (let i = 0; i < loadedImages.length; i++) {
+                    updateAiProgressBar(50 + Math.round(((i + 1) / loadedImages.length) * 45), `Đang quét ảnh ${i + 1}/${loadedImages.length}...`, 'Đang xử lý...');
+                    const ret = await Tesseract.recognize(loadedImages[i].dataUrl, 'vie+eng', {
+                        logger: m => {
+                            if (m.status === 'recognizing text') {
+                                updateAiProgressBar(50 + Math.round(m.progress * 40), `Đang nhận diện ký tự...`, 'Đọc số điểm...');
+                            }
+                        }
+                    });
+                    const parsed = parseVietschoolSmartText(ret?.data?.text || '');
+                    combinedList.push(...parsed);
                 }
 
                 const filled = applyRecognizedGrades(combinedList);
                 if (filled.length > 0) {
-                    updateAiProgressBar(100, `✅ Đã điền: ${filled.join(', ')}`, 'Hoàn tất cập nhật.');
-                    showToast(`✅ Đã nhận diện chính xác: ${filled.join(', ')}`);
+                    updateAiProgressBar(100, `✅ Đã điền chính xác: ${filled.join(', ')}`, 'Hoàn tất cập nhật.');
+                    showToast(`✅ Đã nhận diện: ${filled.join(', ')}`);
                 } else {
-                    updateAiProgressBar(100, '⚠️ Không tìm thấy môn khớp trong ảnh', 'Vui lòng kiểm tra lại ảnh chụp.');
+                    updateAiProgressBar(100, '⚠️ Không tìm thấy điểm môn nào', 'Vui lòng kiểm tra lại ảnh chụp.');
                 }
             } catch (err) {
-                updateAiProgressBar(100, '⚠️ Lỗi đọc ảnh', 'Vui lòng thử lại với ảnh rõ hơn.');
+                console.error("OCR Error:", err);
+                updateAiProgressBar(100, '⚠️ Lỗi xử lý ảnh', 'Vui lòng thử lại với ảnh rõ nét hơn.');
             }
         }
 
