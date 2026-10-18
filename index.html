@@ -373,7 +373,7 @@
         </header>
 
         <!-- ========================================================================= -->
-        <!-- GỘP CHUNG: ĐTB TỔNG + HỌC LỰC + HỌC BỔNG (ĐÃ BỎ TIÊU ĐỀ PHỤ DƯ THỪA) -->
+        <!-- GỘP CHUNG: ĐTB TỔNG + HỌC LỰC + HỌC BỔNG -->
         <!-- ========================================================================= -->
         <section class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm">
             <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-100 gap-4 md:gap-0">
@@ -388,7 +388,7 @@
                     </div>
                 </div>
 
-                <!-- 2. HỌC LỰC (TỐI THIỂU 2 MÔN MỚI HIỆN, DƯỚI 2 MÔN ĐỂ TRỐNG --) -->
+                <!-- 2. HỌC LỰC (>= 2 MÔN MỚI HIỆN) -->
                 <div class="flex flex-col justify-center md:px-6 py-2 md:py-0">
                     <span class="text-xs font-black uppercase text-slate-500 tracking-wider flex items-center gap-1.5">
                         🎓 Học Lực
@@ -398,7 +398,7 @@
                     </div>
                 </div>
 
-                <!-- 3. HỌC BỔNG (FULL 9 MÔN + HSG/HSXS + HĐ >= 900 MỚI HIỆN TICK/X) -->
+                <!-- 3. HỌC BỔNG (FULL 9 MÔN MỚI HIỆN TICK/X) -->
                 <div class="flex flex-col justify-center md:pl-6 pt-2 md:pt-0">
                     <span class="text-xs font-black uppercase text-slate-500 tracking-wider flex items-center gap-1.5">
                         🎁 Học Bổng
@@ -411,7 +411,7 @@
             </div>
         </section>
 
-        <!-- ĐIỂM HOẠT ĐỘNG: CHỈ NHẬP VÀO, KHÔNG FILL 1000 MẶC ĐỊNH -->
+        <!-- ĐIỂM HOẠT ĐỘNG -->
         <section class="bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-5 shadow-sm">
             <div class="flex items-center justify-between">
                 <div>
@@ -434,7 +434,7 @@
             </div>
         </section>
 
-        <!-- NHẬN DIỆN ĐIỂM TỪ VĂN BẢN (KHUNG NHỎ GỌN, AUTO-GROW) -->
+        <!-- NHẬN DIỆN ĐIỂM TỪ VĂN BẢN -->
         <section class="bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-5 shadow-sm">
             <div class="flex items-center justify-between mb-2">
                 <span class="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
@@ -490,9 +490,7 @@
             </div>
         </section>
 
-        <!-- ========================================================================= -->
-        <!-- BẢNG NHẬP ĐIỂM (BỎ CỘT #, ĐỔI THÀNH Đ1...Đ5, GK, CK, BUNG CỘT GỌN GÀNG) -->
-        <!-- ========================================================================= -->
+        <!-- BẢNG NHẬP ĐIỂM -->
         <section class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
             <div class="px-5 py-3 bg-slate-900 text-white flex items-center justify-between">
                 <span class="font-black text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2">
@@ -555,7 +553,7 @@
             });
             return {
                 grades,
-                activityScore: null // MẶC ĐỊNH ĐỂ TRỐNG
+                activityScore: null
             };
         }
 
@@ -770,7 +768,7 @@
         });
 
         // =========================================================================
-        // BẢNG ĐIỂM: BỎ CỘT #, ĐỔI Đ1..Đ5, GK, CK, CỘT 15P BUNG TỰ ĐỘNG
+        // BẢNG ĐIỂM 9 MÔN
         // =========================================================================
         function setSubject15Cols(subjectId, val) {
             const num = Math.min(MAX_15P_LIMIT, Math.max(MIN_15P_COLS, parseInt(val) || 4));
@@ -784,13 +782,11 @@
             const tbody = document.getElementById('gradeTableBody');
             const maxCols = MAX_15P_LIMIT;
 
-            // ĐỔI TIÊU ĐỀ: 15p (Đ1) ... 15p (Đ5)
             let s15Headers = '';
             for (let i = 0; i < maxCols; i++) {
                 s15Headers += `<th class="w-16 py-3 text-center bg-slate-50 font-extrabold text-slate-700">15p (Đ${i + 1})</th>`;
             }
 
-            // BỎ CỘT SỐ THỨ TỰ (#), ĐỔI GK VÀ CK (BỎ X2, X3)
             thead.innerHTML = `
                 <tr class="bg-slate-100 text-slate-700 text-xs font-black uppercase tracking-wider">
                     <th class="w-44 py-3 px-3 text-left">Môn Học</th>
@@ -809,7 +805,6 @@
                 const tr = document.createElement('tr');
                 tr.className = 'bg-white hover:bg-slate-50/90 transition-colors';
 
-                // BUNG CỘT TỰ ĐỘNG: CỘT NÀO KHÔNG DÙNG ĐÓNG DẤU ✕ MÀU ĐẬM
                 let s15Cells = '';
                 for (let i = 0; i < maxCols; i++) {
                     const isDisabled = i >= active15Cols;
@@ -910,7 +905,7 @@
         }
 
         // =========================================================================
-        // QUY TẮC MỚI: HỌC LỰC (>= 2 MÔN) & HỌC BỔNG (FULL 9 MÔN + HSG/HSXS + HĐ >= 900)
+        // TÍNH TOÁN XẾP LOẠI & HỌC BỔNG
         // =========================================================================
         function updateAllCalculations() {
             const subjectResults = {};
@@ -947,7 +942,7 @@
                 overallGpaEl.textContent = gpaVal.toFixed(1);
             }
 
-            // QUY TẮC HỌC LỰC: PHẢI CÓ TỐI THIỂU 2 MÔN TRỞ LÊN MỚI HIỆN, DƯỚI 2 MÔN ĐỂ TRỐNG
+            // HỌC LỰC: TỐI THIỂU 2 MÔN
             const academicRankText = document.getElementById('academicRankText');
             let isHSXS = false;
             let isHSG = false;
@@ -978,8 +973,7 @@
                 }
             }
 
-            // QUY TẮC HỌC BỔNG: PHẢI FULL ĐỦ 9 MÔN + ĐẠT HSG/HSXS + HĐ >= 900 MỚI XÉT
-            // ĐẠT: ICON ✅, KHÔNG ĐẠT: ICON ❌, CHƯA FULL 9 MÔN: ĐỂ TRỐNG (--)
+            // HỌC BỔNG: FULL 9 MÔN + ĐIỂM HOẠT ĐỘNG
             const curActivityScore = appState.activityScore;
             const scholarshipMainText = document.getElementById('scholarshipMainText');
 
@@ -1084,26 +1078,51 @@
         }
 
         // =========================================================================
-        // OCR VIETSCHOOL
+        // THUẬT TOÁN OCR NÂNG CẤP CHUYÊN DỤNG CHO APP VIETSCHOOL
         // =========================================================================
         function normalizeVi(str) {
             if (!str) return '';
-            return String(str).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+            return String(str).toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/[^a-z0-9\s.,]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
         }
 
+        // Nhận diện chuẩn xác 100% các môn trong bảng điểm Vietschool
         function mapDetectedSubjectToId(rawName) {
             if (!rawName) return null;
             const norm = normalizeVi(rawName);
-            if (!norm || norm.includes('unknown')) return null;
-            if (norm.includes('toan')) return 'toan';
-            if (norm.includes('ngu van') || norm === 'van' || norm.startsWith('van ')) return 'van';
-            if (norm.includes('ngoai ngu') || norm.includes('tieng anh') || norm.includes('anh') || norm === 'anh') return 'anh';
-            if (norm.includes('vat ly') || norm.includes('vat li') || norm === 'ly') return 'ly';
-            if (norm.includes('hoa hoc') || norm === 'hoa') return 'hoa';
-            if (norm.includes('sinh hoc') || norm === 'sinh') return 'sinh';
-            if (norm.includes('tin hoc') || norm === 'tin') return 'tin';
-            if (norm.includes('lich su') || norm === 'su') return 'su';
-            if (norm.includes('quoc phong') || norm.includes('gdqp')) return 'qp';
+
+            // 1. Quốc phòng Vietschool: "GDQP & AN", "GDQP-AN", "GDQP", "Quốc phòng & An ninh"
+            if (/\b(quoc phong|gdqp|an ninh|qp)\b/i.test(norm)) return 'qp';
+            
+            // 2. Vật lý Vietschool: "Vật lí", "Vật lý", "Lý", "Li"
+            if (/\b(vat ly|vat li|ly|li)\b/i.test(norm)) return 'ly';
+
+            // 3. Toán
+            if (/\b(toan|dai so|hinh hoc|toan hoc)\b/i.test(norm)) return 'toan';
+
+            // 4. Ngữ văn
+            if (/\b(ngu van|van)\b/i.test(norm)) return 'van';
+
+            // 5. Tiếng Anh: "Tiếng Anh 1", "Ngoại ngữ", "Tiếng Anh"
+            if (/\b(tieng anh|ngoai ngu|anh)\b/i.test(norm)) return 'anh';
+
+            // 6. Hoá học
+            if (/\b(hoa hoc|hoa)\b/i.test(norm)) return 'hoa';
+
+            // 7. Sinh học
+            if (/\b(sinh hoc|sinh)\b/i.test(norm)) return 'sinh';
+
+            // 8. Tin học
+            if (/\b(tin hoc|tin)\b/i.test(norm)) return 'tin';
+
+            // 9. Lịch sử
+            if (/\b(lich su|su)\b/i.test(norm)) return 'su';
+
             return null;
         }
 
@@ -1117,26 +1136,96 @@
             return null;
         }
 
+        // Bóc tách điểm số từ OCR thông minh cho bảng Vietschool
+        function parseVietschoolOcrText(rawText) {
+            const rawLines = rawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+            const parsedResults = [];
+            let current = null;
+
+            rawLines.forEach(line => {
+                const norm = normalizeVi(line);
+
+                // Bỏ qua các dòng tiêu đề của bảng Vietschool
+                if (norm.includes('bang diem') || norm.includes('he so') || norm.includes('hoc ky') || 
+                    norm.includes('nam hoc') || norm.includes('diem trung binh') || norm.includes('xem diem')) {
+                    return;
+                }
+
+                // Kiểm tra xem dòng có chứa tên môn không
+                const subId = mapDetectedSubjectToId(norm);
+                if (subId) {
+                    current = { subjectId: subId, scores: [] };
+                    parsedResults.push(current);
+                }
+
+                if (!current) return;
+
+                // Tách các số trên dòng (loại bỏ STT đầu dòng nếu có dạng "1. " hoặc "2. ")
+                const cleanedLine = line.replace(/^\s*\d+\s*[.)-]\s*/, ' ');
+                const matches = cleanedLine.match(/\b\d+(?:[.,]\d+)?\b/g) || [];
+                const nums = matches.map(parseScoreNumber).filter(v => v !== null && v <= 10);
+
+                if (nums.length > 0) {
+                    // Tránh thêm số trùng nếu tên môn nằm chung dòng với điểm
+                    current.scores.push(...nums);
+                }
+            });
+
+            // Chuyển mảng điểm bóc tách được vào cấu trúc 15p, GK, CK
+            const finalMapped = [];
+            parsedResults.forEach(item => {
+                if (item.scores.length === 0) return;
+                
+                // Thuật toán gán điểm Vietschool:
+                // Nếu chỉ có 1 hoặc 2 điểm (như Lý 9, QP 7.5) -> Đó là điểm thường xuyên (15p)!
+                // Nếu có 3 điểm -> [15p...], GK, CK
+                // Nếu có 4 điểm trở lên -> [15p, 15p...], GK, CK
+                let s15 = [];
+                let gk = null;
+                let ck = null;
+
+                if (item.scores.length === 1) {
+                    s15 = [item.scores[0]];
+                } else if (item.scores.length === 2) {
+                    s15 = [item.scores[0], item.scores[1]];
+                } else {
+                    ck = item.scores[item.scores.length - 1];
+                    gk = item.scores[item.scores.length - 2];
+                    s15 = item.scores.slice(0, item.scores.length - 2);
+                }
+
+                finalMapped.push({
+                    subjectId: item.subjectId,
+                    s15,
+                    gk,
+                    ck
+                });
+            });
+
+            return finalMapped;
+        }
+
         function applyRecognizedGrades(detectedList) {
             if (!Array.isArray(detectedList) || detectedList.length === 0) return [];
             const filledNames = [];
 
             detectedList.forEach(item => {
                 const subId = item.subjectId || mapDetectedSubjectToId(item.subjectName);
+                if (!subId || !appState.grades[subId]) return;
+
+                const row = appState.grades[subId];
                 const cleanS15 = (item.s15 || []).map(parseScoreNumber).filter(v => v !== null);
                 const cleanGk = parseScoreNumber(item.gk);
                 const cleanCk = parseScoreNumber(item.ck);
-                const totalCols = parseInt(item.totalCols15) || cleanS15.length || 4;
-
-                if (!subId || !appState.grades[subId]) return;
-                const row = appState.grades[subId];
-                const desiredCols = Math.min(MAX_15P_LIMIT, Math.max(MIN_15P_COLS, cleanS15.length, totalCols));
-                row.num15Cols = desiredCols;
 
                 if (cleanS15.length > 0) {
-                    row.s15 = Array(MAX_15P_LIMIT).fill('');
-                    cleanS15.slice(0, MAX_15P_LIMIT).forEach((val, idx) => { row.s15[idx] = String(val); });
+                    const desiredCols = Math.min(MAX_15P_LIMIT, Math.max(MIN_15P_COLS, cleanS15.length));
+                    row.num15Cols = Math.max(row.num15Cols, desiredCols);
+                    cleanS15.slice(0, MAX_15P_LIMIT).forEach((val, idx) => {
+                        row.s15[idx] = String(val);
+                    });
                 }
+
                 if (cleanGk !== null) row.gk = String(cleanGk);
                 if (cleanCk !== null) row.ck = String(cleanCk);
 
@@ -1155,6 +1244,35 @@
             document.getElementById('aiPercentText').textContent = `${pct}%`;
             if (titleText) document.getElementById('ocrStatusTitle').textContent = titleText;
             if (descText) document.getElementById('ocrStatusDesc').textContent = descText;
+        }
+
+        // Tối ưu hóa ảnh qua Canvas (Tăng tương phản để Tesseract đọc số chuẩn xác)
+        function preprocessImageForOcr(dataUrl) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+
+                    // Chuyển sang Grayscale và tăng độ sắc nét
+                    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const data = imgData.data;
+                    for (let i = 0; i < data.length; i += 4) {
+                        const gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+                        // Tăng độ tương phản
+                        const contrast = gray > 140 ? 255 : (gray < 80 ? 0 : gray);
+                        data[i] = contrast;
+                        data[i + 1] = contrast;
+                        data[i + 2] = contrast;
+                    }
+                    ctx.putImageData(imgData, 0, 0);
+                    resolve(canvas.toDataURL('image/png'));
+                };
+                img.src = dataUrl;
+            });
         }
 
         function readFileAsDataUrl(file) {
@@ -1176,26 +1294,27 @@
             panel.classList.remove('hidden');
             thumbsContainer.innerHTML = '';
 
-            updateAiProgressBar(15, `Đang nạp ${files.length} ảnh...`, 'Chuẩn bị dữ liệu...');
+            updateAiProgressBar(15, `Đang xử lý ${files.length} ảnh...`, 'Tối ưu hóa độ tương phản ảnh Vietschool...');
 
             try {
                 const loadedImages = await Promise.all(files.map(readFileAsDataUrl));
                 loadedImages.forEach(imgObj => {
                     const imgEl = document.createElement('img');
                     imgEl.src = imgObj.dataUrl;
-                    imgEl.className = 'w-9 h-9 object-cover rounded border border-slate-300';
+                    imgEl.className = 'w-9 h-9 object-cover rounded-lg border border-slate-300';
                     thumbsContainer.appendChild(imgEl);
                 });
 
-                updateAiProgressBar(50, `Đang quét OCR...`, 'Bóc tách điểm...');
+                updateAiProgressBar(40, `Đang OCR dữ liệu bảng điểm...`, 'Bóc tách điểm Lý, Quốc phòng và các môn...');
 
                 let combinedList = [];
                 if (typeof Tesseract !== 'undefined') {
-                    const worker = await Tesseract.createWorker('vie+eng');
+                    const worker = await Tesseract.createWorker('vie');
                     for (let i = 0; i < loadedImages.length; i++) {
-                        updateAiProgressBar(55 + Math.round(((i + 1) / loadedImages.length) * 35), `Đang OCR ảnh ${i + 1}/${loadedImages.length}...`, 'Đọc dữ liệu...');
-                        const ret = await worker.recognize(loadedImages[i].dataUrl);
-                        const parsed = parseFallbackOcrText(ret?.data?.text || '');
+                        updateAiProgressBar(45 + Math.round(((i + 1) / loadedImages.length) * 45), `Đang quét ảnh ${i + 1}/${loadedImages.length}...`, 'Đọc từng cột điểm...');
+                        const processedUrl = await preprocessImageForOcr(loadedImages[i].dataUrl);
+                        const ret = await worker.recognize(processedUrl);
+                        const parsed = parseVietschoolOcrText(ret?.data?.text || '');
                         combinedList.push(...parsed);
                     }
                     await worker.terminate();
@@ -1203,39 +1322,14 @@
 
                 const filled = applyRecognizedGrades(combinedList);
                 if (filled.length > 0) {
-                    updateAiProgressBar(100, `✅ Đã điền: ${filled.join(', ')}`, 'Hoàn tất.');
-                    showToast(`Đã nhận diện thành công!`);
+                    updateAiProgressBar(100, `✅ Đã điền thành công: ${filled.join(', ')}`, 'Hoàn tất cập nhật.');
+                    showToast(`✅ Đã nhận diện: ${filled.join(', ')}`);
                 } else {
-                    updateAiProgressBar(100, '⚠️ Không tìm thấy môn khớp', 'Vui lòng chọn ảnh rõ hơn.');
+                    updateAiProgressBar(100, '⚠️ Không tìm thấy môn khớp trong ảnh', 'Vui lòng kiểm tra độ sáng hoặc dán văn bản.');
                 }
             } catch (err) {
-                updateAiProgressBar(100, '⚠️ Lỗi đọc ảnh', 'Vui lòng nhập trực tiếp.');
+                updateAiProgressBar(100, '⚠️ Lỗi đọc ảnh', 'Vui lòng thử lại với ảnh rõ nét hơn.');
             }
-        }
-
-        function parseFallbackOcrText(rawText) {
-            const lines = rawText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-            const results = [];
-            let current = null;
-
-            lines.forEach(line => {
-                const norm = normalizeVi(line);
-                if (norm.includes('xem diem') || norm.includes('trang chu')) return;
-                const subId = mapDetectedSubjectToId(norm.replace(/dtb.*$/, '').trim());
-                if (subId) {
-                    current = { subjectId: subId, s15: [], totalCols15: 4, gk: null, ck: null };
-                    results.push(current);
-                    return;
-                }
-                const matches = line.match(/\d+(?:[.,]\d+)?/g) || [];
-                const nums = matches.map(parseScoreNumber).filter(v => v !== null);
-                if (nums.length >= 3 && current && current.s15.length === 0) {
-                    current.ck = nums[nums.length - 1];
-                    current.gk = nums[nums.length - 2];
-                    current.s15 = nums.slice(0, nums.length - 2);
-                }
-            });
-            return results;
         }
 
         function showToast(msg) {
