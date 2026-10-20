@@ -120,21 +120,162 @@ body.hidenames .nm.open .val{filter:none}
 .toggle.on{background:var(--pur);color:#fff}
 .common{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:8px}
 .common .row{background:#fff;border:1px solid var(--line);border-radius:16px;padding:11px 13px}
-@media(max-width:560px){.opts{grid-template-columns:1fr}.bacrow{grid-template-columns:1fr}}
+.nmx{background:#0f172a;color:#e2e8f0;border-radius:14px;padding:12px 14px;font-size:.92rem;line-height:1.55;animation:up .35s both}
+.nmx b{color:#a5f3fc}
+#login{position:fixed;inset:0;z-index:100;background:linear-gradient(135deg,#4c1d95,#4338ca,#2563eb);display:flex;align-items:center;justify-content:center;padding:18px}
+body:not(.locked) #login{display:none}
+body.locked #app{display:none}
+#login .lbox{background:#fff;border-radius:26px;padding:30px 24px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25);animation:up .5s both}
+#login input{width:100%;padding:14px;font:inherit;font-size:1.15rem;font-weight:700;border:2px solid var(--line);border-radius:16px;text-align:center;outline:none;margin-top:8px}
+#login input:focus{border-color:#8b5cf6}
+.lerr{color:#be123c;font-weight:800;min-height:26px;margin-top:8px}
+@media(max-width:640px){
+ header{padding:18px 12px}
+ header h1{font-size:1.15rem}
+ nav.tabs{position:fixed;top:auto;bottom:0;left:0;right:0;border-top:1px solid var(--line);border-bottom:none;padding:6px 6px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(30,27,75,.1);gap:4px;z-index:40}
+ .tab{flex:1;display:flex;flex-direction:column;align-items:center;font-size:.8rem;padding:7px 4px;border-radius:14px;line-height:1.25}
+ main{padding:14px 10px 110px}
+ .card{padding:16px}
+ .opts,.bacrow,.diagrams,.iso-grid{grid-template-columns:1fr}
+}
+@media(min-width:641px){ .tab{padding:10px 18px;font-size:1rem} nav.tabs{padding:10px} }
+.themes{display:inline-flex;gap:4px;margin-top:12px;background:rgba(255,255,255,.18);padding:4px;border-radius:999px;flex-wrap:wrap;justify-content:center}
+.themes button{border:none;background:transparent;color:#fff;font:inherit;font-weight:800;padding:6px 12px;border-radius:999px;cursor:pointer;font-size:.88rem}
+.themes button.on{background:#fff;color:#4c1d95}
+[data-theme=dark] body{background:#0f0d1f;color:#e5e7eb}
+[data-theme=dark] .card,[data-theme=dark] .qcard,[data-theme=dark] .iso,[data-theme=dark] .dbox,[data-theme=dark] .common .row,[data-theme=dark] #login .lbox,[data-theme=dark] nav.tabs,[data-theme=dark] table,[data-theme=dark] .scorebox,[data-theme=dark] .stage .chip,[data-theme=dark] .bacbox{background:#1a1733!important;border-color:#332f57!important;color:#e5e7eb}
+[data-theme=dark] th{background:#2a2550!important;color:#c4b5fd}
+[data-theme=dark] td{color:#e5e7eb}
+[data-theme=dark] h2,[data-theme=dark] h3,[data-theme=dark] .fred{color:#c4b5fd}
+[data-theme=dark] .tab{color:#cbd5e1}
+[data-theme=dark] .tab:hover{background:#2a2550}
+[data-theme=dark] .tab.active{background:#7c3aed;color:#fff}
+[data-theme=dark] .opt{background:#1a1733;color:#e5e7eb;border-color:#332f57}
+[data-theme=dark] .opt:hover:not(:disabled){background:#241f45}
+[data-theme=dark] .opt.correct{background:#14532d;color:#dcfce7}
+[data-theme=dark] .opt.wrong{background:#881337;color:#ffe4e6}
+[data-theme=dark] .exp.ok{background:#14532d;color:#dcfce7}
+[data-theme=dark] .exp.bad{background:#881337;color:#ffe4e6}
+[data-theme=dark] .callout.pur{background:#2a2550;color:#e9d5ff}
+[data-theme=dark] .callout.amb{background:#3b2a10;color:#fde68a}
+[data-theme=dark] .callout.grn{background:#133a24;color:#bbf7d0}
+[data-theme=dark] .nm.gc{background:#134e4a;color:#ccfbf1}
+[data-theme=dark] .nm.tt{background:#2a2550;color:#e9d5ff}
+[data-theme=dark] .nmx{background:#0b0a18;color:#e5e7eb}
+[data-theme=dark] .gop{background:#134e4a;color:#ccfbf1}
+[data-theme=dark] .fbtn,[data-theme=dark] .pk,[data-theme=dark] .btn.ghost,[data-theme=dark] .toggle{background:#1a1733;color:#c4b5fd;border-color:#4c3f8a}
+[data-theme=dark] input,[data-theme=dark] .search{background:#1a1733;color:#e5e7eb;border-color:#332f57}
+[data-theme=dark] .progress{background:#2a2550}
+[data-theme=dark] .dot{background:#4c3f8a}
+[data-theme=dark] .lock,[data-theme=dark] .practice{border-color:#4c3f8a}
+[data-theme=dark] svg polygon{fill:#241f45!important;stroke:#c4b5fd!important}
+[data-theme=dark] svg line,[data-theme=dark] svg polyline{stroke:#c4b5fd}
+[data-theme=dark] svg circle[fill="#fff"]{fill:#1a1733}
+[data-theme=dark] svg circle[fill="#ede9fe"]{fill:#2a2550}
+[data-theme=dark] .bung{background:#0b0a18}
+.themes{display:inline-flex;gap:6px;margin-top:14px;background:rgba(255,255,255,.2);padding:5px;border-radius:999px}
+.themes button{border:none;background:transparent;color:#fff;font:inherit;font-weight:800;padding:8px 16px;border-radius:999px;cursor:pointer;font-size:.92rem;white-space:nowrap}
+.themes button.on{background:#fff;color:#4c1d95}
+.dots{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.stepbtn{border:2px solid #d6d3f5;background:#fff;color:var(--ink2);border-radius:14px;padding:8px 12px;font:inherit;font-weight:800;font-size:.88rem;cursor:pointer;transition:.2s;white-space:nowrap}
+.stepbtn:hover{border-color:#a78bfa;transform:translateY(-2px)}
+.stepbtn.done{border-color:#a78bfa;color:var(--pur);background:var(--pur-s)}
+.stepbtn.on{background:var(--pur);color:#fff;border-color:var(--pur)}
+[data-theme=dark] .stepbtn{background:#1a1733;color:#cbd5e1;border-color:#4c3f8a}
+[data-theme=dark] .stepbtn.done{background:#2a2550;color:#c4b5fd}
+[data-theme=dark] .stepbtn.on{background:#7c3aed;color:#fff}
+@media(max-width:640px){ .dots{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px} }
+/* ===== HIỆU ỨNG ===== */
+@keyframes slideIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+@keyframes popIn{0%{opacity:0;transform:scale(.85)}70%{transform:scale(1.04)}100%{opacity:1;transform:none}}
+@keyframes floaty{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,-32px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(139,92,246,.45)}50%{box-shadow:0 0 0 10px rgba(139,92,246,0)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+body::before{content:"";position:fixed;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,#c4b5fd,transparent 70%);top:-140px;left:-120px;opacity:.55;animation:floaty 14s ease-in-out infinite;pointer-events:none;z-index:0}
+body::after{content:"";position:fixed;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,#93c5fd,transparent 70%);bottom:-120px;right:-100px;opacity:.55;animation:floaty 17s ease-in-out infinite reverse;pointer-events:none;z-index:0}
+header,main{position:relative;z-index:1}
+header h1{animation:popIn .8s both}
+.enter{animation:slideIn .55s cubic-bezier(.2,.8,.2,1) both}
+.qcard{animation:popIn .5s both}
+.qcard:nth-child(2){animation-delay:.07s}.qcard:nth-child(3){animation-delay:.14s}.qcard:nth-child(4){animation-delay:.21s}.qcard:nth-child(5){animation-delay:.28s}
+.iso{animation:popIn .5s both}
+.iso:nth-child(2n){animation-delay:.06s}.iso:nth-child(3n){animation-delay:.12s}
+.dbox{animation:popIn .6s both}
+svg.bz .ring{animation:spin 18s linear infinite;transform-box:fill-box;transform-origin:center}
+.stepbtn.on{animation:glow 2s infinite}
+.scorebox{animation:popIn .6s both}
+.chip{animation:bob 3.2s ease-in-out infinite}
+.chip+.arrowA+.chip{animation-delay:.4s}
+.gop{animation:glow 2.5s infinite}
+.btn:hover:not(:disabled){transform:translateY(-3px) scale(1.02)}
+.opt:hover:not(:disabled){transform:translateX(4px)}
+.tab.active{animation:popIn .4s both}
+.stepbtn{transition:transform .2s,background .3s,color .3s}
+.practice{animation:slideIn .6s .1s both}
+/* ===== v5: menu chính & đề làm thêm ===== */
+.hubgrid{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:720px){.hubgrid{grid-template-columns:repeat(3,1fr)}}
+.hubbtn{border:none;text-align:left;cursor:pointer;font:inherit;color:#fff;border-radius:22px;padding:20px 18px;display:flex;flex-direction:column;gap:6px;box-shadow:0 12px 26px rgba(30,27,75,.18);transition:transform .25s,box-shadow .25s;animation:popIn .6s both}
+.hubbtn:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 18px 34px rgba(30,27,75,.28)}
+.hubbtn .ic{font-size:2rem;animation:bob 2.6s ease-in-out infinite}
+.hubbtn b{font-family:Fredoka,sans-serif;font-size:1.1rem;letter-spacing:.3px}
+.hubbtn small{opacity:.92;font-size:.9rem;line-height:1.4}
+.hubbtn.h1{background:linear-gradient(135deg,#7c3aed,#a855f7)}
+.hubbtn.h2{background:linear-gradient(135deg,#0891b2,#14b8a6)}
+.hubbtn.h3{background:linear-gradient(135deg,#db2777,#f97316)}
+.hubbtn:nth-child(2){animation-delay:.1s}.hubbtn:nth-child(3){animation-delay:.2s}
+.exhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.exhead p{margin:4px 0 0;color:var(--ink2);font-size:.92rem}
+.exclock{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1.6rem;padding:8px 16px;border-radius:16px;background:var(--pur-s);color:var(--pur)}
+.exclock.warn{background:#fee2e2;color:#b91c1c;animation:shake .5s infinite}
+.sain{width:100%;padding:11px 12px;font:inherit;border:2px solid var(--line);border-radius:12px;margin-top:8px;outline:none;background:#fff;color:inherit;transition:border-color .2s,box-shadow .2s}
+.sain:focus{border-color:#8b5cf6;box-shadow:0 0 0 4px rgba(139,92,246,.18)}
+.sain:disabled{background:#f5f3ff}
+[data-theme=dark] .sain{background:#1a1733;color:#e5e7eb}
+[data-theme=dark] .sain:disabled{background:#15122b}
+.opt.on{border-color:#8b5cf6;background:var(--pur-s)}
+.exres .exsub{margin-top:6px;color:var(--ink2);font-size:.95rem}
+.exres .weak{margin:12px 0;line-height:2}
+.chooser{position:fixed;inset:0;z-index:150;background:rgba(30,27,75,.55);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:18px}
+.chooser.hidden{display:none}
+.cbox{background:#fff;color:var(--ink);border-radius:28px;padding:26px 20px;max-width:780px;width:100%;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,.35);animation:popIn .5s both;max-height:92vh;overflow:auto}
+.cbox h2{margin:6px 0 2px}
+[data-theme=dark] .cbox{background:#1a1733;color:#e5e7eb}
 </style>
 </head>
-<body>
+<body class="locked">
+<div id="login"><div class="lbox">
+  <div style="font-size:2.6rem">🔐</div>
+  <h2>Đăng nhập</h2>
+  <p style="color:var(--ink2)">Nhập đúng tên để vào học. Nhập đúng là tự vào.</p>
+  <input id="uname" placeholder="Nhập tên..." autocomplete="off" autofocus oninput="tryAuto()" onkeydown="if(event.key==='Enter')doLogin()">
+  <div class="lerr" id="lerr"></div>
+</div></div>
+<div id="app">
+<div id="chooser" class="chooser"><div class="cbox">
+  <div style="font-size:2.4rem;animation:bob 2.6s ease-in-out infinite">👋</div>
+  <h2>Hôm nay bạn muốn làm gì?</h2>
+  <p style="color:var(--ink2)">Chọn một phần để bắt đầu.</p>
+  <div class="hubgrid">
+    <button class="hubbtn h1" onclick="choose('learn')"><span class="ic">📖</span><b>HỌC LÝ THUYẾT</b><small>Lý thuyết, gọi tên, đồng phân C1 → C7, có trắc nghiệm sau mỗi phần</small></button>
+    <button class="hubbtn h2" onclick="choose('7a')"><span class="ic">📄</span><b>13 CÂU LIÊN QUAN PHẦN 1</b><small>Trích từ chuyên đề 7A, chọn đáp án xem đúng sai</small></button>
+    <button class="hubbtn h3" onclick="choose('ext')"><span class="ic">🚀</span><b>LÀM THÊM Ở NGOÀI</b><small>5 đề thi thử, mỗi đề 20 phút, có điểm và phần còn yếu</small></button>
+  </div>
+</div></div>
 <header>
   <h1>WEB HỌC HÓA HỌC CỦA KHOA NGUYỄN</h1>
   <p>Chuyên đề 7 · Amin · Học theo thứ tự, luyện tập sau mỗi phần</p>
+  <div class="themes" id="themes"><button data-m="device" onclick="setTheme('device')">Tự động</button><button data-m="light" onclick="setTheme('light')">Sáng</button><button data-m="dark" onclick="setTheme('dark')">Tối</button></div>
 </header>
 <nav class="tabs">
-  <button class="tab active" id="t-learn" onclick="showTab('learn')">📖 Lý thuyết & Gọi tên</button>
-  <button class="tab" id="t-7a" onclick="showTab('7a')">📄 Trích từ chuyên đề 7A</button>
-  <button class="tab" id="t-ext" onclick="showTab('ext')">🚀 Ôn tập (ngoài)</button>
+  <button class="tab" id="t-home" onclick="showChooser()">🏠 Menu</button>
+  <button class="tab" id="t-learn" onclick="showTab('learn')">📖 Lý thuyết & Gọi tên</button>
+  <button class="tab" id="t-7a" onclick="showTab('7a')">📄 13 câu phần 1 (7A)</button>
+  <button class="tab" id="t-ext" onclick="showTab('ext')">🚀 Làm thêm ở ngoài</button>
 </nav>
 <main>
-  <section id="learn">
+  <section id="learn" class="hidden">
     <div class="progress"><div class="progress-bar" id="pbar"></div></div>
     <div class="stepcount" id="scount"></div>
     <div class="card" id="tcard"></div>
@@ -145,21 +286,18 @@ body.hidenames .nm.open .val{filter:none}
     </div>
   </section>
   <section id="7a" class="hidden">
-    <div class="card" style="margin-bottom:14px"><h2>Trích từ chuyên đề 7A</h2><p>12 câu trích từ đề gốc. Chọn đáp án để xem đúng/sai và giải thích.</p></div>
+    <div class="card" style="margin-bottom:14px"><h2>13 câu liên quan phần 1 · Trích từ chuyên đề 7A</h2><p>Chọn đáp án để xem đúng/sai và giải thích.</p></div>
     <div id="list-p7a"></div>
     <div id="score-p7a" class="scorebox hidden"></div>
     <div class="nav"><button class="btn ghost" onclick="resetSet('p7a')">🔄 Làm lại</button></div>
   </section>
   <section id="ext" class="hidden">
-    <div class="card" style="margin-bottom:14px"><h2>Ôn tập (ngoài)</h2><p>3 đề, mỗi đề 10 câu. Mỗi câu có tag cho biết thuộc phần nào.</p></div>
-    <div class="picker">
-      <button class="pk on" id="pk-e1" onclick="showExam('e1')">Đề 1 · Khái niệm & bậc</button>
-      <button class="pk" id="pk-e2" onclick="showExam('e2')">Đề 2 · CTTQ & đồng phân</button>
-      <button class="pk" id="pk-e3" onclick="showExam('e3')">Đề 3 · Danh pháp</button>
-    </div>
-    <div id="ext-e1"></div><div id="ext-e2" class="hidden"></div><div id="ext-e3" class="hidden"></div>
+    <div class="card" style="margin-bottom:14px"><h2>Làm thêm ở ngoài</h2><p>5 đề. Mỗi đề gồm 9 câu trắc nghiệm (1đ/câu) và 4 câu điền số (0,25đ/câu). Đủ 20 phút là tự nộp bài.</p></div>
+    <div class="picker" id="ex-picker"></div>
+    <div id="ext-body"></div>
   </section>
 </main>
+</div>
 <script>
 /* ===== HÌNH ===== */
 function benzene(subs){
@@ -197,8 +335,8 @@ function gop(label,lines){
   return `<span class="gop" onclick="document.getElementById('${id}').classList.toggle('show')">${label} 🔍</span><div class="bung" id="${id}">${body}<span class="hint">Bấm lại để thu gọn</span></div>`;
 }
 const EXP={
- metyl:["      H","      |","–N–C–H","      |","      H"],
- etyl:["   H   H   H","   |   |   |","–N–C–C–H","   |   |","   H   H"],
+ methyl:["      H","      |","–N–C–H","      |","      H"],
+ ethyl:["   H   H   H","   |   |   |","–N–C–C–H","   |   |","   H   H"],
  isopropyl:["         H₃C","        /","–N–C–H","        \\","         H₃C"],
  tert:["        CH₃","        |","–N–C–CH₃","        |","        CH₃"],
  secbutyl:["      H","      |","–N–C–CH₂–CH₃","      |","      CH₃"],
@@ -214,12 +352,12 @@ const steps=[
   <div class="stage"><div class="chip mono H">H</div><div class="arrowA">→</div><div class="chip mono R">R</div></div>
   <div class="stage"><div class="chip mono">NH₃</div><div class="arrowA">→</div><div class="chip mono">R–NH₂</div></div>
   <div class="callout pur">Hình động: H bị thay bằng R. Phần còn lại NH₂ giữ nguyên.</div>`,
- ()=>`<p>Ví dụ:</p><ul><li>CH₃–NH₂: R = CH₃ → metylamin</li><li>C₂H₅–NH₂: R = C₂H₅ → etylamin</li><li>C₆H₅–NH₂: R = C₆H₅ (vòng benzen) → anilin</li></ul>` ],
+ ()=>`<p>Ví dụ:</p><ul><li>CH₃–NH₂: R = CH₃ → methylamin</li><li>C₂H₅–NH₂: R = C₂H₅ → ethylamin</li><li>C₆H₅–NH₂: R = C₆H₅ (vòng benzen) → anilin</li></ul>` ],
  ex:["CH₃–NH₂: R = CH₃","C₂H₅–NH₂: R = C₂H₅","C₆H₅–NH₂: R = C₆H₅"],
  quiz:[
   {tag:"Khái niệm",q:"Thay một H trong NH₃ bằng gốc hydrocarbon được:",o:["ancol","amin","ete","este"],a:1,e:"Đó là định nghĩa amin."},
   {tag:"Khái niệm",q:"Chất nào là amin?",o:["CH₃OH","CH₃CH₂NH₂","CH₃COOH","C₂H₅Cl"],a:1,e:"CH₃CH₂NH₂ có N gắn gốc hydrocarbon."},
-  {tag:"Khái niệm",q:"CH₃–NH₂ có tên gốc–chức là:",o:["metanamin","metylamin","đimetylamin","etylamin"],a:1,e:"Gốc metyl + amin = metylamin."}
+  {tag:"Khái niệm",q:"CH₃–NH₂ có tên gốc–chức là:",o:["methanamin","methylamin","đimethylamin","ethylamin"],a:1,e:"Gốc methyl + amin = methylamin."}
  ]},
 { title:"Phân loại theo bậc", slides:[
  ()=>`<p><b>Bậc</b> = số gốc R gắn trực tiếp vào N. Chỉ đếm gốc trên N.</p>
@@ -264,17 +402,17 @@ const steps=[
 { title:"Gốc hydrocarbon cần thuộc", slides:[
  ()=>`<p>Tên gốc = tên mạch C + đuôi <b>-yl</b>. Tiền tố <b>iso, sec, tert</b> cho biết cách gắn. <b>Bấm vào công thức để bung ra dạng đầy đủ.</b></p>
   <table><tr><th>Gốc</th><th>Công thức rút gọn</th><th>Đầy đủ</th><th>Cách nhớ</th></tr>
-  <tr><td class="l"><b>metyl</b></td><td class="mono">–CH₃</td><td>${G("metyl","bung")}</td><td>met- = 1 C</td></tr>
-  <tr><td class="l"><b>etyl</b></td><td class="mono">–C₂H₅</td><td>${G("etyl","bung")}</td><td>et- = 2 C</td></tr>
+  <tr><td class="l"><b>methyl</b></td><td class="mono">–CH₃</td><td>${G("methyl","bung")}</td><td>meth- = 1 C</td></tr>
+  <tr><td class="l"><b>ethyl</b></td><td class="mono">–C₂H₅</td><td>${G("ethyl","bung")}</td><td>eth- = 2 C</td></tr>
   <tr><td class="l"><b>propyl</b></td><td class="mono">–CH₂CH₂CH₃</td><td>${G("propyl","bung")}</td><td>prop- = 3 C thẳng</td></tr>
   <tr><td class="l"><b>isopropyl</b></td><td class="mono">–CH(CH₃)₂</td><td>${G("isopropyl","bung")}</td><td>iso- = 2 CH₃ ở đầu</td></tr>
   <tr><td class="l"><b>sec-butyl</b></td><td class="mono">–CH(CH₃)CH₂CH₃</td><td>${G("secbutyl","bung")}</td><td>sec- = C gắn N là bậc 2</td></tr>
   <tr><td class="l"><b>isobutyl</b></td><td class="mono">–CH₂CH(CH₃)₂</td><td>${G("isobutyl","bung")}</td><td>iso- = 2 CH₃ ở cuối</td></tr>
   <tr><td class="l"><b>tert-butyl</b></td><td class="mono">–C(CH₃)₃</td><td>${G("tert","bung")}</td><td>tert- = C gắn N là bậc 3</td></tr></table>` ,
  ()=>`<h3>Tiền tố hay gặp</h3><table><tr><th>Tiền tố</th><th>Nghĩa</th><th>Ví dụ</th></tr>
-  <tr><td class="l"><b>đi-</b></td><td>2 nhóm giống nhau</td><td class="mono">đimetyl = 2 CH₃</td></tr>
-  <tr><td class="l"><b>tri-</b></td><td>3 nhóm giống nhau</td><td class="mono">trimetyl = 3 CH₃</td></tr>
-  <tr><td class="l"><b>N-</b></td><td>gốc gắn trên N</td><td class="mono">N-metyl</td></tr>
+  <tr><td class="l"><b>đi-</b></td><td>2 nhóm giống nhau</td><td class="mono">đimethyl = 2 CH₃</td></tr>
+  <tr><td class="l"><b>tri-</b></td><td>3 nhóm giống nhau</td><td class="mono">trimethyl = 3 CH₃</td></tr>
+  <tr><td class="l"><b>N-</b></td><td>gốc gắn trên N</td><td class="mono">N-methyl</td></tr>
   <tr><td class="l"><b>điamin</b></td><td>2 nhóm –NH₂</td><td class="mono">hexan-1,6-điamin</td></tr></table>
   <div class="callout pur">Bậc của C = số C khác gắn vào C đó. Bậc 2 → sec-, bậc 3 → tert-.</div>` ],
  ex:["–CH(CH₃)₂: iso-propyl","–C(CH₃)₃: C gắn 3 C khác → tert-butyl","–CH(CH₃)CH₂CH₃: C gắn 2 C khác → sec-butyl"],
@@ -283,38 +421,38 @@ const steps=[
   {tag:"Gốc",q:"Gốc tert-butyl có công thức:",o:["–CH(CH₃)CH₂CH₃","–CH₂CH(CH₃)₂","–C(CH₃)₃","–CH₂CH₂CH₂CH₃"],a:2,e:"–C(CH₃)₃."},
   {tag:"Gốc",q:"Gốc sec-butyl có công thức:",o:["–CH₂CH₂CH₂CH₃","–CH(CH₃)CH₂CH₃","–CH₂CH(CH₃)₂","–C(CH₃)₃"],a:1,e:"–CH(CH₃)CH₂CH₃."},
   {tag:"Gốc",q:"Gốc isobutyl có công thức:",o:["–CH₂CH(CH₃)₂","–CH(CH₃)₂","–C(CH₃)₃","–CH₂CH₂CH₃"],a:0,e:"–CH₂CH(CH₃)₂."},
-  {tag:"Gốc",q:"Tiền tố đi- trong đimetyl nghĩa là:",o:["1 nhóm","2 nhóm giống nhau","3 nhóm","nhóm khác nhau"],a:1,e:"đi- = 2."}
+  {tag:"Gốc",q:"Tiền tố đi- trong đimethyl nghĩa là:",o:["1 nhóm","2 nhóm giống nhau","3 nhóm","nhóm khác nhau"],a:1,e:"đi- = 2."}
  ]},
 { title:"Cách đọc tên", slides:[
- ()=>`<p><b>Gốc–chức:</b> tên gốc + amin. C₂H₅–NH₂ → <b>etylamin</b>.</p>
-  <p><b>Thay thế (5 bước):</b></p>
-  <ol><li>Tìm mạch C dài nhất chứa C gắn NH₂. 1C = met, 2C = et, 3C = prop, 4C = but, 5C = pent, thêm "an".</li>
-  <li>Đánh số từ đầu gần NH₂ nhất (số NH₂ nhỏ nhất).</li><li>Ghi số vị trí + "-amin": butan-<b>2</b>-amin.</li>
-  <li>Nhánh ghi trước tên mạch có số: 2-metylpropan-1-amin.</li><li>Gốc trên N ghi "N-": N-metyletanamin.</li></ol>`,
+ ()=>`<div class="callout pur"><b>Tên gốc–chức</b> = tên gốc hydrocarbon + amin<br>VD: C₂H₅–NH₂ → ethyl + amin = <b>ethylamin</b></div>
+  <div class="callout grn"><b>Tên thay thế</b> = tên hydrocarbon (bỏ e) – vị trí – amin<br>VD: CH₃CH₂CH₂–NH₂ → propan – <b>1</b> – amin</div>
+  <p>Đếm mạch: 1C meth · 2C eth · 3C prop · 4C but · 5C pent, rồi thêm "an".</p>`,
+ ()=>`<ol><li>Chọn mạch dài nhất có C gắn NH₂.</li><li>Đánh số sao cho NH₂ có số nhỏ nhất.</li><li>Nhánh ghi trước, có số: 2-methyl…</li><li>Gốc trên N ghi N-: N-methyl…</li></ol>`,
+ ()=>`<div class="diagrams"><div class="dbox">${chainSVG(4,1)}<div class="cap">butan-2-amin</div></div><div class="dbox">${chainSVG(3,0)}<div class="cap">propan-1-amin</div></div></div>`,
  ()=>`<div class="diagrams"><div class="dbox">${chainSVG(4,1)}<div class="cap">butan-2-amin</div></div><div class="dbox">${chainSVG(3,0)}<div class="cap">propan-1-amin</div></div></div>
   <table><tr><th>Gốc–chức</th><th>Thay thế</th></tr><tr><td class="mono">propylamin</td><td class="mono">propan-1-amin</td></tr>
-  <tr><td class="mono">isobutylamin</td><td class="mono">2-metylpropan-1-amin</td></tr><tr><td class="mono">etylmetylamin</td><td class="mono">N-metyletanamin</td></tr></table>` ],
- ex:["CH₃CH₂CH₂NH₂ → propan-1-amin / propylamin","(CH₃)₂CHCH₂NH₂ → 2-metylpropan-1-amin / isobutylamin","CH₃NHCH₂CH₃ → N-metyletanamin / etylmetylamin"],
+  <tr><td class="mono">isobutylamin</td><td class="mono">2-methylpropan-1-amin</td></tr><tr><td class="mono">ethylmethylamin</td><td class="mono">N-methylethanamin</td></tr></table>` ],
+ ex:["CH₃CH₂CH₂NH₂ → propan-1-amin / propylamin","(CH₃)₂CHCH₂NH₂ → 2-methylpropan-1-amin / isobutylamin","CH₃NHCH₂CH₃ → N-methylethanamin / ethylmethylamin"],
  quiz:[
   {tag:"Danh pháp",q:"Trong propan-2-amin, số 2 chỉ:",o:["số C","vị trí NH₂ trên mạch","số nhóm thế","số N"],a:1,e:"Vị trí của –NH₂."},
   {tag:"Danh pháp",q:"Khi đánh số mạch, ưu tiên:",o:["NH₂ có số nhỏ nhất","nhánh có số lớn nhất","mạch ngắn nhất","C số lẻ"],a:0,e:"NH₂ số nhỏ nhất."},
   {tag:"Danh pháp",q:"Tên thay thế của CH₃CH₂CH₂NH₂:",o:["propylamin","propan-2-amin","propan-1-amin","propanamin"],a:2,e:"NH₂ ở C số 1."},
-  {tag:"Danh pháp",q:"Tên thay thế của (CH₃)₂CHCH₂NH₂:",o:["butan-1-amin","2-metylpropan-1-amin","1,1-đimetylpropan-1-amin","2-metylbutan-1-amin"],a:1,e:"Mạch 3 C, nhánh CH₃ ở C 2."},
-  {tag:"Danh pháp",q:"Tên thay thế của CH₃–NH–C₂H₅:",o:["N-metyletanamin","etylmetanamin","N-etylmetanamin","metyletanamin"],a:0,e:"N-metyl + etanamin."}
+  {tag:"Danh pháp",q:"Tên thay thế của (CH₃)₂CHCH₂NH₂:",o:["butan-1-amin","2-methylpropan-1-amin","1,1-đimethylpropan-1-amin","2-methylbutan-1-amin"],a:1,e:"Mạch 3 C, nhánh CH₃ ở C 2."},
+  {tag:"Danh pháp",q:"Tên thay thế của CH₃–NH–C₂H₅:",o:["N-methylethanamin","ethylmethanamin","N-ethylmethanamin","methylethanamin"],a:0,e:"N-methyl + ethanamin."}
  ]},
 { title:"Vòng benzen và tên thường", slides:[
  ()=>`<p>Đánh số vòng: o- (ortho) = vị trí 2, m- (meta) = 3, p- (para) = 4. Gốc C₆H₅– gọi là <b>phenyl</b>.</p>
   <div class="diagrams"><div class="dbox">${benzene({0:"NH₂",1:"CH₃"})}<div class="cap">o-toluđin</div></div><div class="dbox">${benzene({0:"NH₂",3:"CH₃"})}<div class="cap">p-toluđin</div></div></div>`,
  ()=>`<table><tr><th>Tên thường</th><th>Công thức</th><th>Tên thay thế</th></tr>
   <tr><td class="l"><b>anilin</b></td><td class="mono">C₆H₅NH₂</td><td>benzenamin</td></tr>
-  <tr><td class="l"><b>benzylamin</b></td><td class="mono">C₆H₅CH₂NH₂</td><td>phenylmetanamin</td></tr>
-  <tr><td class="l"><b>o-toluđin</b></td><td class="mono">o-CH₃C₆H₄NH₂</td><td>2-metylbenzenamin</td></tr>
-  <tr><td class="l"><b>p-toluđin</b></td><td class="mono">p-CH₃C₆H₄NH₂</td><td>4-metylbenzenamin</td></tr></table>` ],
- ex:["C₆H₅NH₂ = anilin = benzenamin","C₆H₅CH₂NH₂ = benzylamin = phenylmetanamin","o-CH₃C₆H₄NH₂ = o-toluđin = 2-metylbenzenamin"],
+  <tr><td class="l"><b>benzylamin</b></td><td class="mono">C₆H₅CH₂NH₂</td><td>phenylmethanamin</td></tr>
+  <tr><td class="l"><b>o-toluđin</b></td><td class="mono">o-CH₃C₆H₄NH₂</td><td>2-methylbenzenamin</td></tr>
+  <tr><td class="l"><b>p-toluđin</b></td><td class="mono">p-CH₃C₆H₄NH₂</td><td>4-methylbenzenamin</td></tr></table>` ],
+ ex:["C₆H₅NH₂ = anilin = benzenamin","C₆H₅CH₂NH₂ = benzylamin = phenylmethanamin","o-CH₃C₆H₄NH₂ = o-toluđin = 2-methylbenzenamin"],
  quiz:[
-  {tag:"Tên thường",q:"C₆H₅CH₂NH₂ có tên thay thế:",o:["benzenamin","phenylmetanamin","anilin","toluđin"],a:1,e:"CH₂ giữa vòng và NH₂."},
+  {tag:"Tên thường",q:"C₆H₅CH₂NH₂ có tên thay thế:",o:["benzenamin","phenylmethanamin","anilin","toluđin"],a:1,e:"CH₂ giữa vòng và NH₂."},
   {tag:"Tên thường",q:"p-CH₃C₆H₄NH₂ có tên thường:",o:["o-toluđin","m-toluđin","p-toluđin","xylen"],a:2,e:"p- = vị trí 4."},
-  {tag:"Tên thường",q:"N-metylanilin có tên thay thế:",o:["N-metylbenzenamin","metylbenzenamin","benzylmetanamin","N-metylphenol"],a:0,e:"Anilin = benzenamin."}
+  {tag:"Tên thường",q:"N-methylanilin có tên thay thế:",o:["N-methylbenzenamin","methylbenzenamin","benzylmethanamin","N-methylphenol"],a:0,e:"Anilin = benzenamin."}
  ]},
 { title:"Số đồng phân cần thuộc", slides:[
  ()=>`<table><tr><th>Công thức</th><th>Tổng</th><th>Bậc 1</th><th>Bậc 2</th><th>Bậc 3</th></tr>
@@ -323,7 +461,7 @@ const steps=[
   <tr><td class="mono">C₃H₉N</td><td><b>4</b></td><td>2</td><td>1</td><td>1</td></tr>
   <tr><td class="mono">C₄H₁₁N</td><td><b>8</b></td><td>4</td><td>3</td><td>1</td></tr>
   <tr><td class="mono">C₅H₁₃N</td><td><b>17</b></td><td>8</td><td>6</td><td>3</td></tr>
-  <tr><td class="mono">C₇H₉N (thơm)</td><td><b>5</b></td><td colspan="3">benzylamin, 3 toluđin, N-metylanilin</td></tr></table>
+  <tr><td class="mono">C₇H₉N (thơm)</td><td><b>5</b></td><td colspan="3">benzylamin, 3 toluđin, N-methylanilin</td></tr></table>
   <div class="callout grn">Tổng = bậc 1 + bậc 2 + bậc 3.</div>` ],
  ex:["C₃H₉N: 2+1+1 = 4","C₄H₁₁N: 4+3+1 = 8","C₅H₁₃N: 8+6+3 = 17"],
  quiz:[
@@ -333,29 +471,96 @@ const steps=[
  ]},
 { title:"Đồng phân theo thứ tự C1 → C7", isoSlides:true, slides:[], ex:[], quiz:[
   {tag:"Đồng phân",q:"C₃H₉N có bao nhiêu đồng phân amin bậc 1?",o:["1","2","3","4"],a:1,e:"Propylamin và isopropylamin → 2."},
-  {tag:"Danh pháp",q:"Tên gốc–chức của (CH₃)₃N là:",o:["trimetylamin","N,N-đimetylmetanamin","đimetylamin","metylamin"],a:0,e:"Gốc–chức: trimetylamin."},
+  {tag:"Danh pháp",q:"Tên gốc–chức của (CH₃)₃N là:",o:["trimethylamin","N,N-đimethylmethanamin","đimethylamin","methylamin"],a:0,e:"Gốc–chức: trimethylamin."},
   {tag:"Danh pháp",q:"Tên gốc–chức của (CH₃)₃CNH₂ là:",o:["isobutylamin","tert-butylamin","sec-butylamin","butylamin"],a:1,e:"Gốc tert-butyl."}
  ]}
 ];
 
 /* ===== ĐỒNG PHÂN THEO THỨ TỰ C1 → C7 ===== */
 const ISO_ORDER=[
- {f:"CH₅N",c:"C1",total:"1 đồng phân",groups:[{bac:1,items:[["CH₃NH₂","metylamin","metanamin"]]}]},
- {f:"C₂H₇N",c:"C2",total:"2 đồng phân",groups:[{bac:1,items:[["CH₃CH₂NH₂","etylamin","etanamin"]]},{bac:2,items:[["CH₃NHCH₃","đimetylamin","N-metylmetanamin"]]}]},
- {f:"C₃H₉N",c:"C3",total:"4 đồng phân",groups:[{bac:1,items:[["CH₃CH₂CH₂NH₂","propylamin","propan-1-amin"],["(CH₃)₂CHNH₂","isopropylamin","propan-2-amin"]]},{bac:2,items:[["CH₃NHCH₂CH₃","etylmetylamin","N-metyletanamin"]]},{bac:3,items:[["(CH₃)₃N","trimetylamin","N,N-đimetylmetanamin"]]}]},
- {f:"C₄H₁₁N",c:"C4",total:"8 đồng phân",groups:[{bac:1,items:[["CH₃CH₂CH₂CH₂NH₂","butylamin","butan-1-amin"],["CH₃CH₂CH(NH₂)CH₃","sec-butylamin","butan-2-amin"],["(CH₃)₂CHCH₂NH₂","isobutylamin","2-metylpropan-1-amin"],["(CH₃)₃CNH₂","tert-butylamin","2-metylpropan-2-amin"]]},{bac:2,items:[["CH₃CH₂CH₂NHCH₃","metylpropylamin","N-metylpropan-1-amin"],["(CH₃)₂CHNHCH₃","metylisopropylamin","N-metylpropan-2-amin"],["CH₃CH₂NHCH₂CH₃","đietylamin","N-etyletanamin"]]},{bac:3,items:[["(CH₃)₂NCH₂CH₃","etyldimetylamin","N,N-đimetyletanamin"]]}]},
- {f:"C₅H₁₃N",c:"C5",total:"17 đồng phân",groups:[{bac:1,items:[["CH₃(CH₂)₄NH₂","pentylamin","pentan-1-amin"],["CH₃CH(NH₂)CH₂CH₂CH₃","sec-pentylamin","pentan-2-amin"],["CH₃CH₂CH(NH₂)CH₂CH₃","1-etylpropylamin","pentan-3-amin"],["CH₃CH₂CH(CH₃)CH₂NH₂","2-metylbutylamin","2-metylbutan-1-amin"],["CH₃CH₂C(CH₃)₂NH₂","tert-pentylamin","2-metylbutan-2-amin"],["(CH₃)₂CHCH₂CH₂NH₂","isopentylamin","3-metylbutan-1-amin"],["(CH₃)₂CHCH(NH₂)CH₃","1,2-đimetylpropylamin","3-metylbutan-2-amin"],["(CH₃)₃CCH₂NH₂","neopentylamin","2,2-đimetylpropan-1-amin"]]},{bac:2,items:[["CH₃NHCH₂CH₂CH₂CH₃","metylbutylamin","N-metylbutan-1-amin"],["CH₃NHCH(CH₃)CH₂CH₃","metyl-sec-butylamin","N-metylbutan-2-amin"],["CH₃NHCH₂CH(CH₃)₂","metylisobutylamin","N-metyl-2-metylpropan-1-amin"],["CH₃NHC(CH₃)₃","metyl-tert-butylamin","N-metyl-2-metylpropan-2-amin"],["CH₃CH₂CH₂NHCH₂CH₃","etylpropylamin","N-etylpropan-1-amin"],["(CH₃)₂CHNHCH₂CH₃","etylisopropylamin","N-etylpropan-2-amin"]]},{bac:3,items:[["(CH₃)₂NCH₂CH₂CH₃","đimetylpropylamin","N,N-đimetylpropan-1-amin"],["(CH₃)₂NCH(CH₃)₂","đimetylisopropylamin","N,N-đimetylpropan-2-amin"],["CH₃N(C₂H₅)₂","đietylmetylamin","N-etyl-N-metyletanamin"]]}]},
- {f:"C₇H₉N (thơm)",c:"C7",total:"5 đồng phân",groups:[{bac:1,items:[["C₆H₅CH₂NH₂","benzylamin","phenylmetanamin",{0:"CH₂NH₂"}],["o-CH₃C₆H₄NH₂","o-toluđin","2-metylbenzenamin",{0:"NH₂",1:"CH₃"}],["m-CH₃C₆H₄NH₂","m-toluđin","3-metylbenzenamin",{0:"NH₂",2:"CH₃"}],["p-CH₃C₆H₄NH₂","p-toluđin","4-metylbenzenamin",{0:"NH₂",3:"CH₃"}]]},{bac:2,items:[["C₆H₅NHCH₃","N-metylanilin","N-metylbenzenamin",{0:"NHCH₃"}]]}]}
+ {f:"CH₅N",c:"C1",total:"1 đồng phân",groups:[{bac:1,items:[["CH₃NH₂","methylamin","methanamin"]]}]},
+ {f:"C₂H₇N",c:"C2",total:"2 đồng phân",groups:[{bac:1,items:[["CH₃CH₂NH₂","ethylamin","ethanamin"]]},{bac:2,items:[["CH₃NHCH₃","đimethylamin","N-methylmethanamin"]]}]},
+ {f:"C₃H₉N",c:"C3",total:"4 đồng phân",groups:[{bac:1,items:[["CH₃CH₂CH₂NH₂","propylamin","propan-1-amin"],["(CH₃)₂CHNH₂","isopropylamin","propan-2-amin"]]},{bac:2,items:[["CH₃NHCH₂CH₃","ethylmethylamin","N-methylethanamin"]]},{bac:3,items:[["(CH₃)₃N","trimethylamin","N,N-đimethylmethanamin"]]}]},
+ {f:"C₄H₁₁N",c:"C4",total:"8 đồng phân",groups:[{bac:1,items:[["CH₃CH₂CH₂CH₂NH₂","butylamin","butan-1-amin"],["CH₃CH₂CH(NH₂)CH₃","sec-butylamin","butan-2-amin"],["(CH₃)₂CHCH₂NH₂","isobutylamin","2-methylpropan-1-amin"],["(CH₃)₃CNH₂","tert-butylamin","2-methylpropan-2-amin"]]},{bac:2,items:[["CH₃CH₂CH₂NHCH₃","methylpropylamin","N-methylpropan-1-amin"],["(CH₃)₂CHNHCH₃","methylisopropylamin","N-methylpropan-2-amin"],["CH₃CH₂NHCH₂CH₃","điethylamin","N-ethylethanamin"]]},{bac:3,items:[["(CH₃)₂NCH₂CH₃","ethyldimethylamin","N,N-đimethylethanamin"]]}]},
+ {f:"C₅H₁₃N",c:"C5",total:"17 đồng phân",groups:[{bac:1,items:[["CH₃(CH₂)₄NH₂","pentylamin","pentan-1-amin"],["CH₃CH(NH₂)CH₂CH₂CH₃","sec-pentylamin","pentan-2-amin"],["CH₃CH₂CH(NH₂)CH₂CH₃","1-ethylpropylamin","pentan-3-amin"],["CH₃CH₂CH(CH₃)CH₂NH₂","2-methylbutylamin","2-methylbutan-1-amin"],["CH₃CH₂C(CH₃)₂NH₂","tert-pentylamin","2-methylbutan-2-amin"],["(CH₃)₂CHCH₂CH₂NH₂","isopentylamin","3-methylbutan-1-amin"],["(CH₃)₂CHCH(NH₂)CH₃","1,2-đimethylpropylamin","3-methylbutan-2-amin"],["(CH₃)₃CCH₂NH₂","neopentylamin","2,2-đimethylpropan-1-amin"]]},{bac:2,items:[["CH₃NHCH₂CH₂CH₂CH₃","methylbutylamin","N-methylbutan-1-amin"],["CH₃NHCH(CH₃)CH₂CH₃","methyl-sec-butylamin","N-methylbutan-2-amin"],["CH₃NHCH₂CH(CH₃)₂","methylisobutylamin","N-methyl-2-methylpropan-1-amin"],["CH₃NHC(CH₃)₃","methyl-tert-butylamin","N-methyl-2-methylpropan-2-amin"],["CH₃CH₂CH₂NHCH₂CH₃","ethylpropylamin","N-ethylpropan-1-amin"],["(CH₃)₂CHNHCH₂CH₃","ethylisopropylamin","N-ethylpropan-2-amin"]]},{bac:3,items:[["(CH₃)₂NCH₂CH₂CH₃","đimethylpropylamin","N,N-đimethylpropan-1-amin"],["(CH₃)₂NCH(CH₃)₂","đimethylisopropylamin","N,N-đimethylpropan-2-amin"],["CH₃N(C₂H₅)₂","điethylmethylamin","N-ethyl-N-methylethanamin"]]}]},
+ {f:"C₇H₉N (thơm)",c:"C7",total:"5 đồng phân",groups:[{bac:1,items:[["C₆H₅CH₂NH₂","benzylamin","phenylmethanamin",{0:"CH₂NH₂"}],["o-CH₃C₆H₄NH₂","o-toluđin","2-methylbenzenamin",{0:"NH₂",1:"CH₃"}],["m-CH₃C₆H₄NH₂","m-toluđin","3-methylbenzenamin",{0:"NH₂",2:"CH₃"}],["p-CH₃C₆H₄NH₂","p-toluđin","4-methylbenzenamin",{0:"NH₂",3:"CH₃"}]]},{bac:2,items:[["C₆H₅NHCH₃","N-methylanilin","N-methylbenzenamin",{0:"NHCH₃"}]]}]}
 ];
+const EXPAND={
+"CH₃NH₂":"CH₃–NH₂","CH₃CH₂NH₂":"CH₃–CH₂–NH₂","CH₃NHCH₃":"CH₃–NH–CH₃",
+"CH₃CH₂CH₂NH₂":"CH₃–CH₂–CH₂–NH₂","(CH₃)₂CHNH₂":"CH₃–CH(CH₃)–NH₂","CH₃NHCH₂CH₃":"CH₃–NH–CH₂–CH₃","(CH₃)₃N":"CH₃–N(CH₃)–CH₃",
+"CH₃CH₂CH₂CH₂NH₂":"CH₃–CH₂–CH₂–CH₂–NH₂","CH₃CH₂CH(NH₂)CH₃":"CH₃–CH₂–CH(NH₂)–CH₃","(CH₃)₂CHCH₂NH₂":"CH₃–CH(CH₃)–CH₂–NH₂","(CH₃)₃CNH₂":"CH₃–C(CH₃)₂–NH₂",
+"CH₃CH₂CH₂NHCH₃":"CH₃–CH₂–CH₂–NH–CH₃","(CH₃)₂CHNHCH₃":"CH₃–CH(CH₃)–NH–CH₃","CH₃CH₂NHCH₂CH₃":"CH₃–CH₂–NH–CH₂–CH₃","(CH₃)₂NCH₂CH₃":"CH₃–N(CH₃)–CH₂–CH₃",
+"CH₃(CH₂)₄NH₂":"CH₃–CH₂–CH₂–CH₂–CH₂–NH₂","CH₃CH(NH₂)CH₂CH₂CH₃":"CH₃–CH(NH₂)–CH₂–CH₂–CH₃","CH₃CH₂CH(NH₂)CH₂CH₃":"CH₃–CH₂–CH(NH₂)–CH₂–CH₃",
+"CH₃CH₂CH(CH₃)CH₂NH₂":"CH₃–CH₂–CH(CH₃)–CH₂–NH₂","CH₃CH₂C(CH₃)₂NH₂":"CH₃–CH₂–C(CH₃)₂–NH₂","(CH₃)₂CHCH₂CH₂NH₂":"CH₃–CH(CH₃)–CH₂–CH₂–NH₂",
+"(CH₃)₂CHCH(NH₂)CH₃":"CH₃–CH(CH₃)–CH(NH₂)–CH₃","(CH₃)₃CCH₂NH₂":"CH₃–C(CH₃)₂–CH₂–NH₂",
+"CH₃NHCH₂CH₂CH₂CH₃":"CH₃–NH–CH₂–CH₂–CH₂–CH₃","CH₃NHCH(CH₃)CH₂CH₃":"CH₃–NH–CH(CH₃)–CH₂–CH₃","CH₃NHCH₂CH(CH₃)₂":"CH₃–NH–CH₂–CH(CH₃)–CH₃",
+"CH₃NHC(CH₃)₃":"CH₃–NH–C(CH₃)₃","CH₃CH₂CH₂NHCH₂CH₃":"CH₃–CH₂–CH₂–NH–CH₂–CH₃","(CH₃)₂CHNHCH₂CH₃":"CH₃–CH(CH₃)–NH–CH₂–CH₃",
+"(CH₃)₂NCH₂CH₂CH₃":"CH₃–N(CH₃)–CH₂–CH₂–CH₃","(CH₃)₂NCH(CH₃)₂":"CH₃–N(CH₃)–CH(CH₃)–CH₃","CH₃N(C₂H₅)₂":"CH₃–N(CH₂–CH₃)–CH₂–CH₃",
+"C₆H₅CH₂NH₂":"C₆H₅–CH₂–NH₂","o-CH₃C₆H₄NH₂":"vòng benzen: NH₂ ở C1, CH₃ ở C2 (cạnh nhau)","m-CH₃C₆H₄NH₂":"vòng benzen: NH₂ ở C1, CH₃ ở C3 (cách 1 C)","p-CH₃C₆H₄NH₂":"vòng benzen: NH₂ ở C1, CH₃ ở C4 (đối diện)","C₆H₅NHCH₃":"C₆H₅–NH–CH₃"
+};
 const BAC_TXT={1:"Bậc 1",2:"Bậc 2",3:"Bậc 3"},BAC_CLS={1:"c-pur",2:"c-teal",3:"c-pink"};
 function isoSlideHTML(k){
   const d=ISO_ORDER[k];
   return `<div class="stage"><span class="pill c-pur">${d.c}</span><b class="mono">${d.f}</b> có <b>${d.total}</b></div>`+
    d.groups.map(g=>`<div class="group"><span class="pill ${BAC_CLS[g.bac]}">${BAC_TXT[g.bac]}</span>
-    <div class="iso-grid">${g.items.map(it=>`<div class="iso">${it[3]?benzene(it[3]):""}<div class="fx">${it[0]}</div>
-     <div class="nm gc" onclick="this.classList.toggle('open')"><span class="lab">Gốc – chức</span><span class="val">${it[1]}</span></div>
-     <div class="nm tt" onclick="this.classList.toggle('open')"><span class="lab">Thay thế</span><span class="val">${it[2]}</span></div></div>`).join("")}</div></div>`).join("")+
+    <div class="iso-grid">${g.items.map(it=>`<div class="iso">${it[3]?benzene(it[3]):""}<div class="fx"><span class="gop" onclick="this.nextElementSibling.classList.toggle('show')">${it[0]} 🔍</span><div class="bung">${EXPAND[it[0]]||it[0]}</div></div>
+     <div class="nm gc" onclick="openName(this,'${it[1]}')"><span class="lab">Gốc – chức</span><span class="val">${it[1]}</span></div>
+     <div class="nm tt" onclick="openName(this,'${it[2]}')"><span class="lab">Thay thế</span><span class="val">${it[2]}</span></div></div>`).join("")}</div></div>`).join("")+
    `<div class="callout pur">Bấm vào ô tên để hiện/ẩn. Đã xem hết ${d.c} thì bấm Tiếp để sang ${ISO_ORDER[k+1]?ISO_ORDER[k+1].c:"bài tập"}.</div>`;
+}
+
+/* ===== ĐĂNG NHẬP ===== */
+const ALLOW=["khoa","thuy","kn","cim","thu"];
+function normName(s){return s.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d");}
+function tryAuto(){
+  const v=normName(document.getElementById("uname").value);
+  if(ALLOW.includes(v)) document.body.classList.remove("locked");
+}
+function doLogin(){
+  const v=normName(document.getElementById("uname").value);
+  if(ALLOW.includes(v)) document.body.classList.remove("locked");
+  else document.getElementById("lerr").textContent="Tên chưa đúng, thử lại nhé.";
+}
+
+/* ===== BUNG CÁCH GHÉP TÊN ===== */
+const PART_RULES=[
+ [/^-+/, null],
+ [/^(N,N-|N-)/, m=>[m,"gốc gắn trên nguyên tử N"]],
+ [/^(đi|tri)(?=[a-zđ])/, m=>[m, m==="đi"?"2 nhóm giống nhau":"3 nhóm giống nhau"]],
+ [/^(iso|sec|tert|neo)-?/, m=>[m,"tiền tố chỉ cách gắn của gốc (iso: 2 CH₃ ở đầu; sec: C gắn N là bậc 2; tert: C gắn N là bậc 3)"]],
+ [/^(methyl|ethyl|propyl|butyl|pentyl)/, m=>{const n={methyl:1,ethyl:2,propyl:3,butyl:4,pentyl:5}[m];return [m,`gốc hydrocarbon có ${n} C`];}],
+ [/^(meth|eth|prop|but|pent|hex)an/, m=>{const n={meth:1,eth:2,prop:3,but:4,pent:5,hex:6}[m.slice(0,-2)];return [m.slice(0,-2)+"an",`mạch chính ${n} C`];}],
+ [/^\d+(,\d+)*-?/, m=>[m.replace(/-$/,""),"số chỉ vị trí trên mạch hoặc vòng"]],
+ [/^[omp]-/, m=>[m.slice(0,-1),"vị trí trên vòng: o- (số 2), m- (số 3), p- (số 4)"]],
+ [/^amin/, m=>[m,"đuôi amin: nhóm chức –NH₂ hoặc N gắn gốc"]],
+ [/^benzen/, m=>[m,"vòng benzen (C₆H₆)"]],
+ [/^phenyl/, m=>[m,"gốc C₆H₅– (vòng benzen)"]],
+ [/^toluđin/, m=>[m,"toluđin = CH₃C₆H₄NH₂ (amin thơm có CH₃ trên vòng)"]],
+ [/^anilin/, m=>[m,"tên thường của C₆H₅NH₂"]]
+];
+function explainName(name){
+  let s=name.trim(), out=[], buf="";
+  const flush=()=>{ if(buf){ out.push([buf,"phần còn lại trong tên"]); buf=""; } };
+  while(s.length){
+    let hit=null;
+    for(const [re,fn] of PART_RULES){ const m=s.match(re); if(m&&m[0].length){ hit=[m[0],fn]; break; } }
+    if(hit){
+      flush();
+      const [m,fn]=hit;
+      if(fn){ out.push(fn(m)); }
+      s=s.slice(m.length);
+    } else { buf+=s[0]; s=s.slice(1); }
+  }
+  flush();
+  return out.map(([a,b])=>`<div><b>${a}</b> → ${b}</div>`).join("");
+}
+function openName(el,text){
+  const nx=el.nextElementSibling;
+  if(nx && nx.classList.contains("nmx")){ nx.remove(); el.classList.remove("open"); return; }
+  el.classList.add("open");
+  const d=document.createElement("div"); d.className="nmx";
+  d.innerHTML=`<div style="font-weight:800;color:#a5f3fc;margin-bottom:6px">Cách ghép tên “${text}”:</div>`+explainName(text);
+  el.after(d);
 }
 
 /* ===== BÀI TẬP ===== */
@@ -375,44 +580,9 @@ const P7A=[
  {tag:"Danh pháp",q:"Câu 9: Anilin có công thức cấu tạo là:",o:["CH₃COOH","C₆H₅OH","C₆H₅NH₂","CH₃OH"],a:2,e:"C₆H₅NH₂."},
  {tag:"Danh pháp",q:"Câu 11: Tên nào phù hợp với (CH₃)₂CH–NH₂?",o:["methyl ethyl amine","ethyl methyl amine","Isopropanamine","Isopropyl amine"],a:3,e:"Isopropylamin."},
  {tag:"Danh pháp",q:"Câu 15: Tên nào phù hợp với C₆H₅–CH₂–NH₂?",o:["Phenylamine","Benzylamine","Aniline","Phenylmethylamine"],a:1,e:"Benzylamin."},
- {tag:"Khái niệm",q:"Câu 16: Chất nào có chứa nguyên tố nitơ?",o:["glucose","cellulose","ethyl amine","vinyl acetate"],a:2,e:"Etylamin có N."}
+ {tag:"Khái niệm",q:"Câu 16: Chất nào có chứa nguyên tố nitơ?",o:["glucose","cellulose","ethyl amine","vinyl acetate"],a:2,e:"Ethylamin có N."}
 ];
-const EXAMS={
- e1:{name:"Đề 1 · Khái niệm & bậc",items:[
-  {tag:"Khái niệm",q:"Amin được tạo khi thay H trong NH₃ bằng gốc:",o:["gốc axyl","gốc hydrocarbon","ion kim loại","nguyên tử halogen"],a:1,e:"Gốc hydrocarbon R."},
-  {tag:"Bậc",q:"Bậc của CH₃–NH–C₂H₅ là:",o:["1","2","3","0"],a:1,e:"2 gốc trên N."},
-  {tag:"Bậc",q:"Bậc của (CH₃)₂CH–NH₂ là:",o:["1","2","3","0"],a:0,e:"1 gốc trên N."},
-  {tag:"Phân loại",q:"Benzylamin C₆H₅CH₂NH₂ thuộc loại:",o:["arylamin","alkylamin","amin bậc 3","anilin"],a:1,e:"Có CH₂ ngăn."},
-  {tag:"Phân loại",q:"Chất nào là arylamin?",o:["CH₃NH₂","C₆H₅NH₂","C₂H₅NH₂","(CH₃)₂NH"],a:1,e:"Anilin."},
-  {tag:"Bậc",q:"Bậc của (C₂H₅)₂NH là:",o:["1","2","3","4"],a:1,e:"2 gốc C₂H₅."},
-  {tag:"Khái niệm",q:"Công thức chung amin bậc 1:",o:["R–NH₂","R–NH–R'","R–N(R')–R''","R–OH"],a:0,e:"1 gốc R."},
-  {tag:"Bậc",q:"Amin bậc 3 là:",o:["CH₃NH₂","(CH₃)₂NH","(CH₃)₃N","C₂H₅NH₂"],a:2,e:"3 gốc trên N."},
-  {tag:"Phân loại",q:"Anilin là:",o:["amin no bậc 1","amin thơm bậc 1 (arylamin)","amin bậc 2","ancol thơm"],a:1,e:"Arylamin bậc 1."},
-  {tag:"Phân loại",q:"N-metylanilin C₆H₅NHCH₃ thuộc loại:",o:["alkylamin","arylamin","amin bậc 3","amin no"],a:1,e:"N gắn vòng benzen, bậc 2."}]},
- e2:{name:"Đề 2 · CTTQ & đồng phân",items:[
-  {tag:"CTTQ",q:"Amin no đơn chức mạch hở 5 C có số H là:",o:["11","13","15","12"],a:1,e:"2·5+3 = 13."},
-  {tag:"CTTQ",q:"C₄H₁₀N có phải amin no đơn chức mạch hở không?",o:["Đúng","Sai","Đúng nếu bậc 1","Không xác định"],a:1,e:"Phải là C₄H₁₁N."},
-  {tag:"CTTQ",q:"Amin thơm CₙH₂ₙ₋₇NH₂ với n = 8:",o:["C₈H₉N","C₈H₁₁N","C₈H₁₃N","C₈H₇N"],a:1,e:"C₈H₁₁N."},
-  {tag:"Đồng phân",q:"Số đồng phân bậc 3 của C₃H₉N:",o:["0","1","2","3"],a:1,e:"(CH₃)₃N."},
-  {tag:"Đồng phân",q:"Số đồng phân bậc 1 của C₄H₁₁N:",o:["2","3","4","8"],a:2,e:"4 chất."},
-  {tag:"Đồng phân",q:"Số đồng phân của C₂H₇N:",o:["1","2","3","4"],a:1,e:"2 chất."},
-  {tag:"Đồng phân",q:"CH₃CH₂CH₂NH₂ và CH₃CH(NH₂)CH₃ là đồng phân về:",o:["bậc","vị trí –NH₂","mạch C","không phải"],a:1,e:"NH₂ khác vị trí."},
-  {tag:"Đồng phân",q:"CH₃NHCH₂CH₃ và CH₃CH₂CH₂NH₂ khác nhau ở:",o:["bậc","vị trí –NH₂","mạch C","số C"],a:0,e:"Bậc 2 và bậc 1."},
-  {tag:"Đồng phân",q:"Số đồng phân amin thơm C₇H₉N:",o:["3","4","5","6"],a:2,e:"5 chất."},
-  {tag:"Đồng phân",q:"Trong C₅H₁₃N, số đồng phân bậc 3:",o:["3","6","8","17"],a:0,e:"3 chất."}]},
- e3:{name:"Đề 3 · Danh pháp",items:[
-  {tag:"Danh pháp",q:"Tên gốc–chức của C₂H₅NH₂:",o:["etanamin","etylamin","đietylamin","metylamin"],a:1,e:"Etylamin."},
-  {tag:"Danh pháp",q:"Tên thay thế của CH₃CH₂CH₂NH₂:",o:["propylamin","propan-2-amin","propan-1-amin","propanamin"],a:2,e:"NH₂ ở C 1."},
-  {tag:"Danh pháp",q:"Tên thay thế của (CH₃)₂CHNH₂:",o:["propan-1-amin","propan-2-amin","isopropanamin","propylamin"],a:1,e:"NH₂ ở C 2."},
-  {tag:"Danh pháp",q:"Tên gốc–chức của (CH₃)₃CNH₂:",o:["isobutylamin","sec-butylamin","tert-butylamin","butylamin"],a:2,e:"Tert-butyl."},
-  {tag:"Danh pháp",q:"Công thức gốc isobutyl:",o:["CH₃CH₂CH(CH₃)–","(CH₃)₂CHCH₂–","(CH₃)₃C–","CH₃CH₂CH₂CH₂–"],a:1,e:"–CH₂CH(CH₃)₂."},
-  {tag:"Danh pháp",q:"CH₃NHC₂H₅ tên thay thế:",o:["N-metyletanamin","etylmetanamin","N-etylmetanamin","metyletanamin"],a:0,e:"N-metyl."},
-  {tag:"Danh pháp",q:"(CH₃)₂N–C₂H₅ tên thay thế:",o:["N,N-đimetyletanamin","N-metyletanamin","N,N-đimetylpropan-1-amin","etyldimetanamin"],a:0,e:"N,N-đimetyl + etanamin."},
-  {tag:"Tên thường",q:"C₆H₅NH₂ có tên thường:",o:["benzylamin","anilin","toluđin","phenol"],a:1,e:"Anilin."},
-  {tag:"Tên thường",q:"o-CH₃C₆H₄NH₂ gọi là:",o:["m-toluđin","p-toluđin","o-toluđin","benzylamin"],a:2,e:"o- = vị trí 2."},
-  {tag:"Danh pháp",q:"H₂N–CH₂–CH₂–NH₂ tên thay thế:",o:["etan-1,2-điamin","propan-1,2-điamin","etylđiamin","đietylamin"],a:0,e:"Etan-1,2-điamin."}]}
-};
-SETS.p7a=P7A; Object.keys(EXAMS).forEach(k=>SETS[k]=EXAMS[k].items);
+SETS.p7a=P7A;
 
 function itemsHTML(p){
   return SETS[p].map((it,i)=>`<div class="qcard enter" id="qc-${p}-${i}"><span class="pill ${TAGCLS[it.tag]||"c-pur"}">${it.tag}</span>
@@ -487,16 +657,290 @@ function showTab(n){
   ["learn","7a","ext"].forEach(x=>{document.getElementById(x).classList.toggle("hidden",x!==n); document.getElementById("t-"+x).classList.toggle("active",x===n);});
   window.scrollTo({top:0,behavior:"smooth"});
 }
-function showExam(k){
-  ["e1","e2","e3"].forEach(x=>{document.getElementById("ext-"+x).classList.toggle("hidden",x!==k); document.getElementById("pk-"+x).classList.toggle("on",x===k);});
-}
+// menu chọn đầu tiên: phải chọn một phần mới vào được
+function showChooser(){ document.getElementById("chooser").classList.remove("hidden"); ["learn","7a","ext"].forEach(x=>document.getElementById("t-"+x).classList.remove("active")); window.scrollTo({top:0}); }
+function choose(n){ document.getElementById("chooser").classList.add("hidden"); showTab(n); }
 // render tĩnh
 document.getElementById("list-p7a").innerHTML=itemsHTML("p7a");
-["e1","e2","e3"].forEach(k=>{
-  document.getElementById("ext-"+k).innerHTML=`<div class="card" style="margin-bottom:12px"><h2>${EXAMS[k].name}</h2></div>
-   <div id="list-${k}">${itemsHTML(k)}</div><div id="score-${k}" class="scorebox hidden"></div>
-   <div class="nav"><button class="btn ghost" onclick="resetSet('${k}')">🔄 Làm lại đề này</button></div>`;
-});
+
+/* ===== LÀM THÊM Ở NGOÀI: 5 đề · 9 TN (1đ/câu) + 4 TLN (0,25đ/câu) · 20 phút ===== */
+const EXTIME=20*60;
+const EXAMS_RAW=[
+{name:"Đề 1 · Khái niệm & bậc",
+ mcq:[
+  {tag:"Khái niệm",q:"Amin được tạo thành khi thay nguyên tử H trong NH₃ bằng:",o:["gốc axyl","gốc hydrocarbon","ion kim loại","nguyên tử halogen"],a:1,e:"Amin có gốc hydrocarbon R thay H của NH₃."},
+  {tag:"Bậc",q:"Bậc của amin CH₃–NH–CH₃ là:",o:["1","2","3","0"],a:1,e:"N gắn 2 gốc CH₃ → bậc 2."},
+  {tag:"Bậc",q:"Bậc của amin (CH₃)₃N là:",o:["1","2","3","0"],a:2,e:"N gắn 3 gốc → bậc 3."},
+  {tag:"Bậc",q:"C₂H₅–NH₂ là amin bậc mấy?",o:["1","2","3","4"],a:0,e:"N chỉ gắn 1 gốc C₂H₅."},
+  {tag:"Phân loại",q:"Anilin C₆H₅NH₂ thuộc loại:",o:["amin no","arylamin (amin thơm)","alkylamin","amin bậc 3"],a:1,e:"N gắn trực tiếp vào vòng benzen."},
+  {tag:"Phân loại",q:"Benzylamin C₆H₅CH₂NH₂ thuộc loại:",o:["arylamin","alkylamin (N không gắn trực tiếp vòng)","amin bậc 3","anilin"],a:1,e:"N gắn qua CH₂ nên là alkylamin."},
+  {tag:"CTTQ",q:"Công thức chung của amin no, đơn chức, mạch hở là:",o:["CₙH₂ₙ₊₂N","CₙH₂ₙ₊₃N","CₙH₂ₙN","CₙH₂ₙ₊₁N"],a:1,e:"CₙH₂ₙ₊₃N (n ≥ 1)."},
+  {tag:"Khái niệm",q:"Công thức chung của amin bậc 1 là:",o:["R–NH₂","R–NH–R′","R–N(R′)–R″","R–OH"],a:0,e:"Chỉ có 1 gốc R trên N."},
+  {tag:"Bậc",q:"Amin (C₂H₅)₂NH có bậc là:",o:["1","2","3","0"],a:1,e:"N gắn 2 gốc C₂H₅."}
+ ],
+ sa:[
+  {tag:"CTTQ",q:"Số nguyên tử H trong phân tử ethylamin C₂H₅NH₂ là bao nhiêu?",ans:7,show:"7",e:"5 H ở C₂H₅ + 2 H ở NH₂ = 7."},
+  {tag:"Bậc",q:"Bậc của amin CH₃NHC₂H₅ là bao nhiêu?",ans:2,show:"2",e:"N gắn 2 gốc (CH₃ và C₂H₅)."},
+  {tag:"CTTQ",q:"Amin no, đơn chức, mạch hở có 4 C: số nguyên tử H là bao nhiêu?",ans:11,show:"11",e:"C₄H₁₁N: 2·4 + 3 = 11."},
+  {tag:"Khái niệm",q:"Hexan-1,6-điamin có bao nhiêu nhóm –NH₂?",ans:2,show:"2",e:"Điamin có 2 nhóm –NH₂."}
+ ]},
+{name:"Đề 2 · CTTQ & đồng phân",
+ mcq:[
+  {tag:"Đồng phân",q:"Số đồng phân amin của C₂H₇N là:",o:["1","2","3","4"],a:1,e:"CH₃CH₂NH₂ và CH₃NHCH₃."},
+  {tag:"Đồng phân",q:"Số đồng phân amin của C₃H₉N là:",o:["2","3","4","5"],a:2,e:"Propan-1-amin, propan-2-amin, N-methylethanamin, N,N-dimethylmethanamin."},
+  {tag:"Đồng phân",q:"Số đồng phân amin bậc 1 của C₃H₉N là:",o:["1","2","3","4"],a:1,e:"Propan-1-amin và propan-2-amin."},
+  {tag:"Đồng phân",q:"Số đồng phân amin của C₄H₁₁N là:",o:["6","7","8","9"],a:2,e:"Tổng cộng 8 đồng phân."},
+  {tag:"Đồng phân",q:"Số đồng phân amin bậc 1 của C₄H₁₁N là:",o:["2","3","4","5"],a:2,e:"Butan-1-amin, butan-2-amin, 2-methylpropan-1-amin, 2-methylpropan-2-amin."},
+  {tag:"Đồng phân",q:"Số đồng phân amin bậc 3 của C₄H₁₁N là:",o:["1","2","3","4"],a:0,e:"Chỉ N,N-dimethylethanamin."},
+  {tag:"Đồng phân",q:"Chất KHÔNG phải đồng phân của CH₃CH₂CH₂NH₂ là:",o:["CH₃CH(NH₂)CH₃","CH₃CH₂NHCH₃","CH₃CH₂CH₃","(CH₃)₃N"],a:2,e:"CH₃CH₂CH₃ là C₃H₈, không có N."},
+  {tag:"Đồng phân",q:"Số đồng phân amin thơm của C₇H₉N là:",o:["3","4","5","6"],a:2,e:"Benzylamin, o-, m-, p-toluđin và N-methylanilin."},
+  {tag:"Đồng phân",q:"Số đồng phân amin bậc 2 của C₃H₉N là:",o:["0","1","2","3"],a:1,e:"Chỉ CH₃NHC₂H₅."}
+ ],
+ sa:[
+  {tag:"Đồng phân",q:"Số đồng phân amin bậc 2 của C₄H₁₁N là bao nhiêu?",ans:3,show:"3",e:"CH₃CH₂CH₂NHCH₃, (CH₃)₂CHNHCH₃, CH₃CH₂NHCH₂CH₃."},
+  {tag:"Đồng phân",q:"Số đồng phân amin bậc 3 của C₃H₉N là bao nhiêu?",ans:1,show:"1",e:"Chỉ (CH₃)₃N."},
+  {tag:"Đồng phân",q:"Số đồng phân amin bậc 1 của C₂H₇N là bao nhiêu?",ans:1,show:"1",e:"Chỉ CH₃CH₂NH₂."},
+  {tag:"Phân loại",q:"Số đồng phân amin thơm của C₇H₉N là bao nhiêu?",ans:5,show:"5",e:"Benzylamin, o-, m-, p-toluđin và N-methylanilin."}
+ ]},
+{name:"Đề 3 · Danh pháp",
+ mcq:[
+  {tag:"Danh pháp",q:"Tên gốc–chức của C₂H₅NH₂ là:",o:["ethanamin","ethylamin","điethylamin","methylamin"],a:1,e:"Gốc ethyl + amin."},
+  {tag:"Danh pháp",q:"Tên thay thế của CH₃CH₂CH₂NH₂ là:",o:["propylamin","propan-2-amin","propan-1-amin","propanamin"],a:2,e:"NH₂ ở C số 1."},
+  {tag:"Danh pháp",q:"Tên thay thế của (CH₃)₂CHNH₂ là:",o:["propan-1-amin","propan-2-amin","isopropanamin","propylamin"],a:1,e:"NH₂ ở C số 2."},
+  {tag:"Danh pháp",q:"Tên gốc–chức của (CH₃)₃C–NH₂ là:",o:["isobutylamin","sec-butylamin","tert-butylamin","butylamin"],a:2,e:"Gốc tert-butyl."},
+  {tag:"Danh pháp",q:"Tên thay thế của CH₃NHC₂H₅ là:",o:["N-methylethanamin","ethylmethanamin","N-ethylmethanamin","methylethanamin"],a:0,e:"Mạch chính ethan, N-methyl."},
+  {tag:"Danh pháp",q:"Tên thay thế của (CH₃)₂N–C₂H₅ là:",o:["N,N-dimethylethanamin","N-methylethanamin","N,N-dimethylpropan-1-amin","ethyldimethanamin"],a:0,e:"2 gốc methyl trên N, mạch ethan."},
+  {tag:"Danh pháp",q:"Gốc isobutyl có công thức:",o:["CH₃CH₂CH(CH₃)–","(CH₃)₂CHCH₂–","(CH₃)₃C–","CH₃CH₂CH₂CH₂–"],a:1,e:"–CH₂CH(CH₃)₂."},
+  {tag:"Danh pháp",q:"H₂N–CH₂–CH₂–NH₂ có tên thay thế là:",o:["ethan-1,2-điamin","propan-1,2-điamin","ethyldiamin","đietylamin"],a:0,e:"Mạch 2 C, 2 nhóm NH₂ ở C 1 và C 2."},
+  {tag:"Danh pháp",q:"Tên gốc–chức của CH₃CH₂CH₂CH₂NH₂ là:",o:["butylamin","isobutylamin","sec-butylamin","tert-butylamin"],a:0,e:"Gốc n-butyl (không nhánh)."}
+ ],
+ sa:[
+  {tag:"Danh pháp",q:"Tên thay thế của CH₃CH₂CH₂NH₂ là propan-?-amin. Nhập số vị trí của nhóm –NH₂:",ans:1,show:"1",e:"NH₂ ở C số 1."},
+  {tag:"Danh pháp",q:"Tên thay thế của (CH₃)₂CHNH₂ là propan-?-amin. Nhập số vị trí của nhóm –NH₂:",ans:2,show:"2",e:"NH₂ ở C số 2."},
+  {tag:"Danh pháp",q:"Số nhóm –NH₂ trong H₂N–CH₂–CH₂–NH₂ là bao nhiêu?",ans:2,show:"2",e:"Etan-1,2-điamin có 2 nhóm –NH₂."},
+  {tag:"Gốc",q:"Gốc tert-butyl –C(CH₃)₃ có bao nhiêu nguyên tử C?",ans:4,show:"4",e:"1 C gắn N + 3 CH₃ = 4 C."}
+ ]},
+{name:"Đề 4 · Tính chất",
+ mcq:[
+  {tag:"Khái niệm",q:"Dung dịch CH₃NH₂ làm quỳ tím chuyển màu:",o:["đỏ","xanh","không đổi màu","vàng"],a:1,e:"Amin có tính bazơ."},
+  {tag:"Khái niệm",q:"Anilin làm quỳ tím:",o:["xanh","đỏ","không đổi màu","vàng"],a:2,e:"Tính bazơ của anilin rất yếu."},
+  {tag:"Khái niệm",q:"Chất có tính bazơ yếu nhất là:",o:["CH₃NH₂","NH₃","C₆H₅NH₂","C₂H₅NH₂"],a:2,e:"Vòng benzen hút electron làm giảm tính bazơ."},
+  {tag:"Khái niệm",q:"Ở điều kiện thường, metylamin là:",o:["chất lỏng","chất khí","chất rắn","dung dịch"],a:1,e:"Metylamin, đimetylamin, trimetylamin đều là chất khí, mùi khai."},
+  {tag:"Khái niệm",q:"Anilin ở điều kiện thường là:",o:["chất khí","chất rắn","chất lỏng không màu","chất lỏng màu xanh"],a:2,e:"Để lâu ngoài không khí, anilin bị oxi hóa và hóa nâu."},
+  {tag:"Khái niệm",q:"Nhỏ nước brom vào dung dịch anilin, hiện tượng là:",o:["kết tủa đỏ","kết tủa trắng","khí thoát ra","dung dịch chuyển xanh"],a:1,e:"Tạo kết tủa trắng 2,4,6-tribromanilin."},
+  {tag:"Danh pháp",q:"Sản phẩm kết tủa trắng khi anilin tác dụng nước brom là:",o:["2,4,6-tribromphenol","2,4,6-tribromanilin","p-bromanilin","bromobenzen"],a:1,e:"Brom thế vào vị trí 2, 4, 6 của vòng."},
+  {tag:"Khái niệm",q:"Dung dịch amin thể hiện tính:",o:["axit","bazơ","lưỡng tính","trung tính"],a:1,e:"Amin có đôi electron tự do trên N nên là bazơ."},
+  {tag:"CTTQ",q:"CH₃NH₂ tác dụng HCl tạo muối:",o:["CH₃NH₃Cl","CH₃NH₂Cl","CH₃ClNH₂","CH₃NHCl"],a:0,e:"CH₃NH₂ + HCl → CH₃NH₃Cl."}
+ ],
+ sa:[
+  {tag:"CTTQ",q:"Muối CH₃NH₃Cl có bao nhiêu nguyên tử H?",ans:6,show:"6",e:"3 H ở CH₃ + 3 H ở NH₃⁺ = 6."},
+  {tag:"Khái niệm",q:"Số nguyên tử Br trong kết tủa 2,4,6-tribromanilin là bao nhiêu?",ans:3,show:"3",e:"Br ở vị trí 2, 4, 6 của vòng."},
+  {tag:"CTTQ",q:"Đimethylamin (CH₃)₂NH có bao nhiêu nguyên tử H?",ans:7,show:"7",e:"6 H ở 2 CH₃ + 1 H ở NH = 7."},
+  {tag:"Tên thường",q:"Anilin C₆H₅NH₂ có bao nhiêu nguyên tử C?",ans:6,show:"6",e:"Vòng benzen có 6 C."}
+ ]},
+{name:"Đề 5 · Gốc & tổng hợp",
+ mcq:[
+  {tag:"Khái niệm",q:"Công thức chung của amin bậc 2 là:",o:["R–NH₂","R–NH–R′","R–N(R′)–R″","R–OH"],a:1,e:"N gắn 2 gốc R."},
+  {tag:"Bậc",q:"Chất nào là amin bậc 2?",o:["CH₃NH₂","CH₃NHCH₃","(CH₃)₃N","C₆H₅NH₂"],a:1,e:"N gắn 2 gốc CH₃."},
+  {tag:"Gốc",q:"Gốc –CH₃ có tên là:",o:["methyl","ethyl","propyl","phenyl"],a:0,e:"Gốc methyl."},
+  {tag:"Gốc",q:"Gốc C₂H₅– có tên là:",o:["methyl","ethyl","propyl","butyl"],a:1,e:"Gốc ethyl."},
+  {tag:"Gốc",q:"Gốc C₆H₅– có tên là:",o:["benzyl","phenyl","tolyl","anilyl"],a:1,e:"Gốc phenyl."},
+  {tag:"Đồng phân",q:"Chất nào là amin bậc 2 có công thức C₄H₁₁N?",o:["CH₃CH₂CH₂NH₂","(CH₃)₂CHCH₂NH₂","CH₃CH₂NHCH₂CH₃","(CH₃)₃CNH₂"],a:2,e:"Diethylamin: N gắn 2 gốc C₂H₅."},
+  {tag:"Đồng phân",q:"Số đồng phân amin bậc 3 của C₃H₉N là:",o:["0","1","2","3"],a:1,e:"Chỉ (CH₃)₃N."},
+  {tag:"Phân loại",q:"Amin thơm bậc 2 nào sau đây?",o:["C₆H₅NH₂","C₆H₅NHCH₃","C₆H₅CH₂NH₂","(C₆H₅)₃N"],a:1,e:"N-methylanilin: N gắn vòng benzen và CH₃."},
+  {tag:"Gốc",q:"Gốc isopropyl có công thức:",o:["CH₃CH₂CH₂–","(CH₃)₂CH–","CH₃CH₂–","(CH₃)₃C–"],a:1,e:"–CH(CH₃)₂."}
+ ],
+ sa:[
+  {tag:"CTTQ",q:"Số nguyên tử C trong C₆H₅NHCH₃ là bao nhiêu?",ans:7,show:"7",e:"6 C vòng + 1 C của CH₃ = 7."},
+  {tag:"Gốc",q:"Gốc C₂H₅– có bao nhiêu nguyên tử C?",ans:2,show:"2",e:"Gốc ethyl."},
+  {tag:"Gốc",q:"Gốc –CH(CH₃)₂ (isopropyl) có bao nhiêu nguyên tử H?",ans:7,show:"7",e:"1 H ở CH + 6 H ở 2 CH₃ = 7."},
+  {tag:"Danh pháp",q:"Số nguyên tử C trong N-methylethanamin (CH₃NHC₂H₅) là bao nhiêu?",ans:3,show:"3",e:"1 C (methyl) + 2 C (ethan) = 3."}
+ ]}
+];
+// Gộp toàn bộ câu hỏi rồi chia lại: mỗi đề là tổng hợp kiến thức (không theo chủ đề)
+const POOL_M=EXAMS_RAW.flatMap(e=>e.mcq), POOL_S=EXAMS_RAW.flatMap(e=>e.sa);
+const EXAMS=[0,1,2,3,4].map(k=>({name:`Đề ${k+1} · Tổng hợp`,
+  mcq:POOL_M.filter((_,i)=>i%5===k), sa:POOL_S.filter((_,i)=>i%5===k)}));
+const EXS={}; let curEx=0;
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+const fmtT=s=>`${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
+const fmtN=v=>Number(v).toLocaleString("vi-VN",{maximumFractionDigits:2});
+function exSt(k){ return EXS[k]||(EXS[k]={started:false,done:false,left:EXTIME,mcq:{},sa:{},timer:null,res:null,auto:false}); }
+function exGrade(k){
+  const st=exSt(k), ex=EXAMS[k], r={mc:0,sc:0,score:0,wrong:{},total:{},saOk:[]};
+  const add=(t,bad)=>{ r.total[t]=(r.total[t]||0)+1; if(bad) r.wrong[t]=(r.wrong[t]||0)+1; };
+  ex.mcq.forEach((it,i)=>{ const ok=st.mcq[i]===it.a; if(ok) r.mc++; add(it.tag,!ok); });
+  ex.sa.forEach((it,i)=>{ const v=String(st.sa[i]||"").trim().replace(",","."); const ok=v!==""&&Number(v)===it.ans; r.saOk[i]=ok; if(ok) r.sc++; add(it.tag,!ok); });
+  r.score=r.mc*1+r.sc*0.25;
+  return r;
+}
+function exHTML(k){
+  const st=exSt(k), ex=EXAMS[k];
+  let h=`<div class="card exhead"><div><h2>${ex.name}</h2><p>Thang điểm 10 · I. 9 câu trắc nghiệm (1đ/câu) · II. 4 câu điền số (0,25đ/câu)</p></div>
+    <div class="exclock${st.started&&!st.done&&st.left<=60?" warn":""}" id="clk-${k}">${fmtT(st.left)}</div></div>`;
+  if(!st.started){
+    return h+`<div class="card startbox"><p>Bấm bắt đầu là đồng hồ 20 phút chạy. Hết giờ bài tự động nộp.</p>
+      <div class="nav"><button class="btn" onclick="exStart('${k}')">▶ Bắt đầu làm bài</button></div></div>`;
+  }
+  h+=`<div class="practice"><div class="fred" style="color:var(--teal);font-size:1.15rem;margin-bottom:6px">I. Trắc nghiệm · 9 câu × 1đ</div>`;
+  ex.mcq.forEach((it,i)=>{
+    const ch=st.mcq[i];
+    h+=`<div class="qcard enter"><span class="pill ${TAGCLS[it.tag]||"c-pur"}">${it.tag}</span><div class="qtext">Câu ${i+1}. ${it.q}</div><div class="opts">`;
+    it.o.forEach((o,oi)=>{
+      let cls="opt";
+      if(st.done){ if(oi===it.a) cls+=" correct"; else if(oi===ch) cls+=" wrong"; }
+      else if(ch===oi) cls+=" on";
+      h+=`<button class="${cls}" ${st.done?"disabled":""} onclick="exPick('${k}',${i},${oi})">${"ABCD"[oi]}. ${o}</button>`;
+    });
+    h+=`</div>${st.done&&ch!==it.a?`<div class="exp bad"><b>${ch===undefined?"⚠ Chưa làm.":"❌ Sai."}</b> Đáp án: ${it.o[it.a]}. ${it.e}</div>`:""}</div>`;
+  });
+  h+=`</div><div class="practice"><div class="fred" style="color:var(--teal);font-size:1.15rem;margin-bottom:6px">II. Điền số · 4 ô × 0,25đ</div>`;
+  ex.sa.forEach((it,i)=>{
+    h+=`<div class="qcard enter"><span class="pill ${TAGCLS[it.tag]||"c-pur"}">${it.tag}</span><div class="qtext">Câu ${ex.mcq.length+i+1}. ${it.q}</div>
+      <input class="sain" type="number" inputmode="decimal" step="any" style="max-width:180px;text-align:center;font-size:1.3rem;font-weight:800" value="${esc(st.sa[i]||"")}" ${st.done?"disabled":""} placeholder="Điền số" oninput="exSA('${k}',${i},this.value)">`;
+    if(st.done){ const ok=st.res.saOk[i]; h+=`<div class="exp ${ok?"ok":"bad"}"><b>${ok?"✅ Đúng.":"❌ Sai."}</b> Đáp án: ${it.show}. ${it.e}</div>`; }
+    h+=`</div>`;
+  });
+  h+=`</div>`;
+  h+= st.done ? exResult(k) : `<div class="nav"><button class="btn" onclick="exSubmit('${k}')">📝 Nộp bài</button></div>`;
+  return h;
+}
+function exResult(k){
+  const st=exSt(k), r=st.res;
+  const weak=Object.entries(r.wrong).sort((a,b)=>b[1]-a[1]);
+  return `<div class="scorebox exres"><div style="font-weight:800">${st.auto?"⏰ Hết 20 phút, bài đã được tự nộp. ":""}Điểm của bạn</div>
+    <div class="big">${fmtN(r.score)} / 10</div>
+    <div class="exsub">Trắc nghiệm: <b>${r.mc}/9</b> (${fmtN(r.mc)}đ) · Trả lời ngắn: <b>${r.sc}/4</b> (${fmtN(r.sc*0.25)}đ) · Thời gian dùng: ${fmtT(EXTIME-Math.max(st.left,0))}</div>
+    <div class="weak"><b>Phần còn yếu:</b> ${weak.length?weak.map(([t,n])=>`<span class="pill ${TAGCLS[t]||"c-pur"}">${t}: sai ${n}/${r.total[t]}</span>`).join(" "):"Không có phần yếu, làm rất tốt! 🎉"}</div>
+    <div class="nav"><button class="btn ghost" onclick="exReset('${k}')">🔄 Làm lại đề này</button></div></div>`;
+}
+function exRender(k){
+  if(curEx!==+k) return;
+  document.getElementById("ext-body").innerHTML=exHTML(k);
+  document.querySelectorAll("#ex-picker .pk").forEach((b,j)=>b.classList.toggle("on",j===curEx));
+}
+function exOpen(k){ curEx=k; exRender(k); }
+function exStart(k){
+  const st=exSt(k); if(st.started) return;
+  st.started=true; st.left=EXTIME;
+  st.timer=setInterval(()=>{
+    st.left--;
+    const c=document.getElementById("clk-"+k);
+    if(c){ c.textContent=fmtT(Math.max(st.left,0)); c.classList.toggle("warn",st.left<=60); }
+    if(st.left<=0){ st.auto=true; exSubmit(k); }
+  },1000);
+  exRender(k);
+}
+function exPick(k,i,oi){ const st=exSt(k); if(st.done) return; st.mcq[i]=oi; exRender(k); }
+function exSA(k,i,v){ exSt(k).sa[i]=v; }
+function exSubmit(k){
+  const st=exSt(k); if(st.done) return;
+  st.done=true; clearInterval(st.timer); st.res=exGrade(k); exRender(k);
+}
+function exReset(k){
+  const st=EXS[k]; if(st&&st.timer) clearInterval(st.timer);
+  delete EXS[k]; exRender(k);
+}
+document.getElementById("ex-picker").innerHTML=EXAMS.map((e,k)=>`<button class="pk${k===0?" on":""}" onclick="exOpen(${k})">${e.name}</button>`).join("");
+exRender(0);
+/* ===== v3: trắc nghiệm ngay theo từng phần; đồng phân mỗi C có 3 câu riêng; giao diện theo thiết bị/sáng/tối ===== */
+function genIsoQuiz(k){
+  const d=ISO_ORDER[k]; const all=[];
+  d.groups.forEach(g=>g.items.forEach(it=>all.push([it[0],g.bac])));
+  const total=all.length, bac1=all.filter(x=>x[1]===1).length;
+  const mk=(q,ans,e,seed)=>{
+    const c=[ans+1,ans+2,ans-1,ans+3,ans-2].filter(x=>x>=0&&x!==ans);
+    const dd=[...new Set(c)].slice(0,3); const r=seed%4; dd.splice(r,0,ans);
+    return {tag:"Đồng phân",q,o:dd.map(String),a:r,e};
+  };
+  const q1=mk(`${d.f} có bao nhiêu đồng phân amin?`,total,`${d.f} có ${total} đồng phân amin.`,k);
+  const q2=mk(`${d.f} có bao nhiêu đồng phân amin bậc 1?`,bac1,`Có ${bac1} chất bậc 1.`,k+1);
+  const t=all[k%all.length];
+  const q3={tag:"Đồng phân",q:`Chất ${t[0]} thuộc bậc mấy?`,o:["Bậc 1","Bậc 2","Bậc 3","Không phải amin"],a:t[1]-1,e:`${t[0]} có ${t[1]} gốc gắn trên N → bậc ${t[1]}.`};
+  return [q1,q2,q3];
+}
+ISO_ORDER.forEach((_,k)=>SETS["iso"+k]=genIsoQuiz(k));
+
+function examHTML(si){
+  const s=steps[si];
+  const ex=(s.ex||[]).map((e,i)=>`<div style="padding:4px 0"><b>${i+1}.</b> <span class="mono">${e}</span></div>`).join("");
+  return `${ex?`<div class="callout pur"><b>Ví dụ</b>${ex}</div>`:""}
+   <div class="practice"><div class="fred" style="color:var(--teal);font-size:1.2rem;margin-bottom:8px">🎯 Trắc nghiệm</div>
+   ${itemsHTML("s"+si)}<div id="score-s${si}" class="scorebox hidden"></div></div>`;
+}
+// mỗi trang: {html, key (bộ câu hỏi gắn với trang), quizPage}
+function pagesOf(si){
+  const s=steps[si], P=[];
+  if(s.isoSlides){ ISO_ORDER.forEach((_,k)=>P.push({html:()=>isoSlideHTML(k),key:"iso"+k})); }
+  else {
+    (s.slides||[]).forEach(f=>P.push({html:f,key:null}));
+    P.push({html:()=>examHTML(si),key:"s"+si,quizPage:true});
+  }
+  return P;
+}
+function renderPage(){
+  const P=pagesOf(cur); if(sub>=P.length) sub=P.length-1;
+  const pg=P[sub];
+  let h=`<h2>${cur+1}. ${steps[cur].title}</h2><div class="enter">${pg.html()}</div>`;
+  if(pg.key && !pg.quizPage){
+    h+=`<div class="practice"><div class="fred" style="color:var(--teal);font-size:1.2rem;margin-bottom:8px">🎯 Trắc nghiệm</div>${itemsHTML(pg.key)}<div id="score-${pg.key}" class="scorebox hidden"></div></div>`;
+  }
+  document.getElementById("tcard").innerHTML=h;
+  if(pg.key){ const got=ANS[pg.key]||{}; Object.keys(got).forEach(i=>applyAns(pg.key,+i,got[i])); checkDone(pg.key); }
+  document.getElementById("scount").textContent=`Bước ${cur+1}/${steps.length} · Trang ${sub+1}/${P.length}`;
+  document.getElementById("pbar").style.width=((cur+(sub+1)/P.length)/steps.length*100)+"%";
+  document.getElementById("dots").innerHTML=steps.map((_,i)=>`<button class="dot ${i===cur?"on":(i<cur?"done":"")}" onclick="jumpStep(${i})"></button>`).join("");
+  updNav();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function updNav(){
+  const P=pagesOf(cur), pg=P[sub], nx=document.getElementById("next"), pv=document.getElementById("prev");
+  pv.disabled = cur===0&&sub===0;
+  const done = !pg.key || Object.keys(ANS[pg.key]||{}).length>=SETS[pg.key].length;
+  const isLast = sub===P.length-1, lastStep = cur===steps.length-1;
+  nx.disabled=!done;
+  nx.textContent = !done ? "Làm hết câu hỏi để tiếp" : (isLast ? (lastStep?"Sang trích 7A →":"Bước tiếp →") : "Tiếp →");
+  nx.onclick=()=>{ if(!isLast){sub++;renderPage();} else if(!lastStep){cur++;sub=0;renderPage();} else showTab("7a"); };
+}
+function pick(p,i,oi){
+  ANS[p]=ANS[p]||{}; if(ANS[p][i]!==undefined) return;
+  ANS[p][i]=oi; applyAns(p,i,oi); checkDone(p); updNav();
+}
+function back(){
+  if(sub>0) sub--;
+  else if(cur>0){ cur--; sub=pagesOf(cur).length-1; }
+  renderPage();
+}
+function jumpStep(i){ cur=i; sub=0; renderPage(); }
+
+let curTheme="device";
+function applyTheme(m){
+  const dark = m==="dark" || (m==="device" && matchMedia("(prefers-color-scheme: dark)").matches);
+  document.documentElement.dataset.theme = dark?"dark":"light";
+  document.querySelectorAll("#themes button").forEach(b=>b.classList.toggle("on", b.dataset.m===m));
+}
+function setTheme(m){ curTheme=m; try{localStorage.setItem("kn_theme",m);}catch(e){} applyTheme(m); }
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{ if(curTheme==="device") applyTheme("device"); });
+let savedT=null; try{ savedT=localStorage.getItem("kn_theme"); }catch(e){}
+curTheme = savedT || "device"; applyTheme(curTheme);
+
+/* ===== v4: bỏ dấu chấm, thay bằng nút từng bước; bước xong được đánh dấu gọn ===== */
+function renderPage(){
+  const P=pagesOf(cur); if(sub>=P.length) sub=P.length-1;
+  const pg=P[sub];
+  let h=`<h2>${cur+1}. ${steps[cur].title}</h2><div class="enter">${pg.html()}</div>`;
+  if(pg.key && !pg.quizPage){
+    h+=`<div class="practice"><div class="fred" style="color:var(--teal);font-size:1.2rem;margin-bottom:8px">🎯 Trắc nghiệm</div>${itemsHTML(pg.key)}<div id="score-${pg.key}" class="scorebox hidden"></div></div>`;
+  }
+  document.getElementById("tcard").innerHTML=h;
+  if(pg.key){ const got=ANS[pg.key]||{}; Object.keys(got).forEach(i=>applyAns(pg.key,+i,got[i])); checkDone(pg.key); }
+  document.getElementById("scount").textContent=`Bước ${cur+1}/${steps.length} · Trang ${sub+1}/${P.length}`;
+  document.getElementById("pbar").style.width=((cur+(sub+1)/P.length)/steps.length*100)+"%";
+  document.getElementById("dots").innerHTML=steps.map((s,i)=>
+    `<button class="stepbtn ${i===cur?"on":""} ${i<cur?"done":""}" onclick="jumpStep(${i})">${i<cur?"✓ ":""}${i+1}. ${s.title}</button>`).join("");
+  updNav();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
 renderPage();
 </script>
 </body>
