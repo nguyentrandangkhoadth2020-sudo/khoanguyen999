@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WEB HỌC HÓA HỌC CỦA KHOA NGUYỄN</title>
+<title>WEBSITE HỌC HÓA HỌC CỦA KHOA NGUYỄN 999</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#1e1b4b;--ink2:#3f3d56;--muted:#6b7280;--line:#e4e4f7;--pur:#6d28d9;--pur-s:#ede9fe;--teal:#0f766e;--teal-s:#ccfbf1;--amb:#b45309;--amb-s:#fef3c7;--grn:#15803d;--grn-s:#dcfce7;--pink:#be185d;--pink-s:#fce7f3;--blue:#1d4ed8;--blue-s:#dbeafe}
@@ -12,8 +12,8 @@ body{margin:0;font-family:"Nunito",system-ui,sans-serif;color:var(--ink);font-si
 @keyframes bg{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
 .mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:700}
 h1,h2,h3,.fred{font-family:"Fredoka",sans-serif;font-weight:600;margin:0}
-header{background:linear-gradient(135deg,#4c1d95,#6d28d9 45%,#4338ca 80%,#2563eb);color:#fff;padding:24px 16px;text-align:center}
-header h1{font-size:1.6rem;letter-spacing:.5px;text-transform:uppercase}
+header{background:linear-gradient(135deg,#4c1d95,#6d28d9 45%,#4338ca 80%,#2563eb);color:#fff;padding:12px 16px;text-align:center}
+header h1{font-size:1.2rem;letter-spacing:.5px;text-transform:uppercase}
 header p{margin:6px 0 0;color:#ddd6fe}
 nav.tabs{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.94);border-bottom:1px solid var(--line);display:flex;justify-content:center;flex-wrap:wrap;gap:6px;padding:8px;box-shadow:0 2px 10px rgba(30,27,75,.06)}
 .tab{border:none;background:none;font:inherit;font-weight:800;padding:9px 15px;border-radius:999px;cursor:pointer;color:var(--ink2);transition:.2s}
@@ -71,8 +71,10 @@ svg.bz .ring{transform-box:fill-box;transform-origin:center;transition:transform
 @keyframes typeln{to{opacity:1}}
 .bung .hint{color:#94a3b8;font-family:"Nunito",sans-serif;white-space:normal;font-size:.85rem}
 /* thứ tự học */
-.progress{height:10px;background:#e9e5ff;border-radius:99px;overflow:hidden;margin-bottom:8px}
-.progress-bar{height:100%;background:linear-gradient(90deg,#a78bfa,#6d28d9,#a78bfa);background-size:200% 100%;animation:sh 2.4s linear infinite;transition:width .5s}
+.progress{height:16px;background:#ece8ff;border-radius:99px;overflow:hidden;margin-bottom:8px;box-shadow:inset 0 2px 6px rgba(30,27,75,.10)}
+.progress-bar{height:100%;background:linear-gradient(90deg,#f472b6,#a855f7,#6366f1,#22d3ee,#34d399,#fbbf24,#f472b6);background-size:200% 100%;animation:sh 2.4s linear infinite;transition:width .6s;box-shadow:0 0 14px rgba(168,85,247,.55);border-radius:99px}
+.progtxt{display:flex;justify-content:space-between;align-items:baseline;font-weight:800;color:var(--ink2);margin-bottom:6px}
+.progtxt b{font-family:"Fredoka",sans-serif;font-size:1.35rem;background:linear-gradient(90deg,#db2777,#7c3aed,#0891b2);-webkit-background-clip:text;background-clip:text;color:transparent}
 @keyframes sh{from{background-position:0 0}to{background-position:200% 0}}
 .stepcount{font-weight:800;color:var(--ink2);text-align:right;margin-bottom:10px}
 .dots{display:flex;gap:7px;justify-content:center;margin-top:14px;flex-wrap:wrap}
@@ -139,7 +141,7 @@ body.locked #app{display:none}
  .opts,.bacrow,.diagrams,.iso-grid{grid-template-columns:1fr}
 }
 @media(min-width:641px){ .tab{padding:10px 18px;font-size:1rem} nav.tabs{padding:10px} }
-.themes{display:inline-flex;gap:4px;margin-top:12px;background:rgba(255,255,255,.18);padding:4px;border-radius:999px;flex-wrap:wrap;justify-content:center}
+.themes{display:inline-flex;gap:4px;margin-top:0;background:rgba(255,255,255,.18);padding:4px;border-radius:999px;flex-wrap:wrap;justify-content:center}
 .themes button{border:none;background:transparent;color:#fff;font:inherit;font-weight:800;padding:6px 12px;border-radius:999px;cursor:pointer;font-size:.88rem}
 .themes button.on{background:#fff;color:#4c1d95}
 [data-theme=dark] body{background:#0f0d1f;color:#e5e7eb}
@@ -196,7 +198,7 @@ body::before{content:"";position:fixed;width:420px;height:420px;border-radius:50
 body::after{content:"";position:fixed;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,#93c5fd,transparent 70%);bottom:-120px;right:-100px;opacity:.55;animation:floaty 17s ease-in-out infinite reverse;pointer-events:none;z-index:0}
 header,main{position:relative;z-index:1}
 header h1{animation:popIn .8s both}
-.enter{animation:slideIn .55s cubic-bezier(.2,.8,.2,1) both}
+.enter{animation:riseIn .7s cubic-bezier(.22,1,.36,1) both}
 .qcard{animation:popIn .5s both}
 .qcard:nth-child(2){animation-delay:.07s}.qcard:nth-child(3){animation-delay:.14s}.qcard:nth-child(4){animation-delay:.21s}.qcard:nth-child(5){animation-delay:.28s}
 .iso{animation:popIn .5s both}
@@ -242,44 +244,276 @@ svg.bz .ring{animation:spin 18s linear infinite;transform-box:fill-box;transform
 .cbox{background:#fff;color:var(--ink);border-radius:28px;padding:26px 20px;max-width:780px;width:100%;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,.35);animation:popIn .5s both;max-height:92vh;overflow:auto}
 .cbox h2{margin:6px 0 2px}
 [data-theme=dark] .cbox{background:#1a1733;color:#e5e7eb}
+/* ===== v6: mục lục từng bước nằm trong dropdown của tab Lý thuyết ===== */
+.tabwrap{position:relative;display:inline-flex;align-items:center;gap:4px}
+.caretbtn{border:none;background:var(--pur-s);color:var(--pur);border-radius:999px;width:34px;height:36px;font-weight:900;cursor:pointer;transition:transform .25s}
+.caretbtn.up{transform:rotate(180deg)}
+.dropmenu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);width:min(92vw,380px);max-height:62vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 40px rgba(30,27,75,.22);padding:10px;display:flex;flex-direction:column;gap:6px;z-index:60;animation:popIn .3s both}
+.dropmenu.hidden{display:none}
+.dropmenu .stepbtn{width:100%;text-align:left;margin:0}
+[data-theme=dark] .dropmenu{background:#1a1733;border-color:#332f57}
+/* ===== v7: banner gọn, đăng xuất, hình mờ đăng nhập, tối rõ hơn ===== */
+.hwrap{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 16px}
+.htitle{text-align:left;flex:1 1 auto}
+.htitle p{font-size:.9rem}
+.hright{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.who{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.who span{font-weight:800;background:rgba(255,255,255,.2);padding:6px 12px;border-radius:999px;font-size:.88rem}
+.who button{border:2px solid rgba(255,255,255,.6);background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-weight:800;cursor:pointer;font-size:.85rem}
+.who button:hover{background:#fff;color:#4c1d95}
+@media(max-width:640px){ .htitle{text-align:center;width:100%} .hright{justify-content:center;width:100%} }
+.wm{position:absolute;inset:0;opacity:.16;pointer-events:none;z-index:0}
+#login .lbox{position:relative;z-index:1}
+[data-theme=dark]{--ink:#f5f3ff;--ink2:#e4e1f7;--muted:#b9b5d6;--line:#3a3570;--pur:#c4b5fd;--pur-s:#2e2757;--teal:#5eead4;--teal-s:#134e4a;--amb:#fcd34d;--amb-s:#3b2a10;--grn:#86efac;--grn-s:#14532d;--pink:#f9a8d4;--pink-s:#4a1d3a;--blue:#93c5fd;--blue-s:#1e3a8a}
+[data-theme=dark] .gop{color:#ccfbf1}
+[data-theme=dark] .nm.gc{color:#ccfbf1}
+[data-theme=dark] .nm.tt{color:#f3e8ff}
+[data-theme=dark] .pk,[data-theme=dark] .toggle,[data-theme=dark] .step-f,[data-theme=dark] .btn.ghost{background:#1a1733}
+[data-theme=dark] .btn.ghost{color:#c4b5fd;border-color:#5b4fa0}
+[data-theme=dark] .progress{background:#2a2550}
+[data-theme=dark] .bacbox.b1{background:#2a2050}
+[data-theme=dark] .bacbox.b2{background:#103a36}
+[data-theme=dark] .bacbox.b3{background:#4a1d2e}
+[data-theme=dark] .dbox{background:#1f1a3d}
+[data-theme=dark] .scorebox{background:#1f1a3d}
+[data-theme=dark] .callout.grn{background:#14532d;color:#dcfce7}
+[data-theme=dark] .lock{color:var(--ink2)}
+[data-theme=dark] .stepcount{color:var(--ink2)}
+[data-theme=dark] .tab{color:#e4e1f7}
+[data-theme=dark] .themes button{color:#e4e1f7}
+[data-theme=dark] .themes button.on{background:#c4b5fd;color:#1e1b4b}
+[data-theme=dark] .who button{color:#fff}
+#login select{width:100%;padding:14px;font:inherit;font-size:1.1rem;font-weight:700;border:2px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);margin-top:8px;outline:none;cursor:pointer}
+#login select:focus{border-color:#8b5cf6}
+[data-theme=dark] #login select{background:#1a1733;color:#e5e7eb}
+.themes button{padding:0;width:38px;height:36px;display:inline-flex;align-items:center;justify-content:center;font-size:1.1rem}
+.progsticky{position:sticky;top:0;z-index:20;background:rgba(245,243,255,.94);backdrop-filter:blur(6px);padding:10px 2px 6px;margin:0 -2px}
+@media(min-width:641px){ .progsticky{top:62px} }
+[data-theme=dark] .progsticky{background:rgba(15,13,31,.94)}
+.gcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:12px 0}
+.gc{background:#faf8ff;border:2px solid #ddd6fe;border-radius:18px;padding:12px;text-align:center;transition:transform .2s}
+.gc:hover{transform:translateY(-4px)}
+.gcn{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.15rem;color:var(--pur)}
+.gcf{font-size:1rem;margin:4px 0;color:var(--ink)}
+.gcm{font-size:.85rem;color:var(--ink2);font-weight:700;margin-top:4px}
+.rsteps{display:flex;flex-direction:column;gap:4px}
+.rs{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;animation:up .5s both}
+.rn{flex:0 0 34px;height:34px;border-radius:50%;background:var(--pur);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Fredoka",sans-serif;font-weight:700}
+.lead{font-size:1.05rem}
+.mini{color:var(--ink2);font-size:.92rem}
+.bigf{font-size:1.25rem;text-align:center;margin:10px 0;color:var(--ink)}
+.toks{text-align:center;margin:10px 0}
+.tok{display:inline-block;padding:7px 12px;border-radius:12px;background:var(--pur-s);color:#3b0764;font-family:"JetBrains Mono",monospace;font-weight:700;margin:4px 2px;animation:popIn .5s both}
+[data-theme=dark] .tok{color:#f5f3ff}
+.plus{font-weight:900;color:var(--pur);margin:0 4px}
+.resline{text-align:center;font-family:"Fredoka",sans-serif;font-size:1.3rem;margin-top:8px;color:var(--teal)}
+.resline b{color:var(--pur)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin:10px 0}
+.cg{background:#faf8ff;border:2px solid #ddd6fe;border-radius:14px;padding:8px;text-align:center}
+.cg b{display:block;font-size:1.5rem;color:var(--pur);font-family:"Fredoka",sans-serif}
+.cg span{font-size:.85rem;font-weight:800}
+.tryit{cursor:pointer;background:#fff;border:2px dashed #c4b5fd;border-radius:16px;padding:12px 14px;margin:8px 0;transition:background .2s}
+.tryit:hover{background:#faf8ff}
+.tryit .mono{font-size:1.1rem}
+.tryit .ta{display:none;margin-top:8px;color:var(--teal);font-weight:800}
+.tryit.open .ta{display:block}
+[data-theme=dark] .rs,[data-theme=dark] .tryit,[data-theme=dark] .cg,[data-theme=dark] .gc{background:#1f1a3d;border-color:#3a3570}
+@keyframes riseIn{from{opacity:0;transform:translateY(22px) scale(.985);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.stepbtn.locked{opacity:.45;cursor:not-allowed}
+.exlist{display:grid;gap:4px;margin-top:8px}
+.exbtn{display:flex;align-items:center;gap:8px;width:100%;text-align:left;background:#fff;border:2px solid #ddd6fe;border-radius:14px;padding:10px 13px;font:inherit;font-weight:700;color:var(--ink);cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),border-color .2s,box-shadow .2s;animation:riseIn .6s both}
+.exbtn:hover{transform:translateX(8px) scale(1.01);border-color:#a855f7;box-shadow:0 8px 18px rgba(168,85,247,.2)}
+.exbtn em{margin-left:auto;font-style:normal;transition:transform .3s}
+.exbtn:hover em{transform:rotate(20deg) scale(1.3)}
+[data-theme=dark] .exbtn{background:#1f1a3d;color:#f5f3ff;border-color:#3a3570}
+/* popup sticker */
+.stkov{position:fixed;inset:0;z-index:300;background:rgba(30,27,75,.6);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:20px;animation:stkfade .25s both}
+@keyframes stkfade{from{opacity:0}to{opacity:1}}
+.stkbox{position:relative;background:linear-gradient(135deg,#fff,#faf5ff 60%,#eff6ff);border:5px solid #fff;border-radius:30px;padding:40px 26px 28px;max-width:420px;width:100%;text-align:center;box-shadow:0 0 0 6px #c4b5fd,0 24px 60px rgba(0,0,0,.35);animation:stkpop .65s cubic-bezier(.34,1.56,.64,1) both}
+[data-theme=dark] .stkbox{background:linear-gradient(135deg,#1f1a3d,#2a2050);color:#f5f3ff}
+@keyframes stkpop{0%{transform:scale(.3) rotate(-14deg);opacity:0}100%{transform:scale(1) rotate(-2deg);opacity:1}}
+.stkbig{font-size:4.5rem;animation:stkbob 1.6s ease-in-out infinite;display:inline-block}
+@keyframes stkbob{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-12px) rotate(8deg)}}
+.burst{position:absolute;left:50%;top:44%;font-size:1.7rem;pointer-events:none;animation:burst 1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes burst{0%{transform:translate(-50%,-50%) scale(.2);opacity:1}80%{opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.1);opacity:0}}
+.stkt{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:1.15rem;color:var(--ink);margin-top:12px;line-height:1.5;padding:12px;background:var(--pur-s);border-radius:16px}
+.stkhint{font-size:.8rem;color:var(--muted);margin-top:14px;font-weight:800}
+/* thẻ màu thay bảng */
+.kcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:12px 0}
+.kc{border:2px solid;border-radius:18px;padding:14px;animation:riseIn .7s cubic-bezier(.22,1,.36,1) both;transition:transform .25s}
+.kc:hover{transform:translateY(-4px) rotate(-.6deg)}
+.kc .kt{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.15rem}
+.kc .kd{font-size:.9rem;font-weight:700;color:var(--ink2);margin:4px 0}
+.kc .ke{font-size:.98rem;padding:6px 8px;background:rgba(255,255,255,.75);border-radius:10px}
+.k1{border-color:#8b5cf6;background:#f5f3ff}.k1 .kt{color:#6d28d9}
+.k2{border-color:#14b8a6;background:#f0fdfa}.k2 .kt{color:#0f766e}
+.k3{border-color:#f97316;background:#fff7ed}.k3 .kt{color:#c2410c}
+.k4{border-color:#ec4899;background:#fdf2f8}.k4 .kt{color:#be185d}
+[data-theme=dark] .k1{background:#2a2050}[data-theme=dark] .k2{background:#103a36}[data-theme=dark] .k3{background:#3b2410}[data-theme=dark] .k4{background:#3f1a33}
+[data-theme=dark] .kc .ke{background:rgba(0,0,0,.25);color:#f5f3ff}
+[data-theme=dark] .kc .kt{color:#f5f3ff}
+.ntiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:12px 0}
+.nt{background:#fff;border:2px solid #ddd6fe;border-radius:18px;padding:12px;text-align:center;animation:riseIn .7s cubic-bezier(.22,1,.36,1) both}
+.nt.wide{grid-column:1/-1}
+.nt .ntot{font-family:"Fredoka",sans-serif;font-size:2.2rem;font-weight:700;background:linear-gradient(90deg,#db2777,#7c3aed,#0891b2);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.2}
+.nt .pill{margin:3px 2px;font-size:.78rem}
+[data-theme=dark] .nt{background:#1f1a3d;border-color:#3a3570}
+/* đăng nhập đẹp hơn */
+#login .lbox{padding:34px 28px 30px;border:3px solid transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,#a855f7,#ec4899,#38bdf8) border-box;box-shadow:0 30px 60px rgba(0,0,0,.3)}
+#login .avatar{width:86px;height:86px;margin:0 auto 6px;border-radius:50%;background:linear-gradient(135deg,#ede9fe,#fce7f3);display:flex;align-items:center;justify-content:center;font-size:2.6rem;animation:bob 3s ease-in-out infinite;box-shadow:0 10px 24px rgba(124,58,237,.25)}
+#login h2{font-size:2rem;background:linear-gradient(90deg,#7c3aed,#db2777,#0891b2);-webkit-background-clip:text;background-clip:text;color:transparent}
+#login .btn{padding:15px;font-size:1.1rem;background:linear-gradient(135deg,#7c3aed,#db2777);position:relative;overflow:hidden}
+#login .btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 2.8s infinite}
+@keyframes shine{0%{left:-60%}60%,100%{left:130%}}
+[data-theme=dark] #login .lbox{background:linear-gradient(#1a1733,#1a1733) padding-box,linear-gradient(135deg,#a855f7,#ec4899,#38bdf8) border-box;color:#f5f3ff}
+.mailtxt{font-style:italic;color:var(--ink2);margin-top:8px;font-size:.98rem;min-height:1.4em}
+.hl{font-weight:900;color:#4c1d95}
+[data-theme=dark] .hl{color:#e9d5ff}
+.qno{font-family:"Fredoka",sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.5px;color:var(--pur);margin-bottom:4px}
+/* ===== flashcard & nghe giảng ===== */
+.tools{display:flex;flex-wrap:wrap;justify-content:flex-end;margin-bottom:6px}
+.toolbtn{border:none;border-radius:999px;padding:9px 16px;font:inherit;font-weight:800;color:#fff;cursor:pointer;margin:4px 0 4px 8px;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 18px rgba(0,0,0,.12)}
+.toolbtn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 24px rgba(0,0,0,.18)}
+.t-fc{background:linear-gradient(135deg,#f97316,#ec4899)}
+.t-lec{background:linear-gradient(135deg,#0891b2,#7c3aed)}
+.lovr{position:fixed;inset:0;z-index:260;background:rgba(30,27,75,.6);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:14px;animation:stkfade .25s both}
+.lbox2{background:#fff;color:var(--ink);border-radius:26px;padding:20px;width:100%;max-width:640px;max-height:92vh;overflow:auto;box-shadow:0 30px 60px rgba(0,0,0,.35);animation:popIn .45s both}
+[data-theme=dark] .lbox2{background:#1a1733;color:#f5f3ff}
+.lhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;font-family:"Fredoka",sans-serif;font-size:1.15rem;font-weight:700;color:var(--pur)}
+.xbtn{border:none;background:var(--pur-s);color:var(--pur);width:36px;height:36px;border-radius:50%;font-weight:900;cursor:pointer;font-size:1rem}
+.fcscene{perspective:1200px;display:flex;justify-content:center;margin:10px 0}
+.fcard{position:relative;width:100%;max-width:460px;height:260px;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.22,1,.36,1);cursor:pointer}
+.fcard.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;text-align:center;font-weight:800;font-size:1.2rem;box-shadow:0 14px 30px rgba(30,27,75,.18);border:3px solid #fff}
+.face small{font-size:.72rem;letter-spacing:1.5px;opacity:.7;margin-bottom:8px}
+.front{background:linear-gradient(135deg,#fdf4ff,#ede9fe);color:#1e1b4b}
+.back{background:linear-gradient(135deg,#ecfeff,#ccfbf1);color:#134e4a;transform:rotateY(180deg)}
+[data-theme=dark] .front{background:linear-gradient(135deg,#3b1f55,#2e2757);color:#f5f3ff;border-color:#3a3570}
+[data-theme=dark] .back{background:linear-gradient(135deg,#134e4a,#1e3a5f);color:#f0fdfa;border-color:#3a3570}
+.fcnav{display:flex;align-items:center;gap:10px;margin-top:6px}
+.fcnav .btn{flex:1}
+.fcnum{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.1rem;min-width:60px;text-align:center}
+.lecvis{display:flex;justify-content:center;flex-wrap:wrap;margin:6px 0}
+.lectext{background:#faf8ff;border-radius:16px;padding:10px 14px;max-height:34vh;overflow:auto;margin:10px 0}
+[data-theme=dark] .lectext{background:#241f45}
+.sent{margin:6px 0;padding:6px 10px;border-radius:12px;transition:background .4s,transform .4s;font-weight:700}
+.sent.now{background:linear-gradient(90deg,#fde68a,#fbcfe8);color:#4a044e;transform:scale(1.02)}
+[data-theme=dark] .sent.now{color:#1e1b4b}
+.lecctrl{display:flex;gap:8px;flex-wrap:wrap}
+.lecctrl .btn{flex:1;min-width:110px}
+.hint{color:var(--muted);font-size:.9rem;text-align:center;margin-top:8px}
+.tag999{display:inline-block;margin-left:10px;vertical-align:middle;padding:5px 16px;border-radius:999px;background:linear-gradient(135deg,#fde047,#f97316,#ec4899,#7c3aed);background-size:200% 200%;color:#fff;font-family:"Fredoka",sans-serif;font-size:1rem;font-weight:700;letter-spacing:.5px;box-shadow:0 0 0 3px #fff,0 8px 22px rgba(236,72,153,.55);animation:bob 2.4s ease-in-out infinite,sh 3s linear infinite;text-shadow:0 2px 4px rgba(0,0,0,.25)}
+.vfoot{max-width:880px;margin:0 auto;padding:12px 16px 28px;color:var(--ink2);font-size:.9rem;text-align:center}
+.vtop{margin-bottom:6px}
+.vbadge{display:inline-block;background:linear-gradient(90deg,#f59e0b,#ef4444);color:#fff;font-weight:900;font-size:.72rem;letter-spacing:1px;padding:3px 10px;border-radius:999px;margin-right:4px}
+.vfoot .vlist{background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 16px;text-align:left}
+[data-theme=dark] .vfoot .vlist{background:#1a1733;border-color:#332f57}
+.vfoot summary{cursor:pointer;font-weight:800;color:var(--pur)}
+.vfoot ul{padding-left:18px;margin:8px 0 0}
+.vfoot li{margin:6px 0}
+.flinks{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:12px 12px 0;max-width:880px;margin:0 auto}
+.flink{flex:1 1 300px;display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff;border-radius:18px;padding:12px 16px;box-shadow:0 10px 22px rgba(30,27,75,.18);transition:transform .25s,box-shadow .25s;animation:riseIn .6s both;position:relative;overflow:hidden}
+.flink::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);animation:shine 3.4s infinite}
+.flink:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 16px 30px rgba(30,27,75,.26)}
+.fl-lt{background:linear-gradient(135deg,#0ea5e9,#6366f1)}
+.fl-bt{background:linear-gradient(135deg,#f97316,#db2777)}
+.flink .fi{font-size:1.8rem;animation:bob 2.6s ease-in-out infinite}
+.flink b{display:block;font-family:"Fredoka",sans-serif;font-size:1.05rem;letter-spacing:.3px}
+.flink small{display:inline-block;margin-top:2px;background:rgba(255,255,255,.25);padding:2px 10px;border-radius:999px;font-weight:900;font-size:.72rem;letter-spacing:1.5px}
+.flink>span:nth-child(2){flex:1}
+.fgo{font-weight:800;font-size:.85rem;background:#fff;color:#1e1b4b;padding:6px 12px;border-radius:999px;white-space:nowrap}
+@keyframes cdpulse{0%,100%{box-shadow:0 8px 20px rgba(220,38,38,.45)}50%{box-shadow:0 8px 30px rgba(249,115,22,.85),0 0 0 4px rgba(254,215,170,.5)}}
+.cdown{display:flex;flex-direction:column;align-items:center;padding:6px 14px;border-radius:16px;background:linear-gradient(135deg,#dc2626,#f97316);color:#fff;animation:cdpulse 1.6s ease-in-out infinite;border:2px solid #fff}
+.cdown small{font-size:.66rem;font-weight:900;letter-spacing:1px;opacity:.95;white-space:nowrap}
+.cdown b{font-family:"JetBrains Mono",monospace;font-size:1.25rem;letter-spacing:1px;text-shadow:0 2px 6px rgba(0,0,0,.3)}
+header{padding-right:124px!important}
+@media(max-width:640px){ header{padding-right:84px!important} }
+.bomb{position:fixed;top:22px;right:12px;z-index:250;display:flex;flex-direction:column;align-items:center;gap:2px;pointer-events:none}
+.bball{position:relative;width:62px;height:62px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#71717a,#27272a 55%,#09090b);box-shadow:0 8px 18px rgba(0,0,0,.45),inset -4px -6px 10px rgba(0,0,0,.5);animation:bombShake 2.6s ease-in-out infinite}
+.bball::before{content:"";position:absolute;top:9px;left:12px;width:14px;height:8px;border-radius:50%;background:rgba(255,255,255,.35);transform:rotate(-30deg)}
+.fuse{position:absolute;top:-12px;left:50%;width:18px;height:14px;border-top:3px solid #a16207;border-right:3px solid #a16207;border-radius:0 12px 0 0;transform:translateX(-30%)}
+.fuse::after{content:"";position:absolute;top:-8px;right:-8px;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle,#fff7ae,#f97316 60%,transparent 70%);animation:spark .5s ease-in-out infinite alternate}
+@keyframes spark{from{transform:scale(.7);opacity:.6}to{transform:scale(1.25);opacity:1}}
+@keyframes bombShake{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+.bomb small{font-size:.6rem;font-weight:900;letter-spacing:1.5px;color:#7f1d1d;background:#fee2e2;padding:1px 8px;border-radius:999px}
+.btime{background:#111827;color:#fde68a;border-radius:999px;padding:3px 10px;white-space:nowrap;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+.btime b{font-family:"JetBrains Mono",monospace;font-size:.88rem;letter-spacing:.5px}
+@media(max-width:640px){ .bball{width:48px;height:48px} .btime b{font-size:.74rem} .bomb{top:18px;right:8px} }
+.intro{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;background:rgba(15,13,31,.72);backdrop-filter:blur(4px);padding:20px;transition:opacity .5s}
+.intro.hidden{display:none}
+.intro.out{opacity:0}
+.introtxt{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw,2.8rem);text-align:center;color:#fff;background:linear-gradient(135deg,#dc2626,#f97316);padding:22px 28px;border-radius:24px;border:4px solid #fff;box-shadow:0 20px 50px rgba(220,38,38,.5);max-width:92vw;line-height:1.3}
+.intro.play .introtxt{animation:introDrop .9s cubic-bezier(.3,1.3,.6,1) both}
+@keyframes introDrop{0%{transform:translateY(-120vh) rotate(-10deg);opacity:0}60%{transform:translateY(12px) rotate(3deg);opacity:1}80%{transform:translateY(-8px) rotate(-1deg)}100%{transform:none}}
+.badge{display:inline-block;margin-top:8px;background:var(--amb-s);color:var(--amb);font-weight:900;padding:6px 12px;border-radius:999px;font-size:.85rem}
+@media(max-width:640px){
+  nav.tabs>.tabwrap{flex:1}
+  nav.tabs>.tabwrap>.tab{width:100%}
+  .dropmenu{top:auto;bottom:calc(100% + 10px)}
+}
 </style>
 </head>
 <body class="locked">
-<div id="login"><div class="lbox">
-  <div style="font-size:2.6rem">🔐</div>
+<div id="intro" class="intro hidden"><div class="introtxt">0 ĐIỂM NẾU EM HÔNG HỌC BÀI</div></div>
+<div id="login"><svg class="wm" aria-hidden="true" width="100%" height="100%"><defs><pattern id="wmhx" width="130" height="112" patternUnits="userSpaceOnUse"><polygon points="95,40 80,66 50,66 35,40 50,14 80,14" fill="none" stroke="#ffffff" stroke-width="2"/><circle cx="35" cy="40" r="3" fill="#ffffff"/><circle cx="95" cy="40" r="3" fill="#ffffff"/><text x="8" y="104" fill="#ffffff" font-family="JetBrains Mono,monospace" font-size="14" font-weight="700">NH₂</text><text x="72" y="104" fill="#ffffff" font-family="JetBrains Mono,monospace" font-size="14" font-weight="700">C₆H₅</text></pattern></defs><rect width="100%" height="100%" fill="url(#wmhx)"/></svg><div class="lbox">
+  <div class="avatar">🔐</div>
   <h2>Đăng nhập</h2>
-  <p style="color:var(--ink2)">Nhập đúng tên để vào học. Nhập đúng là tự vào.</p>
-  <input id="uname" placeholder="Nhập tên..." autocomplete="off" autofocus oninput="tryAuto()" onkeydown="if(event.key==='Enter')doLogin()">
+  <p style="color:var(--ink2)">Chọn tên của bạn, rồi bấm Đăng nhập.</p>
+  <select id="uname" onchange="showMail()">
+    <option value="">— Chọn tên —</option>
+    <option value="khoa" data-mail="k16th.khoa11@nqd.edu.vn">Khoa</option>
+    <option value="thuy" data-mail="k16th.thuy32@nqd.edu.vn">Thúy</option>
+    <option value="cim" data-mail="k16th.kim13@nqd.edu.vn">Cim</option>
+    <option value="thu" data-mail="k16th.thu33@nqd.edu.vn">Thư</option>
+    <option value="nguyen" data-mail="k16th.nguyen17@nqd.edu.vn">Nguyên</option>
+  </select>
+  <div id="mail" class="mailtxt"></div>
+  <button class="btn" style="margin-top:14px;width:100%" onclick="doLogin()">Đăng nhập</button>
   <div class="lerr" id="lerr"></div>
 </div></div>
 <div id="app">
+<div class="bomb" title="Đếm ngược đến 7:15 AM 22/10/2026"><div class="bball"><i class="fuse"></i></div><div class="btime"><b id="cdv">--</b></div><small>CÒN LẠI</small></div>
 <div id="chooser" class="chooser"><div class="cbox">
   <div style="font-size:2.4rem;animation:bob 2.6s ease-in-out infinite">👋</div>
-  <h2>Hôm nay bạn muốn làm gì?</h2>
-  <p style="color:var(--ink2)">Chọn một phần để bắt đầu.</p>
+  <h2>Xin chào, <span id="hello">bạn</span>!</h2>
+  <p style="color:var(--ink2)">Hãy chọn cái bạn muốn học:</p>
   <div class="hubgrid">
-    <button class="hubbtn h1" onclick="choose('learn')"><span class="ic">📖</span><b>HỌC LÝ THUYẾT</b><small>Lý thuyết, gọi tên, đồng phân C1 → C7, có trắc nghiệm sau mỗi phần</small></button>
-    <button class="hubbtn h2" onclick="choose('7a')"><span class="ic">📄</span><b>13 CÂU LIÊN QUAN PHẦN 1</b><small>Trích từ chuyên đề 7A, chọn đáp án xem đúng sai</small></button>
-    <button class="hubbtn h3" onclick="choose('ext')"><span class="ic">🚀</span><b>LÀM THÊM Ở NGOÀI</b><small>5 đề thi thử, mỗi đề 20 phút, có điểm và phần còn yếu</small></button>
+    <button class="hubbtn h1" onclick="choose('learn')"><span class="ic">📖</span><b>1. LÝ THUYẾT</b><small>Lý thuyết, gọi tên, đồng phân C1 → C7, có trắc nghiệm sau mỗi phần</small></button>
+    <button class="hubbtn h2" onclick="choose('7a')"><span class="ic">📄</span><b>2. 13 CÂU (CHUYÊN ĐỀ 7A)</b><small>Trích từ chuyên đề 7A, chọn đáp án xem đúng sai</small></button>
+    <button class="hubbtn h3" onclick="choose('ext')"><span class="ic">🚀</span><b>3. ĐỀ LUYỆN THÊM (Ở NGOÀI)</b><small>5 đề thi thử, mỗi đề 20 phút, có điểm và phần còn yếu</small></button>
   </div>
 </div></div>
 <header>
-  <h1>WEB HỌC HÓA HỌC CỦA KHOA NGUYỄN</h1>
-  <p>Chuyên đề 7 · Amin · Học theo thứ tự, luyện tập sau mỗi phần</p>
-  <div class="themes" id="themes"><button data-m="device" onclick="setTheme('device')">Tự động</button><button data-m="light" onclick="setTheme('light')">Sáng</button><button data-m="dark" onclick="setTheme('dark')">Tối</button></div>
+  <div class="hwrap">
+    <div class="htitle"><h1>WEBSITE HỌC HÓA HỌC CỦA <span class="tag999">KHOA NGUYỄN 999</span></h1></div>
+    <div class="hright">
+      <div class="themes" id="themes"><button data-m="device" onclick="setTheme('device')" title="Theo hệ thống">💻</button><button data-m="light" onclick="setTheme('light')" title="Sáng">☀️</button><button data-m="dark" onclick="setTheme('dark')" title="Tối">🌙</button></div>
+      <div class="who"><span id="who"></span><button onclick="logout()">Đăng xuất</button></div>
+    </div>
+  </div>
 </header>
+<div class="flinks">
+  <a class="flink fl-lt" href="https://drive.google.com/file/d/1gLAi7WXnP9py2cHRoOsShtgh7D8ZU9ig/view?usp=sharing" target="_blank" rel="noopener"><span class="fi">📘</span><span><b>File chuyên đề 7</b><small>LÝ THUYẾT</small></span><span class="fgo">Mở Drive ↗</span></a>
+  <a class="flink fl-bt" href="https://drive.google.com/file/d/1vyD_5N8d87zSUnlMLNM6zqBlO0fMWreh/view?usp=sharing" target="_blank" rel="noopener"><span class="fi">📝</span><span><b>File chuyên đề 7</b><small>BÀI TẬP</small></span><span class="fgo">Mở Drive ↗</span></a>
+</div>
 <nav class="tabs">
   <button class="tab" id="t-home" onclick="showChooser()">🏠 Menu</button>
-  <button class="tab" id="t-learn" onclick="showTab('learn')">📖 Lý thuyết & Gọi tên</button>
+  <div class="tabwrap">
+    <button class="tab" id="t-learn" onclick="showTab('learn')">📖 Lý thuyết & Gọi tên</button>
+    <button class="caretbtn" onclick="toggleDrop()" aria-label="Mở mục lục">▾</button>
+    <div class="dropmenu hidden" id="dots"></div>
+  </div>
   <button class="tab" id="t-7a" onclick="showTab('7a')">📄 13 câu phần 1 (7A)</button>
   <button class="tab" id="t-ext" onclick="showTab('ext')">🚀 Làm thêm ở ngoài</button>
 </nav>
 <main>
   <section id="learn" class="hidden">
-    <div class="progress"><div class="progress-bar" id="pbar"></div></div>
-    <div class="stepcount" id="scount"></div>
+    <div class="progsticky">
+      <div class="progtxt"><span>Tiến độ học</span><b id="ppct">0%</b></div>
+      <div class="progress"><div class="progress-bar" id="pbar"></div></div>
+      <div class="stepcount" id="scount"></div>
+    </div>
     <div class="card" id="tcard"></div>
-    <div class="dots" id="dots"></div>
     <div class="nav">
       <button class="btn ghost" id="prev" onclick="back()">← Lùi</button>
       <button class="btn" id="next" onclick="fwd()">Tiếp →</button>
@@ -292,11 +526,13 @@ svg.bz .ring{animation:spin 18s linear infinite;transform-box:fill-box;transform
     <div class="nav"><button class="btn ghost" onclick="resetSet('p7a')">🔄 Làm lại</button></div>
   </section>
   <section id="ext" class="hidden">
-    <div class="card" style="margin-bottom:14px"><h2>Làm thêm ở ngoài</h2><p>5 đề. Mỗi đề gồm 9 câu trắc nghiệm (1đ/câu) và 4 câu điền số (0,25đ/câu). Đủ 20 phút là tự nộp bài.</p></div>
-    <div class="picker" id="ex-picker"></div>
+    <div class="card" style="margin-bottom:14px"><h2>Làm thêm ở ngoài</h2><p>Đề gồm 9 câu trắc nghiệm (1đ/câu) và 4 ô điền số (0,25đ/câu), bám sát lý thuyết và 13 câu chuyên đề 7A. Đủ 20 phút là tự nộp bài.</p><span class="badge">📌 SẼ UPDATE THÊM NỮA</span></div>
     <div id="ext-body"></div>
   </section>
 </main>
+<footer class="vfoot">
+  <div class="vtop"><span class="vbadge">BẢN THỬ NGHIỆM</span> Cập nhật <b>6:53 PM 21/10/2026</b></div>
+</footer>
 </div>
 <script>
 /* ===== HÌNH ===== */
@@ -344,6 +580,8 @@ const EXP={
  propyl:["   H   H   H","   |   |   |","–N–C–C–C–H","   |   |   |","   H   H   H"]
 };
 function G(key,label){return gop(label,EXP[key]);}
+function gc(key,name,f,memo){return `<div class="gc"><div class="gcn">${name}</div><div class="mono gcf">${f}</div>${G(key,"xem đầy đủ")}<div class="gcm">${memo}</div></div>`;}
+function toks(list){return `<div class="toks">${list.map((t,i)=>`<span class="tok" style="animation-delay:${.15+i*.4}s">${t}</span>`).join("<span class='plus'>+</span>")}</div>`;}
 
 /* ===== LÝ THUYẾT: mỗi bước có nhiều trang (slide) học theo thứ tự, rồi mới đến bài tập ===== */
 const steps=[
@@ -351,40 +589,42 @@ const steps=[
  ()=>`<p>Lấy <b>NH₃</b> và thay <b>1 nguyên tử H</b> bằng <b>gốc hydrocarbon R</b> → được amin.</p>
   <div class="stage"><div class="chip mono H">H</div><div class="arrowA">→</div><div class="chip mono R">R</div></div>
   <div class="stage"><div class="chip mono">NH₃</div><div class="arrowA">→</div><div class="chip mono">R–NH₂</div></div>
-  <div class="callout pur">Hình động: H bị thay bằng R. Phần còn lại NH₂ giữ nguyên.</div>`,
+  <div class="callout pur">Hình động: H bị thay bằng R. Phần còn lại NH₂ giữ nguyên.</div>
+  <div class="callout amb"><b>R là gì?</b> R là <b>gốc hydrocarbon</b>: phần chỉ gồm C và H, ví dụ CH₃–, C₂H₅–, C₆H₅–.</div>`,
  ()=>`<p>Ví dụ:</p><ul><li>CH₃–NH₂: R = CH₃ → methylamin</li><li>C₂H₅–NH₂: R = C₂H₅ → ethylamin</li><li>C₆H₅–NH₂: R = C₆H₅ (vòng benzen) → anilin</li></ul>` ],
- ex:["CH₃–NH₂: R = CH₃","C₂H₅–NH₂: R = C₂H₅","C₆H₅–NH₂: R = C₆H₅"],
+ ex:["CH₃–NH₂: R = CH₃ → methylamin", "C₂H₅–NH₂: R = C₂H₅ → ethylamin", "C₆H₅–NH₂: R = C₆H₅ (vòng benzen) → anilin", "CH₃CH₂CH₂–NH₂: R = propyl → propylamin", "(CH₃)₂NH: thay 2 H bằng 2 gốc R → vẫn là amin"],
  quiz:[
   {tag:"Khái niệm",q:"Thay một H trong NH₃ bằng gốc hydrocarbon được:",o:["ancol","amin","ete","este"],a:1,e:"Đó là định nghĩa amin."},
   {tag:"Khái niệm",q:"Chất nào là amin?",o:["CH₃OH","CH₃CH₂NH₂","CH₃COOH","C₂H₅Cl"],a:1,e:"CH₃CH₂NH₂ có N gắn gốc hydrocarbon."},
   {tag:"Khái niệm",q:"CH₃–NH₂ có tên gốc–chức là:",o:["methanamin","methylamin","đimethylamin","ethylamin"],a:1,e:"Gốc methyl + amin = methylamin."}
  ]},
 { title:"Phân loại theo bậc", slides:[
- ()=>`<p><b>Bậc</b> = số gốc R gắn trực tiếp vào N. Chỉ đếm gốc trên N.</p>
-  <div class="diagrams"><div class="dbox">${bacSVG(1)}<div class="cap">Bậc 1: 1 gốc R</div></div><div class="dbox">${bacSVG(2)}<div class="cap">Bậc 2: 2 gốc R</div></div><div class="dbox">${bacSVG(3)}<div class="cap">Bậc 3: 3 gốc R</div></div></div>`,
- ()=>`<div class="bacrow"><div class="bacbox b1"><b>Bậc 1</b><div class="f">R–NH₂</div></div><div class="bacbox b2"><b>Bậc 2</b><div class="f">R–NH–R'</div></div><div class="bacbox b3"><b>Bậc 3</b><div class="f">R–N(R')–R''</div></div></div>
+ ()=>`<p><b>Bậc</b> = số gốc R (gốc hydrocarbon) gắn trực tiếp vào N. Chỉ đếm gốc trên N.</p>
+  <div class="diagrams"><div class="dbox">${bacSVG(1)}<div class="cap">Bậc 1 · 1 gốc R<br><span class="mono">R–NH₂</span></div></div><div class="dbox">${bacSVG(2)}<div class="cap">Bậc 2 · 2 gốc R<br><span class="mono">R–NH–R′</span></div></div><div class="dbox">${bacSVG(3)}<div class="cap">Bậc 3 · 3 gốc R<br><span class="mono">R–N(R′)–R″</span></div></div></div>`,
+ ()=>`<div class="bacrow"><div class="bacbox b1"><b>Bậc 1</b><div class="f">R–NH₂</div></div><div class="bacbox b2"><b>Bậc 2</b><div class="f">R–NH–R′</div></div><div class="bacbox b3"><b>Bậc 3</b><div class="f">R–N(R′)–R″</div></div></div>
   <div class="callout amb">Ví dụ: CH₃–NH–CH₃ có 2 gốc trên N → bậc 2. (CH₃)₃N → bậc 3.</div>` ],
- ex:["CH₃–NH₂ → bậc 1","CH₃–NH–CH₃ → bậc 2","(CH₃)₃N → bậc 3"],
+ ex:["CH₃–NH₂ → bậc 1", "CH₃–NH–CH₃ → bậc 2", "(CH₃)₃N → bậc 3", "C₂H₅–NH–C₂H₅ → bậc 2", "C₆H₅–NH₂ (anilin) → bậc 1"],
  quiz:[
   {tag:"Bậc",q:"Bậc của (CH₃)₂NH là:",o:["1","2","3","0"],a:1,e:"2 gốc CH₃ trên N → bậc 2."},
   {tag:"Bậc",q:"Bậc của (CH₃)₃N là:",o:["1","2","3","4"],a:2,e:"3 gốc CH₃ trên N → bậc 3."},
   {tag:"Bậc",q:"Bậc của anilin C₆H₅NH₂ là:",o:["1","2","3","0"],a:0,e:"1 gốc C₆H₅ trên N → bậc 1."}
  ]},
 { title:"Alkylamin và arylamin", slides:[
- ()=>`<div class="diagrams"><div class="dbox">${chainSVG(3,0)}<div class="cap">Alkylamin: N gắn gốc no</div></div><div class="dbox">${benzene({0:"NH₂"})}<div class="cap">Arylamin: N gắn thẳng vòng benzen</div></div></div>
+ ()=>`<div class="diagrams"><div class="dbox">${chainSVG(3,0)}<div class="cap">Alkylamin: N gắn gốc no<br><span class="mono">CH₃–CH₂–CH₂–NH₂</span></div></div><div class="dbox">${benzene({0:"NH₂"})}<div class="cap">Arylamin: N gắn thẳng vòng benzen<br><span class="mono">C₆H₅–NH₂</span></div></div></div>
   <p>Mẹo: nếu giữa vòng và N có CH₂ thì là alkylamin.</p>` ],
- ex:["C₂H₅–NH₂ → alkylamin","C₆H₅–NH₂ (anilin) → arylamin","C₆H₅–CH₂–NH₂ (benzylamin) → alkylamin"],
+ ex:["C₂H₅–NH₂ → alkylamin", "C₆H₅–NH₂ (anilin) → arylamin", "C₆H₅–CH₂–NH₂ (benzylamin) → alkylamin", "C₆H₅–NHCH₃ (N-methylanilin) → arylamin", "CH₃CH₂CH₂–NH₂ → alkylamin"],
  quiz:[
   {tag:"Phân loại",q:"Anilin C₆H₅NH₂ thuộc loại:",o:["alkylamin","arylamin","amin bậc 3","amin no"],a:1,e:"N gắn trực tiếp vòng benzen → arylamin."},
   {tag:"Phân loại",q:"Benzylamin C₆H₅CH₂NH₂ thuộc loại:",o:["arylamin","alkylamin","amin bậc 3","anilin"],a:1,e:"Có CH₂ ngăn → alkylamin."},
   {tag:"Phân loại",q:"Chất nào là arylamin?",o:["CH₃NH₂","C₆H₅NHCH₃","C₂H₅NH₂","C₃H₇NH₂"],a:1,e:"C₆H₅NHCH₃ có N gắn vòng benzen."}
  ]},
 { title:"Đồng phân", slides:[
- ()=>`<table><tr><th>Kiểu</th><th>Khác nhau ở</th><th>Ví dụ</th></tr>
-  <tr><td class="l"><b>Bậc</b></td><td>số gốc trên N</td><td class="mono">CH₃NHCH₃ ↔ (CH₃)₃N</td></tr>
-  <tr><td class="l"><b>Mạch C</b></td><td>mạch thẳng / nhánh</td><td class="mono">C₄H₉NH₂ thẳng ↔ nhánh</td></tr>
-  <tr><td class="l"><b>Vị trí –NH₂</b></td><td>NH₂ ở C số mấy</td><td class="mono">propan-1-amin ↔ propan-2-amin</td></tr></table>` ],
- ex:["CH₃CH₂CH₂NH₂ và (CH₃)₂CHNH₂: khác vị trí NH₂","CH₃NHCH₂CH₃ và (CH₃)₃N: khác bậc","Đều bậc 1 nhưng mạch khác nhau: khác mạch C"],
+ ()=>`<div class="kcards">
+  <div class="kc k1" style="animation-delay:.05s"><div class="kt">🔢 Bậc</div><div class="kd">số gốc trên N khác nhau</div><div class="mono ke">CH₃NHCH₃ ↔ (CH₃)₃N</div></div>
+  <div class="kc k2" style="animation-delay:.2s"><div class="kt">🌿 Mạch C</div><div class="kd">mạch thẳng / nhánh</div><div class="mono ke">C₄H₉NH₂ thẳng ↔ nhánh</div></div>
+  <div class="kc k3" style="animation-delay:.35s"><div class="kt">📍 Vị trí –NH₂</div><div class="kd">NH₂ ở C số mấy</div><div class="mono ke">propan-1-amin ↔ propan-2-amin</div></div>
+  </div>` ],
+ ex:["CH₃CH₂CH₂NH₂ và (CH₃)₂CHNH₂: khác vị trí NH₂", "CH₃NHCH₂CH₃ và (CH₃)₃N: khác bậc", "CH₃NHCH₃ và CH₃CH₂NH₂: khác bậc", "CH₃CH₂CH₂CH₂NH₂ và (CH₃)₂CHCH₂NH₂: khác mạch C", "Đều bậc 1 nhưng mạch khác nhau: khác mạch C"],
  quiz:[
   {tag:"Đồng phân",q:"CH₃NHCH₃ và (CH₃)₃N khác nhau ở:",o:["mạch C","vị trí –NH₂","bậc","không phải đồng phân"],a:2,e:"Khác số gốc trên N → khác bậc."},
   {tag:"Đồng phân",q:"CH₃CH₂CH₂NH₂ và (CH₃)₂CHNH₂ khác nhau ở:",o:["bậc","vị trí –NH₂","mạch C","không phải"],a:1,e:"NH₂ gắn ở C khác nhau."},
@@ -393,7 +633,7 @@ const steps=[
 { title:"Công thức tổng quát", slides:[
  ()=>`<p><span class="pill c-grn">no, đơn chức, mạch hở</span></p><div class="callout grn mono" style="text-align:center">CₙH₂ₙ₊₃N (n ≥ 1)</div>
   <p><span class="pill c-teal">thơm, đơn chức, có vòng benzen</span></p><div class="callout pur mono" style="text-align:center">CₙH₂ₙ₋₇NH₂ (n ≥ 6)</div>` ],
- ex:["C₂H₇N: 2·2+3 = 7 ✔","C₃H₉N: 2·3+3 = 9 ✔","C₇H₉N: n = 7 → 2·7−7 = 7 H trên vòng, +NH₂ → 9 H ✔"],
+ ex:["C₂H₇N: 2·2+3 = 7 ✔", "C₃H₉N: 2·3+3 = 9 ✔", "C₄H₁₁N: 2·4+3 = 11 ✔", "C₇H₉N: n = 7 → 2·7−7 = 7 H trên vòng, +NH₂ → 9 H ✔", "C₆H₇N (anilin): n = 6 → 2·6−7 = 5 H trên vòng, +NH₂ → 7 H ✔"],
  quiz:[
   {tag:"CTTQ",q:"Công thức chung amin no, đơn chức, mạch hở:",o:["CₙH₂ₙ₊₁N","CₙH₂ₙ₊₃N","CₙH₂ₙ₊₂N","CₙH₂ₙ₊₄N"],a:1,e:"CₙH₂ₙ₊₃N."},
   {tag:"CTTQ",q:"Amin no đơn chức có 5 C thì số H là:",o:["11","13","15","12"],a:1,e:"2·5+3 = 13."},
@@ -401,21 +641,15 @@ const steps=[
  ]},
 { title:"Gốc hydrocarbon cần thuộc", slides:[
  ()=>`<p>Tên gốc = tên mạch C + đuôi <b>-yl</b>. Tiền tố <b>iso, sec, tert</b> cho biết cách gắn. <b>Bấm vào công thức để bung ra dạng đầy đủ.</b></p>
-  <table><tr><th>Gốc</th><th>Công thức rút gọn</th><th>Đầy đủ</th><th>Cách nhớ</th></tr>
-  <tr><td class="l"><b>methyl</b></td><td class="mono">–CH₃</td><td>${G("methyl","bung")}</td><td>meth- = 1 C</td></tr>
-  <tr><td class="l"><b>ethyl</b></td><td class="mono">–C₂H₅</td><td>${G("ethyl","bung")}</td><td>eth- = 2 C</td></tr>
-  <tr><td class="l"><b>propyl</b></td><td class="mono">–CH₂CH₂CH₃</td><td>${G("propyl","bung")}</td><td>prop- = 3 C thẳng</td></tr>
-  <tr><td class="l"><b>isopropyl</b></td><td class="mono">–CH(CH₃)₂</td><td>${G("isopropyl","bung")}</td><td>iso- = 2 CH₃ ở đầu</td></tr>
-  <tr><td class="l"><b>sec-butyl</b></td><td class="mono">–CH(CH₃)CH₂CH₃</td><td>${G("secbutyl","bung")}</td><td>sec- = C gắn N là bậc 2</td></tr>
-  <tr><td class="l"><b>isobutyl</b></td><td class="mono">–CH₂CH(CH₃)₂</td><td>${G("isobutyl","bung")}</td><td>iso- = 2 CH₃ ở cuối</td></tr>
-  <tr><td class="l"><b>tert-butyl</b></td><td class="mono">–C(CH₃)₃</td><td>${G("tert","bung")}</td><td>tert- = C gắn N là bậc 3</td></tr></table>` ,
- ()=>`<h3>Tiền tố hay gặp</h3><table><tr><th>Tiền tố</th><th>Nghĩa</th><th>Ví dụ</th></tr>
-  <tr><td class="l"><b>đi-</b></td><td>2 nhóm giống nhau</td><td class="mono">đimethyl = 2 CH₃</td></tr>
-  <tr><td class="l"><b>tri-</b></td><td>3 nhóm giống nhau</td><td class="mono">trimethyl = 3 CH₃</td></tr>
-  <tr><td class="l"><b>N-</b></td><td>gốc gắn trên N</td><td class="mono">N-methyl</td></tr>
-  <tr><td class="l"><b>điamin</b></td><td>2 nhóm –NH₂</td><td class="mono">hexan-1,6-điamin</td></tr></table>
+  <div class="gcards">${gc("methyl","methyl","–CH₃","meth- = 1 C")}${gc("ethyl","ethyl","–C₂H₅","eth- = 2 C")}${gc("propyl","propyl","–CH₂CH₂CH₃","prop- = 3 C thẳng")}${gc("isopropyl","isopropyl","–CH(CH₃)₂","iso = 2 CH₃ ở đầu")}${gc("secbutyl","sec-butyl","–CH(CH₃)CH₂CH₃","sec = C gắn N bậc 2")}${gc("isobutyl","isobutyl","–CH₂CH(CH₃)₂","iso = 2 CH₃ ở cuối")}${gc("tert","tert-butyl","–C(CH₃)₃","tert = C gắn N bậc 3")}</div>` ,
+ ()=>`<h3>Tiền tố hay gặp</h3><div class="kcards">
+  <div class="kc k1"><div class="kt">đi-</div><div class="kd">2 nhóm giống nhau</div><div class="mono ke">đimethyl = 2 CH₃</div></div>
+  <div class="kc k2"><div class="kt">tri-</div><div class="kd">3 nhóm giống nhau</div><div class="mono ke">trimethyl = 3 CH₃</div></div>
+  <div class="kc k3"><div class="kt">N-</div><div class="kd">gốc gắn trên N</div><div class="mono ke">N-methyl</div></div>
+  <div class="kc k4"><div class="kt">điamin</div><div class="kd">2 nhóm –NH₂</div><div class="mono ke">hexan-1,6-điamin</div></div>
+  </div>
   <div class="callout pur">Bậc của C = số C khác gắn vào C đó. Bậc 2 → sec-, bậc 3 → tert-.</div>` ],
- ex:["–CH(CH₃)₂: iso-propyl","–C(CH₃)₃: C gắn 3 C khác → tert-butyl","–CH(CH₃)CH₂CH₃: C gắn 2 C khác → sec-butyl"],
+ ex:["–CH(CH₃)₂: iso-propyl", "–C(CH₃)₃: C gắn 3 C khác → tert-butyl", "–CH(CH₃)CH₂CH₃: C gắn 2 C khác → sec-butyl", "–CH₂CH(CH₃)₂: isobutyl (2 CH₃ ở cuối)", "–CH₂CH₂CH₃: propyl (mạch thẳng 3 C)"],
  quiz:[
   {tag:"Gốc",q:"Gốc isopropyl có công thức:",o:["–CH₂CH₂CH₃","–CH(CH₃)₂","–C(CH₃)₃","–CH₂CH(CH₃)₂"],a:1,e:"–CH(CH₃)₂."},
   {tag:"Gốc",q:"Gốc tert-butyl có công thức:",o:["–CH(CH₃)CH₂CH₃","–CH₂CH(CH₃)₂","–C(CH₃)₃","–CH₂CH₂CH₂CH₃"],a:2,e:"–C(CH₃)₃."},
@@ -424,15 +658,51 @@ const steps=[
   {tag:"Gốc",q:"Tiền tố đi- trong đimethyl nghĩa là:",o:["1 nhóm","2 nhóm giống nhau","3 nhóm","nhóm khác nhau"],a:1,e:"đi- = 2."}
  ]},
 { title:"Cách đọc tên", slides:[
- ()=>`<div class="callout pur"><b>Tên gốc–chức</b> = tên gốc hydrocarbon + amin<br>VD: C₂H₅–NH₂ → ethyl + amin = <b>ethylamin</b></div>
-  <div class="callout grn"><b>Tên thay thế</b> = tên hydrocarbon (bỏ e) – vị trí – amin<br>VD: CH₃CH₂CH₂–NH₂ → propan – <b>1</b> – amin</div>
-  <p>Đếm mạch: 1C meth · 2C eth · 3C prop · 4C but · 5C pent, rồi thêm "an".</p>`,
- ()=>`<ol><li>Chọn mạch dài nhất có C gắn NH₂.</li><li>Đánh số sao cho NH₂ có số nhỏ nhất.</li><li>Nhánh ghi trước, có số: 2-methyl…</li><li>Gốc trên N ghi N-: N-methyl…</li></ol>`,
- ()=>`<div class="diagrams"><div class="dbox">${chainSVG(4,1)}<div class="cap">butan-2-amin</div></div><div class="dbox">${chainSVG(3,0)}<div class="cap">propan-1-amin</div></div></div>`,
- ()=>`<div class="diagrams"><div class="dbox">${chainSVG(4,1)}<div class="cap">butan-2-amin</div></div><div class="dbox">${chainSVG(3,0)}<div class="cap">propan-1-amin</div></div></div>
-  <table><tr><th>Gốc–chức</th><th>Thay thế</th></tr><tr><td class="mono">propylamin</td><td class="mono">propan-1-amin</td></tr>
-  <tr><td class="mono">isobutylamin</td><td class="mono">2-methylpropan-1-amin</td></tr><tr><td class="mono">ethylmethylamin</td><td class="mono">N-methylethanamin</td></tr></table>` ],
- ex:["CH₃CH₂CH₂NH₂ → propan-1-amin / propylamin","(CH₃)₂CHCH₂NH₂ → 2-methylpropan-1-amin / isobutylamin","CH₃NHCH₂CH₃ → N-methylethanamin / ethylmethylamin"],
+ ()=>`<p class="lead">Đọc tên amin <b>từ từ, từng bước</b>. Mỗi trang chỉ một ý, hiểu rồi bấm <b>Tiếp</b>.</p>
+  <div class="rsteps">
+   <div class="rs" style="animation-delay:.1s"><span class="rn">1</span><div>Có <b>2 kiểu tên</b>: tên <b>gốc–chức</b> và tên <b>thay thế</b>.</div></div>
+   <div class="rs" style="animation-delay:.3s"><span class="rn">2</span><div>Đếm số C của <b>mạch chính</b> để lấy tên mạch.</div></div>
+   <div class="rs" style="animation-delay:.5s"><span class="rn">3</span><div>Đánh số sao cho <b>NH₂ có số nhỏ nhất</b>.</div></div>
+   <div class="rs" style="animation-delay:.7s"><span class="rn">4</span><div>Ghi <b>nhánh có số</b> trước, và <b>N-</b> cho gốc gắn trên N.</div></div>
+  </div>`,
+ ()=>`<h3>Kiểu 1 · Gốc–chức</h3>
+  <p>Đọc <b>tên gốc</b> trước, rồi ghép với <b>amin</b>.</p>
+  <div class="mono bigf">C₂H₅–NH₂</div>
+  ${toks(["ethyl","amin"])}
+  <div class="resline">= <b>ethylamin</b></div>
+  <p class="mini">Gốc đọc theo số C: 1C methyl · 2C ethyl · 3C propyl · 4C butyl</p>`,
+ ()=>`<h3>Kiểu 2 · Thay thế, bước 1: đếm mạch</h3>
+  <div class="cgrid"><div class="cg"><b>1</b><span>C → meth</span></div><div class="cg"><b>2</b><span>C → eth</span></div><div class="cg"><b>3</b><span>C → prop</span></div><div class="cg"><b>4</b><span>C → but</span></div><div class="cg"><b>5</b><span>C → pent</span></div></div>
+  <div class="diagrams"><div class="dbox">${chainSVG(3,0)}<div class="cap">CH₃–CH₂–CH₂–NH₂</div></div></div>
+  ${toks(["prop","an","-1-amin"])}
+  <div class="resline">= <b>propan-1-amin</b></div>`,
+ ()=>`<h3>Bước 2: đánh số, NH₂ số nhỏ nhất</h3>
+  <p>Đánh số từ đầu <b>gần NH₂</b> nhất. Ở đây NH₂ nằm ở C số 2.</p>
+  <div class="diagrams"><div class="dbox">${chainSVG(4,1)}<div class="cap">CH₃–CH(NH₂)–CH₂–CH₃</div></div></div>
+  ${toks(["but","an","-2-amin"])}
+  <div class="resline">= <b>butan-2-amin</b></div>`,
+ ()=>`<h3>Bước 3: nhánh có số ghi trước</h3>
+  <p>Mạch chính có 3 C (prop), NH₂ ở C 1, nhánh CH₃ ở C 2.</p>
+  <div class="mono bigf">CH₃–CH(CH₃)–CH₂–NH₂</div>
+  ${toks(["2-methyl","propan","-1-amin"])}
+  <div class="resline">= <b>2-methylpropan-1-amin</b></div>`,
+ ()=>`<h3>Bước 4: gốc trên N ghi N-</h3>
+  <p>Chọn mạch chính là <b>mạch dài hơn</b> (2 C, ethan). Gốc còn lại gắn trên N thì ghi <b>N-</b>.</p>
+  <div class="mono bigf">CH₃–NH–C₂H₅</div>
+  ${toks(["N-methyl","ethan","-amin"])}
+  <div class="resline">= <b>N-methylethanamin</b></div>`,
+ ()=>`<h3>Ghép đủ: cùng một chất, hai tên</h3>
+  <div class="mono bigf">(CH₃)₂NH</div>
+  <table><tr><th>Gốc–chức</th><th>Thay thế</th></tr>
+  <tr><td class="mono">đimethylamin</td><td class="mono">N-methylmethanamin</td></tr></table>
+  <p class="mini">Gốc–chức đọc gốc trước; thay thế đọc theo mạch chính và số vị trí.</p>`,
+ ()=>`<h3>Tự luyện: bấm để xem đáp án</h3>
+  <div class="tryit" onclick="this.classList.toggle('open')"><div class="mono">CH₃–CH₂–NH₂</div><div class="ta">Gốc–chức: <b>ethylamin</b> · Thay thế: <b>ethanamin</b></div></div>
+  <div class="tryit" onclick="this.classList.toggle('open')"><div class="mono">CH₃–CH₂–CH₂–NH₂</div><div class="ta">Gốc–chức: <b>propylamin</b> · Thay thế: <b>propan-1-amin</b></div></div>
+  <div class="tryit" onclick="this.classList.toggle('open')"><div class="mono">(CH₃)₂CH–NH₂</div><div class="ta">Gốc–chức: <b>isopropylamin</b> · Thay thế: <b>propan-2-amin</b></div></div>
+  <div class="tryit" onclick="this.classList.toggle('open')"><div class="mono">CH₃–NH–CH₂–CH₃</div><div class="ta">Gốc–chức: <b>ethylmethylamin</b> · Thay thế: <b>N-methylethanamin</b></div></div>`
+],
+ ex:["CH₃CH₂CH₂NH₂ → propan-1-amin / propylamin", "(CH₃)₂CHCH₂NH₂ → 2-methylpropan-1-amin / isobutylamin", "CH₃NHCH₂CH₃ → N-methylethanamin / ethylmethylamin", "(CH₃)₃CNH₂ → 2-methylpropan-2-amin / tert-butylamin", "CH₃CH₂NH₂ → ethanamin / ethylamin"],
  quiz:[
   {tag:"Danh pháp",q:"Trong propan-2-amin, số 2 chỉ:",o:["số C","vị trí NH₂ trên mạch","số nhóm thế","số N"],a:1,e:"Vị trí của –NH₂."},
   {tag:"Danh pháp",q:"Khi đánh số mạch, ưu tiên:",o:["NH₂ có số nhỏ nhất","nhánh có số lớn nhất","mạch ngắn nhất","C số lẻ"],a:0,e:"NH₂ số nhỏ nhất."},
@@ -442,28 +712,30 @@ const steps=[
  ]},
 { title:"Vòng benzen và tên thường", slides:[
  ()=>`<p>Đánh số vòng: o- (ortho) = vị trí 2, m- (meta) = 3, p- (para) = 4. Gốc C₆H₅– gọi là <b>phenyl</b>.</p>
-  <div class="diagrams"><div class="dbox">${benzene({0:"NH₂",1:"CH₃"})}<div class="cap">o-toluđin</div></div><div class="dbox">${benzene({0:"NH₂",3:"CH₃"})}<div class="cap">p-toluđin</div></div></div>`,
- ()=>`<table><tr><th>Tên thường</th><th>Công thức</th><th>Tên thay thế</th></tr>
-  <tr><td class="l"><b>anilin</b></td><td class="mono">C₆H₅NH₂</td><td>benzenamin</td></tr>
-  <tr><td class="l"><b>benzylamin</b></td><td class="mono">C₆H₅CH₂NH₂</td><td>phenylmethanamin</td></tr>
-  <tr><td class="l"><b>o-toluđin</b></td><td class="mono">o-CH₃C₆H₄NH₂</td><td>2-methylbenzenamin</td></tr>
-  <tr><td class="l"><b>p-toluđin</b></td><td class="mono">p-CH₃C₆H₄NH₂</td><td>4-methylbenzenamin</td></tr></table>` ],
- ex:["C₆H₅NH₂ = anilin = benzenamin","C₆H₅CH₂NH₂ = benzylamin = phenylmethanamin","o-CH₃C₆H₄NH₂ = o-toluđin = 2-methylbenzenamin"],
+  <div class="diagrams"><div class="dbox">${benzene({0:"NH₂",1:"CH₃"})}<div class="cap">o-toluđin<br><span class="mono">o-CH₃C₆H₄NH₂</span></div></div><div class="dbox">${benzene({0:"NH₂",3:"CH₃"})}<div class="cap">p-toluđin<br><span class="mono">p-CH₃C₆H₄NH₂</span></div></div></div>`,
+ ()=>`<div class="kcards">
+  <div class="kc k1" style="animation-delay:.05s"><div class="kt">anilin</div><div class="kd">thay thế: benzenamin</div><div class="mono ke">C₆H₅NH₂</div></div>
+  <div class="kc k2" style="animation-delay:.15s"><div class="kt">benzylamin</div><div class="kd">thay thế: phenylmethanamin</div><div class="mono ke">C₆H₅CH₂NH₂</div></div>
+  <div class="kc k3" style="animation-delay:.25s"><div class="kt">o-toluđin</div><div class="kd">thay thế: 2-methylbenzenamin</div><div class="mono ke">o-CH₃C₆H₄NH₂</div></div>
+  <div class="kc k4" style="animation-delay:.35s"><div class="kt">p-toluđin</div><div class="kd">thay thế: 4-methylbenzenamin</div><div class="mono ke">p-CH₃C₆H₄NH₂</div></div>
+  </div>` ],
+ ex:["C₆H₅NH₂ = anilin = benzenamin", "C₆H₅CH₂NH₂ = benzylamin = phenylmethanamin", "o-CH₃C₆H₄NH₂ = o-toluđin = 2-methylbenzenamin", "m-CH₃C₆H₄NH₂ = m-toluđin = 3-methylbenzenamin", "C₆H₅NHCH₃ = N-methylanilin = N-methylbenzenamin"],
  quiz:[
   {tag:"Tên thường",q:"C₆H₅CH₂NH₂ có tên thay thế:",o:["benzenamin","phenylmethanamin","anilin","toluđin"],a:1,e:"CH₂ giữa vòng và NH₂."},
   {tag:"Tên thường",q:"p-CH₃C₆H₄NH₂ có tên thường:",o:["o-toluđin","m-toluđin","p-toluđin","xylen"],a:2,e:"p- = vị trí 4."},
   {tag:"Tên thường",q:"N-methylanilin có tên thay thế:",o:["N-methylbenzenamin","methylbenzenamin","benzylmethanamin","N-methylphenol"],a:0,e:"Anilin = benzenamin."}
  ]},
 { title:"Số đồng phân cần thuộc", slides:[
- ()=>`<table><tr><th>Công thức</th><th>Tổng</th><th>Bậc 1</th><th>Bậc 2</th><th>Bậc 3</th></tr>
-  <tr><td class="mono">CH₅N</td><td><b>1</b></td><td>1</td><td>0</td><td>0</td></tr>
-  <tr><td class="mono">C₂H₇N</td><td><b>2</b></td><td>1</td><td>1</td><td>0</td></tr>
-  <tr><td class="mono">C₃H₉N</td><td><b>4</b></td><td>2</td><td>1</td><td>1</td></tr>
-  <tr><td class="mono">C₄H₁₁N</td><td><b>8</b></td><td>4</td><td>3</td><td>1</td></tr>
-  <tr><td class="mono">C₅H₁₃N</td><td><b>17</b></td><td>8</td><td>6</td><td>3</td></tr>
-  <tr><td class="mono">C₇H₉N (thơm)</td><td><b>5</b></td><td colspan="3">benzylamin, 3 toluđin, N-methylanilin</td></tr></table>
+ ()=>`<div class="ntiles">
+  <div class="nt" style="animation-delay:.05s"><div class="mono">CH₅N</div><div class="ntot">1</div><div><span class="pill c-pur">bậc 1: 1</span><span class="pill c-teal">bậc 2: 0</span><span class="pill c-pink">bậc 3: 0</span></div></div>
+  <div class="nt" style="animation-delay:.12s"><div class="mono">C₂H₇N</div><div class="ntot">2</div><div><span class="pill c-pur">bậc 1: 1</span><span class="pill c-teal">bậc 2: 1</span><span class="pill c-pink">bậc 3: 0</span></div></div>
+  <div class="nt" style="animation-delay:.19s"><div class="mono">C₃H₉N</div><div class="ntot">4</div><div><span class="pill c-pur">bậc 1: 2</span><span class="pill c-teal">bậc 2: 1</span><span class="pill c-pink">bậc 3: 1</span></div></div>
+  <div class="nt" style="animation-delay:.26s"><div class="mono">C₄H₁₁N</div><div class="ntot">8</div><div><span class="pill c-pur">bậc 1: 4</span><span class="pill c-teal">bậc 2: 3</span><span class="pill c-pink">bậc 3: 1</span></div></div>
+  <div class="nt" style="animation-delay:.33s"><div class="mono">C₅H₁₃N</div><div class="ntot">17</div><div><span class="pill c-pur">bậc 1: 8</span><span class="pill c-teal">bậc 2: 6</span><span class="pill c-pink">bậc 3: 3</span></div></div>
+  <div class="nt wide" style="animation-delay:.4s"><div class="mono">C₇H₉N (thơm)</div><div class="ntot">5</div><div>benzylamin, 3 toluđin, N-methylanilin</div></div>
+  </div>
   <div class="callout grn">Tổng = bậc 1 + bậc 2 + bậc 3.</div>` ],
- ex:["C₃H₉N: 2+1+1 = 4","C₄H₁₁N: 4+3+1 = 8","C₅H₁₃N: 8+6+3 = 17"],
+ ex:["C₂H₇N: 1+1+0 = 2", "C₃H₉N: 2+1+1 = 4", "C₄H₁₁N: 4+3+1 = 8", "C₅H₁₃N: 8+6+3 = 17", "CH₅N: 1+0+0 = 1"],
  quiz:[
   {tag:"Đồng phân",q:"C₄H₁₁N có bao nhiêu đồng phân amin?",o:["4","6","8","17"],a:2,e:"4+3+1 = 8."},
   {tag:"Đồng phân",q:"C₅H₁₃N có bao nhiêu đồng phân amin bậc 3?",o:["3","6","8","17"],a:0,e:"Bậc 3 có 3 chất."},
@@ -510,17 +782,24 @@ function isoSlideHTML(k){
 }
 
 /* ===== ĐĂNG NHẬP ===== */
-const ALLOW=["khoa","thuy","kn","cim","thu"];
-function normName(s){return s.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d");}
-function tryAuto(){
-  const v=normName(document.getElementById("uname").value);
-  if(ALLOW.includes(v)) document.body.classList.remove("locked");
+const ALLOW=["khoa","thuy","cim","thu","nguyen"];
+// đăng nhập: chọn tên trong danh sách rồi bấm nút
+function unlock(name){ document.body.classList.remove("locked"); document.getElementById("who").textContent="👤 "+name; document.getElementById("hello").textContent=name; playIntro(); }
+function playIntro(){
+  const el=document.getElementById("intro");
+  document.getElementById("chooser").classList.add("hidden");
+  el.classList.remove("hidden","out"); void el.offsetWidth; el.classList.add("play");
+  setTimeout(()=>el.classList.add("out"),2000);
+  setTimeout(()=>{ el.classList.add("hidden"); el.classList.remove("play"); showChooser(); },2550);
 }
 function doLogin(){
-  const v=normName(document.getElementById("uname").value);
-  if(ALLOW.includes(v)) document.body.classList.remove("locked");
-  else document.getElementById("lerr").textContent="Tên chưa đúng, thử lại nhé.";
+  const sel=document.getElementById("uname"), v=sel.value;
+  if(ALLOW.includes(v)) unlock(sel.options[sel.selectedIndex].text);
+  else document.getElementById("lerr").textContent="Hãy chọn tên trong danh sách rồi bấm Đăng nhập.";
 }
+function showMail(){ const o=document.getElementById("uname").selectedOptions[0]; document.getElementById("mail").textContent=o.dataset.mail||""; }
+// đăng xuất: khóa lại và bỏ chọn tên
+function logout(){ document.body.classList.add("locked"); document.getElementById("uname").value=""; document.getElementById("mail").textContent=""; document.getElementById("lerr").textContent=""; }
 
 /* ===== BUNG CÁCH GHÉP TÊN ===== */
 const PART_RULES=[
@@ -585,8 +864,14 @@ const P7A=[
 SETS.p7a=P7A;
 
 function itemsHTML(p){
-  return SETS[p].map((it,i)=>`<div class="qcard enter" id="qc-${p}-${i}"><span class="pill ${TAGCLS[it.tag]||"c-pur"}">${it.tag}</span>
+  return SETS[p].map((it,i)=>`<div class="qcard enter" id="qc-${p}-${i}"><div class="qno">${qlabel(p,i)}</div><span class="pill ${TAGCLS[it.tag]||"c-pur"}">${it.tag}</span>
    <div class="qtext">${it.q}</div><div class="opts">${it.o.map((o,oi)=>`<button class="opt" onclick="pick('${p}',${i},${oi})">${"ABCD"[oi]}. ${o}</button>`).join("")}</div><div id="qe-${p}-${i}"></div></div>`).join("");
+}
+function qlabel(p,i){
+  if(/^s\d+$/.test(p)) return `PHẦN ${+p.slice(1)+1} · Câu ${i+1}`;
+  if(/^iso\d+$/.test(p)) return `PHẦN 10 · C${+p.slice(3)+1} · Câu ${i+1}`;
+  if(p==="p7a") return `7A · Câu ${i+1}`;
+  return `Câu ${i+1}`;
 }
 function pick(p,i,oi){
   ANS[p]=ANS[p]||{}; if(ANS[p][i]!==undefined) return; ANS[p][i]=oi; applyAns(p,i,oi); checkDone(p);
@@ -610,7 +895,7 @@ function resetSet(p){
 }
 
 /* ===== RENDER LÝ THUYẾT THEO TRÌNH TỰ ===== */
-let cur=0, sub=0;
+let cur=0, sub=0, maxStep=0;
 // Một bước gồm các trang (slides) rồi mới đến bài tập. isoSlides = các trang C1..C7.
 function pages(s){
   if(s.isoSlides) return ISO_ORDER.map((_,k)=>()=>isoSlideHTML(k));
@@ -665,102 +950,31 @@ document.getElementById("list-p7a").innerHTML=itemsHTML("p7a");
 
 /* ===== LÀM THÊM Ở NGOÀI: 5 đề · 9 TN (1đ/câu) + 4 TLN (0,25đ/câu) · 20 phút ===== */
 const EXTIME=20*60;
-const EXAMS_RAW=[
-{name:"Đề 1 · Khái niệm & bậc",
- mcq:[
-  {tag:"Khái niệm",q:"Amin được tạo thành khi thay nguyên tử H trong NH₃ bằng:",o:["gốc axyl","gốc hydrocarbon","ion kim loại","nguyên tử halogen"],a:1,e:"Amin có gốc hydrocarbon R thay H của NH₃."},
-  {tag:"Bậc",q:"Bậc của amin CH₃–NH–CH₃ là:",o:["1","2","3","0"],a:1,e:"N gắn 2 gốc CH₃ → bậc 2."},
-  {tag:"Bậc",q:"Bậc của amin (CH₃)₃N là:",o:["1","2","3","0"],a:2,e:"N gắn 3 gốc → bậc 3."},
-  {tag:"Bậc",q:"C₂H₅–NH₂ là amin bậc mấy?",o:["1","2","3","4"],a:0,e:"N chỉ gắn 1 gốc C₂H₅."},
-  {tag:"Phân loại",q:"Anilin C₆H₅NH₂ thuộc loại:",o:["amin no","arylamin (amin thơm)","alkylamin","amin bậc 3"],a:1,e:"N gắn trực tiếp vào vòng benzen."},
-  {tag:"Phân loại",q:"Benzylamin C₆H₅CH₂NH₂ thuộc loại:",o:["arylamin","alkylamin (N không gắn trực tiếp vòng)","amin bậc 3","anilin"],a:1,e:"N gắn qua CH₂ nên là alkylamin."},
-  {tag:"CTTQ",q:"Công thức chung của amin no, đơn chức, mạch hở là:",o:["CₙH₂ₙ₊₂N","CₙH₂ₙ₊₃N","CₙH₂ₙN","CₙH₂ₙ₊₁N"],a:1,e:"CₙH₂ₙ₊₃N (n ≥ 1)."},
-  {tag:"Khái niệm",q:"Công thức chung của amin bậc 1 là:",o:["R–NH₂","R–NH–R′","R–N(R′)–R″","R–OH"],a:0,e:"Chỉ có 1 gốc R trên N."},
-  {tag:"Bậc",q:"Amin (C₂H₅)₂NH có bậc là:",o:["1","2","3","0"],a:1,e:"N gắn 2 gốc C₂H₅."}
- ],
- sa:[
-  {tag:"CTTQ",q:"Số nguyên tử H trong phân tử ethylamin C₂H₅NH₂ là bao nhiêu?",ans:7,show:"7",e:"5 H ở C₂H₅ + 2 H ở NH₂ = 7."},
-  {tag:"Bậc",q:"Bậc của amin CH₃NHC₂H₅ là bao nhiêu?",ans:2,show:"2",e:"N gắn 2 gốc (CH₃ và C₂H₅)."},
-  {tag:"CTTQ",q:"Amin no, đơn chức, mạch hở có 4 C: số nguyên tử H là bao nhiêu?",ans:11,show:"11",e:"C₄H₁₁N: 2·4 + 3 = 11."},
-  {tag:"Khái niệm",q:"Hexan-1,6-điamin có bao nhiêu nhóm –NH₂?",ans:2,show:"2",e:"Điamin có 2 nhóm –NH₂."}
- ]},
-{name:"Đề 2 · CTTQ & đồng phân",
- mcq:[
-  {tag:"Đồng phân",q:"Số đồng phân amin của C₂H₇N là:",o:["1","2","3","4"],a:1,e:"CH₃CH₂NH₂ và CH₃NHCH₃."},
-  {tag:"Đồng phân",q:"Số đồng phân amin của C₃H₉N là:",o:["2","3","4","5"],a:2,e:"Propan-1-amin, propan-2-amin, N-methylethanamin, N,N-dimethylmethanamin."},
-  {tag:"Đồng phân",q:"Số đồng phân amin bậc 1 của C₃H₉N là:",o:["1","2","3","4"],a:1,e:"Propan-1-amin và propan-2-amin."},
-  {tag:"Đồng phân",q:"Số đồng phân amin của C₄H₁₁N là:",o:["6","7","8","9"],a:2,e:"Tổng cộng 8 đồng phân."},
-  {tag:"Đồng phân",q:"Số đồng phân amin bậc 1 của C₄H₁₁N là:",o:["2","3","4","5"],a:2,e:"Butan-1-amin, butan-2-amin, 2-methylpropan-1-amin, 2-methylpropan-2-amin."},
-  {tag:"Đồng phân",q:"Số đồng phân amin bậc 3 của C₄H₁₁N là:",o:["1","2","3","4"],a:0,e:"Chỉ N,N-dimethylethanamin."},
-  {tag:"Đồng phân",q:"Chất KHÔNG phải đồng phân của CH₃CH₂CH₂NH₂ là:",o:["CH₃CH(NH₂)CH₃","CH₃CH₂NHCH₃","CH₃CH₂CH₃","(CH₃)₃N"],a:2,e:"CH₃CH₂CH₃ là C₃H₈, không có N."},
-  {tag:"Đồng phân",q:"Số đồng phân amin thơm của C₇H₉N là:",o:["3","4","5","6"],a:2,e:"Benzylamin, o-, m-, p-toluđin và N-methylanilin."},
-  {tag:"Đồng phân",q:"Số đồng phân amin bậc 2 của C₃H₉N là:",o:["0","1","2","3"],a:1,e:"Chỉ CH₃NHC₂H₅."}
- ],
- sa:[
-  {tag:"Đồng phân",q:"Số đồng phân amin bậc 2 của C₄H₁₁N là bao nhiêu?",ans:3,show:"3",e:"CH₃CH₂CH₂NHCH₃, (CH₃)₂CHNHCH₃, CH₃CH₂NHCH₂CH₃."},
-  {tag:"Đồng phân",q:"Số đồng phân amin bậc 3 của C₃H₉N là bao nhiêu?",ans:1,show:"1",e:"Chỉ (CH₃)₃N."},
-  {tag:"Đồng phân",q:"Số đồng phân amin bậc 1 của C₂H₇N là bao nhiêu?",ans:1,show:"1",e:"Chỉ CH₃CH₂NH₂."},
-  {tag:"Phân loại",q:"Số đồng phân amin thơm của C₇H₉N là bao nhiêu?",ans:5,show:"5",e:"Benzylamin, o-, m-, p-toluđin và N-methylanilin."}
- ]},
-{name:"Đề 3 · Danh pháp",
- mcq:[
-  {tag:"Danh pháp",q:"Tên gốc–chức của C₂H₅NH₂ là:",o:["ethanamin","ethylamin","điethylamin","methylamin"],a:1,e:"Gốc ethyl + amin."},
-  {tag:"Danh pháp",q:"Tên thay thế của CH₃CH₂CH₂NH₂ là:",o:["propylamin","propan-2-amin","propan-1-amin","propanamin"],a:2,e:"NH₂ ở C số 1."},
-  {tag:"Danh pháp",q:"Tên thay thế của (CH₃)₂CHNH₂ là:",o:["propan-1-amin","propan-2-amin","isopropanamin","propylamin"],a:1,e:"NH₂ ở C số 2."},
-  {tag:"Danh pháp",q:"Tên gốc–chức của (CH₃)₃C–NH₂ là:",o:["isobutylamin","sec-butylamin","tert-butylamin","butylamin"],a:2,e:"Gốc tert-butyl."},
-  {tag:"Danh pháp",q:"Tên thay thế của CH₃NHC₂H₅ là:",o:["N-methylethanamin","ethylmethanamin","N-ethylmethanamin","methylethanamin"],a:0,e:"Mạch chính ethan, N-methyl."},
-  {tag:"Danh pháp",q:"Tên thay thế của (CH₃)₂N–C₂H₅ là:",o:["N,N-dimethylethanamin","N-methylethanamin","N,N-dimethylpropan-1-amin","ethyldimethanamin"],a:0,e:"2 gốc methyl trên N, mạch ethan."},
-  {tag:"Danh pháp",q:"Gốc isobutyl có công thức:",o:["CH₃CH₂CH(CH₃)–","(CH₃)₂CHCH₂–","(CH₃)₃C–","CH₃CH₂CH₂CH₂–"],a:1,e:"–CH₂CH(CH₃)₂."},
-  {tag:"Danh pháp",q:"H₂N–CH₂–CH₂–NH₂ có tên thay thế là:",o:["ethan-1,2-điamin","propan-1,2-điamin","ethyldiamin","đietylamin"],a:0,e:"Mạch 2 C, 2 nhóm NH₂ ở C 1 và C 2."},
-  {tag:"Danh pháp",q:"Tên gốc–chức của CH₃CH₂CH₂CH₂NH₂ là:",o:["butylamin","isobutylamin","sec-butylamin","tert-butylamin"],a:0,e:"Gốc n-butyl (không nhánh)."}
- ],
- sa:[
-  {tag:"Danh pháp",q:"Tên thay thế của CH₃CH₂CH₂NH₂ là propan-?-amin. Nhập số vị trí của nhóm –NH₂:",ans:1,show:"1",e:"NH₂ ở C số 1."},
-  {tag:"Danh pháp",q:"Tên thay thế của (CH₃)₂CHNH₂ là propan-?-amin. Nhập số vị trí của nhóm –NH₂:",ans:2,show:"2",e:"NH₂ ở C số 2."},
-  {tag:"Danh pháp",q:"Số nhóm –NH₂ trong H₂N–CH₂–CH₂–NH₂ là bao nhiêu?",ans:2,show:"2",e:"Etan-1,2-điamin có 2 nhóm –NH₂."},
-  {tag:"Gốc",q:"Gốc tert-butyl –C(CH₃)₃ có bao nhiêu nguyên tử C?",ans:4,show:"4",e:"1 C gắn N + 3 CH₃ = 4 C."}
- ]},
-{name:"Đề 4 · Tính chất",
- mcq:[
-  {tag:"Khái niệm",q:"Dung dịch CH₃NH₂ làm quỳ tím chuyển màu:",o:["đỏ","xanh","không đổi màu","vàng"],a:1,e:"Amin có tính bazơ."},
-  {tag:"Khái niệm",q:"Anilin làm quỳ tím:",o:["xanh","đỏ","không đổi màu","vàng"],a:2,e:"Tính bazơ của anilin rất yếu."},
-  {tag:"Khái niệm",q:"Chất có tính bazơ yếu nhất là:",o:["CH₃NH₂","NH₃","C₆H₅NH₂","C₂H₅NH₂"],a:2,e:"Vòng benzen hút electron làm giảm tính bazơ."},
-  {tag:"Khái niệm",q:"Ở điều kiện thường, metylamin là:",o:["chất lỏng","chất khí","chất rắn","dung dịch"],a:1,e:"Metylamin, đimetylamin, trimetylamin đều là chất khí, mùi khai."},
-  {tag:"Khái niệm",q:"Anilin ở điều kiện thường là:",o:["chất khí","chất rắn","chất lỏng không màu","chất lỏng màu xanh"],a:2,e:"Để lâu ngoài không khí, anilin bị oxi hóa và hóa nâu."},
-  {tag:"Khái niệm",q:"Nhỏ nước brom vào dung dịch anilin, hiện tượng là:",o:["kết tủa đỏ","kết tủa trắng","khí thoát ra","dung dịch chuyển xanh"],a:1,e:"Tạo kết tủa trắng 2,4,6-tribromanilin."},
-  {tag:"Danh pháp",q:"Sản phẩm kết tủa trắng khi anilin tác dụng nước brom là:",o:["2,4,6-tribromphenol","2,4,6-tribromanilin","p-bromanilin","bromobenzen"],a:1,e:"Brom thế vào vị trí 2, 4, 6 của vòng."},
-  {tag:"Khái niệm",q:"Dung dịch amin thể hiện tính:",o:["axit","bazơ","lưỡng tính","trung tính"],a:1,e:"Amin có đôi electron tự do trên N nên là bazơ."},
-  {tag:"CTTQ",q:"CH₃NH₂ tác dụng HCl tạo muối:",o:["CH₃NH₃Cl","CH₃NH₂Cl","CH₃ClNH₂","CH₃NHCl"],a:0,e:"CH₃NH₂ + HCl → CH₃NH₃Cl."}
- ],
- sa:[
-  {tag:"CTTQ",q:"Muối CH₃NH₃Cl có bao nhiêu nguyên tử H?",ans:6,show:"6",e:"3 H ở CH₃ + 3 H ở NH₃⁺ = 6."},
-  {tag:"Khái niệm",q:"Số nguyên tử Br trong kết tủa 2,4,6-tribromanilin là bao nhiêu?",ans:3,show:"3",e:"Br ở vị trí 2, 4, 6 của vòng."},
-  {tag:"CTTQ",q:"Đimethylamin (CH₃)₂NH có bao nhiêu nguyên tử H?",ans:7,show:"7",e:"6 H ở 2 CH₃ + 1 H ở NH = 7."},
-  {tag:"Tên thường",q:"Anilin C₆H₅NH₂ có bao nhiêu nguyên tử C?",ans:6,show:"6",e:"Vòng benzen có 6 C."}
- ]},
-{name:"Đề 5 · Gốc & tổng hợp",
- mcq:[
-  {tag:"Khái niệm",q:"Công thức chung của amin bậc 2 là:",o:["R–NH₂","R–NH–R′","R–N(R′)–R″","R–OH"],a:1,e:"N gắn 2 gốc R."},
-  {tag:"Bậc",q:"Chất nào là amin bậc 2?",o:["CH₃NH₂","CH₃NHCH₃","(CH₃)₃N","C₆H₅NH₂"],a:1,e:"N gắn 2 gốc CH₃."},
-  {tag:"Gốc",q:"Gốc –CH₃ có tên là:",o:["methyl","ethyl","propyl","phenyl"],a:0,e:"Gốc methyl."},
-  {tag:"Gốc",q:"Gốc C₂H₅– có tên là:",o:["methyl","ethyl","propyl","butyl"],a:1,e:"Gốc ethyl."},
-  {tag:"Gốc",q:"Gốc C₆H₅– có tên là:",o:["benzyl","phenyl","tolyl","anilyl"],a:1,e:"Gốc phenyl."},
-  {tag:"Đồng phân",q:"Chất nào là amin bậc 2 có công thức C₄H₁₁N?",o:["CH₃CH₂CH₂NH₂","(CH₃)₂CHCH₂NH₂","CH₃CH₂NHCH₂CH₃","(CH₃)₃CNH₂"],a:2,e:"Diethylamin: N gắn 2 gốc C₂H₅."},
-  {tag:"Đồng phân",q:"Số đồng phân amin bậc 3 của C₃H₉N là:",o:["0","1","2","3"],a:1,e:"Chỉ (CH₃)₃N."},
-  {tag:"Phân loại",q:"Amin thơm bậc 2 nào sau đây?",o:["C₆H₅NH₂","C₆H₅NHCH₃","C₆H₅CH₂NH₂","(C₆H₅)₃N"],a:1,e:"N-methylanilin: N gắn vòng benzen và CH₃."},
-  {tag:"Gốc",q:"Gốc isopropyl có công thức:",o:["CH₃CH₂CH₂–","(CH₃)₂CH–","CH₃CH₂–","(CH₃)₃C–"],a:1,e:"–CH(CH₃)₂."}
- ],
- sa:[
-  {tag:"CTTQ",q:"Số nguyên tử C trong C₆H₅NHCH₃ là bao nhiêu?",ans:7,show:"7",e:"6 C vòng + 1 C của CH₃ = 7."},
-  {tag:"Gốc",q:"Gốc C₂H₅– có bao nhiêu nguyên tử C?",ans:2,show:"2",e:"Gốc ethyl."},
-  {tag:"Gốc",q:"Gốc –CH(CH₃)₂ (isopropyl) có bao nhiêu nguyên tử H?",ans:7,show:"7",e:"1 H ở CH + 6 H ở 2 CH₃ = 7."},
-  {tag:"Danh pháp",q:"Số nguyên tử C trong N-methylethanamin (CH₃NHC₂H₅) là bao nhiêu?",ans:3,show:"3",e:"1 C (methyl) + 2 C (ethan) = 3."}
- ]}
-];
-// Gộp toàn bộ câu hỏi rồi chia lại: mỗi đề là tổng hợp kiến thức (không theo chủ đề)
-const POOL_M=EXAMS_RAW.flatMap(e=>e.mcq), POOL_S=EXAMS_RAW.flatMap(e=>e.sa);
-const EXAMS=[0,1,2,3,4].map(k=>({name:`Đề ${k+1} · Tổng hợp`,
-  mcq:POOL_M.filter((_,i)=>i%5===k), sa:POOL_S.filter((_,i)=>i%5===k)}));
+// in đậm phần quan trọng của ví dụ: R = ... và kết quả sau →
+function fmtEx(e){
+  return e.replace(/(R\s*=\s*[^→(]+)/,'<b class="hl">$1</b>').replace(/→\s*(.+)$/,'→ <b class="hl">$1</b>');
+}
+// popup sticker khi bấm vào ví dụ
+const STK=["🌟","🎉","🧪","🏆","💡","🔥","🎯","🦄","🚀","🍀","⚗️","💎"];
+function showSticker(t){
+  const ov=document.createElement("div"); ov.className="stkov";
+  let burst="";
+  for(let i=0;i<14;i++){ const a=i/14*Math.PI*2, d=120+Math.random()*60;
+    burst+=`<span class="burst" style="--x:${(Math.cos(a)*d).toFixed(0)}px;--y:${(Math.sin(a)*d).toFixed(0)}px;animation-delay:${(Math.random()*.12).toFixed(2)}s">${STK[i%STK.length]}</span>`; }
+  const em=STK[Math.floor(Math.random()*STK.length)];
+  ov.innerHTML=`<div class="stkbox">${burst}<div class="stkbig">${em}</div><div class="stkt">${t}</div><div class="stkhint">Bấm bất kỳ chỗ nào để đóng</div></div>`;
+  ov.onclick=()=>ov.remove();
+  document.body.appendChild(ov);
+}
+// Đề duy nhất: 9 câu trắc nghiệm lấy từ 13 câu chuyên đề 7A + 4 ô điền số. Sẽ cập nhật thêm.
+const EXAMS=[{name:"Đề 1",
+  mcq:[3,5,6,7,8,9,10,11,12].map(i=>P7A[i]).map(x=>({...x,q:x.q.replace(/^Câu \d+:\s*/,"")})),
+  sa:[
+   {tag:"Đồng phân",q:"Số đồng phân amin của C₂H₇N là bao nhiêu?",ans:2,show:"2",e:"CH₃CH₂NH₂ và CH₃NHCH₃."},
+   {tag:"Đồng phân",q:"Số đồng phân amin của C₃H₉N là bao nhiêu?",ans:4,show:"4",e:"Propan-1-amin, propan-2-amin, N-methylethanamin, N,N-dimethylmethanamin."},
+   {tag:"Đồng phân",q:"Số đồng phân amin của C₄H₁₁N là bao nhiêu?",ans:8,show:"8",e:"4 amin bậc 1 + 3 amin bậc 2 + 1 amin bậc 3."},
+   {tag:"Đồng phân",q:"Số đồng phân amin bậc 1 của C₄H₁₁N là bao nhiêu?",ans:4,show:"4",e:"Butan-1-amin, butan-2-amin, 2-methylpropan-1-amin, 2-methylpropan-2-amin."}
+  ]}];
 const EXS={}; let curEx=0;
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
 const fmtT=s=>`${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
@@ -797,7 +1011,7 @@ function exHTML(k){
   h+=`</div><div class="practice"><div class="fred" style="color:var(--teal);font-size:1.15rem;margin-bottom:6px">II. Điền số · 4 ô × 0,25đ</div>`;
   ex.sa.forEach((it,i)=>{
     h+=`<div class="qcard enter"><span class="pill ${TAGCLS[it.tag]||"c-pur"}">${it.tag}</span><div class="qtext">Câu ${ex.mcq.length+i+1}. ${it.q}</div>
-      <input class="sain" type="number" inputmode="decimal" step="any" style="max-width:180px;text-align:center;font-size:1.3rem;font-weight:800" value="${esc(st.sa[i]||"")}" ${st.done?"disabled":""} placeholder="Điền số" oninput="exSA('${k}',${i},this.value)">`;
+      <input class="sain" type="number" inputmode="decimal" step="any" style="width:76px;height:76px;max-width:76px;padding:0;text-align:center;font-size:1.7rem;font-weight:800;border-radius:16px" value="${esc(st.sa[i]||"")}" ${st.done?"disabled":""} placeholder="Điền số" oninput="exSA('${k}',${i},this.value)">`;
     if(st.done){ const ok=st.res.saOk[i]; h+=`<div class="exp ${ok?"ok":"bad"}"><b>${ok?"✅ Đúng.":"❌ Sai."}</b> Đáp án: ${it.show}. ${it.e}</div>`; }
     h+=`</div>`;
   });
@@ -841,7 +1055,6 @@ function exReset(k){
   const st=EXS[k]; if(st&&st.timer) clearInterval(st.timer);
   delete EXS[k]; exRender(k);
 }
-document.getElementById("ex-picker").innerHTML=EXAMS.map((e,k)=>`<button class="pk${k===0?" on":""}" onclick="exOpen(${k})">${e.name}</button>`).join("");
 exRender(0);
 /* ===== v3: trắc nghiệm ngay theo từng phần; đồng phân mỗi C có 3 câu riêng; giao diện theo thiết bị/sáng/tối ===== */
 function genIsoQuiz(k){
@@ -863,8 +1076,8 @@ ISO_ORDER.forEach((_,k)=>SETS["iso"+k]=genIsoQuiz(k));
 
 function examHTML(si){
   const s=steps[si];
-  const ex=(s.ex||[]).map((e,i)=>`<div style="padding:4px 0"><b>${i+1}.</b> <span class="mono">${e}</span></div>`).join("");
-  return `${ex?`<div class="callout pur"><b>Ví dụ</b>${ex}</div>`:""}
+  const ex=(s.ex||[]).map((e,i)=>`<button class="exbtn" style="animation-delay:${i*.09}s" data-t="${e.replace(/"/g,'&quot;')}" onclick="showSticker(this.dataset.t)"><b>${i+1}.</b> <span class="mono">${fmtEx(e)}</span><em>✨</em></button>`).join("");
+  return `${ex?`<div class="callout pur"><b>Ví dụ</b> <small>(bấm để xem)</small><div class="exlist">${ex}</div></div>`:""}
    <div class="practice"><div class="fred" style="color:var(--teal);font-size:1.2rem;margin-bottom:8px">🎯 Trắc nghiệm</div>
    ${itemsHTML("s"+si)}<div id="score-s${si}" class="scorebox hidden"></div></div>`;
 }
@@ -881,7 +1094,7 @@ function pagesOf(si){
 function renderPage(){
   const P=pagesOf(cur); if(sub>=P.length) sub=P.length-1;
   const pg=P[sub];
-  let h=`<h2>${cur+1}. ${steps[cur].title}</h2><div class="enter">${pg.html()}</div>`;
+  let h=`<h2>${cur+1}. ${steps[cur].title}</h2>${pg.quizPage?"":toolbarHTML()}<div class="enter">${pg.html()}</div>`;
   if(pg.key && !pg.quizPage){
     h+=`<div class="practice"><div class="fred" style="color:var(--teal);font-size:1.2rem;margin-bottom:8px">🎯 Trắc nghiệm</div>${itemsHTML(pg.key)}<div id="score-${pg.key}" class="scorebox hidden"></div></div>`;
   }
@@ -889,6 +1102,7 @@ function renderPage(){
   if(pg.key){ const got=ANS[pg.key]||{}; Object.keys(got).forEach(i=>applyAns(pg.key,+i,got[i])); checkDone(pg.key); }
   document.getElementById("scount").textContent=`Bước ${cur+1}/${steps.length} · Trang ${sub+1}/${P.length}`;
   document.getElementById("pbar").style.width=((cur+(sub+1)/P.length)/steps.length*100)+"%";
+  document.getElementById("ppct").textContent=Math.round((cur+(sub+1)/P.length)/steps.length*100)+"%";
   document.getElementById("dots").innerHTML=steps.map((_,i)=>`<button class="dot ${i===cur?"on":(i<cur?"done":"")}" onclick="jumpStep(${i})"></button>`).join("");
   updNav();
   window.scrollTo({top:0,behavior:"smooth"});
@@ -897,10 +1111,17 @@ function updNav(){
   const P=pagesOf(cur), pg=P[sub], nx=document.getElementById("next"), pv=document.getElementById("prev");
   pv.disabled = cur===0&&sub===0;
   const done = !pg.key || Object.keys(ANS[pg.key]||{}).length>=SETS[pg.key].length;
+  if(done && pg.key && sub===P.length-1 && cur+1>maxStep) maxStep=cur+1;
   const isLast = sub===P.length-1, lastStep = cur===steps.length-1;
   nx.disabled=!done;
   nx.textContent = !done ? "Làm hết câu hỏi để tiếp" : (isLast ? (lastStep?"Sang trích 7A →":"Bước tiếp →") : "Tiếp →");
   nx.onclick=()=>{ if(!isLast){sub++;renderPage();} else if(!lastStep){cur++;sub=0;renderPage();} else showTab("7a"); };
+}
+function qlabel(p,i){
+  if(/^s\d+$/.test(p)) return `PHẦN ${+p.slice(1)+1} · Câu ${i+1}`;
+  if(/^iso\d+$/.test(p)) return `PHẦN 10 · C${+p.slice(3)+1} · Câu ${i+1}`;
+  if(p==="p7a") return `7A · Câu ${i+1}`;
+  return `Câu ${i+1}`;
 }
 function pick(p,i,oi){
   ANS[p]=ANS[p]||{}; if(ANS[p][i]!==undefined) return;
@@ -924,11 +1145,112 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{ if(cu
 let savedT=null; try{ savedT=localStorage.getItem("kn_theme"); }catch(e){}
 curTheme = savedT || "device"; applyTheme(curTheme);
 
+/* ===== FLASHCARD & NGHE GIẢNG ===== */
+const FLASH=[[["Amin là gì?", "Hợp chất tạo khi thay 1 H trong NH₃ bằng gốc hydrocarbon R"], ["Công thức chung amin bậc 1?", "R–NH₂"], ["R là gì?", "Gốc hydrocarbon: chỉ gồm C và H (CH₃–, C₂H₅–, C₆H₅–…)"], ["CH₃–NH₂ có tên gốc–chức là?", "methylamin"]], [["Bậc của amin là?", "Số gốc R gắn trực tiếp vào N (chỉ đếm gốc trên N)"], ["Công thức amin bậc 2?", "R–NH–R′"], ["Công thức amin bậc 3?", "R–N(R′)–R″"], ["Bậc của (CH₃)₂NH?", "Bậc 2: 2 gốc CH₃ trên N"]], [["Alkylamin là gì?", "N gắn gốc no, không gắn thẳng vòng benzen"], ["Arylamin là gì?", "N gắn thẳng vòng benzen, ví dụ anilin C₆H₅NH₂"], ["Benzylamin thuộc loại nào?", "Alkylamin (có CH₂ ngăn giữa vòng và N)"], ["Mẹo nhớ?", "Có CH₂ giữa vòng và N → alkylamin"]], [["Đồng phân amin khác nhau ở những gì?", "Bậc, mạch C, vị trí –NH₂"], ["CH₃NHCH₃ và (CH₃)₃N khác nhau ở?", "Bậc (bậc 2 và bậc 3)"], ["propan-1-amin và propan-2-amin khác nhau ở?", "Vị trí –NH₂ (C số 1 hay số 2)"], ["Đồng phân mạch C là gì?", "Mạch thẳng và mạch nhánh (vd C₄H₉NH₂)"]], [["CTTQ amin no, đơn chức, mạch hở?", "CₙH₂ₙ₊₃N (n ≥ 1)"], ["Amin no đơn chức 5 C có bao nhiêu H?", "13 (C₅H₁₃N)"], ["CTTQ amin thơm (dạng anilin)?", "CₙH₂ₙ₋₇NH₂ (n ≥ 6)"], ["C₃H₉N có đúng CTTQ amin no?", "Có: 2·3+3 = 9 H ✔"]], [["Tên gốc được đặt thế nào?", "Tên mạch C + đuôi -yl"], ["Gốc –CH(CH₃)₂ gọi là?", "isopropyl"], ["Gốc –C(CH₃)₃ gọi là?", "tert-butyl"], ["Tiền tố iso- nghĩa là?", "2 CH₃ ở đầu (isopropyl) hoặc ở cuối mạch (isobutyl)"]], [["Có mấy kiểu tên amin?", "2: gốc–chức và thay thế"], ["Mạch 3 C có tiền tố nào?", "prop (propan)"], ["Đánh số mạch sao cho?", "NH₂ có số nhỏ nhất"], ["Gốc trên N ghi thế nào?", "N- (vd N-methylethanamin)"]], [["Vòng benzen C₆H₅– gọi là?", "phenyl"], ["o-, m-, p- ứng với vị trí nào?", "o: số 2 · m: số 3 · p: số 4"], ["Anilin có tên thay thế?", "benzenamin"], ["Benzylamin có tên thay thế?", "phenylmethanamin"]], [["C₃H₉N có bao nhiêu đồng phân amin?", "4"], ["C₄H₁₁N có bao nhiêu đồng phân amin?", "8 (4 bậc 1 + 3 bậc 2 + 1 bậc 3)"], ["C₂H₇N có bao nhiêu đồng phân?", "2"], ["Tổng đồng phân bằng?", "Bậc 1 + bậc 2 + bậc 3"]], [["C₃H₉N có mấy đồng phân bậc 1?", "2 (propan-1-amin, propan-2-amin)"], ["C₄H₁₁N có mấy đồng phân bậc 1?", "4"], ["C₄H₁₁N có mấy đồng phân bậc 3?", "1: N,N-dimethylethanamin"], ["Học C1→C7 thế nào?", "Học từng C, mỗi C có 3 câu luyện rồi mới sang C tiếp"]]];
+const LEC=[["Xin chào các bạn, hôm nay chúng ta học phần đầu tiên của chuyên đề amin, đó là khái niệm amin.", "Để hiểu amin, trước hết hãy nhớ phân tử amoniac NH₃. Trong phân tử này có một nguyên tử nitơ N liên kết với ba nguyên tử hiđro H.", "Bây giờ ta lấy NH₃ và thay một nguyên tử H bằng một gốc hydrocarbon, kí hiệu là R.", "Gốc hydrocarbon là phần chỉ gồm các nguyên tử cacbon C và hiđro H. Ví dụ CH₃ là gốc methyl, C₂H₅ là gốc ethyl, còn C₆H₅ là gốc phenyl.", "Khi thay H bằng R, ta được chất có công thức chung R–NH₂, và đó chính là amin.", "Hãy nhìn hình minh họa: NH₃ có ba nhánh H. Khi một H được thay bằng R, phần còn lại vẫn là NH₂ và được nối với R.", "Ví dụ, khi R là CH₃, ta có CH₃–NH₂. Đọc theo tên gốc–chức, đó là methylamin.", "Khi R là C₆H₅, ta có C₆H₅–NH₂, tên thường là anilin.", "Điều cần nhớ: amin luôn có nguyên tử nitơ N gắn với gốc hydrocarbon.", "Nếu quên, hãy nhớ câu gọn: NH₃ thay một H bằng gốc hydrocarbon thì được amin. Đây là nền tảng cho cả các phần sau."], ["Tiếp theo, ta phân loại amin theo bậc.", "Cách xác định bậc rất đơn giản: đếm số gốc R gắn trực tiếp vào nguyên tử N.", "Lưu ý quan trọng: chỉ đếm gốc gắn trên N, không đếm các gốc ở xa.", "Amin bậc một có một gốc R, công thức chung là R–NH₂. Ví dụ CH₃–NH₂.", "Amin bậc hai có hai gốc R, công thức chung là R–NH–R′. Ví dụ CH₃–NH–CH₃. R′ là gốc thứ hai, có thể giống hoặc khác R.", "Amin bậc ba có ba gốc R, công thức chung là R–N(R′)–R″. Ví dụ (CH₃)₃N.", "Hãy nhìn ba hình minh họa: một gốc, hai gốc, ba gốc, đều nối vào nguyên tử N.", "Ví dụ kiểm tra: (CH₃)₂NH có hai gốc CH₃ trên N, nên là amin bậc hai.", "Anilin C₆H₅NH₂ có một gốc C₆H₅ trên N, nên là amin bậc một.", "Mẹo nhớ: bậc luôn bằng số gốc trên N. Không liên quan đến số lượng H."], ["Phần này phân loại amin theo bản chất của gốc hydrocarbon.", "Alkylamin là amin mà nguyên tử N gắn với gốc no, tức là không có vòng benzen gắn trực tiếp vào N.", "Ví dụ C₂H₅–NH₂, gốc ethyl là gốc no, nên đây là alkylamin.", "Arylamin là amin mà N gắn thẳng vào vòng benzen. Ví dụ anilin C₆H₅–NH₂.", "Điểm dễ nhầm: benzylamin C₆H₅CH₂NH₂ có vòng benzen, nhưng giữa vòng và N có một nhóm CH₂. Vì vậy benzylamin là alkylamin.", "Mẹo nhớ: nhìn vào chỗ N. Nếu N dính ngay vào vòng thì là arylamin. Nếu có CH₂ ngăn ở giữa thì là alkylamin.", "Hình bên trên minh họa hai trường hợp: bên trái là mạch no, bên phải là vòng benzen gắn trực tiếp vào N.", "Hãy thử với N-methylanilin C₆H₅NHCH₃. N gắn trực tiếp vòng benzen, nên đây là arylamin.", "Khi làm bài, hãy xem N đang gắn với cái gì trước, rồi mới kết luận."], ["Phần này nói về đồng phân amin.", "Đồng phân là các chất có cùng công thức phân tử nhưng khác nhau về cấu tạo.", "Với amin, các đồng phân thường khác nhau ở ba điểm: bậc, mạch cacbon và vị trí nhóm –NH₂.", "Ví dụ CH₃NHCH₃ và (CH₃)₃N đều có công thức C₃H₉N, nhưng một chất là bậc hai, còn chất kia là bậc ba.", "Propan-1-amin và propan-2-amin đều là bậc một, chỉ khác vị trí của nhóm –NH₂ trên mạch.", "Butan-1-amin và 2-methylpropan-1-amin đều là bậc một, nhưng một chất mạch thẳng, một chất mạch nhánh, nên khác mạch cacbon.", "Cách làm bài: so sánh bậc trước, rồi đến mạch, rồi đến vị trí NH₂.", "Nhớ: phải cùng công thức phân tử mới là đồng phân. Chất có số C khác nhau thì không phải đồng phân của nhau."], ["Phần này học công thức tổng quát để tính nhanh số H.", "Amin no, đơn chức, mạch hở có công thức chung CₙH₂ₙ₊₃N, với n từ 1 trở lên.", "Ví dụ khi n bằng 3, ta có C₃H₉N. Khi n bằng 5, ta có C₅H₁₃N.", "Vì sao lại là 2n cộng 3? Mạch no n cacbon có 2n cộng 2 nguyên tử H, cộng thêm 1 H của nhóm NH₂ thì được 2n cộng 3.", "Amin thơm có vòng benzen, đơn chức, có công thức CₙH₂ₙ₋₇NH₂, với n từ 6 trở lên.", "Ví dụ anilin ứng với n bằng 6, công thức là C₆H₇N.", "Mẹo: với amin no đơn chức mạch hở, số H luôn là số lẻ.", "Hãy làm thử: C₄H₁₁N có 11 H, đúng vì 2 nhân 4 cộng 3 bằng 11."], ["Phần này học tên các gốc hydrocarbon thường gặp.", "Cách đặt tên gốc: lấy tên mạch cacbon và đổi đuôi thành -yl.", "Một, hai, ba, bốn cacbon lần lượt là methyl, ethyl, propyl, butyl.", "Tiền tố iso- nghĩa là có hai nhóm CH₃ ở đầu mạch. Ví dụ isopropyl –CH(CH₃)₂.", "Tiền tố tert- nghĩa là nguyên tử C gắn với N đang gắn với ba C khác. Ví dụ tert-butyl –C(CH₃)₃.", "Tiền tố sec- nghĩa là C gắn với N có hai C khác. Ví dụ sec-butyl –CH(CH₃)CH₂CH₃.", "Hãy bấm vào từng thẻ để xem công thức đầy đủ.", "Ghi nhớ: tên gốc dùng để gọi tên amin theo kiểu gốc–chức, nên cần học thuộc."], ["Phần này rất quan trọng: đọc tên amin theo từng bước, đừng vội.", "Có hai kiểu tên: gốc–chức và thay thế.", "Kiểu gốc–chức: đọc tên gốc hydrocarbon trước, rồi thêm từ amin. Ví dụ C₂H₅–NH₂ là ethylamin.", "Kiểu thay thế: đọc theo mạch chính. Bước một, đếm số cacbon của mạch chính để lấy tên mạch.", "Một cacbon là meth, hai là eth, ba là prop, bốn là but. Sau đó thêm đuôi an.", "Bước hai, đánh số mạch sao cho nhóm –NH₂ có số nhỏ nhất.", "Bước ba, ghi tên nhánh có số đứng trước. Ví dụ 2-methyl.", "Bước bốn, nếu có gốc gắn trên N, ghi N- ở đầu. Ví dụ N-methylethanamin.", "Ví dụ hoàn chỉnh: CH₃–CH(NH₂)–CH₂–CH₃ là butan-2-amin.", "Hãy đọc chậm từng trang, rồi làm phần tự luyện ở trang cuối."], ["Phần này nói về vòng benzen và tên thường.", "Vòng benzen C₆H₆ có sáu cạnh. Gốc C₆H₅– gắn vào một vị trí được gọi là phenyl.", "Khi vòng có thêm nhóm thế, ta đánh số vị trí quanh vòng.", "o- ứng với vị trí số 2, m- ứng với vị trí số 3, p- ứng với vị trí số 4, tính từ nhóm đứng đầu.", "Anilin C₆H₅NH₂ có tên thay thế là benzenamin.", "Toluđin là các amin có thêm CH₃ trên vòng. o-toluđin có CH₃ ở vị trí 2, còn p-toluđin có CH₃ ở vị trí 4.", "Benzylamin C₆H₅CH₂NH₂ có tên thay thế là phenylmethanamin.", "Hãy nhớ các tên thường như anilin và toluđin, vì đề hay dùng."], ["Phần này học số đồng phân cần thuộc.", "Ta cần nhớ số đồng phân của các công thức thường gặp để làm bài nhanh hơn.", "C₂H₇N có 2 đồng phân: một chất bậc một và một chất bậc hai.", "C₃H₉N có 4 đồng phân: 2 chất bậc một, 1 chất bậc hai và 1 chất bậc ba.", "C₄H₁₁N có 8 đồng phân: 4 chất bậc một, 3 chất bậc hai và 1 chất bậc ba.", "C₅H₁₃N có 17 đồng phân: 8 chất bậc một, 6 chất bậc hai và 3 chất bậc ba.", "Tổng số đồng phân bằng tổng số đồng phân bậc một, bậc hai và bậc ba.", "Hãy nhìn bảng để nhớ các con số này, và đừng học vẹt từng số."], ["Phần cuối này học đồng phân theo thứ tự từ C1 đến C7.", "Mỗi C là một trang, có công thức và các chất đồng phân tương ứng.", "Hãy học đúng thứ tự, vì các chất sau được xây dựng từ các chất trước.", "Ví dụ C₃H₉N có 4 đồng phân, trong đó 2 chất là bậc một: propan-1-amin và propan-2-amin.", "Bấm vào từng chất để xem tên đầy đủ và cách đọc.", "Học xong mỗi C, làm 3 câu luyện của C đó rồi mới sang C tiếp theo.", "Đừng chỉ nhớ số lượng, hãy nhớ tên từng chất.", "Chúc các bạn học tốt."]];
+function toolbarHTML(){ return `<div class="tools"><button class="toolbtn t-fc" onclick="openFlash()">🃏 Flashcard</button><button class="toolbtn t-lec" onclick="openLecture()">🎙️ Nghe giảng như cô Mỹ</button></div>`; }
+function closeOv(){ lecStop(); document.querySelectorAll(".lovr").forEach(e=>e.remove()); }
+let fcIdx=0, fcFlip=false;
+function openFlash(){
+  if(!(FLASH[cur]||[]).length) return; fcIdx=0; fcFlip=false;
+  const ov=document.createElement("div"); ov.className="lovr";
+  ov.innerHTML=`<div class="lbox2"><div class="lhead"><span>🃏 Flashcard · ${steps[cur].title}</span><button class="xbtn" onclick="closeOv()">✕</button></div>
+    <div class="fcscene"><div class="fcard" id="fcard" onclick="flipCard()"></div></div>
+    <div class="fcnav"><button class="btn ghost" onclick="fcMove(-1)">← Trước</button><span id="fcnum" class="fcnum"></span><button class="btn" onclick="fcMove(1)">Sau →</button></div>
+    <p class="hint">Bấm vào thẻ để lật. Tự kiểm tra xem bạn nhớ ý chính chưa nhé.</p></div>`;
+  document.body.appendChild(ov); fcRender();
+}
+function fcRender(){
+  const list=FLASH[cur], c=list[fcIdx], card=document.getElementById("fcard"); if(!card) return;
+  card.classList.toggle("flipped",fcFlip);
+  card.innerHTML=`<div class="face front"><small>MẶT TRƯỚC</small><div>${c[0]}</div></div><div class="face back"><small>MẶT SAU</small><div>${c[1]}</div></div>`;
+  document.getElementById("fcnum").textContent=`${fcIdx+1} / ${list.length}`;
+}
+function flipCard(){ fcFlip=!fcFlip; fcRender(); }
+function fcMove(d){ const n=FLASH[cur].length; fcIdx=(fcIdx+d+n)%n; fcFlip=false; fcRender(); }
+
+let lecSents=[], lecK=0, lecRunning=false;
+function openLecture(){
+  lecSents=LEC[cur]||[]; lecK=0; lecRunning=false;
+  const vis=document.querySelector("#tcard .diagrams, #tcard .stage, #tcard .bacrow, #tcard .kcards, #tcard .ntiles, #tcard .gcards");
+  const ov=document.createElement("div"); ov.className="lovr";
+  ov.innerHTML=`<div class="lbox2"><div class="lhead"><span>🎙️ Nghe giảng như cô Mỹ · ${steps[cur].title}</span><button class="xbtn" onclick="closeOv()">✕</button></div>
+    ${vis?`<div class="lecvis">${vis.outerHTML}</div>`:""}
+    <div class="lectext" id="lectext">${lecSents.map((t,i)=>`<p class="sent" id="sn${i}">${t}</p>`).join("")}</div>
+    <div class="lecctrl"><button class="btn" id="lecplay" onclick="lecPlay()">▶ Đọc</button><button class="btn ghost" onclick="lecStop()">■ Dừng</button><button class="btn ghost" onclick="lecNext()">Câu sau ⏭</button></div>
+    <p class="hint" id="lecnote"></p></div>`;
+  document.body.appendChild(ov);
+  document.getElementById("lecnote").textContent=lecNoteText();
+  if("speechSynthesis" in window) speechSynthesis.onvoiceschanged=()=>{ const n=document.getElementById("lecnote"); if(n) n.textContent=lecNoteText(); };
+}
+// chuyển công thức thành lời đọc tiếng Việt
+function speakable(t){
+  const dig="không một hai ba bốn năm sáu bảy tám chín".split(" ");
+  return t.replace(/<[^>]+>/g,"")
+    .replace(/\)₂/g," hai nhóm ").replace(/\)₃/g," ba nhóm ")
+    .replace(/₁₁/g," mười một ").replace(/₁₃/g," mười ba ")
+    .replace(/[₀₁₂₃₄₅₆₇₈₉]/g,c=>" "+dig["₀₁₂₃₄₅₆₇₈₉".indexOf(c)]+" ")
+    .replace(/ₙ/g," n ").replace(/₊/g," cộng ").replace(/₋/g," trừ ")
+    .replace(/R′/g," R phẩy ").replace(/R″/g," R hai phẩy ")
+    .replace(/→/g," thành ").replace(/=/g," bằng ").replace(/·/g," nhân ")
+    .replace(/[–—]/g," ").replace(/[()]/g," ").replace(/\s+/g," ").trim();
+}
+function viVoice(){ return ("speechSynthesis" in window) ? speechSynthesis.getVoices().find(v=>/^vi/i.test(v.lang)) : null; }
+function lecNoteText(){
+  if(("speechSynthesis" in window) && viVoice()) return "";
+  return "Đang dùng giọng đọc tiếng Việt trực tuyến (cần kết nối mạng).";
+}
+let lecAudio=null;
+// giọng trực tuyến tiếng Việt khi máy không có giọng Việt
+function lecOnline(i){
+  let t=speakable(lecSents[i]); if(t.length>190){ const k=t.lastIndexOf(" ",190); t=t.slice(0,k>0?k:190); }
+  lecAudio=new Audio("https://translate.google.com/translate_tts?ie=UTF-8&tl=vi&client=tw-ob&q="+encodeURIComponent(t));
+  lecAudio.onended=()=>{ if(lecRunning) lecSpeak(i+1); };
+  lecAudio.onerror=()=>{ document.getElementById("lecnote").textContent="Không tải được giọng đọc. Kiểm tra kết nối mạng rồi bấm Đọc lại."; lecStop(); };
+  lecAudio.play().catch(()=>{});
+}
+function lecHighlight(i){
+  document.querySelectorAll("#lectext .sent").forEach((el,j)=>el.classList.toggle("now",j===i));
+  const el=document.getElementById("sn"+i); if(el) el.scrollIntoView({block:"center",behavior:"smooth"});
+}
+function lecSpeak(i){
+  if(i>=lecSents.length){ lecStop(); lecK=0; const b=document.getElementById("lecplay"); if(b) b.textContent="↺ Đọc lại"; return; }
+  lecK=i; lecHighlight(i);
+  if(!("speechSynthesis" in window) || !viVoice()){ lecOnline(i); return; }
+  const u=new SpeechSynthesisUtterance(speakable(lecSents[i]));
+  u.lang="vi-VN"; u.rate=0.92;
+  const v=viVoice(); if(v) u.voice=v;
+  u.onend=()=>{ if(lecRunning) lecSpeak(i+1); };
+  speechSynthesis.speak(u);
+}
+function lecPlay(){
+  document.getElementById("lecnote").textContent=lecNoteText();
+  speechSynthesis.cancel(); lecRunning=true;
+  document.getElementById("lecplay").textContent="⏸ Đang đọc";
+  lecSpeak(lecK);
+}
+function lecStop(){
+  lecRunning=false; if("speechSynthesis" in window) speechSynthesis.cancel();
+  if(lecAudio){ lecAudio.onended=null; lecAudio.pause(); lecAudio=null; }
+  const b=document.getElementById("lecplay"); if(b) b.textContent="▶ Đọc";
+}
+function lecNext(){ lecStop(); lecK=Math.min(lecK+1,lecSents.length-1); lecHighlight(lecK); }
+
+// đếm ngược đến 7:15 AM 22/10/2026 (giờ Việt Nam)
+const CD_END=new Date("2026-10-22T07:15:00+07:00");
+function tickCd(){
+  const el=document.getElementById("cdv"); if(!el) return;
+  const d=CD_END-new Date();
+  if(d<=0){ el.textContent="Hết giờ"; return; }
+  const h=Math.floor(d/3600000), m=Math.floor(d%3600000/60000);
+  el.textContent=`${h} tiếng ${m} phút`;
+}
+tickCd(); setInterval(tickCd,1000);
 /* ===== v4: bỏ dấu chấm, thay bằng nút từng bước; bước xong được đánh dấu gọn ===== */
 function renderPage(){
   const P=pagesOf(cur); if(sub>=P.length) sub=P.length-1;
   const pg=P[sub];
-  let h=`<h2>${cur+1}. ${steps[cur].title}</h2><div class="enter">${pg.html()}</div>`;
+  let h=`<h2>${cur+1}. ${steps[cur].title}</h2>${pg.quizPage?"":toolbarHTML()}<div class="enter">${pg.html()}</div>`;
   if(pg.key && !pg.quizPage){
     h+=`<div class="practice"><div class="fred" style="color:var(--teal);font-size:1.2rem;margin-bottom:8px">🎯 Trắc nghiệm</div>${itemsHTML(pg.key)}<div id="score-${pg.key}" class="scorebox hidden"></div></div>`;
   }
@@ -936,11 +1258,21 @@ function renderPage(){
   if(pg.key){ const got=ANS[pg.key]||{}; Object.keys(got).forEach(i=>applyAns(pg.key,+i,got[i])); checkDone(pg.key); }
   document.getElementById("scount").textContent=`Bước ${cur+1}/${steps.length} · Trang ${sub+1}/${P.length}`;
   document.getElementById("pbar").style.width=((cur+(sub+1)/P.length)/steps.length*100)+"%";
+  document.getElementById("ppct").textContent=Math.round((cur+(sub+1)/P.length)/steps.length*100)+"%";
   document.getElementById("dots").innerHTML=steps.map((s,i)=>
     `<button class="stepbtn ${i===cur?"on":""} ${i<cur?"done":""}" onclick="jumpStep(${i})">${i<cur?"✓ ":""}${i+1}. ${s.title}</button>`).join("");
   updNav();
   window.scrollTo({top:0,behavior:"smooth"});
+  closeDrop();
 }
+// mục lục từng bước: mở/đóng bằng nút ▾ cạnh tab Lý thuyết
+function closeDrop(){ document.getElementById("dots").classList.add("hidden"); document.querySelector(".caretbtn").classList.remove("up"); }
+function toggleDrop(){
+  const d=document.getElementById("dots");
+  if(d.classList.contains("hidden")){ d.classList.remove("hidden"); document.querySelector(".caretbtn").classList.add("up"); }
+  else closeDrop();
+}
+document.addEventListener("click",e=>{ if(!e.target.closest(".tabwrap")) closeDrop(); });
 renderPage();
 </script>
 </body>
