@@ -578,9 +578,9 @@ button.mrow:hover{border-color:var(--pur);background:var(--pur-s)}
 /* ===== menu nhiều trang: trượt mượt ===== */
 .pnote{display:block;color:var(--muted);font-size:.84rem;margin:-4px 2px 10px}
 .cview{overflow:hidden;border-radius:4px}
-.ctrack{display:flex;width:300%;transition:transform .42s cubic-bezier(.22,.8,.25,1);will-change:transform}
+.ctrack{display:flex;width:400%;transition:transform .42s cubic-bezier(.22,.8,.25,1);will-change:transform}
 .ctrack.no-anim{transition:none}
-.cpanel{flex:0 0 33.3333%;width:33.3333%;min-width:0;padding:2px;box-sizing:border-box}
+.cpanel{flex:0 0 25%;width:25%;min-width:0;padding:2px;box-sizing:border-box}
 .cpanel.enter .mrow{animation:rise .42s cubic-bezier(.22,.8,.25,1) both}
 .cpanel.enter .mrow:nth-child(2){animation-delay:.06s}
 .cpanel.enter .mrow:nth-child(3){animation-delay:.12s}
@@ -618,6 +618,196 @@ button.mrow:hover{border-color:var(--pur);background:var(--pur-s)}
 #login{background:linear-gradient(rgba(15,23,42,.42),rgba(15,23,42,.6)),url("nen.jpg") center 15%/cover no-repeat!important}
 #login{align-items:flex-end!important;padding-bottom:28px!important}
 @media(min-width:700px){#login{align-items:center!important;justify-content:flex-end!important;padding-right:7vw!important}}
+/* ===== Lịch sử: bài kiểm tra tính điểm theo tiến độ ===== */
+.tagmid{background:#fde68a;color:#92400e;font-weight:800;font-size:.72rem;letter-spacing:.8px;padding:4px 9px;border-radius:999px;white-space:nowrap;flex:0 0 auto}
+.lshead{background:linear-gradient(135deg,#1e293b,#334155);color:#fff;border-radius:18px;padding:18px 20px;margin-bottom:14px}
+.lstag{display:inline-block;background:#fde68a;color:#92400e;font-weight:800;font-size:.72rem;letter-spacing:.8px;padding:3px 9px;border-radius:999px;margin-bottom:6px}
+.lshead h2{color:#fff;margin:0 0 6px;font-size:1.35rem}
+.lsscore{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:8px}
+.lsscore b{font-size:2rem;font-family:"JetBrains Mono",monospace}
+.lsscore small{opacity:.85}
+.lsbar{height:8px;background:rgba(255,255,255,.2);border-radius:99px;overflow:hidden;margin-top:10px}
+.lsbar i{display:block;height:100%;background:#5eead4;border-radius:99px;transition:width .4s}
+.lssec{font-weight:800;color:var(--pur);font-size:1.1rem;margin:18px 0 8px}
+.lsps{display:inline-block;margin-left:8px;font-size:.8rem;font-weight:700;color:var(--muted)}
+.lsdsp{font-weight:700;margin:8px 0 4px}
+.lsrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0}
+.lsrow>span:first-child{flex:1 1 200px;font-weight:600;line-height:1.5}
+.lsbtns{display:flex;gap:6px;flex:0 0 auto}
+.lsbtns button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:6px 12px;font:inherit;font-weight:700;cursor:pointer;min-width:58px}
+.lsbtns button:hover:not(:disabled){border-color:var(--pur)}
+.lsbtns button.okc{background:#dcfce7;border-color:#16a34a;color:#166534}
+.lsbtns button.badc{background:#ffe4e6;border-color:#e11d48;color:#9f1239}
+.lsbtns button:disabled{cursor:default}
+.lsopt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 14px;margin:6px 0;font:inherit;line-height:1.5;cursor:pointer;transition:background .2s,border-color .2s}
+.lsopt:hover:not(:disabled){border-color:var(--pur);background:var(--pur-s)}
+.lsopt:disabled{cursor:default}
+.lsopt.okc{background:#dcfce7;border-color:#16a34a;color:#14532d}
+.lsopt.badc{background:#ffe4e6;border-color:#e11d48;color:#9f1239}
+[data-theme=dark] .lsopt{background:#1a1733;color:#e5e7eb;border-color:#332f57}
+[data-theme=dark] .lsopt.okc{background:#14532d;color:#dcfce7}
+[data-theme=dark] .lsopt.badc{background:#4c0519;color:#fecdd3}
+.lsres{border-radius:16px}
+.lsres:not(:empty){background:#fff;border:1px solid var(--line);padding:14px 16px;margin:14px 0}
+[data-theme=dark] .lsbtns button{background:#1a1733;color:#e5e7eb;border-color:#332f57}
+[data-theme=dark] .lsres:not(:empty){background:#1a1733;border-color:#332f57}
+/* ===== Lịch sử v2: điểm sticky, lời giải thích, nav riêng ===== */
+.lsbar-sticky{position:sticky;top:70px;z-index:25;background:#f4f6fb;padding:8px 0 8px;margin-bottom:6px}
+[data-theme=dark] .lsbar-sticky{background:#0f172a}
+@media(max-width:640px){.lsbar-sticky{top:0}}
+.lsbar-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.lsnow{font-weight:700;font-size:1.05rem}
+.lsnow b{font-family:"JetBrains Mono",monospace;font-size:1.3rem;color:var(--pur)}
+.lsmini{font-size:.82rem;color:var(--muted)}
+.lsbar{height:8px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin-top:6px}
+[data-theme=dark] .lsbar{background:#332f57}
+.lsbar i{display:block;height:100%;background:var(--teal);border-radius:99px;transition:width .4s}
+.lshead{background:#1e293b;color:#fff;border-radius:16px;padding:14px 18px;margin-bottom:6px}
+.lshead h2{color:#fff;margin:4px 0 4px;font-size:1.25rem}
+.lshead .lsmeta{font-size:.86rem;opacity:.85}
+.lsq{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 16px;margin:12px 0;box-shadow:none;animation:none}
+[data-theme=dark] .lsq{background:#1a1733;border-color:#332f57}
+.lsqt{font-weight:700;font-size:1.02rem;line-height:1.5;margin-bottom:10px}
+.lspass{background:#f8fafc;border-left:4px solid var(--pur);border-radius:10px;padding:12px 14px;white-space:pre-wrap;font-size:.95rem;line-height:1.65;color:var(--ink2);margin:0 0 6px;box-shadow:none}
+[data-theme=dark] .lspass{background:#221d40;color:#e4e1f7}
+.lsst{padding:10px 0;border-top:1px dashed var(--line)}
+.lsst-t{line-height:1.55;margin-bottom:6px}
+.lsbtns{display:flex;gap:8px}
+.lsbtns button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:6px 16px;font:inherit;font-weight:700;cursor:pointer;min-width:74px}
+[data-theme=dark] .lsbtns button{background:#1a1733;color:#e5e7eb;border-color:#332f57}
+.lsbtns button:hover:not(:disabled){border-color:var(--pur)}
+.lsbtns button.okc{background:#dcfce7;border-color:#16a34a;color:#166534}
+.lsbtns button.badc{background:#ffe4e6;border-color:#e11d48;color:#9f1239}
+.lsbtns button:disabled{cursor:default}
+.lsexp{margin-top:8px;padding:10px 12px;border-radius:12px;font-size:.93rem;line-height:1.6;background:#f1f5f9;color:var(--ink);box-shadow:none;animation:none}
+.lsexp.ok{background:#ecfdf5;border-left:4px solid #16a34a}
+.lsexp.bad{background:#fff1f2;border-left:4px solid #e11d48}
+[data-theme=dark] .lsexp{background:#221d40;color:#e4e1f7}
+[data-theme=dark] .lsexp.ok{background:#052e16}
+[data-theme=dark] .lsexp.bad{background:#4c0519}
+.lsdsp{font-weight:700;margin:10px 0 0;color:var(--ink2)}
+.lspts{color:var(--pur);font-family:"JetBrains Mono",monospace}
+.lsopt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 14px;margin:6px 0;font:inherit;line-height:1.5;cursor:pointer;box-shadow:none;animation:none}
+.lsopt:hover:not(:disabled){border-color:var(--pur);background:var(--pur-s)}
+.lsopt:disabled{cursor:default}
+.lsopt.okc{background:#dcfce7;border-color:#16a34a;color:#14532d}
+.lsopt.badc{background:#ffe4e6;border-color:#e11d48;color:#9f1239}
+[data-theme=dark] .lsopt{background:#1a1733;color:#e5e7eb;border-color:#332f57}
+[data-theme=dark] .lsopt.okc{background:#14532d;color:#dcfce7}
+[data-theme=dark] .lsopt.badc{background:#4c0519;color:#fecdd3}
+.lsres:not(:empty){background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:14px 0}
+[data-theme=dark] .lsres:not(:empty){background:#1a1733;border-color:#332f57}
+.lsnav{display:none!important}
+body.ls-mode .lsnav{display:inline-block!important}
+body.ls-mode .tabwrap,body.ls-mode #t-7a,body.ls-mode #t-ext{display:none!important}
+/* ===== Đúng–sai v3: tư liệu bên trái, 4 ý hiện cùng lúc bên phải ===== */
+.lsds{padding:18px}
+.lsds-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px;align-items:start}
+.lspass{position:sticky;top:120px;background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:14px 16px;white-space:pre-wrap;font-size:.94rem;line-height:1.65;color:var(--ink2);margin:0}
+.lspass-h{font-weight:800;font-size:.76rem;letter-spacing:.8px;color:var(--pur);text-transform:uppercase;margin-bottom:8px}
+[data-theme=dark] .lspass{background:#221d40;border-color:#332f57;color:#e4e1f7}
+.lsstmts{display:flex;flex-direction:column;gap:10px;min-width:0}
+.lsstmts .lsst{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;transition:border-color .3s,background .3s,transform .3s}
+.lsstmts .lsst.st-ok{border-color:#16a34a;background:#f0fdf4}
+.lsstmts .lsst.st-bad{border-color:#e11d48;background:#fff1f2}
+[data-theme=dark] .lsstmts .lsst{background:#1a1733;border-color:#332f57}
+[data-theme=dark] .lsstmts .lsst.st-ok{background:#052e16;border-color:#16a34a}
+[data-theme=dark] .lsstmts .lsst.st-bad{background:#4c0519;border-color:#e11d48}
+.lsst-t{display:flex;gap:10px;align-items:flex-start;line-height:1.55;margin-bottom:10px;font-weight:600}
+.lsl{flex:0 0 26px;height:26px;border-radius:8px;background:var(--pur-s);color:var(--pur);font-weight:800;display:grid;place-items:center;font-size:.85rem}
+.lsseg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lsseg button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:9px 10px;font:inherit;font-weight:700;cursor:pointer;transition:background .2s,border-color .2s,color .2s,transform .15s}
+.lsseg button:hover:not(:disabled){border-color:var(--pur);transform:translateY(-1px)}
+.lsseg button:disabled{cursor:default;transform:none}
+.lsseg button.okc{background:#16a34a;border-color:#16a34a;color:#fff}
+.lsseg button.badc{background:#e11d48;border-color:#e11d48;color:#fff}
+[data-theme=dark] .lsseg button{background:#1a1733;color:#e5e7eb;border-color:#332f57}
+.lsexp{animation:lsIn .35s cubic-bezier(.22,.8,.25,1) both}
+@keyframes lsIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.lsdsp{grid-column:1/-1;font-weight:700;margin:4px 0 0;color:var(--ink2)}
+@media(max-width:700px){
+  .lsds{padding:14px}
+  .lsds-grid{grid-template-columns:1fr;gap:12px}
+  .lspass{position:static;max-height:230px;overflow:auto}
+}
+/* ===== điểm thời gian thực + chú thích tư liệu ===== */
+.lsv{font-family:"JetBrains Mono",monospace;font-size:1.45rem;transition:color .4s}
+.lsv.r{color:#e11d48}.lsv.a{color:#d97706}.lsv.g{color:#16a34a}
+.lsof{color:var(--muted);font-weight:700}
+#lsfill{display:block;height:100%;border-radius:99px;transition:width .6s cubic-bezier(.22,.8,.25,1),background-color .4s}
+#lsfill.r{background:#e11d48}#lsfill.a{background:#f59e0b}#lsfill.g{background:#16a34a}
+#lsbar{position:sticky}
+.lsplus{position:absolute;right:4px;top:6px;font-weight:800;color:#16a34a;font-family:"JetBrains Mono",monospace;animation:plusUp 1s ease forwards;pointer-events:none}
+@keyframes plusUp{0%{opacity:0;transform:translateY(8px) scale(.9)}25%{opacity:1;transform:translateY(0) scale(1.05)}100%{opacity:0;transform:translateY(-24px)}}
+.lscite{display:block;text-align:right;font-size:.82rem;color:var(--muted);font-style:normal;margin:4px 0 8px}
+/* ===== đăng nhập v3: khung kính, đổ bóng, đặt xuống dưới để không che mặt ===== */
+#login{align-items:flex-end!important;justify-content:center!important;padding:20px 18px 6vh!important}
+#login .lbox{position:relative;max-width:380px!important;width:100%;background:rgba(255,255,255,.93)!important;backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border:1px solid rgba(255,255,255,.7)!important;border-radius:24px!important;padding:30px 26px 26px!important;box-shadow:0 40px 70px -20px rgba(2,6,23,.55),0 18px 36px -18px rgba(59,91,219,.55),inset 0 1px 0 rgba(255,255,255,.9)!important;overflow:hidden}
+#login .lbox::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#3b5bdb,#0f766e,#f59e0b)}
+#login .lbrand{font-size:1.02rem;letter-spacing:.4px}
+#login .brandsub.dark{margin-bottom:16px}
+#login .lmark{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#eef2ff,#e0f2fe);box-shadow:0 10px 20px -8px rgba(59,91,219,.5),inset 0 1px 0 #fff;font-size:1.6rem;margin:0 0 10px}
+#login h2{margin:0 0 4px;font-size:1.45rem;letter-spacing:-.2px}
+#login .llabel{font-size:.84rem;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin:14px 0 6px}
+#login select{padding:13px 14px;border-radius:14px;border:1px solid #dbe3f0;background:linear-gradient(#fff,#f8fafc);box-shadow:inset 0 2px 4px rgba(15,23,42,.05),0 1px 0 #fff;font-weight:600;transition:border-color .2s,box-shadow .2s}
+#login select:focus{outline:none;border-color:#3b5bdb;box-shadow:0 0 0 4px rgba(59,91,219,.18)}
+#login .mailtxt{opacity:.7;font-size:.86rem;margin:8px 4px 0}
+#login .lbtn{margin-top:18px;height:50px;border-radius:14px!important;background:linear-gradient(135deg,#5b78f2,#3b5bdb)!important;box-shadow:0 14px 26px -10px rgba(59,91,219,.75),inset 0 1px 0 rgba(255,255,255,.25)!important;font-size:1.02rem;letter-spacing:.2px;transition:transform .2s,box-shadow .2s}
+#login .lbtn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 18px 30px -10px rgba(59,91,219,.85),inset 0 1px 0 rgba(255,255,255,.25)!important}
+#login .lbtn:active:not(:disabled){transform:translateY(1px)}
+#login .lbtn:disabled{background:linear-gradient(135deg,#cbd5e1,#b6c2d4)!important;color:#475569!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)!important}
+#login .lstatus{margin-top:14px;padding:0 2px}
+#login .lerr{margin-top:6px}
+/* ===== đăng nhập trong suốt ===== */
+#login .lbox{background:rgba(15,23,42,.22)!important;backdrop-filter:blur(7px) saturate(1.1);-webkit-backdrop-filter:blur(7px) saturate(1.1);border:1px solid rgba(255,255,255,.35)!important;box-shadow:0 30px 60px -20px rgba(2,6,23,.45),inset 0 1px 0 rgba(255,255,255,.35)!important}
+#login .lbox::before{opacity:.9}
+#login .lbrand,#login h2,#login .llabel,#login .mailtxt,#login .brandsub.dark,#login .lstatus{color:#fff!important;text-shadow:0 1px 8px rgba(2,6,23,.55)}
+#login .brandsub.dark{opacity:.9}
+#login .lmark{background:rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 10px 20px -8px rgba(2,6,23,.5)}
+#login select{background:rgba(255,255,255,.85)!important;color:#1e293b;border-color:rgba(255,255,255,.6)!important}
+#login .lerr{color:#fecdd3!important;text-shadow:0 1px 6px rgba(2,6,23,.7)}
+#login .lstatus.ok{color:#bbf7d0!important}
+#login .lbtn{box-shadow:0 14px 26px -10px rgba(2,6,23,.6),inset 0 1px 0 rgba(255,255,255,.3)!important}
+/* ===== web trong suốt nhẹ (khung đậm giữ nguyên) */
+.lshead{background:#1e293b!important}
+/* ===== web trong suốt nhẹ: ảnh nền mờ phía sau, thẻ nội dung kính mờ ===== */
+body{background:linear-gradient(rgba(244,246,251,.9),rgba(244,246,251,.94)),url("nen.jpg") center 15%/cover fixed!important;animation:none!important}
+[data-theme=dark] body{background:linear-gradient(rgba(15,23,42,.92),rgba(15,23,42,.94)),url("nen.jpg") center 15%/cover fixed!important}
+.card,.lsq,.cbox .mrow,.qcard,.lsres:not(:empty){background:rgba(255,255,255,.8)!important;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+[data-theme=dark] .card,[data-theme=dark] .lsq,[data-theme=dark] .qcard,[data-theme=dark] .lsres:not(:empty){background:rgba(26,23,51,.8)!important}
+nav.tabs{background:rgba(255,255,255,.85)!important;backdrop-filter:blur(8px)}
+/* chữ đăng nhập rõ hơn trên ảnh */
+#login .lbox{background:rgba(15,23,42,.36)!important}
+#login .lbrand,#login h2,#login .llabel,#login .mailtxt,#login .brandsub.dark{text-shadow:0 1px 3px rgba(2,6,23,.9),0 0 12px rgba(2,6,23,.6)}
+/* ===== GIAO DIỆN KÍNH TRONG SUỐT (v-glass) ===== */
+body{background:linear-gradient(rgba(241,245,252,.62),rgba(241,245,252,.72)),url("nen.jpg") center 15%/cover fixed!important}
+[data-theme=dark] body{background:linear-gradient(rgba(10,15,30,.7),rgba(10,15,30,.78)),url("nen.jpg") center 15%/cover fixed!important}
+header{background:rgba(15,23,42,.5)!important;backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,.15)}
+nav.tabs{background:rgba(255,255,255,.45)!important;backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,.5)!important}
+.card,.lsq,.qcard,.cbox .mrow,.lsres:not(:empty),.lshead{background:rgba(255,255,255,.5)!important;backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border:1px solid rgba(255,255,255,.6)!important;box-shadow:0 12px 32px -14px rgba(15,23,42,.28),inset 0 1px 0 rgba(255,255,255,.5)!important}
+.lshead{background:rgba(15,23,42,.55)!important;border-color:rgba(255,255,255,.2)!important}
+.lspass{background:rgba(255,255,255,.4)!important;backdrop-filter:blur(8px);border-color:rgba(255,255,255,.6)}
+.lsopt,.lsseg button,.lsbtns button{background:rgba(255,255,255,.55)!important;backdrop-filter:blur(8px)}
+.lsbar-sticky{background:rgba(241,245,252,.45)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:14px;padding:8px 12px!important}
+.lsexp{background:rgba(255,255,255,.55)!important;backdrop-filter:blur(8px)}
+.lsexp.ok{background:rgba(220,252,231,.6)!important}
+.lsexp.bad{background:rgba(255,228,230,.6)!important}
+.chooser{background:rgba(241,245,252,.45)!important;backdrop-filter:blur(12px)!important}
+.cbox{background:transparent!important}
+.btn.ghost{background:rgba(255,255,255,.55)!important;backdrop-filter:blur(8px)}
+[data-theme=dark] .card,[data-theme=dark] .lsq,[data-theme=dark] .qcard,[data-theme=dark] .lsres:not(:empty),[data-theme=dark] .lsopt,[data-theme=dark] .lsseg button{background:rgba(20,17,44,.55)!important;border-color:rgba(255,255,255,.1)!important;color:#e5e7eb}
+[data-theme=dark] nav.tabs{background:rgba(10,15,30,.5)!important}
+[data-theme=dark] .lsbar-sticky{background:rgba(10,15,30,.45)!important}
+[data-theme=dark] .lspass{background:rgba(20,17,44,.45)!important}
+/* đăng nhập kính */
+#login .lbox{background:rgba(15,23,42,.3)!important;backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2);border:1px solid rgba(255,255,255,.35)!important}
+#login select{background:rgba(255,255,255,.7)!important}
+/* ===== đăng nhập: bỏ lớp hình lục giác, thêm tên trên đầu từng người ===== */
+#login .wm{display:none!important}
+.capwrap{position:absolute;inset:0;pointer-events:none;z-index:2}
+.cap{position:absolute;transform:translate(-50%,-100%);padding:4px 12px;border-radius:999px;background:rgba(15,23,42,.42);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.45);color:#fff;font-weight:700;font-size:.85rem;letter-spacing:.2px;white-space:nowrap;text-shadow:0 1px 3px rgba(0,0,0,.5);box-shadow:0 6px 16px -6px rgba(0,0,0,.5)}
+.cap::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);border:6px solid transparent;border-top-color:rgba(15,23,42,.42);border-bottom:0}
+@media(max-width:640px){.cap{font-size:.74rem;padding:3px 9px}}
 </style>
 </head>
 <body class="locked">
@@ -650,13 +840,17 @@ button.mrow:hover{border-color:var(--pur);background:var(--pur-s)}
     <section class="cpanel" id="p1">
       <div class="phead"><button class="backbtn" onclick="goPanel(0)">‹ Quay lại</button><h2>Ôn tập</h2></div>
       <button class="mrow mbtn" onclick="goPanel(2)"><span class="mico">🧪</span><span class="mtxt"><b>HÓA HỌC</b><small>Cập nhật lần cuối: 11:32 AM · 22/10/2026</small></span><span class="chev">›</span></button>
-      <div class="mrow off"><span class="mico">🏛️</span><span class="mtxt"><b>LỊCH SỬ</b><small>Sớm cập nhật</small></span></div>
+      <button class="mrow mbtn" onclick="goPanel(3)"><span class="mico">🏛️</span><span class="mtxt"><b>LỊCH SỬ</b><small>Chủ đề 1 · Thế giới trong và sau Chiến tranh Lạnh</small></span><span class="chev">›</span></button>
     </section>
     <section class="cpanel" id="p2">
       <div class="phead"><button class="backbtn" onclick="goPanel(1)">‹ Quay lại</button><h2>Hóa học</h2></div>
       <small class="pnote">Cập nhật lần cuối: 11:32 AM · 22/10/2026</small>
       <button class="mrow mbtn" onclick="chooseChap('amin')"><span class="mico">⚗️</span><span class="mtxt"><b>AMIN</b><small>15 phút 22/10</small></span><span class="chev">›</span></button>
       <div class="cdrive"><a href="https://drive.google.com/file/d/1gLAi7WXnP9py2cHRoOsShtgh7D8ZU9ig/view?usp=sharing" target="_blank" rel="noopener">📘 Drive lý thuyết ↗</a><a href="https://drive.google.com/file/d/1vyD_5N8d87zSUnlMLNM6zqBlO0fMWreh/view?usp=sharing" target="_blank" rel="noopener">📝 Drive bài tập ↗</a></div>
+    </section>
+    <section class="cpanel" id="p3">
+      <div class="phead"><button class="backbtn" onclick="goPanel(1)">‹ Quay lại</button><h2>Lịch sử</h2></div>
+      <button class="mrow mbtn" onclick="chooseChap('ls1')"><span class="tagmid">GIỮA KÌ</span><span class="mtxt"><b>Bài 1 · Liên Hợp Quốc</b><small>24 câu trắc nghiệm · 4 câu đúng/sai</small></span><span class="chev">›</span></button>
     </section>
   </div></div>
   <div class="cbrand">WEBSITE HỌC TẬP CỦA LÒ TÔN<br><i>Được Khoa Nguyễn phát triển</i></div>
@@ -672,6 +866,7 @@ button.mrow:hover{border-color:var(--pur);background:var(--pur-s)}
   </div>
 </header>
 <nav class="tabs">
+  <button class="tab lsnav active" id="t-lsnav" onclick="showTab('ls')">📜 Lịch sử · Bài 1</button>
   <button class="tab" id="t-home" onclick="showChooser()">🏠 Menu</button>
   <div class="tabwrap">
     <button class="tab" id="t-learn" onclick="showTab('learn')">📖 Lý thuyết<span class="hide-m"> & Gọi tên</span></button>
@@ -682,6 +877,13 @@ button.mrow:hover{border-color:var(--pur);background:var(--pur-s)}
   <button class="tab" id="t-ext" onclick="showTab('ext')">🚀 Làm thêm<span class="hide-m"> ở ngoài</span></button>
 </nav>
 <main>
+  <section id="ls" class="hidden">
+    <div class="lsbar-sticky" id="lsbar">
+      <div class="lsbar-row"><span class="lsnow">Điểm hiện tại: <b id="lsv" class="lsv r">0.00</b> <span class="lsof">/ 10</span></span><span class="lsmini" id="lsmini"></span></div>
+      <div class="lsbar"><i id="lsfill" style="width:0%"></i></div>
+    </div>
+    <div id="lsbody"></div>
+  </section>
   <section id="learn" class="hidden">
     <div class="progsticky">
       <div class="progtxt"><span>Tiến độ học</span><b id="ppct">0%</b></div>
@@ -1112,7 +1314,8 @@ function jumpStep(i){ cur=i; sub=0; renderPage(); }
 
 /* ===== TAB ===== */
 function showTab(n){
-  ["learn","7a","ext"].forEach(x=>{document.getElementById(x).classList.toggle("hidden",x!==n); document.getElementById("t-"+x).classList.toggle("active",x===n);});
+  ["learn","7a","ext","ls"].forEach(x=>{document.getElementById(x).classList.toggle("hidden",x!==n); const t=document.getElementById("t-"+x); if(t) t.classList.toggle("active",x===n);});
+  document.body.classList.toggle("ls-mode",n==="ls");
   window.scrollTo({top:0,behavior:"smooth"});
 }
 // menu chọn đầu tiên: phải chọn một phần mới vào được
@@ -1127,7 +1330,7 @@ function goPanel(i,instant){
   ps.forEach(p=>p.classList.remove("enter"));
   requestAnimationFrame(()=>ps[i].classList.add("enter"));
 }
-function chooseChap(n){ hideChooser(); showTab(n==="amin"?"learn":n); }
+function chooseChap(n){ hideChooser(); if(n==="ls1"){ lsRender(); showTab("ls"); return; } showTab(n==="amin"?"learn":n); }
 function choose(n){ chooseChap(n); }
 function choose(n){ document.getElementById("chooser").classList.add("hidden"); showTab(n); }
 // render tĩnh
@@ -1495,6 +1698,112 @@ renderPage();
     window.open("https://www.google.com/search?q="+encodeURIComponent(picked+" là gì, hóa học lớp 12"),"_blank","noopener");
     hideBtn();
   });
+})();
+
+/* ===== LỊCH SỬ · BÀI 1 LIÊN HỢP QUỐC (giữa kì) ===== */
+/* Phần I: 24 câu × 0,25đ. Phần II: 4 câu đúng–sai, mỗi câu 4 ý: đúng 1 ý 0,1 · 2 ý 0,25 · 3 ý 0,5 · 4 ý 1đ */
+const LS_MCQ=[{"q": "Đầu năm 1945, đâu là vấn đề cấp bách đặt ra cho các nước Đồng minh chống phát xít?", "o": ["Phân chia lại thuộc địa của các nước.", "Tổ chức lại thế giới sau chiến tranh.", "Thiết lập trật tự thế giới mới hai cực.", "Phục hồi và phát triển kinh tế thế giới."], "a": 1, "e": "Đầu 1945, chiến tranh sắp kết thúc, các nước Đồng minh phải lo tổ chức lại thế giới sau chiến tranh (Hội nghị Ianta, 2/1945). Nhớ: 'tổ chức lại thế giới' là vấn đề cấp bách nhất lúc đó."}, {"q": "Yêu cầu bức thiết nào sau đây được đặt ra cho các nước Đồng minh khi cuộc chiến tranh thế giới thứ hai bước vào giai đoạn cuối?", "o": ["Đẩy mạnh xu thế khu vực hóa và toàn cầu hóa kinh tế.", "Thành lập tổ chức Hội Quốc liên để ngăn chặn chiến tranh.", "Tiêu diệt hoàn toàn chủ nghĩa phát xít và tổ chức lại thế giới.", "Thủ tiêu tất cả các hình thức của chế độ phân biệt chủng tộc."], "a": 2, "e": "Cuối Chiến tranh thế giới thứ hai, yêu cầu bức thiết là tiêu diệt hoàn toàn chủ nghĩa phát xít và tổ chức lại thế giới. Nhớ: vừa đánh bại phát xít, vừa xây dựng trật tự mới."}, {"q": "Trong giai đoạn cuối của Chiến tranh thế giới thứ hai, một trong những vấn đề cấp bách đặt ra là", "o": ["giúp đỡ các nước Đông Âu xây dựng cơ sở vật chất của chủ nghĩa xã hội.", "liên minh giữa Liên Xô và Mĩ để thiết lập trật tự thế giới mới sau chiến tranh.", "thành lập một ủy ban giúp đỡ các nước phát xít khắc phục hậu quả chiến tranh.", "thành lập một tổ chức quốc tế nhằm duy trì hòa bình và trật tự thế giới mới."], "a": 3, "e": "Giai đoạn cuối Chiến tranh thế giới II, vấn đề cấp bách là thành lập một tổ chức quốc tế để duy trì hòa bình và trật tự thế giới mới, tiền đề của Liên hợp quốc. Nhớ: đáp án D."}, {"q": "Bản Hiến chương Liên hợp quốc đã được thông qua khi cuộc chiến tranh thế giới thứ hai", "o": ["bước vào giai đoạn quyết liệt.", "bước vào giai đoạn kết thúc.", "bắt đầu lan ra khu vực châu Á.", "bắt đầu lan ra khu vực châu Phi."], "a": 1, "e": "Hiến chương được thông qua (6/1945) khi Chiến tranh thế giới II bước vào giai đoạn kết thúc: Đức đầu hàng 8/5/1945, Nhật đầu hàng 8–9/1945. Nhớ: 1945 là năm chiến tranh kết thúc."}, {"q": "Tổ chức Liên hợp quốc được thành lập năm 1945 nhằm đáp ứng nhu cầu nào sau đây của toàn thể nhân loại?", "o": ["Bảo vệ hòa bình, an ninh toàn thế giới.", "Chống biến đổi khí hậu trên toàn cầu.", "Nâng cao đời sống tinh thần con người.", "Thúc đẩy khoa học công nghệ phát triển."], "a": 0, "e": "Liên hợp quốc ra đời năm 1945 nhằm bảo vệ hòa bình, an ninh thế giới, mục tiêu hàng đầu của tổ chức. Nhớ: 'duy trì hòa bình và an ninh quốc tế'."}, {"q": "Sự kiện nào đánh dấu tổ chức Liên hợp quốc chính thức được thành lập?", "o": ["Hội nghị Ianta (Liên Xô) quyết định thành lập tổ chức Liên hợp quốc.", "Bản “Tuyên bố Liên hợp quốc” được đại diện 26 nước kí kết tại Oa-sinh-tơn (Mĩ).", "Đại diện 50 nước họp ở Xan Phran-xi-xcô (Mĩ) thông qua Hiến chương Liên hợp quốc.", "Hiến chương Liên hợp quốc được Quốc hội các nước thành viên phê chuẩn."], "a": 2, "e": "Hội nghị San Francisco (4/1945–6/1945): đại diện 50 nước thông qua Hiến chương Liên hợp quốc, đánh dấu sự ra đời của tổ chức. Nhớ: 50 nước, San Francisco, Hiến chương."}, {"q": "Ngày 24/10 hàng năm được lấy là ngày Liên hợp quốc gắn liền với sự kiện lịch sử nào sau đây?", "o": ["Liên hợp quốc thông qua 17 mục tiêu Chương trình nghị sự 2030.", "Trung Quốc trở thành ủy viên thường trực của Hội đồng bảo an.", "Hội nghị Thượng đỉnh Thiên niên kỉ Liên hợp quốc được triệu tập.", "Hiến chương Liên hợp quốc được Quốc hội các nước phê chuẩn."], "a": 3, "e": "Ngày 24/10/1945, Hiến chương Liên hợp quốc chính thức có hiệu lực sau khi được các nước phê chuẩn. Ngày 24/10 hằng năm là Ngày Liên hợp quốc. Nhớ: 24/10/1945."}, {"q": "Tổ chức Liên hợp quốc ra đời không phải là kết quả của những quyết định tại hội nghị nào?", "o": ["Tê-hê-ran (I-ran, năm 1943).", "I-an-ta (Liên Xô, năm 1945).", "Muy-ních (Đức, năm 1938).", "Xan Phran-xi-xcô (Mĩ, năm 1945)."], "a": 2, "e": "Hội nghị Muy-ních (1938) là sự nhượng bộ của Anh, Pháp với Đức, không liên quan đến việc thành lập Liên hợp quốc. Tê-hê-ran (1943), I-an-ta (1945) và San Francisco (1945) đều là các hội nghị quyết định việc thành lập tổ chức này."}, {"q": "Nội dung nào sau đây không phản ánh đúng bối cảnh lịch sử hình thành tổ chức Liên hợp quốc?", "o": ["Nhân dân thế giới có khát vọng được chung sống hòa bình.", "Chủ nghĩa phát xít xuất hiện và cầm quyền ở nhiều nước.", "Ý thức của các nước Đồng minh về việc tổ chức thế giới.", "Nhu cầu thành lập tổ chức quốc tế mới thay thế tổ chức cũ."], "a": 3, "e": "Bối cảnh hình thành Liên hợp quốc gồm: khát vọng hòa bình của nhân dân, chủ nghĩa phát xít trỗi dậy và cầm quyền, ý thức của các nước Đồng minh về việc tổ chức thế giới. Đây là câu dễ nhầm, nên đối chiếu thêm SGK."}, {"q": "Nhận xét nào sau đây phản ánh không đúng về sự thành lập tổ chức Liên hợp quốc?", "o": ["Phù hợp với khát vọng hòa bình chung của nhân dân thế giới.", "Quá trình hình thành trải qua nhiều hội nghị quốc tế khác nhau.", "Các cường quốc Đồng minh giữ vai trò chủ đạo trong việc thành lập.", "Quá trình thành lập lâu dài và chịu ảnh hưởng của chiến tranh lạnh."], "a": 3, "e": "Chiến tranh Lạnh (khoảng 1947–1991) bắt đầu sau khi Liên hợp quốc đã được thành lập (1945), nên không thể ảnh hưởng đến quá trình thành lập. Nhớ mốc: Chiến tranh Lạnh bắt đầu sau 1945."}, {"q": "Nhận xét nào sau đây phản ánh đúng về sự thành lập tổ chức Liên hợp quốc?", "o": ["Là kết quả của những thỏa thuận giữa Liên Xô và Anh.", "Phù hợp với khát vọng hòa bình chung của nhân dân thế giới.", "Các nước phát xít giữ vai trò chủ đạo trong việc thành lập.", "Quá trình thành lập lâu dài và chịu ảnh hưởng của Chiến tranh lạnh."], "a": 1, "e": "Nhận xét đúng: sự ra đời của Liên hợp quốc phù hợp khát vọng hòa bình chung của nhân dân thế giới. Các nhận xét khác sai: không phải thỏa thuận Liên Xô–Anh, phe phát xít không giữ vai trò chủ đạo, và Chiến tranh Lạnh diễn ra sau khi thành lập."}, {"q": "Mục tiêu nào sau đây của Liên hợp quốc là cơ sở cho các mục tiêu khác?", "o": ["duy trì hòa bình an ninh quốc tế.", "thúc đẩy quan hệ hữu nghị giữa các dân tộc.", "giải quyết các vấn đề về an ninh kinh tế xã hội.", "đảm bảo quyền con người, không phân biệt chủng tộc."], "a": 0, "e": "Mục tiêu duy trì hòa bình và an ninh quốc tế là mục tiêu hàng đầu (Điều 1 Hiến chương), là cơ sở để thực hiện các mục tiêu khác. Nhớ: mục tiêu số 1."}, {"q": "Đâu là một trong những mục tiêu của tổ chức Liên hợp quốc?", "o": ["Cân bằng quyền lực các nước.", "Xoá bỏ chế độ thực dân kiểu cũ.", "Duy trì hòa bình, an ninh thế giới.", "Thực hiện quyền tự do hàng hải."], "a": 2, "e": "Mục tiêu của Liên hợp quốc gồm: duy trì hòa bình và an ninh thế giới; phát triển quan hệ hữu nghị giữa các dân tộc; hợp tác quốc tế về kinh tế, xã hội, văn hóa, nhân đạo; trở thành trung tâm phối hợp hành động. Nhớ: 'duy trì hòa bình, an ninh' là mục tiêu cốt lõi."}, {"q": "Mục tiêu và nguyên tắc hoạt động của Liên hợp quốc được quy định bởi văn kiện quan trọng nào?", "o": ["Hiến chương.", "Hiến pháp.", "Hiệp định.", "Tuyên ngôn."], "a": 0, "e": "Mục tiêu và nguyên tắc hoạt động của Liên hợp quốc được quy định trong Hiến chương (Điều 1 và Điều 2). Nhớ: văn kiện nền tảng của LHQ là Hiến chương."}, {"q": "Đâu là một trong những nội dung của mục tiêu, hành động mang tính toàn cầu đến nay của Liên hợp quốc?", "o": ["Chống chiến tranh.", "Quyền tự do ngôn luận.", "Chống bạo lực gia đình.", "Chất lượng giáo dục."], "a": 0, "e": "Hành động toàn cầu hiện nay của Liên hợp quốc gồm chống chiến tranh, bảo vệ hòa bình. Các nội dung còn lại không thuộc trọng tâm mục tiêu toàn cầu của tổ chức."}, {"q": "Việt Nam có thể vận dụng nguyên tắc hoạt động nào của Liên hợp quốc để giải quyết vấn đề ở Biển Đông?", "o": ["Giải quyết các tranh chấp bằng biện pháp hoà bình.", "Sự nhất trí của các nước thường trực Hội đồng bảo an.", "Quyền bình đẳng giữa các thành viên Liên hợp quốc.", "Không đe doạ dùng vũ lực tấn công các quốc gia khác."], "a": 0, "e": "Việt Nam có thể vận dụng nguyên tắc giải quyết tranh chấp bằng biện pháp hòa bình (Điều 2, khoản 3, Hiến chương) để giải quyết vấn đề Biển Đông, dựa trên luật pháp quốc tế. Nhớ: hòa bình, không dùng vũ lực."}, {"q": "Nội dung nào là cơ sở để tổ chức Liên hợp quốc đề ra nguyên tắc “Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình”?", "o": ["Hòa bình là nguyện vọng, xu thế của các dân tộc trên thế giới.", "Hòa bình là điều kiện quyết định để duy trì chế độ chính trị.", "Mục đích của Liên hợp quốc là cân bằng lợi ích của các nước.", "Tranh chấp, xung đột xảy ra ở hầu hết các khu vực trên thế giới."], "a": 0, "e": "Hòa bình là nguyện vọng và xu thế chung của các dân tộc, là cơ sở để Liên hợp quốc đề ra nguyên tắc giải quyết tranh chấp bằng biện pháp hòa bình. Nhớ: cơ sở của nguyên tắc là khát vọng hòa bình."}, {"q": "Cơ quan nào của Liên hợp quốc chịu trách nhiệm chính trong việc duy trì hoà bình và an ninh thế giới?", "o": ["Đại hội đồng.", "Ban thư ký.", "Hội đồng bảo an.", "Tòa án quốc tế."], "a": 2, "e": "Hội đồng Bảo an chịu trách nhiệm chính trong việc duy trì hòa bình và an ninh thế giới. Nhớ: 5 thành viên thường trực (Mĩ, Anh, Pháp, Nga, Trung Quốc) có quyền phủ quyết."}, {"q": "Hiện nay, một trong những cuộc xung đột trên thế giới mà Liên hợp quốc vẫn chưa giải quyết được là ở", "o": ["En Xan-va-đo.", "Trung Đông.", "Goa-tê-ma-la.", "Mô-dăm-bích."], "a": 1, "e": "Trung Đông là khu vực xung đột kéo dài (ví dụ xung đột Israel–Palestine), Liên hợp quốc chưa giải quyết triệt để. Nhớ: xung đột Trung Đông là vấn đề tồn tại đến nay."}, {"q": "Một trong những điểm giống về mục tiêu của Liên hợp quốc so với các tổ chức quốc tế và khu vực khác là", "o": ["tập hợp thành viên vào liên minh quân sự.", "đem lại lợi ích cho các nước thành viên.", "thực hiện quyền tự do dân chủ, dân quyền.", "trao đổi về vốn, khoa học và kinh nghiệm."], "a": 1, "e": "Điểm chung về mục tiêu của Liên hợp quốc so với các tổ chức khác là đem lại lợi ích cho các nước thành viên, hướng tới hòa bình và hợp tác. Nhớ: mục tiêu hướng tới lợi ích chung của các thành viên."}, {"q": "Tổ chức quốc tế được xem như tiền thân của Liên hợp quốc là", "o": ["Hội Quốc liên.", "Liên minh châu Âu.", "Khối Đồng minh.", "Khối Hiệp ước."], "a": 0, "e": "Hội Quốc liên (1920–1946) được xem là tiền thân của Liên hợp quốc. Nhớ: Hội Quốc liên là tổ chức quốc tế đầu tiên, sau Chiến tranh thế giới I."}, {"q": "Nhằm duy trì hoà bình và an ninh thế giới sau chiến tranh, Hội nghị I-an-ta (2-1945) có quyết định quan trọng nào sau đây?", "o": ["Thành lập Ban Thư kí Liên hợp quốc.", "Thành lập tổ chức Hội Quốc liên.", "Thành lập tổ chức Liên hợp quốc.", "Duy trì và mở rộng Hội Quốc liên."], "a": 2, "e": "Hội nghị I-an-ta (2/1945) đã quyết định thành lập tổ chức Liên hợp quốc. Nhớ: I-an-ta là hội nghị của ba cường quốc Liên Xô, Mĩ, Anh."}, {"q": "Từ cuối tháng 4 đến cuối tháng 6-1945, 50 nước họp tại Xan Phran-xi-xcô (Mỹ) thông qua nội dung nào sau đây?", "o": ["Tiêu diệt tận gốc phát xít Nhật.", "Xét xử tội phạm chiến tranh thế giới.", "Kết thúc chiến tranh Triều Tiên.", "Hiến chương Liên hợp quốc."], "a": 3, "e": "Từ cuối 4/1945 đến cuối 6/1945, 50 nước họp tại San Francisco (Mĩ) và thông qua Hiến chương Liên hợp quốc. Nhớ: San Francisco – Hiến chương."}, {"q": "Một trong những quốc gia có vai trò quan trọng trong quá trình hình thành Liên hợp quốc là", "o": ["Liên Xô.", "Thái Lan.", "Lào.", "Nhật Bản."], "a": 0, "e": "Liên Xô là một trong những cường quốc Đồng minh đóng vai trò quan trọng trong quá trình hình thành Liên hợp quốc (cùng Mĩ, Anh, Trung Quốc). Nhớ: các nước Liên Xô, Mĩ, Anh, Trung Quốc là bốn cường quốc khởi xướng."}];
+const LS_DS=[{"p": "Đọc đoạn tư liệu sau:\nTại điều 1, Hiến chương Liên hợp quốc năm 1945 có 4 mục tiêu là:\n1. Duy trì hoà bình và an ninh quốc tế, và để đạt được mục đích đó, thi hành những biện pháp tập thể có hiệu quả để phòng ngừa và loại trừ các mối đe dọa hoà bình, cấm mọi hành vi xâm lược và phá hoại hoà bình khác; điều chỉnh hoặc giải quyết các vụ tranh chấp hoặc những tình thế có tính chất quốc tế có thể đưa đến sự phá hoại hoà bình, bằng phương pháp hoà bình theo đúng nguyên tắc của công lý và pháp luật quốc tế;\n2. Phát triển mối quan hệ hữu nghị giữa các dân tộc trên cơ sở tôn trọng nguyên tắc bình đẳng và tự quyết của các dân tộc và áp dụng những biện pháp phù hợp khác để củng cố hoà bình thế giới;\n3. Thực hiện sự hợp tác quốc tế trong việc giải quyết các vấn đề quốc tế về kinh tế, xã hội, văn hoá và nhân đạo và khuyến khích phát triển sự tôn trọng các quyền của con người và các tự do cơ bản cho tất cả mọi người không phân biệt chủng tộc, nam nữ, ngôn ngữ hoặc tôn giáo;\n4. Trở thành trung tâm phối hợp mọi hành động của các dân tộc, nhằm đạt được những mục đích chung nói trên.", "s": ["Mục tiêu duy trì an ninh hòa bình thế giới là mục tiêu được chú trọng và là cơ sở để thực hiện các mục tiêu khác.", "Vai trò của Liên hợp quốc là trở thành trung tâm phối hợp mọi hành động của các dân tộc, điều phối các nỗ lực quốc tế vì mục tiêu chung.", "Hiến chương Liên hợp quốc qui định tổ chức này có 4 mục tiêu chính, các mục tiêu tồn tại độc lập không có liên hệ.", "Tôn trọng nguyên tắc bình đẳng và tự quyết của các dân tộc vừa là mục tiêu vừa là nguyên tắc trong quá trình hoạt động của Liên hợp quốc."], "ans": [true, true, false, true], "e": ["Đúng. Mục tiêu duy trì hòa bình và an ninh quốc tế được coi là mục tiêu hàng đầu, nền tảng để thực hiện các mục tiêu khác.", "Đúng. Điều 1, khoản 4: Liên hợp quốc trở thành trung tâm phối hợp mọi hành động của các dân tộc.", "Sai. Bốn mục tiêu liên hệ chặt chẽ với nhau, bổ trợ cho nhau; không tồn tại độc lập.", "Đúng. Tôn trọng bình đẳng và quyền tự quyết vừa là mục tiêu (khoản 2), vừa là nguyên tắc hoạt động của tổ chức."]}, {"p": "Đọc đoạn tư liệu sau đây:\n“Duy trì hoà bình và an ninh quốc tế, và để đạt được mục đích đó, thi hành những biện pháp tập thể có hiệu quả để phòng ngừa và loại trừ các mối đe doạ hoà bình, cấm mọi hành vi xâm lược và phá hoại hoà bình khác, điều chỉnh hoặc giải quyết các vụ tranh chấp hoặc những tình thế có tính chất quốc tế có thể đưa đến sự phá hoại hoà bình, bằng biện pháp hoà bình theo đúng nguyên tắc của công lí và pháp luật quốc tế”.\n(Trích: Điều 1, Hiến chương Liên hợp quốc)", "s": ["Đoạn tư liệu thể hiện mục tiêu của Liên hợp quốc là duy trì hoà bình và an ninh quốc phòng cho tất cả các quốc gia.", "Một trong những mục tiêu của Liên hợp quốc là giải quyết các vụ tranh chấp quốc tế bằng pháp luật của các quốc gia.", "Trong số các mục tiêu của Liên hợp quốc, duy trì hoà bình và an ninh quốc tế là mục tiêu được đặt lên hàng đầu.", "Ngày nay, Liên hợp quốc vẫn tiếp tục thực hiện mục tiêu giải quyết các vụ tranh chấp, xung đột quốc tế bằng biện pháp hoà bình."], "ans": [false, false, true, true], "e": ["Sai. Mục tiêu là duy trì hòa bình và an ninh quốc tế, không phải 'quốc phòng' cho các quốc gia.", "Sai. Tranh chấp được giải quyết bằng biện pháp hòa bình theo công lý và pháp luật quốc tế, không phải pháp luật riêng của từng nước.", "Đúng. Trong đoạn trích, duy trì hòa bình và an ninh quốc tế được đặt lên hàng đầu.", "Đúng. Liên hợp quốc vẫn tiếp tục thực hiện nguyên tắc giải quyết tranh chấp, xung đột bằng biện pháp hòa bình."]}, {"p": "Đọc đoạn tư liệu sau đây:\n[Năm 1960] Đại hội đồng Liên hợp quốc đã thông qua bản Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân, trao trả độc lập cho các quốc gia và dân tộc thuộc địa. Đó là một sự kiện chính trị quan trọng. Như thế, Tuyên ngôn đã khẳng định các nước thực dân đã vi phạm nguyên tắc quan trọng nhất của luật pháp quốc tế; khẳng định rõ ràng cơ sở pháp lý quốc tế của cuộc đấu tranh giành độc lập của các dân tộc bị áp bức.\n(Nguyễn Quốc Hùng, Nguyễn Hồng Quân, Liên hợp quốc và Lực lượng gìn giữ hoà bình Liên hợp quốc, NXB Chính trị Quốc gia, Hà Nội, 2008, tr.46)", "s": ["Liên hợp quốc đã đưa ra văn bản quan trọng nhằm thủ tiêu hệ thống thuộc địa của chủ nghĩa thực dân trên thế giới.", "Bản Tuyên ngôn của Liên hợp quốc đã có tác động tiêu cực đến phong trào đấu tranh giải phóng ở các nước thuộc địa và phụ thuộc trên thế giới.", "Lực lượng gìn giữ hoà bình của Liên hợp quốc giúp tổ chức này thực thi nhiệm vụ bảo vệ nền hoà bình của các nước thuộc địa.", "Đây là một trong những văn bản quan trọng thể hiện vai trò và đóng góp của Liên hợp quốc vì sự tiến bộ của nhân loại."], "ans": [true, false, false, true], "e": ["Đúng. Năm 1960, Đại hội đồng thông qua Tuyên ngôn thủ tiêu hoàn toàn chủ nghĩa thực dân (Nghị quyết 1514).", "Sai. Tuyên ngôn có tác động tích cực, thúc đẩy phong trào đấu tranh giành độc lập của các dân tộc thuộc địa.", "Sai. Đoạn tư liệu không nói đến lực lượng gìn giữ hòa bình; đây là chi tiết không có trong tư liệu.", "Đúng. Đây là văn bản quan trọng thể hiện đóng góp của Liên hợp quốc vì sự tiến bộ của nhân loại."]}, {"p": "Đọc đoạn tư liệu sau đây:\nTư liệu 1: “Hiến chương này hoàn toàn không cho phép Liên hợp quốc được can thiệp vào những công việc thực chất thuộc thẩm quyền nội bộ của bất kỳ quốc gia nào, và không đòi hỏi các thành viên của Liên hợp quốc phải đưa những công việc loại này ra để giải quyết theo quy định của Hiến chương;...”\n(Trích: Điều 2, Hiến chương Liên hợp quốc)\nTư liệu 2: “Năm 1960, Đại hội đồng Liên hợp quốc đã thông qua bản Tuyên ngôn thủ tiêu hoàn toàn chủ nghĩa thực dân, trao trả độc lập cho các quốc gia và dân tộc thuộc địa. Đó là một sự kiện chính trị quan trọng.”\n(Nguyễn Quốc Hùng, Nguyễn Hồng Quân, Liên hợp quốc và lực lượng giữ gìn hòa bình Liên hợp quốc, Nxb. Chính trị quốc gia Sự thật, Hà Nội, 2008, trang 46)", "s": ["Theo Hiến chương, Liên hợp quốc không được can thiệp vào công việc nội bộ của bất kỳ quốc gia nào.", "Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân đã góp phần mở ra thời kỳ “phi thực dân hóa”.", "Việc các thuộc địa giành được độc lập hoàn toàn phụ thuộc vào Tuyên ngôn về thủ tiêu chủ nghĩa thực dân.", "Nguyên tắc không can thiệp vào công việc nội bộ được tất cả các thành viên thực hiện nghiêm chỉnh."], "ans": [true, true, false, false], "e": ["Đúng. Điều 2, khoản 7 Hiến chương: Liên hợp quốc không được can thiệp vào công việc nội bộ thuộc thẩm quyền của quốc gia.", "Đúng. Tuyên ngôn 1960 góp phần mở ra thời kỳ 'phi thực dân hóa', nhiều nước châu Phi giành độc lập từ năm 1960.", "Sai. Độc lập của các thuộc địa là kết quả đấu tranh của chính nhân dân các nước, không 'hoàn toàn phụ thuộc' vào một văn bản.", "Sai. Nguyên tắc này trên thực tế không phải lúc nào cũng được các thành viên thực hiện nghiêm chỉnh."]}];
+const LS_DS_PTS=[0,0.1,0.25,0.5,1];
+const lsS={mcq:{},ds:{},sub:false};
+const f2=x=>Number(x).toFixed(2);
+function lsMcqPts(){ let t=0; LS_MCQ.forEach((it,i)=>{ if(lsS.mcq[i]===it.a) t+=0.25; }); return t; }
+function lsDsPts(j){ const st=lsS.ds[j]||{}; if(Object.keys(st).length<4) return null; let c=0; LS_DS[j].ans.forEach((a,k)=>{ if(st[k]===a) c++; }); return LS_DS_PTS[c]; }
+function lsDsTotal(){ let t=0; LS_DS.forEach((_,j)=>{ const p=lsDsPts(j); if(p!==null) t+=p; }); return t; }
+/* điểm thời gian thực: số + thanh + màu theo mức + "+điểm" bật lên */
+function lsUpdBar(){
+  const mt=lsMcqPts(), dt=lsDsTotal(), tot=mt+dt;
+  const nM=Object.keys(lsS.mcq).length, nD=LS_DS.filter((_,j)=>lsDsPts(j)!==null).length;
+  const v=document.getElementById("lsv"), fill=document.getElementById("lsfill"), mini=document.getElementById("lsmini"), bar=document.getElementById("lsbar");
+  if(!v) return;
+  const cls=tot>=8?"g":(tot>=5?"a":"r");
+  v.className="lsv "+cls; v.textContent=f2(tot);
+  fill.className=cls; fill.style.width=(tot*10)+"%";
+  mini.textContent="TN "+f2(mt)+"/6 · Đ-S "+f2(dt)+"/4 · đã làm "+nM+"/24 + "+nD+"/4";
+  const prev=lsS.last||0; lsS.last=tot;
+  if(tot>prev+1e-9){
+    const sp=document.createElement("span"); sp.className="lsplus"; sp.textContent="+"+f2(tot-prev);
+    bar.appendChild(sp); setTimeout(()=>sp.remove(),1100);
+  }
+}
+/* tư liệu: dòng trích dẫn trong ngoặc hiển thị như chú thích, nhãn "Tư liệu n" in đậm */
+function lsPass(t){
+  return t.split("\n").map(l=>{
+    const x=l.trim();
+    if(/^\(.*\)$/.test(x)) return '<span class="lscite">'+esc(x)+'</span>';
+    return esc(l).replace(/^(Tư liệu \d+:)/,'<b>$1</b>');
+  }).join("\n");
+}
+function lsRender(){
+  const el=document.getElementById("lsbody");
+  let h='';
+  h+='<div class="lshead"><span class="lstag">GIỮA KÌ</span><h2>Lịch sử 12 · Bài 1: Liên Hợp Quốc</h2><div class="lsmeta">Chọn đáp án là có đáp án và giải thích ngay. Làm tới đâu tính điểm tới đó.</div></div>';
+  h+='<div class="lssec">Phần I. Trắc nghiệm nhiều lựa chọn<span class="lsps">24 câu × 0,25 điểm</span></div>';
+  LS_MCQ.forEach((it,i)=>{
+    const ch=lsS.mcq[i], done=ch!==undefined, ok=done&&ch===it.a;
+    h+='<div class="lsq"><div class="lsqt">Câu '+(i+1)+'. '+esc(it.q)+'</div>';
+    it.o.forEach((o,oi)=>{
+      let cls="";
+      if(done){ if(oi===it.a) cls="okc"; else if(oi===ch) cls="badc"; }
+      h+='<button class="lsopt '+cls+'" '+((done||lsS.sub)?'disabled':'')+' onclick="lsPickMcq('+i+','+oi+')"><b>'+"ABCD"[oi]+'.</b> '+esc(o)+'</button>';
+    });
+    if(done){
+      h+='<div class="lsexp '+(ok?'ok':'bad')+'"><b>'+(ok?'✅ Đúng · +0,25 điểm':'❌ Sai · +0 điểm. Đáp án đúng: '+"ABCD"[it.a]+'. '+esc(it.o[it.a]))+'</b><br>💡 '+esc(it.e)+'</div>';
+    }
+    h+='</div>';
+  });
+  h+='<div class="lssec">Phần II. Trắc nghiệm đúng – sai<span class="lsps">4 câu · mỗi câu 4 ý</span></div>';
+  LS_DS.forEach((d,j)=>{
+    const st=lsS.ds[j]||{}, p=lsDsPts(j), locked=lsS.sub;
+    const nDone=Object.keys(st).length;
+    h+='<div class="lsq lsds"><div class="lsqt">Câu '+(j+1)+'. Đọc tư liệu và xác định Đúng/Sai cho từng ý</div>'
+      +'<div class="lsds-grid"><div class="lspass"><div class="lspass-h">📜 Tư liệu</div>'+lsPass(d.p)+'</div><div class="lsstmts">';
+    d.s.forEach((s,k)=>{
+      const v=st[k], done=v!==undefined, ans=d.ans[k], ok=done&&v===ans;
+      const dis=(done||locked)?'disabled':'';
+      const cT=done?(ans===true?'okc':(v===true?'badc':'')):'';
+      const cF=done?(ans===false?'okc':(v===false?'badc':'')):'';
+      h+='<div class="lsst '+(done?(ok?'st-ok':'st-bad'):'')+'">'
+        +'<div class="lsst-t"><span class="lsl">'+"abcd"[k]+'</span><span>'+esc(s)+'</span></div>'
+        +'<div class="lsseg"><button class="'+cT+'" '+dis+' onclick="lsPickDs('+j+','+k+',true)">✓ Đúng</button>'
+        +'<button class="'+cF+'" '+dis+' onclick="lsPickDs('+j+','+k+',false)">✗ Sai</button></div>';
+      if(done) h+='<div class="lsexp '+(ok?'ok':'bad')+'"><b>'+(ok?'✅ Đúng':'❌ Sai')+' · đáp án: '+(ans?'Đúng':'Sai')+'</b><br>💡 '+esc(d.e[k])+'</div>';
+      h+='</div>';
+    });
+    h+='<div class="lsdsp">'+(p===null?'Đã chọn '+nDone+'/4 ý · chọn đủ 4 ý để tính điểm câu này'
+      :'Điểm câu này: <span class="lspts">'+f2(p)+'</span> / 1,00 · đúng '+d.ans.filter((a,k)=>st[k]===a).length+'/4 ý')+'</div>';
+    h+='</div></div></div>';
+  });
+  h+='<div class="lsres">'+(lsS.sub?lsSummary():'')+'</div>';
+  h+=lsS.sub?'<div class="nav"><button class="btn ghost" onclick="lsReset()">🔄 Làm lại bài</button></div>'
+            :'<div class="nav"><button class="btn" onclick="lsSubmit()">📝 Nộp bài</button></div>';
+  el.innerHTML=h;
+  lsUpdBar();
+}
+function lsPickMcq(i,oi){ if(lsS.sub||lsS.mcq[i]!==undefined) return; lsS.mcq[i]=oi; lsRender(); }
+function lsPickDs(j,k,v){ if(lsS.sub) return; const st=lsS.ds[j]||(lsS.ds[j]={}); if(st[k]!==undefined) return; st[k]=v; lsRender(); }
+function lsSummary(){
+  const m=lsMcqPts(), d=lsDsTotal(), miss=LS_DS.filter((_,j)=>lsDsPts(j)===null).length;
+  return '<h3 style="margin:0 0 6px">Kết quả: '+f2(m+d)+' / 10.00</h3>'
+    +'<div>Phần I (trắc nghiệm): <b>'+f2(m)+'</b> / 6.00 · Phần II (đúng–sai): <b>'+f2(d)+'</b> / 4.00'
+    +(miss?' · còn '+miss+' câu đúng–sai chưa đủ 4 ý':'')+'</div>';
+}
+function lsSubmit(){ lsS.sub=true; lsRender(); document.getElementById("ls").scrollIntoView({behavior:"smooth",block:"start"}); }
+function lsReset(){ lsS.mcq={}; lsS.ds={}; lsS.sub=false; lsS.last=0; lsRender(); window.scrollTo({top:0,behavior:"smooth"}); }
+
+/* tên trên đầu từng người trong ảnh nền (trái → phải) */
+(function(){
+  const NAMES=[["Khoa",182,265],["Cim",315,267],["Kn",535,254],["Thúy",715,251],["Thư",905,291]];
+  const login=document.getElementById("login");
+  const box=document.createElement("div"); box.className="capwrap";
+  NAMES.forEach(n=>{ const el=document.createElement("span"); el.className="cap"; el.textContent=n[0]; el.dataset.x=n[1]; el.dataset.y=n[2]; box.appendChild(el); });
+  login.insertBefore(box,login.firstChild);
+  function place(){
+    const W=innerWidth, H=innerHeight, IW=1100, IH=1467;
+    const sc=Math.max(W/IW,H/IH), sw=IW*sc, sh=IH*sc, ox=(W-sw)/2, oy=(H-sh)*0.15;
+    box.querySelectorAll(".cap").forEach(el=>{ el.style.left=(ox+el.dataset.x*sc)+"px"; el.style.top=(oy+el.dataset.y*sc)+"px"; });
+  }
+  addEventListener("resize",place); place();
 })();
 </script>
 </body>
