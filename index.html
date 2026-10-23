@@ -964,6 +964,33 @@ main{max-width:1040px!important}
 .lsv.r{color:#e11d48!important}.lsv.o{color:#ea580c!important}.lsv.b{color:#2563eb!important}.lsv.g{color:#16a34a!important}
 .lsbar{height:12px!important;border-radius:99px;background:linear-gradient(90deg,#fde2e6 0 50%,#ffedd5 50% 70%,#dbeafe 70% 85%,#dcfce7 85%)!important}
 #login select{font-size:1.1rem!important;padding:14px!important;margin-top:4px!important}
+#login{align-items:center!important;justify-content:center!important}
+#login .lbox{margin:auto}
+
+/* hiệu ứng đáp án mượt, không dựng lại trang */
+@keyframes okpop{0%{transform:scale(.98)}55%{transform:scale(1.015)}100%{transform:scale(1)}}
+@keyframes nope{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.lsopt,.lsopt b,.lsst,.lsseg button{transition:background-color .35s ease,border-color .35s ease,color .35s ease,transform .2s ease!important}
+.lsopt.okc,.lsseg button.okc{animation:okpop .45s cubic-bezier(.22,1,.36,1)}
+.lsopt.badc,.lsseg button.badc{animation:nope .4s ease}
+.lsopt:disabled:not(.okc):not(.badc){opacity:.55}
+/* chia rõ Phần I / Phần II */
+.lssec{display:flex!important;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px 16px;padding:16px 22px!important;border-radius:14px;background:#4f46e5;color:#fff!important;font-size:1.25rem!important;margin:30px 0 14px!important;box-shadow:0 6px 18px -8px rgba(79,70,229,.6)}
+.lssec .lsps{color:rgba(255,255,255,.9)!important;font-size:.9rem;font-weight:500}
+.lssec ~ .lssec{background:#0f766e;margin-top:64px!important;box-shadow:0 6px 18px -8px rgba(15,118,110,.6);position:relative}
+.lssec ~ .lssec::before{content:"";position:absolute;left:0;right:0;top:-34px;border-top:2px dashed #cbd2e3}
+
+/* v6: đúng/sai tràn rộng màn hình, tư liệu trái – ý phải, không cuộn trong khung */
+body.sv-ls main{max-width:min(1560px,96vw)!important}
+body.sv-ls #lsbody>.lsq:not(.lsds),body.sv-ls #lsbody>.lshead,body.sv-ls #lsbody>.lssec,body.sv-ls #lsbar{max-width:980px!important;margin-left:auto!important;margin-right:auto!important}
+body.sv-ls #lsbody>.lssec{margin-top:30px!important}
+body.sv-ls #lsbody>.lssec ~ .lssec{margin-top:64px!important}
+#lsbody .lsds{padding:26px 30px!important}
+#lsbody .lsds-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)!important;gap:30px!important}
+#lsbody .lsds-grid .lspass{position:static!important;max-height:none!important;overflow:visible!important;font-size:1.14rem!important;line-height:1.85!important;padding:22px 26px!important}
+#lsbody .lsds .lsst{font-size:1.1rem!important;padding:18px!important}
+#lsbody .lsds .lsseg button{font-size:1.08rem!important;padding:12px!important}
+@media(max-width:900px){#lsbody .lsds-grid{grid-template-columns:1fr!important}#lsbody .lsds{padding:18px!important}}
 </style>
 </head>
 <body class="locked">
@@ -1874,8 +1901,8 @@ function lsPass(t){
 function lsRender(){
   const el=document.getElementById("lsbody");
   let h='';
-  h+='<div class="lshead"><span class="lstag">GIỮA KÌ</span><h2>Lịch sử 12 · Bài 1: Liên Hợp Quốc</h2><div class="lsmeta">Chọn đáp án là có đáp án và giải thích ngay. Làm tới đâu tính điểm tới đó.</div></div>';
-  h+='<div class="lssec">Phần I. Trắc nghiệm nhiều lựa chọn<span class="lsps">24 câu × 0,25 điểm</span></div>';
+  h+='<div class="lshead"><span class="lstag">GIỮA KÌ</span><h2>Lịch sử 12 · Bài 1: Liên Hợp Quốc</h2></div>';
+  h+='<div class="lssec">Phần I. Trắc nghiệm nhiều lựa chọn</div>';
   LS_MCQ.forEach((it,i)=>{
     const ch=lsS.mcq[i], done=ch!==undefined, ok=done&&ch===it.a;
     h+='<div class="lsq'+(lsS.fresh==='m'+i?' fresh':'')+'"><div class="lsqt"><span class="qn">Câu '+(i+1)+'</span>'+esc(it.q)+'</div>';
@@ -1889,7 +1916,7 @@ function lsRender(){
     }
     h+='</div>';
   });
-  h+='<div class="lssec">Phần II. Trắc nghiệm đúng – sai<span class="lsps">4 câu · mỗi câu 4 ý</span></div>';
+  h+='<div class="lssec">Phần II. Trắc nghiệm đúng – sai</div>';
   LS_DS.forEach((d,j)=>{
     const st=lsS.ds[j]||{}, p=lsDsPts(j), locked=lsS.sub;
     const nDone=Object.keys(st).length;
@@ -1916,8 +1943,25 @@ function lsRender(){
   el.innerHTML=h;
   lsUpdBar();
 }
-function lsPickMcq(i,oi){ if(lsS.sub||lsS.mcq[i]!==undefined) return; lsS.mcq[i]=oi; lsS.fresh='m'+i; lsRender(); }
-function lsPickDs(j,k,v){ if(lsS.sub) return; const st=lsS.ds[j]||(lsS.ds[j]={}); if(st[k]!==undefined) return; st[k]=v; lsS.fresh='d'+j; lsRender(); }
+function lsPickMcq(i,oi){
+  if(lsS.sub||lsS.mcq[i]!==undefined) return; lsS.mcq[i]=oi;
+  const card=document.querySelectorAll("#lsbody .lsq")[i]; if(!card){ lsRender(); return; }
+  const a=LS_MCQ[i].a;
+  card.querySelectorAll(".lsopt").forEach((b,k)=>{ b.disabled=true; if(k===a) b.classList.add("okc"); else if(k===oi) b.classList.add("badc"); });
+  lsUpdBar();
+}
+function lsPickDs(j,k,v){
+  if(lsS.sub) return; const st=lsS.ds[j]||(lsS.ds[j]={}); if(st[k]!==undefined) return; st[k]=v;
+  const card=document.querySelectorAll("#lsbody .lsq.lsds")[j]; const row=card&&card.querySelectorAll(".lsst")[k]; if(!row){ lsRender(); return; }
+  const ans=LS_DS[j].ans[k], ok=v===ans;
+  row.classList.add(ok?"st-ok":"st-bad");
+  const bt=row.querySelectorAll(".lsseg button"); bt.forEach(b=>b.disabled=true);
+  const c0=ans===true?"okc":(v===true?"badc":""), c1=ans===false?"okc":(v===false?"badc":"");
+  if(c0) bt[0].classList.add(c0); if(c1) bt[1].classList.add(c1);
+  const p=lsDsPts(j), dsp=card.querySelector(".lsdsp");
+  if(dsp&&p!==null) dsp.innerHTML='Điểm câu này: <span class="lspts">'+f2(p)+'</span> / 1,00 · đúng '+LS_DS[j].ans.filter((a,x)=>st[x]===a).length+'/4 ý';
+  lsUpdBar();
+}
 function lsSummary(){
   const m=lsMcqPts(), d=lsDsTotal(), miss=LS_DS.filter((_,j)=>lsDsPts(j)===null).length;
   return '<h3 style="margin:0 0 6px">Kết quả: '+f2(m+d)+' / 10.00</h3>'
