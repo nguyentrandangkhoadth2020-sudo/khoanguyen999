@@ -642,9 +642,9 @@ button.mrow:hover{border-color:var(--pur);background:var(--pur-s)}
 /* ===== menu nhiều trang: trượt mượt ===== */
 .pnote{display:block;color:var(--muted);font-size:.84rem;margin:-4px 2px 10px}
 .cview{overflow:hidden;border-radius:4px}
-.ctrack{display:flex;width:400%;transition:transform .42s cubic-bezier(.22,.8,.25,1);will-change:transform}
+.ctrack{display:flex;width:500%;transition:transform .42s cubic-bezier(.22,.8,.25,1);will-change:transform}
 .ctrack.no-anim{transition:none}
-.cpanel{flex:0 0 25%;width:25%;min-width:0;padding:2px;box-sizing:border-box}
+.cpanel{flex:0 0 20%;width:20%;min-width:0;padding:2px;box-sizing:border-box}
 .cpanel.enter .mrow{animation:rise .42s cubic-bezier(.22,.8,.25,1) both}
 .cpanel.enter .mrow:nth-child(2){animation-delay:.06s}
 .cpanel.enter .mrow:nth-child(3){animation-delay:.12s}
@@ -1095,6 +1095,17 @@ body.sv-ls #lsbody>.lssec ~ .lssec{margin-top:64px!important}
       <button class="mrow mbtn" onclick="chooseChap('ls1')"><span class="tagmid">GK1</span><span class="mtxt"><b>Bài 1 · Liên Hợp Quốc</b><small>24 câu trắc nghiệm · 4 câu đúng/sai</small></span><span class="chev">›</span></button>
       <button class="mrow mbtn" onclick="chooseChap('ls2')"><span class="tagmid">GK1</span><span class="mtxt"><b>Bài 2 · Trật tự thế giới trong Chiến tranh lạnh</b><small>18 câu trắc nghiệm · 2 câu đúng/sai</small></span><span class="chev">›</span></button>
       <button class="mrow mbtn" onclick="chooseChap('ls3')"><span class="tagmid">GK1</span><span class="mtxt"><b>Bài 3 · Thế giới sau Chiến tranh lạnh</b><small>20 câu trắc nghiệm · 2 câu đúng/sai</small></span><span class="chev">›</span></button>
+      <button class="mrow mbtn" onclick="goPanel(4)"><span class="tagmid">GK1</span><span class="mtxt"><b>Kết hợp kiểm tra</b><small>Chọn nhiều bài làm chung một đề</small></span><span class="chev">›</span></button>
+    </section>
+    <style>.khrow{display:flex;align-items:center;gap:10px;margin:10px 0;padding:12px 14px;border-radius:14px;border:1px solid rgba(127,127,160,.35);font-weight:600;cursor:pointer}.khnote{font-size:.86rem;color:#64748b;margin:4px 0 8px}.khbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.khmsg{color:#b91c1c;font-size:.9rem;margin-top:8px}</style>
+    <section class="cpanel" id="p4">
+      <div class="phead"><button class="backbtn" onclick="goPanel(3)">‹ Quay lại</button><h2>Kết hợp kiểm tra</h2></div>
+      <div class="khnote">Chọn nhiều bài để làm chung một đề. Mỗi câu đúng–sai 1 điểm, phần còn lại là trắc nghiệm (tổng 10 điểm).</div>
+      <label class="khrow"><input type="checkbox" class="khchk" value="1"> Bài 1 · Liên Hợp Quốc</label>
+      <label class="khrow"><input type="checkbox" class="khchk" value="2"> Bài 2 · Trật tự thế giới trong Chiến tranh lạnh</label>
+      <label class="khrow"><input type="checkbox" class="khchk" value="3"> Bài 3 · Thế giới sau Chiến tranh lạnh</label>
+      <div class="khbtns"><button class="btn" onclick="khStart(false)">Làm có đáp án</button><button class="btn ghost" onclick="khStart(true)">Thi thử</button></div>
+      <div id="khMsg" class="khmsg"></div>
     </section>
   </div></div>
   <div class="cbrand">WEBSITE HỌC TẬP CỦA LÒ TÔN<br><i>Được Khoa Nguyễn phát triển</i></div>
@@ -1575,9 +1586,15 @@ let lsStoreUser=null;
 function lsStoreLoad(){
   if(lsStoreUser===curUser) return; lsStoreUser=curUser;
   try{ Object.keys(localStorage).filter(k=>k.indexOf(LS_NOTE_PREFIX)===0).forEach(k=>localStorage.removeItem(k)); }catch(e){}
-  [1,2,3].forEach(n=>{ LS_STATES[n].hl={}; LS_STATES[n].notes={}; LS_STATES[n].conf=[]; });
+  [1,2,3].forEach(n=>{ LS_STATES[n].hl={}; LS_STATES[n].notes={}; LS_STATES[n].conf=[]; }); LS_COMBO_ST={};
 }
 function lsStoreSave(){ /* ghi chú / tô màu chỉ giữ trong lúc mở trang, tải lại là trống */ }
+function khStart(exam){
+  const ns=[...document.querySelectorAll('.khchk:checked')].map(x=>+x.value);
+  if(!ns.length){ document.getElementById('khMsg').textContent='Chọn ít nhất một bài.'; return; }
+  document.getElementById('khMsg').textContent='';
+  lsStoreLoad(); hideChooser(); lsOpen(ns,exam); lsRender(); showTab('ls');
+}
 function chooseChap(n){ lsStoreLoad(); hideChooser(); if(/^ls[123]$/.test(n)){ setLs(+n[2]); lsRender(); showTab("ls"); return; } showTab(n==="amin"?"learn":n); }
 function choose(n){ chooseChap(n); }
 function choose(n){ document.getElementById("chooser").classList.add("hidden"); showTab(n); }
@@ -1930,6 +1947,8 @@ let LS_MCQ=LS1_MCQ, LS_DS=LS1_DS;
 const LS_META={1:{title:"Lịch sử 12 · Bài 1: Liên Hợp Quốc",tag:"GK1"},2:{title:"Lịch sử 12 · Bài 2: Trật tự thế giới trong Chiến tranh lạnh",tag:"GK1"},3:{title:"Lịch sử 12 · Bài 3: Thế giới sau Chiến tranh lạnh",tag:"GK1"}};
 const LS_STATES={1:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{},conf:[]},2:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{},conf:[]},3:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{},conf:[]}};
 let LS_CUR=1;
+let LS_NS=[1], LS_COMBO=false, LS_COMBO_ST={};
+const LS_DATA={1:[LS1_MCQ,LS1_DS],2:[LS2_MCQ,LS2_DS],3:[LS3_MCQ,LS3_DS]};
 const LS_DS_PTS=[0,0.1,0.25,0.5,1];
 let lsS=LS_STATES[1];
 const f2=x=>Number(x).toFixed(2);
@@ -1945,9 +1964,10 @@ function lsDsTotal(){ let t=0; LS_DS.forEach((_,j)=>{ const p=lsDsPts(j); if(p!=
 function lsUpdBar(){
   if(lsS.exam){ const ex=lsS.exam, v=document.getElementById("lsv"), fill=document.getElementById("lsfill"), mini=document.getElementById("lsmini");
     if(!v) return;
-    v.dataset.tok='exam';
-    if(ex.submitted){ v.textContent=f2(ex.result.score); fill.style.width=(ex.result.score/10*100)+"%"; } else { v.textContent="—"; fill.style.width="0%"; }
-    const nM=Object.keys(ex.ans.mcq).length, nD=LS_DS.filter((d,j)=>Object.keys(ex.ans.ds[j]||{}).length===d.s.length).length;
+    v.className="lsv"; v.dataset.tok='exam';
+    if(ex.submitted){ const sc=lsMcqPts()+lsDsTotal(); v.textContent=f2(sc); fill.style.width=(sc/LS_MAXT()*100)+"%"; }
+    else { v.textContent="—"; fill.style.width="0%"; }
+    const nM=Object.keys(lsS.mcq).length, nD=LS_DS.filter((_,j)=>lsDsPts(j)!==null).length;
     mini.textContent="Thi thử · đã làm "+nM+"/"+LS_MCQ.length+" + "+nD+"/"+LS_DS.length;
     return; }
   const mt=lsMcqPts(), dt=lsDsTotal(), tot=mt+dt;
@@ -1975,23 +1995,27 @@ function lsPass(t){
   }).join("\n");
 }
 function lsRender(){
-  if(lsS.exam){ lsRenderExam(); return; }
-  const el=document.getElementById("lsbody");
+  const el=document.getElementById("lsbody"), ex=lsS.exam, exOn=!!ex, shown=!exOn||ex.submitted, HD=lsHead();
   let h='';
-  h+='<div class="nav" style="margin-top:4px"><button class="btn ghost" onclick="navBack()">⬅ Quay lại</button><button class="btn ghost" onclick="lsClearHL()">🧹 Xóa tất cả tô màu</button><button class="btn" onclick="lsShowResult()">📋 Xem đáp án</button><button class="btn" onclick="lsExamStart()">🎯 Thi thử</button></div>';
-  if(false) h+='<div class="lsmacbanner">🔗 Bấm vào câu bị nhầm với <b>'+lsKeyLabel(lsS.linkFrom)+'</b> · <button onclick="lsLinkCancel()">Hủy</button></div>';
-  h+='<div class="lshead">'+(LS_META[LS_CUR].tag?'<span class="lstag">'+LS_META[LS_CUR].tag+'</span>':'')+'<h2>'+LS_META[LS_CUR].title+'</h2></div>';
+  if(exOn){
+    h+='<div class="nav" style="margin-top:4px"><button class="btn ghost" onclick="lsExamExit()">⬅ Thoát thi thử</button><button class="btn ghost" onclick="lsClearHL()">🧹 Xóa tất cả tô màu</button>'+(ex.submitted?'':'<button class="btn" onclick="lsExamSubmit()">NỘP BÀI</button>')+'</div>';
+    h+='<div class="lshead">'+(HD.tag?'<span class="lstag">'+HD.tag+'</span>':'')+'<h2>Thi thử · '+HD.title+'</h2></div>';
+  } else {
+    h+='<div class="nav" style="margin-top:4px"><button class="btn ghost" onclick="navBack()">⬅ Quay lại</button><button class="btn ghost" onclick="lsClearHL()">🧹 Xóa tất cả tô màu</button><button class="btn" onclick="lsShowResult()">📋 Xem đáp án</button><button class="btn" onclick="lsExamStart()">🎯 Thi thử</button></div>';
+    h+='<div class="lshead">'+(HD.tag?'<span class="lstag">'+HD.tag+'</span>':'')+'<h2>'+HD.title+'</h2></div>';
+  }
   h+='<div class="lssec">Phần I. Trắc nghiệm nhiều lựa chọn</div>';
   LS_MCQ.forEach((it,i)=>{
-    const ch=lsS.mcq[i], done=ch!==undefined, ok=done&&ch===it.a;
-    const noteM=lsS.notes[ 'm'+i ];
-    h+='<div class="lsq'+(lsS.fresh==='m'+i?' fresh':'')+(lsS.glow==='m'+i?' glow':'')+'" data-m="'+i+'">'+lsTopBits('m'+i)+'<div class="lsqt" data-hk="q'+i+'"><span class="qn">Câu '+(i+1)+'</span>'+esc(it.q)+'</div>';
+    const ch=lsS.mcq[i], done=ch!==undefined, ok=done&&ch===it.a, fb=done&&shown;
+    const locked=exOn?ex.submitted:(done||lsS.sub);
+    h+='<div class="lsq'+(lsS.fresh==='m'+i?' fresh':'')+(lsS.glow==='m'+i?' glow':'')+'" data-m="'+i+'">'+lsTopBits('m'+i)+'<div class="lsqt" data-hk="q'+i+'"><span class="qn">'+lsQlab('m',i)+'</span>'+esc(it.q)+'</div>';
     it.o.forEach((o,oi)=>{
       let cls="";
-      if(done){ if(oi===it.a) cls="okc"; else if(oi===ch) cls="badc"; }
-      h+='<button class="lsopt '+cls+'" '+((done||lsS.sub)?'disabled':'')+' onclick="lsPickMcq('+i+','+oi+')"><b>'+"ABCD"[oi]+'</b><span data-hk="o'+i+'-'+oi+'">'+esc(o)+'</span>'+'</button>';
+      if(fb){ if(oi===it.a) cls="okc"; else if(oi===ch) cls="badc"; }
+      else if(exOn&&oi===ch) cls="picked";
+      h+='<button class="lsopt '+cls+'" '+(locked?'disabled':'')+' onclick="lsPickMcq('+i+','+oi+')"><b>'+"ABCD"[oi]+'</b><span data-hk="o'+i+'-'+oi+'">'+esc(o)+'</span>'+'</button>';
     });
-    if(done){
+    if(fb){
       h+='<div class="lsexp '+(ok?'ok':'bad')+'"><b>'+(ok?'✅ Đúng · +'+f2(LS_PER()).replace('.',',')+' điểm':'❌ Sai · +0 điểm. Đáp án đúng: '+"ABCD"[it.a]+'. '+esc(it.o[it.a]))+'</b>'+(it.e?'<br>💡 '+esc(it.e):'')+'</div>';
     }
     const flM=!!lsS.flag.mcq[i];
@@ -2004,17 +2028,15 @@ function lsRender(){
   });
   h+='<div class="lssec">Phần II. Trắc nghiệm đúng – sai</div>';
   LS_DS.forEach((d,j)=>{
-    const st=lsS.ds[j]||{}, p=lsDsPts(j), locked=lsS.sub;
-    const nDone=Object.keys(st).length;
-    h+='<div class="lsq lsds'+(lsS.fresh==='d'+j?' fresh':'')+'"><div class="lsqt"><span class="qn">Câu '+(j+1)+'</span>Đọc tư liệu và xác định Đúng/Sai cho từng ý</div>'
+    const st=lsS.ds[j]||{}, p=lsDsPts(j), locked=exOn?ex.submitted:lsS.sub;
+    h+='<div class="lsq lsds'+(lsS.fresh==='d'+j?' fresh':'')+'"><div class="lsqt"><span class="qn">'+lsQlab('d',j)+'</span>Đọc tư liệu và xác định Đúng/Sai cho từng ý</div>'
       +'<div class="lsds-grid"><div class="lspass"><div class="lspass-h">📜 Tư liệu</div>'+'<div data-hk="p'+j+'">'+lsPass(d.p)+'</div></div><div class="lsstmts">';
     d.s.forEach((s,k)=>{
-      const v=st[k], done=v!==undefined, ans=d.ans[k], ok=done&&v===ans;
-      const nkD='d'+j+'-'+k, noteD=lsS.notes[nkD];
-      const dis=(done||locked)?'disabled':'';
-      const cT=done?(ans===true?'okc':(v===true?'badc':'')):'';
-      const cF=done?(ans===false?'okc':(v===false?'badc':'')):'';
-      h+='<div class="lsst '+(done?(ok?'st-ok':'st-bad'):'')+(lsS.glow==='d'+j+'-'+k?' glow':'')+'" data-d="'+j+'-'+k+'">'
+      const v=st[k], done=v!==undefined, ans=d.ans[k], ok=done&&v===ans, fb=done&&shown;
+      const dis=(locked||(!exOn&&done))?'disabled':'';
+      const cT=fb?(ans===true?'okc':(v===true?'badc':'')):(exOn&&v===true?'picked':'');
+      const cF=fb?(ans===false?'okc':(v===false?'badc':'')):(exOn&&v===false?'picked':'');
+      h+='<div class="lsst '+(fb?(ok?'st-ok':'st-bad'):'')+(lsS.glow==='d'+j+'-'+k?' glow':'')+'" data-d="'+j+'-'+k+'">'
         +lsTopBits('d'+j+'-'+k)
         +'<div class="lsst-t"><span class="lsl">'+"abcd"[k]+'</span><span data-hk="s'+j+'-'+k+'">'+esc(s)+'</span></div>'
         +'<div class="lsseg"><button class="'+cT+'" '+dis+' onclick="lsPickDs('+j+','+k+',true)">✓ Đúng</button>'
@@ -2025,19 +2047,21 @@ function lsRender(){
       h+='<button class="lsnbtn lsmac" title="Gắn mác nhầm lẫn" aria-label="Gắn mác nhầm lẫn" onclick="lsLinkStart(\'d'+j+'-'+k+'\')">🔗</button>';
       if(lsS.linkMenu==='d'+j+'-'+k) h+=lsLinkMenu('d'+j+'-'+k);
       if(lsS.noteEdit==='d'+j+'-'+k) h+=lsNoteEditor('d'+j+'-'+k);
-      if(done) h+='<div class="lsexp '+(ok?'ok':'bad')+'"><b>'+(ok?'✅ Đúng':'❌ Sai')+' · đáp án: '+(ans?'Đúng':'Sai')+'</b><br>💡 '+esc(d.e[k])+'</div>';
+      if(fb) h+='<div class="lsexp '+(ok?'ok':'bad')+'"><b>'+(ok?'✅ Đúng':'❌ Sai')+' · đáp án: '+(ans?'Đúng':'Sai')+'</b><br>💡 '+esc(d.e[k])+'</div>';
       h+='</div>';
     });
-    h+='<div class="lsdsp">'+(p===null?''
+    h+='<div class="lsdsp">'+((!shown||p===null)?''
       :'Điểm câu này: <span class="lspts">'+f2(p)+'</span> / 1,00 · đúng '+d.ans.filter((a,k)=>st[k]===a).length+'/4 ý')+'</div>';
     h+='</div></div></div>';
   });
-  h+='<div class="lsres">'+(lsS.sub?lsSummary():'')+'</div>';
-  h+='<div class="nav">'+(lsCount('wrong')?'<button id="lsReviewBtn" class="btn" onclick="lsOpenReview(\'wrong\')">ÔN TẬP LẠI NHỮNG CÂU SAI</button>':'')+'<button class="btn ghost" onclick="lsOpenNotes()">📒 Xem lại ghi chú & tô màu</button><button class="btn ghost" onclick="lsReset()">🔄 Làm lại</button></div>';
+  h+='<div class="lsres">'+(exOn?(ex.submitted?lsExamResultHTML():''):(lsS.sub?lsSummary():''))+'</div>';
+  h+='<div class="nav">'+((shown&&lsCount('wrong'))?'<button id="lsReviewBtn" class="btn" onclick="lsOpenReview(\'wrong\')">ÔN TẬP LẠI NHỮNG CÂU SAI</button>':'')+'<button class="btn ghost" onclick="lsOpenNotes()">📒 Xem lại ghi chú & tô màu</button>'
+    +(exOn?(ex.submitted?'<button class="btn" onclick="lsExamStart()">🔁 Thi lại (trộn lại)</button>':''):'<button class="btn ghost" onclick="lsReset()">🔄 Làm lại</button>')+'</div>';
   el.innerHTML=h; lsApplyAllHL();
   lsUpdBar(); lsUpdFloat();
 }
 function lsPickMcq(i,oi){
+  if(lsS.exam){ if(lsS.exam.submitted) return; lsS.mcq[i]=oi; lsRedraw(); return; }
   if(lsS.sub||lsS.mcq[i]!==undefined) return; lsS.mcq[i]=oi;
   const card=document.querySelectorAll("#lsbody .lsq")[i]; if(!card){ lsRender(); return; }
   const a=LS_MCQ[i].a;
@@ -2045,6 +2069,7 @@ function lsPickMcq(i,oi){
   lsUpdBar(); if(lsCount("wrong")&&!document.getElementById("lsReviewBtn")) lsRender();
 }
 function lsPickDs(j,k,v){
+  if(lsS.exam){ if(lsS.exam.submitted) return; (lsS.ds[j]=lsS.ds[j]||{})[k]=v; lsRedraw(); return; }
   if(lsS.sub) return; const st=lsS.ds[j]||(lsS.ds[j]={}); if(st[k]!==undefined) return; st[k]=v;
   const card=document.querySelectorAll("#lsbody .lsq.lsds")[j]; const row=card&&card.querySelectorAll(".lsst")[k]; if(!row){ lsRender(); return; }
   const ans=LS_DS[j].ans[k], ok=v===ans;
@@ -2093,12 +2118,12 @@ function lsRenderReview(){
   if(!total){ h+='<p style="color:#475569">Không có câu nào.</p>'; document.getElementById("lsmBody").innerHTML=h; return; }
   h+='<div style="color:#475569">Làm lại đúng: <b>'+good+'</b> / '+total+' · điểm chính không thay đổi</div>';
   R.mcq.forEach(i=>{ const it=LS_MCQ[i], ch=rv.mcq[i];
-    h+='<div class="lmq"><p><b class="n">Câu '+(i+1)+'.</b> '+esc(it.q)+'</p>';
+    h+='<div class="lmq"><p><b class="n">'+lsQlab('m',i)+'.</b> '+esc(it.q)+'</p>';
     it.o.forEach((o,oi)=>{ let cls=''; if(ch!==undefined){ if(oi===it.a) cls='ok'; else if(oi===ch) cls='bad'; }
       h+='<button class="lmo '+cls+'" '+(ch!==undefined?'disabled':'')+' onclick="lsRevMcq('+i+','+oi+')"><b>'+"ABCD"[oi]+'.</b><span>'+esc(o)+'</span></button>'; });
     h+='</div>'; });
   R.ds.forEach(x=>{ const d=LS_DS[x.j];
-    h+='<div class="lmq"><p><b class="n">Câu '+(x.j+1)+'.</b></p><div class="lmpass">'+lsPass(d.p)+'</div>';
+    h+='<div class="lmq"><p><b class="n">'+lsQlab('d',x.j)+'.</b></p><div class="lmpass">'+lsPass(d.p)+'</div>';
     x.ks.forEach(k=>{ const v=rv.ds[x.j]&&rv.ds[x.j][k], ans=d.ans[k], dis=v!==undefined?'disabled':'';
       const cT=v===undefined?'':(ans===true?'ok':(v===true?'bad':'')), cF=v===undefined?'':(ans===false?'ok':(v===false?'bad':''));
       h+='<div class="lmst"><span><b>'+"abcd"[k]+'.</b> '+esc(d.s[k])+'</span><span class="lmseg"><button class="lmb '+cT+'" '+dis+' onclick="lsRevDs('+x.j+','+k+',true)">✓ Đúng</button><button class="lmb '+cF+'" '+dis+' onclick="lsRevDs('+x.j+','+k+',false)">✗ Sai</button></span></div>'; });
@@ -2116,8 +2141,8 @@ function lsUpdFloat(){
 }
 function lsFloatOpen(){
   const R=lsReviewItems('flag'); let h='';
-  R.mcq.forEach(i=>{ h+='<button onclick="lsGlow(\'m\','+i+')">Câu '+(i+1)+' · trắc nghiệm</button>'; });
-  R.ds.forEach(x=>x.ks.forEach(k=>{ h+='<button onclick="lsGlow(\'d\','+x.j+','+k+')">Câu '+(x.j+1)+' · ý '+"abcd"[k]+'</button>'; }));
+  R.mcq.forEach(i=>{ h+='<button onclick="lsGlow(\'m\','+i+')">'+lsQlab('m',i)+' · trắc nghiệm</button>'; });
+  R.ds.forEach(x=>x.ks.forEach(k=>{ h+='<button onclick="lsGlow(\'d\','+x.j+','+k+')">'+lsQlab('d',x.j)+' · ý '+"abcd"[k]+'</button>'; }));
   document.getElementById('lsFloatList').innerHTML=h||'<div style="color:#475569">Chưa có câu nào.</div>';
   document.getElementById('lsFloatMenu').classList.add('open');
 }
@@ -2168,7 +2193,7 @@ function lsWrapRange(root,s,e,c){
     const m=document.createElement('mark'); m.className='hl hl-'+c; t.parentNode.insertBefore(m,t); m.appendChild(t); });
 }
 function lsApplyAllHL(){
-  const H=LS_STATES[LS_CUR].hl||{};
+  const H=lsS.hl||{};
   document.querySelectorAll('#lsbody [data-hk]').forEach(el=>{ (H[el.dataset.hk]||[]).forEach(x=>lsWrapRange(el,x.s,x.e,x.c)); });
 }
 let palSel=null;
@@ -2190,7 +2215,7 @@ function lsShowPal(){
   pal.classList.remove('hidden');
 }
 function lsApplyHL(key,s,e,c){
-  const H=LS_STATES[LS_CUR].hl=LS_STATES[LS_CUR].hl||{};
+  const H=lsS.hl=lsS.hl||{};
   let list=lsSubtract(H[key]||[],s,e); if(c) list.push({s,e,c}); list.sort((a,b)=>a.s-b.s);
   if(list.length) H[key]=list; else delete H[key];
   lsStoreSave(); lsRender();
@@ -2213,7 +2238,7 @@ function lsTimerText(){
   return lsFmt(((st.tEnd||Date.now())-st.t0)/1000);
 }
 setInterval(()=>{ const el=document.getElementById("lsTimer"); if(el&&!document.getElementById("ls").classList.contains("hidden")) el.textContent="⏱ "+lsTimerText(); },250);
-function lsKeyLabel(k){ if(k[0]==="m") return "Câu "+(parseInt(k.slice(1))+1); const p=k.slice(1).split("-"); return "Câu "+(parseInt(p[0])+1)+"abcd"[parseInt(p[1])]; }
+function lsKeyLabel(k){ if(k[0]==="m") return lsQlab('m',parseInt(k.slice(1))); const p=k.slice(1).split("-"); return lsQlab('d',parseInt(p[0]))+"abcd"[parseInt(p[1])]; }
 function lsTopBits(key){
   let h='';
   const note=lsS.notes[key]; if(note) h+='<div class="lsnote">📝 '+esc(note)+'</div>';
@@ -2231,8 +2256,8 @@ function lsLinkPick(a,b){
 }
 function lsLinkMenu(from){
   const items=[];
-  LS_MCQ.forEach((_,i)=>{ const k='m'+i; if(k!==from) items.push({k:k, t:'Câu '+(i+1)+' · trắc nghiệm'}); });
-  LS_DS.forEach((d,j)=>d.s.forEach((_,k)=>{ const kk='d'+j+'-'+k; if(kk!==from) items.push({k:kk, t:'Câu '+(j+1)+"abcd"[k]+' · đúng sai'}); }));
+  LS_MCQ.forEach((_,i)=>{ const k='m'+i; if(k!==from) items.push({k:k, t:lsQlab('m',i)+' · trắc nghiệm'}); });
+  LS_DS.forEach((d,j)=>d.s.forEach((_,k)=>{ const kk='d'+j+'-'+k; if(kk!==from) items.push({k:kk, t:lsQlab('d',j)+"abcd"[k]+' · đúng sai'}); }));
   return '<div class="lsmacmenu"><div class="lsmacmenu-h">Chọn câu bị nhầm với '+lsKeyLabel(from)+'</div>'
     +items.map(x=>'<button onclick="lsLinkPick(\''+from+'\',\''+x.k+'\')">'+x.t+'</button>').join('')+'</div>';
 }
@@ -2258,8 +2283,8 @@ document.getElementById('lsbody').addEventListener('click',function(e){
 const LS_COLOR_NAME={blue:'Xanh dương',yellow:'Vàng',pink:'Hồng',green:'Xanh lá'};
 function lsHkOrd(hk){ const t=hk[0], p=hk.slice(1).split('-').map(Number); if(t==='q') return [0,p[0],0]; if(t==='o') return [0,p[0],1+p[1]]; if(t==='p') return [1,p[0],-1]; return [1,p[0],p[1]]; }
 function lsHkLabel(hk){ const t=hk[0], p=hk.slice(1).split('-').map(Number);
-  if(t==='q') return 'Câu '+(p[0]+1)+' · đề'; if(t==='o') return 'Câu '+(p[0]+1)+' · đáp án '+"ABCD"[p[1]];
-  if(t==='p') return 'Câu '+(p[0]+1)+' · tư liệu'; return 'Câu '+(p[0]+1)+' ý '+"abcd"[p[1]]; }
+  if(t==='q') return lsQlab('m',p[0])+' · đề'; if(t==='o') return lsQlab('m',p[0])+' · đáp án '+"ABCD"[p[1]];
+  if(t==='p') return lsQlab('d',p[0])+' · tư liệu'; return lsQlab('d',p[0])+' ý '+"abcd"[p[1]]; }
 function lsHkCard(hk){ const t=hk[0], p=hk.slice(1).split('-').map(Number);
   if(t==='q'||t==='o') return 'm'+p[0]; return 'd'+p[0]+'-'+(t==='s'?p[1]:0); }
 function lsOrd(k){ if(k[0]==='m') return [0,parseInt(k.slice(1)),0]; const p=k.slice(1).split('-').map(Number); return [1,p[0],p[1]]; }
@@ -2286,73 +2311,51 @@ function lsNotesGo(card){ lsCloseResult(); setTimeout(()=>lsJumpKey(card),60); }
 
 /* ---- thi thử: trộn thứ tự câu + đáp án (trắc nghiệm), trộn thứ tự câu + ý a–d (đúng-sai) ---- */
 function lsShuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
-function lsExamStart(){
-  const ex={ mcqOrder:lsShuffle(LS_MCQ.map((_,i)=>i)), optPerm:{}, dsOrder:lsShuffle(LS_DS.map((_,j)=>j)), stPerm:{}, ans:{mcq:{},ds:{}}, t0:Date.now(), tEnd:null, submitted:false, result:null };
-  LS_MCQ.forEach((_,i)=>{ ex.optPerm[i]=lsShuffle([0,1,2,3]); });
-  LS_DS.forEach((d,j)=>{ ex.stPerm[j]=lsShuffle(d.s.map((_,k)=>k)); });
-  lsS.exam=ex; lsRender(); window.scrollTo({top:0,behavior:'smooth'});
+/* ---- phiên làm bài: một bài, hoặc nhiều bài gộp (Kết hợp kiểm tra); thi thử = trộn câu + đáp án, ẩn điểm đến khi nộp ---- */
+function lsFresh(){ return {mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{},conf:[],last:0}; }
+function lsOpen(ns,exam){
+  ns=ns.slice().sort((a,b)=>a-b);
+  const combo=ns.length>1, key=ns.join('');
+  let mcq=[], ds=[];
+  ns.forEach(n=>{ const D=LS_DATA[n]; D[0].forEach((it,i)=>mcq.push(Object.assign({},it,{src:n,k:i+1})));
+    D[1].forEach((d,j)=>ds.push(Object.assign({},d,{src:n,k:j+1}))); });
+  let st;
+  if(exam){
+    mcq=lsShuffle(mcq).map(it=>{ const perm=lsShuffle([0,1,2,3]); return Object.assign({},it,{o:perm.map(p=>it.o[p]), a:perm.indexOf(it.a)}); });
+    ds=lsShuffle(ds).map(d=>{ const perm=lsShuffle(d.s.map((_,k)=>k)); return Object.assign({},d,{s:perm.map(k=>d.s[k]), ans:perm.map(k=>d.ans[k]), e:perm.map(k=>d.e[k])}); });
+    st=lsFresh(); st.exam={t0:Date.now(), tEnd:null, submitted:false, result:null};
+  } else {
+    st = combo ? (LS_COMBO_ST[key]=LS_COMBO_ST[key]||lsFresh()) : LS_STATES[ns[0]];
+  }
+  LS_NS=ns; LS_COMBO=combo; LS_CUR=combo?0:ns[0]; LS_MCQ=mcq; LS_DS=ds; lsS=st;
+  const ol=document.querySelector("#lsbar .lsof"); if(ol) ol.textContent="/ "+g2(LS_MAXT());
 }
-function lsExamExit(){ lsS.exam=null; lsRender(); window.scrollTo({top:0,behavior:'smooth'}); }
-function lsExamPick(i,oi){ const ex=lsS.exam; if(!ex||ex.submitted) return; ex.ans.mcq[i]=oi; lsRenderExam(true); }
-function lsExamDs(j,k,v){ const ex=lsS.exam; if(!ex||ex.submitted) return; (ex.ans.ds[j]=ex.ans.ds[j]||{})[k]=v; lsRenderExam(true); }
-function lsExamScore(){
-  const ex=lsS.exam; let m=0; LS_MCQ.forEach((it,i)=>{ if(ex.ans.mcq[i]===it.a) m++; });
-  let dp=0; LS_DS.forEach((d,j)=>{ const st=ex.ans.ds[j]||{}; const c=d.s.filter((_,k)=>st[k]===d.ans[k]).length; dp+=LS_DS_PTS[c]; });
-  return m*LS_PER()+dp;
-}
+function lsHead(){ if(LS_COMBO) return {title:'Kết hợp kiểm tra · '+LS_NS.map(n=>'Bài '+n).join(' + '), tag:'GK1'}; return LS_META[LS_NS[0]]; }
+function lsQlab(t,idx){ const it=t==='m'?LS_MCQ[idx]:LS_DS[idx]; if(LS_COMBO&&!lsS.exam&&it&&it.src) return 'Bài '+it.src+' · Câu '+it.k; return 'Câu '+(idx+1); }
+function lsRedraw(){ const y=window.scrollY; lsRender(); window.scrollTo(0,y); }
+function lsExamStart(){ lsOpen(LS_NS,true); lsRender(); window.scrollTo({top:0,behavior:'smooth'}); }
+function lsExamExit(){ lsOpen(LS_NS,false); lsRender(); window.scrollTo({top:0,behavior:'smooth'}); }
 function lsExamSubmit(){
   const ex=lsS.exam; if(!ex||ex.submitted) return;
   ex.submitted=true; ex.tEnd=Date.now();
-  ex.result={score:lsExamScore(), name:curUser||'(chưa rõ)', secs:(ex.tEnd-ex.t0)/1000};
-  lsRenderExam(false); window.scrollTo({top:0,behavior:'smooth'});
+  ex.result={score:lsMcqPts()+lsDsTotal(), name:curUser||'(chưa rõ)', secs:(ex.tEnd-ex.t0)/1000};
+  lsRender(); window.scrollTo({top:0,behavior:'smooth'});
 }
-function lsRenderExam(keep){
-  const ex=lsS.exam, y=window.scrollY, el=document.getElementById('lsbody'); let h='';
-  h+='<div class="nav" style="margin-top:4px"><button class="btn ghost" onclick="lsExamExit()">⬅ Thoát thi thử</button></div>';
-  h+='<div class="lshead"><h2>Thi thử · '+esc(LS_META[LS_CUR].title)+'</h2></div>';
-  if(ex.submitted){
-    h+='<div class="lsres"><h3>Kết quả thi thử</h3><div>Điểm: <b>'+f2(ex.result.score)+'</b> / '+g2(10)+'</div><div>Tên: <b>'+esc(ex.result.name)+'</b></div><div>Thời gian làm: <b>'+lsFmt(ex.result.secs)+'</b></div></div>';
-  }
-  h+='<div class="lssec">Phần I. Trắc nghiệm nhiều lựa chọn</div>';
-  ex.mcqOrder.forEach((i,idx)=>{
-    const it=LS_MCQ[i], pick=ex.ans.mcq[i];
-    h+='<div class="lsq"><div class="lsqt"><span class="qn">Câu '+(idx+1)+'</span>'+esc(it.q)+'</div>';
-    ex.optPerm[i].forEach((oi,p)=>{
-      h+='<button class="lsopt'+(pick===oi?' picked':'')+'" '+(ex.submitted?'disabled':'')+' onclick="lsExamPick('+i+','+oi+')"><b>'+"ABCD"[p]+'</b><span>'+esc(it.o[oi])+'</span></button>';
-    });
-    h+='</div>';
-  });
-  h+='<div class="lssec">Phần II. Trắc nghiệm đúng – sai</div>';
-  ex.dsOrder.forEach((j,idx)=>{
-    const d=LS_DS[j], st=ex.ans.ds[j]||{};
-    h+='<div class="lsq lsds"><div class="lsqt"><span class="qn">Câu '+(idx+1)+'</span>Đọc tư liệu và xác định Đúng/Sai cho từng ý</div>'
-      +'<div class="lsds-grid"><div class="lspass"><div class="lspass-h">📜 Tư liệu</div>'+lsPass(d.p)+'</div><div class="lsstmts">';
-    ex.stPerm[j].forEach((k,p)=>{
-      const v=st[k];
-      h+='<div class="lsst"><div class="lsst-t"><span class="lsl">'+"abcd"[p]+'</span><span>'+esc(d.s[k])+'</span></div>'
-        +'<div class="lsseg"><button class="'+(v===true?'picked':'')+'" '+(ex.submitted?'disabled':'')+' onclick="lsExamDs('+j+','+k+',true)">✓ Đúng</button>'
-        +'<button class="'+(v===false?'picked':'')+'" '+(ex.submitted?'disabled':'')+' onclick="lsExamDs('+j+','+k+',false)">✗ Sai</button></div></div>';
-    });
-    h+='</div></div></div>';
-  });
-  h+='<div class="nav">'+(ex.submitted?'<button class="btn" onclick="lsExamStart()">🔁 Thi lại (trộn lại)</button>':'<button class="btn" onclick="lsExamSubmit()">NỘP BÀI</button>')+'</div>';
-  el.innerHTML=h;
-  lsUpdBar();
-  if(keep) window.scrollTo(0,y);
-}
+function lsExamResultHTML(){ const r=lsS.exam.result;
+  return '<h3 style="margin:0 0 6px">Kết quả thi thử</h3><div>Điểm: <b>'+f2(r.score)+'</b> / '+g2(LS_MAXT())+'</div><div>Tên: <b>'+esc(r.name)+'</b></div><div>Thời gian làm: <b>'+lsFmt(r.secs)+'</b></div>'; }
 
 /* ---- nút quay lại: nhớ tab / bài trước đó ---- */
 let NAV_STACK=[], NAV_CUR=null, NAV_RESTORING=false;
 (function(){ const st=showTab; showTab=function(n){
   if(!NAV_RESTORING && NAV_CUR){ NAV_STACK.push(NAV_CUR); if(NAV_STACK.length>30) NAV_STACK.shift(); }
   st(n);
-  NAV_CUR = n==='ls' ? {ls:LS_CUR} : {tab:n};
+  NAV_CUR = n==='ls' ? {ls:LS_NS} : {tab:n};
 }; })();
 function navBack(){
   const t=NAV_STACK.pop();
   if(!t){ showChooser(); return; }
   NAV_RESTORING=true;
-  if(t.ls){ setLs(t.ls); lsRender(); showTab('ls'); } else { showTab(t.tab); }
+  if(t.ls){ lsOpen(t.ls,false); lsRender(); showTab('ls'); } else { showTab(t.tab); }
   NAV_RESTORING=false;
 }
 
@@ -2363,18 +2366,15 @@ function lsSummary(){
     +(miss?' · còn '+miss+' câu đúng–sai chưa đủ 4 ý':'')+'</div>';
 }
 function lsSubmit(){ lsS.sub=true; lsRender(); document.getElementById("ls").scrollIntoView({behavior:"smooth",block:"start"}); }
-function setLs(n){
-  LS_CUR=n; const D={1:[LS1_MCQ,LS1_DS],2:[LS2_MCQ,LS2_DS],3:[LS3_MCQ,LS3_DS]}[n]; LS_MCQ=D[0]; LS_DS=D[1]; lsS=LS_STATES[n];
-  const ol=document.querySelector("#lsbar .lsof"); if(ol) ol.textContent="/ "+g2(LS_MAXT());
-}
+function setLs(n){ lsOpen([n],false); }
 function lsResultHTML(){
   const m=lsMcqPts(), d=lsDsTotal();
-  let h='<h3>'+esc(LS_META[LS_CUR].title)+'</h3>';
+  let h='<h3>'+esc(lsHead().title)+'</h3>';
   h+='<div style="color:#475569">Điểm: <b>'+f2(m+d)+'</b> / '+g2(LS_MAXT())+'</div>';
   h+='<div class="lmsec">Phần I. Trắc nghiệm nhiều lựa chọn</div>';
   LS_MCQ.forEach((it,i)=>{
     const ch=lsS.mcq[i];
-    h+='<div class="lmq"><p><b class="n">Câu '+(i+1)+'.</b> '+esc(it.q)+'</p>';
+    h+='<div class="lmq"><p><b class="n">'+lsQlab('m',i)+'.</b> '+esc(it.q)+'</p>';
     it.o.forEach((o,oi)=>{
       let cls='';
       if(oi===it.a) cls='ok';
@@ -2386,7 +2386,7 @@ function lsResultHTML(){
   h+='<div class="lmsec">Phần II. Trắc nghiệm đúng – sai</div>';
   LS_DS.forEach((dd,j)=>{
     const st=lsS.ds[j]||{};
-    h+='<div class="lmq"><p><b class="n">Câu '+(j+1)+'.</b></p><div class="lmpass">'+lsPass(dd.p)+'</div>';
+    h+='<div class="lmq"><p><b class="n">'+lsQlab('d',j)+'.</b></p><div class="lmpass">'+lsPass(dd.p)+'</div>';
     dd.s.forEach((s,k)=>{
       const v=st[k], ans=dd.ans[k];
       const cT=ans===true?'ok':(v===true?'bad':''), cF=ans===false?'ok':(v===false?'bad':'');
