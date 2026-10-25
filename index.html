@@ -152,6 +152,20 @@ body.locked #app{display:none}
 #lsModal .lmst{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed #e2e8f0;font-size:.97rem}
 #lsModal .lmst .r{white-space:nowrap;font-weight:700}
 #lsModal .lmpass{background:#f8fafc;border-left:4px solid #6366f1;padding:10px 12px;border-radius:8px;font-size:.95rem;white-space:pre-line;margin-bottom:8px}
+.lsflag{display:inline-block;margin:8px 0 0 6px;border:1px solid #e2e8f0;background:#fff;border-radius:10px;padding:4px 10px;font-size:1.05rem;line-height:1.2;cursor:pointer;opacity:.4;filter:grayscale(1)}
+.lsflag.on{opacity:1;filter:none;background:#fef3c7;border-color:#f59e0b}
+#lsModal button.lmo{display:flex;width:100%;font:inherit;text-align:left;cursor:pointer;background:#fff;color:#1e293b}
+#lsModal button.lmo:disabled{cursor:default}
+#lsModal button.lmb{font:inherit;cursor:pointer;color:#1e293b}
+#lsModal button.lmb:disabled{cursor:default}
+#lsbody .lsq.glow,#lsbody .lsst.glow{box-shadow:0 0 0 3px #facc15,0 0 24px 6px rgba(250,204,21,.85)!important;border-color:#facc15!important;transition:box-shadow .3s}
+#lsFloatWrap{position:fixed;right:14px;bottom:96px;z-index:250;display:none}
+body.ls-mode #lsFloatWrap.show{display:block}
+#lsFloat{position:relative;width:54px;height:54px;border-radius:50%;border:none;background:linear-gradient(135deg,#f59e0b,#fbbf24);box-shadow:0 6px 18px rgba(0,0,0,.3);font-size:1.5rem;cursor:grab;touch-action:none;user-select:none}
+#lsFloat .cnt{position:absolute;top:-4px;right:-4px;background:#dc2626;color:#fff;border-radius:999px;font-size:.72rem;font-weight:800;padding:1px 6px;min-width:18px;line-height:1.4}
+#lsFloatMenu{position:absolute;bottom:64px;right:0;width:230px;max-height:55vh;overflow:auto;background:#fff;color:#1e293b;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.3);padding:10px;display:none}
+#lsFloatMenu.open{display:block}
+#lsFloatMenu button{display:block;width:100%;text-align:left;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:8px 10px;margin:6px 0;font:inherit;cursor:pointer;color:#1e293b}
 #login .lbox.spin{animation:lspin .6s ease-in-out both!important}
 @keyframes lspin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .lerr{color:#be123c;font-weight:800;min-height:26px;margin-top:8px}
@@ -1017,6 +1031,7 @@ body.sv-ls #lsbody>.lssec ~ .lssec{margin-top:64px!important}
 </style>
 </head>
 <body class="locked">
+<div id="lsFloatWrap"><div id="lsFloatMenu"><div style="font-weight:800;margin:2px 4px 4px">Câu đã đánh dấu</div><div id="lsFloatList"></div></div><button id="lsFloat" type="button" aria-label="Câu đã đánh dấu">🚩<span class="cnt" id="lsFloatN">0</span></button></div>
 <div id="lsModal" class="hidden" onclick="if(event.target===this)lsCloseResult()"><div class="lmbox" role="dialog" aria-label="Kết quả và đáp án"><button class="lmx" onclick="lsCloseResult()" aria-label="Đóng">✕</button><div id="lsmBody"></div></div></div>
 <div id="login"><div class="lbox">
   <div class="lbrand">WEBSITE HỌC TẬP CỦA LÒ TÔN</div>
@@ -1908,7 +1923,7 @@ const LS3_MCQ=[{"q": "Xu thế toàn cầu hóa là hệ quả của", "o": ["s�
 const LS3_DS=[{"p": "Đọc tư liệu sau:\nNguy cơ chiến tranh thế giới bị đẩy lùi, song hòa bình ở nhiều khu vực vẫn bị đe dọa, thậm chí nhiều nơi xung đột diễn ra nghiêm trọng và chiều hướng ngày càng rối loạn. Có người còn tỏ ra bi quan cho rằng đây là “thời kỳ hỗn loạn”, “thế giới ngày nay bạo loạn bùng nổ, cắt không dứt, dẹp vẫn loạn”. Bởi “xiềng xích của cuộc xung đột Đông - Tây đã mất đi, chỉ còn lại những lợi ích dân tộc đấu tranh với nhau\".\n(Lý Thực Cốc - Mỹ thay đổi lớn chiến lược toàn cầu, NXB Chính trị Quốc gia Hà Nội, 1996, tr.25)", "s": ["Sau Chiến tranh lạnh, thế giới vẫn xảy ra những xung đột “lợi ích dân tộc” ở nhiều nơi.", "Nhìn chung, thế giới sau Chiến tranh lạnh là \"thời kỳ hỗn loạn\" với những bạo loạn bùng nổ.", "\"...những lợi ích dân tộc đấu tranh với nhau\" đã đưa đến sự rạn nứt giữa dân tộc và quốc gia ngày càng lớn.", "Sự phức tạp của vấn đề dân tộc do hậu quả thực dân phương Tây phân chia thuộc địa, khu vực ảnh hưởng dựa trên sự phân bố dân cư các chủng tộc, dân tộc."], "ans": [true, false, false, false], "e": ["", "", "", ""]}, {"p": "Đọc tư liệu sau:\nSự chấm dứt Chiến tranh lạnh và sự sụp đổ của hệ thống xã hội chủ nghĩa (XHCN) thế giới đã kết thúc thời kỳ thế giới hai cực, chấm dứt sự đối đầu giữa hai hệ thống chính trị, kinh tế, xã hội, mở ra một thời kỳ hội nhập kinh tế toàn cầu thực sự với sự chuyển đổi của hầu hết các quốc gia đã từng là XHCN, các quốc gia đang phát triển sang kinh tế thị trường, mở cửa hội nhập kinh tế quốc tế, xu thế hòa bình, hợp tác phát triển đã trở thành xu thế chính của thời đại. Đây là đặc trưng cực kỳ quan trọng.\n(Võ Đại Lược: Những vấn đề lớn về toàn cầu hoá kinh tế, Tạp chí Những vấn đề kinh tế và chính trị thế giới, số 9(125)-2006, tr.9.)", "s": ["Chiến tranh lạnh thực sự kết thúc khi Liên Xô tan rã và trật tự hai cực sụp đổ.", "Sự chấm dứt Chiến tranh lạnh mở ra xu thế toàn cầu hóa và một thời kỳ hội nhập quốc tế toàn cầu thực sự.", "Hòa bình, hợp tác và phát triển là dòng chảy chính của thời đại, phổ biến của sự phát triển thế giới.", "Chấm dứt sự đối đầu giữa hai hệ thống chính trị, kinh tế, xã hội đã đưa đến sự xác lập của trật tự thế giới đa cực nhiều trung tâm."], "ans": [true, true, true, false], "e": ["", "", "", ""]}];
 let LS_MCQ=LS1_MCQ, LS_DS=LS1_DS;
 const LS_META={1:{title:"Lịch sử 12 · Bài 1: Liên Hợp Quốc",tag:"GK1"},2:{title:"Lịch sử 12 · Bài 2: Trật tự thế giới trong Chiến tranh lạnh",tag:"GK1"},3:{title:"Lịch sử 12 · Bài 3: Thế giới sau Chiến tranh lạnh",tag:"GK1"}};
-const LS_STATES={1:{mcq:{},ds:{},sub:false},2:{mcq:{},ds:{},sub:false},3:{mcq:{},ds:{},sub:false}};
+const LS_STATES={1:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}}},2:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}}},3:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}}}};
 let LS_CUR=1;
 const LS_DS_PTS=[0,0.1,0.25,0.5,1];
 let lsS=LS_STATES[1];
@@ -1953,7 +1968,7 @@ function lsRender(){
   h+='<div class="lssec">Phần I. Trắc nghiệm nhiều lựa chọn</div>';
   LS_MCQ.forEach((it,i)=>{
     const ch=lsS.mcq[i], done=ch!==undefined, ok=done&&ch===it.a;
-    h+='<div class="lsq'+(lsS.fresh==='m'+i?' fresh':'')+'"><div class="lsqt"><span class="qn">Câu '+(i+1)+'</span>'+esc(it.q)+'</div>';
+    h+='<div class="lsq'+(lsS.fresh==='m'+i?' fresh':'')+(lsS.glow==='m'+i?' glow':'')+'" data-m="'+i+'"><div class="lsqt"><span class="qn">Câu '+(i+1)+'</span>'+esc(it.q)+'</div>';
     it.o.forEach((o,oi)=>{
       let cls="";
       if(done){ if(oi===it.a) cls="okc"; else if(oi===ch) cls="badc"; }
@@ -1962,6 +1977,8 @@ function lsRender(){
     if(done){
       h+='<div class="lsexp '+(ok?'ok':'bad')+'"><b>'+(ok?'✅ Đúng · +'+f2(LS_PER()).replace('.',',')+' điểm':'❌ Sai · +0 điểm. Đáp án đúng: '+"ABCD"[it.a]+'. '+esc(it.o[it.a]))+'</b>'+(it.e?'<br>💡 '+esc(it.e):'')+'</div>';
     }
+    const flM=!!lsS.flag.mcq[i];
+    h+='<button class="lsflag'+(flM?' on':'')+'" title="Đánh dấu xem lại" aria-label="Đánh dấu xem lại" onclick="lsToggleFlag(\'m\','+i+')">🚩</button>';
     h+='</div>';
   });
   h+='<div class="lssec">Phần II. Trắc nghiệm đúng – sai</div>';
@@ -1975,10 +1992,12 @@ function lsRender(){
       const dis=(done||locked)?'disabled':'';
       const cT=done?(ans===true?'okc':(v===true?'badc':'')):'';
       const cF=done?(ans===false?'okc':(v===false?'badc':'')):'';
-      h+='<div class="lsst '+(done?(ok?'st-ok':'st-bad'):'')+'">'
+      h+='<div class="lsst '+(done?(ok?'st-ok':'st-bad'):'')+(lsS.glow==='d'+j+'-'+k?' glow':'')+'" data-d="'+j+'-'+k+'">'
         +'<div class="lsst-t"><span class="lsl">'+"abcd"[k]+'</span><span>'+esc(s)+'</span></div>'
         +'<div class="lsseg"><button class="'+cT+'" '+dis+' onclick="lsPickDs('+j+','+k+',true)">✓ Đúng</button>'
         +'<button class="'+cF+'" '+dis+' onclick="lsPickDs('+j+','+k+',false)">✗ Sai</button></div>';
+      const flD=!!(lsS.flag.ds[j]&&lsS.flag.ds[j][k]);
+      h+='<button class="lsflag'+(flD?' on':'')+'" title="Đánh dấu xem lại" aria-label="Đánh dấu xem lại" onclick="lsToggleFlag(\'d\','+j+','+k+')">🚩</button>';
       if(done) h+='<div class="lsexp '+(ok?'ok':'bad')+'"><b>'+(ok?'✅ Đúng':'❌ Sai')+' · đáp án: '+(ans?'Đúng':'Sai')+'</b><br>💡 '+esc(d.e[k])+'</div>';
       h+='</div>';
     });
@@ -1987,16 +2006,16 @@ function lsRender(){
     h+='</div></div></div>';
   });
   h+='<div class="lsres">'+(lsS.sub?lsSummary():'')+'</div>';
-  h+='<div class="nav"><button class="btn ghost" onclick="lsReset()">🔄 Làm lại</button></div>';
+  h+='<div class="nav">'+(lsCount('wrong')?'<button id="lsReviewBtn" class="btn" onclick="lsOpenReview(\'wrong\')">ÔN TẬP LẠI NHỮNG CÂU SAI</button>':'')+'<button class="btn ghost" onclick="lsReset()">🔄 Làm lại</button></div>';
   el.innerHTML=h;
-  lsUpdBar();
+  lsUpdBar(); lsUpdFloat();
 }
 function lsPickMcq(i,oi){
   if(lsS.sub||lsS.mcq[i]!==undefined) return; lsS.mcq[i]=oi;
   const card=document.querySelectorAll("#lsbody .lsq")[i]; if(!card){ lsRender(); return; }
   const a=LS_MCQ[i].a;
   card.querySelectorAll(".lsopt").forEach((b,k)=>{ b.disabled=true; if(k===a) b.classList.add("okc"); else if(k===oi) b.classList.add("badc"); });
-  lsUpdBar();
+  lsUpdBar(); if(lsCount("wrong")&&!document.getElementById("lsReviewBtn")) lsRender();
 }
 function lsPickDs(j,k,v){
   if(lsS.sub) return; const st=lsS.ds[j]||(lsS.ds[j]={}); if(st[k]!==undefined) return; st[k]=v;
@@ -2008,8 +2027,96 @@ function lsPickDs(j,k,v){
   if(c0) bt[0].classList.add(c0); if(c1) bt[1].classList.add(c1);
   const p=lsDsPts(j), dsp=card.querySelector(".lsdsp");
   if(dsp&&p!==null) dsp.innerHTML='Điểm câu này: <span class="lspts">'+f2(p)+'</span> / 1,00 · đúng '+LS_DS[j].ans.filter((a,x)=>st[x]===a).length+'/4 ý';
-  lsUpdBar();
+  lsUpdBar(); if(lsCount("wrong")&&!document.getElementById("lsReviewBtn")) lsRender();
 }
+function lsDone(){
+  if(Object.keys(lsS.mcq).length<LS_MCQ.length) return false;
+  return LS_DS.every((d,j)=>Object.keys(lsS.ds[j]||{}).length===d.s.length);
+}
+function lsToggleFlag(t,j,k){
+  lsS.flag=lsS.flag||{mcq:{},ds:{}};
+  if(t==='m'){ if(lsS.flag.mcq[j]) delete lsS.flag.mcq[j]; else lsS.flag.mcq[j]=true; }
+  else { const o=lsS.flag.ds[j]||(lsS.flag.ds[j]={}); if(o[k]) delete o[k]; else o[k]=true; }
+  const y=window.scrollY; lsRender(); window.scrollTo(0,y);
+}
+let LS_REV_MODE='wrong';
+function lsReviewItems(mode){
+  const mcq=[], ds=[];
+  LS_MCQ.forEach((it,i)=>{ const ch=lsS.mcq[i]; const wrong=ch!==undefined&&ch!==it.a; const fl=!!lsS.flag.mcq[i]; if(mode==='wrong'?wrong:fl) mcq.push(i); });
+  LS_DS.forEach((d,j)=>{ const st=lsS.ds[j]||{}, ks=[];
+    d.s.forEach((s,k)=>{ const wrong=st[k]!==undefined&&st[k]!==d.ans[k]; const fl=!!(lsS.flag.ds[j]&&lsS.flag.ds[j][k]); if(mode==='wrong'?wrong:fl) ks.push(k); });
+    if(ks.length) ds.push({j,ks}); });
+  return {mcq,ds};
+}
+function lsCount(mode){ const R=lsReviewItems(mode); return R.mcq.length+R.ds.reduce((a,x)=>a+x.ks.length,0); }
+function lsOpenReview(mode){
+  LS_REV_MODE=mode; lsS.rev=lsS.rev||{mcq:{},ds:{}};
+  lsRenderReview();
+  document.getElementById("lsModal").classList.remove("hidden");
+  document.body.style.overflow="hidden";
+  document.querySelector("#lsModal").scrollTop=0;
+}
+function lsRenderReview(){
+  const mode=LS_REV_MODE, R=lsReviewItems(mode), rv=lsS.rev;
+  const total=lsCount(mode);
+  const good=R.mcq.filter(i=>rv.mcq[i]===LS_MCQ[i].a).length
+    +R.ds.reduce((a,x)=>a+x.ks.filter(k=>rv.ds[x.j]&&rv.ds[x.j][k]===LS_DS[x.j].ans[k]).length,0);
+  const title=mode==='wrong'?'Ôn tập lại những câu sai':'Các câu đã đánh dấu xem lại';
+  let h='<h3>'+title+'</h3>';
+  if(!total){ h+='<p style="color:#475569">Không có câu nào.</p>'; document.getElementById("lsmBody").innerHTML=h; return; }
+  h+='<div style="color:#475569">Làm lại đúng: <b>'+good+'</b> / '+total+' · điểm chính không thay đổi</div>';
+  R.mcq.forEach(i=>{ const it=LS_MCQ[i], ch=rv.mcq[i];
+    h+='<div class="lmq"><p><b class="n">Câu '+(i+1)+'.</b> '+esc(it.q)+'</p>';
+    it.o.forEach((o,oi)=>{ let cls=''; if(ch!==undefined){ if(oi===it.a) cls='ok'; else if(oi===ch) cls='bad'; }
+      h+='<button class="lmo '+cls+'" '+(ch!==undefined?'disabled':'')+' onclick="lsRevMcq('+i+','+oi+')"><b>'+"ABCD"[oi]+'.</b><span>'+esc(o)+'</span></button>'; });
+    h+='</div>'; });
+  R.ds.forEach(x=>{ const d=LS_DS[x.j];
+    h+='<div class="lmq"><p><b class="n">Câu '+(x.j+1)+'.</b></p><div class="lmpass">'+lsPass(d.p)+'</div>';
+    x.ks.forEach(k=>{ const v=rv.ds[x.j]&&rv.ds[x.j][k], ans=d.ans[k], dis=v!==undefined?'disabled':'';
+      const cT=v===undefined?'':(ans===true?'ok':(v===true?'bad':'')), cF=v===undefined?'':(ans===false?'ok':(v===false?'bad':''));
+      h+='<div class="lmst"><span><b>'+"abcd"[k]+'.</b> '+esc(d.s[k])+'</span><span class="lmseg"><button class="lmb '+cT+'" '+dis+' onclick="lsRevDs('+x.j+','+k+',true)">✓ Đúng</button><button class="lmb '+cF+'" '+dis+' onclick="lsRevDs('+x.j+','+k+',false)">✗ Sai</button></span></div>'; });
+    h+='</div>'; });
+  document.getElementById("lsmBody").innerHTML=h;
+}
+function lsRevMcq(i,oi){ lsS.rev.mcq[i]=oi; lsRenderReview(); }
+function lsRevDs(j,k,v){ (lsS.rev.ds[j]||(lsS.rev.ds[j]={}))[k]=v; lsRenderReview(); }
+function lsUpdFloat(){
+  const n=lsCount('flag'), w=document.getElementById('lsFloatWrap');
+  if(!w) return;
+  document.getElementById('lsFloatN').textContent=n;
+  w.classList.toggle('show', n>0);
+  if(!n) document.getElementById('lsFloatMenu').classList.remove('open');
+}
+function lsFloatOpen(){
+  const R=lsReviewItems('flag'); let h='';
+  R.mcq.forEach(i=>{ h+='<button onclick="lsGlow(\'m\','+i+')">Câu '+(i+1)+' · trắc nghiệm</button>'; });
+  R.ds.forEach(x=>x.ks.forEach(k=>{ h+='<button onclick="lsGlow(\'d\','+x.j+','+k+')">Câu '+(x.j+1)+' · ý '+"abcd"[k]+'</button>'; }));
+  document.getElementById('lsFloatList').innerHTML=h||'<div style="color:#475569">Chưa có câu nào.</div>';
+  document.getElementById('lsFloatMenu').classList.add('open');
+}
+function lsGlow(t,j,k){
+  lsS.glow = t==='m' ? 'm'+j : 'd'+j+'-'+k;
+  document.querySelectorAll('#lsbody .glow').forEach(e=>e.classList.remove('glow'));
+  const el = t==='m' ? document.querySelector('#lsbody [data-m="'+j+'"]') : document.querySelector('#lsbody [data-d="'+j+'-'+k+'"]');
+  document.getElementById('lsFloatMenu').classList.remove('open');
+  if(el){ el.classList.add('glow'); el.scrollIntoView({behavior:'smooth',block:'center'}); }
+}
+(function(){
+  const w=document.getElementById('lsFloatWrap'), btn=document.getElementById('lsFloat'), menu=document.getElementById('lsFloatMenu');
+  let drag=null, moved=false;
+  function place(x,y){
+    const W=innerWidth, H=innerHeight, r=w.getBoundingClientRect();
+    x=Math.min(Math.max(4,x),W-r.width-4); y=Math.min(Math.max(4,y),H-r.height-4);
+    w.style.left=x+'px'; w.style.top=y+'px'; w.style.right='auto'; w.style.bottom='auto';
+    const left = x+r.width/2 < W/2;
+    menu.style.left = left ? '0' : 'auto'; menu.style.right = left ? 'auto' : '0';
+  }
+  btn.addEventListener('pointerdown',e=>{ const r=w.getBoundingClientRect(); drag={dx:e.clientX-r.left,dy:e.clientY-r.top,x0:e.clientX,y0:e.clientY}; moved=false; btn.setPointerCapture(e.pointerId); });
+  btn.addEventListener('pointermove',e=>{ if(!drag) return; if(Math.hypot(e.clientX-drag.x0,e.clientY-drag.y0)>6) moved=true; if(moved) place(e.clientX-drag.dx,e.clientY-drag.dy); });
+  btn.addEventListener('pointerup',()=>{ if(!drag) return; const was=moved; drag=null; if(!was){ menu.classList.contains('open') ? menu.classList.remove('open') : lsFloatOpen(); } });
+  document.addEventListener('pointerdown',e=>{ if(!w.contains(e.target)) menu.classList.remove('open'); });
+  addEventListener('resize',()=>{ if(w.style.left) place(parseFloat(w.style.left),parseFloat(w.style.top)); });
+})();
 function lsSummary(){
   const m=lsMcqPts(), d=lsDsTotal(), miss=LS_DS.filter((_,j)=>lsDsPts(j)===null).length;
   return '<h3 style="margin:0 0 6px">Kết quả: '+f2(m+d)+' / '+f2(LS_MAXT())+'</h3>'
@@ -2058,7 +2165,7 @@ function lsShowResult(){
 }
 function lsCloseResult(){ document.getElementById("lsModal").classList.add("hidden"); document.body.style.overflow=""; }
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") lsCloseResult(); });
-function lsReset(){ lsS.mcq={}; lsS.ds={}; lsS.sub=false; lsS.last=0; lsRender(); window.scrollTo({top:0,behavior:"smooth"}); }
+function lsReset(){ lsS.mcq={}; lsS.ds={}; lsS.sub=false; lsS.flag={mcq:{},ds:{}}; lsS.rev={mcq:{},ds:{}}; lsS.last=0; lsRender(); window.scrollTo({top:0,behavior:"smooth"}); }
 
 
 function setNavH(){ const n=document.querySelector("nav.tabs"); document.documentElement.style.setProperty("--navh",(innerWidth>640&&n?n.offsetHeight:0)+"px"); }
