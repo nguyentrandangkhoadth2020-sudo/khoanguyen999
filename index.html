@@ -166,6 +166,21 @@ body.ls-mode #lsFloatWrap.show{display:block}
 #lsFloatMenu{position:absolute;bottom:64px;right:0;width:230px;max-height:55vh;overflow:auto;background:#fff;color:#1e293b;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.3);padding:10px;display:none}
 #lsFloatMenu.open{display:block}
 #lsFloatMenu button{display:block;width:100%;text-align:left;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:8px 10px;margin:6px 0;font:inherit;cursor:pointer;color:#1e293b}
+mark.hl{color:inherit;border-radius:3px;padding:0 1px}
+mark.hl-blue{background:#93c5fd}mark.hl-yellow{background:#fde047}mark.hl-pink{background:#f9a8d4}mark.hl-green{background:#86efac}
+#lsPal{position:absolute;z-index:260;display:flex;gap:7px;align-items:center;background:#1e293b;padding:6px 9px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+#lsPal.hidden{display:none}
+#lsPal button{width:26px;height:26px;border-radius:50%;border:2px solid #fff;cursor:pointer;padding:0;flex:0 0 auto}
+#lsPal .c-blue{background:#93c5fd}#lsPal .c-yellow{background:#fde047}#lsPal .c-pink{background:#f9a8d4}#lsPal .c-green{background:#86efac}
+#lsPal .c-none{background:#fff;color:#1e293b;font-weight:800;font-size:.8rem}
+#lsbody{-webkit-touch-callout:none}
+.lsnbtn{display:inline-block;margin:8px 0 0 6px;border:1px solid #e2e8f0;background:#fff;border-radius:10px;padding:4px 10px;font-size:1.05rem;line-height:1.2;cursor:pointer}
+.lsnote{background:#fef9c3;border-left:4px solid #eab308;border-radius:10px;padding:8px 12px;margin:0 0 10px;font-size:.95rem;white-space:pre-wrap;color:#713f12}
+.lsnoteEd{margin-top:8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:10px}
+.lsnoteEd textarea{width:100%;box-sizing:border-box;font:inherit;border:1px solid #cbd5e1;border-radius:10px;padding:8px}
+.lsnoteBtns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.lsnoteBtns button{border:none;border-radius:10px;padding:6px 12px;font:inherit;cursor:pointer;background:#e2e8f0}
+.lsnoteBtns button:first-child{background:#4338ca;color:#fff}
 #login .lbox.spin{animation:lspin .6s ease-in-out both!important}
 @keyframes lspin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .lerr{color:#be123c;font-weight:800;min-height:26px;margin-top:8px}
@@ -649,8 +664,6 @@ button.mrow:hover{border-color:var(--pur);background:var(--pur-s)}
 [data-theme=dark] .cbox .mrow{background:#1a1733}
 .cbox .xbtn{background:#fff}
 
-/* ===== nút tìm Google ===== */
-.askbtn{position:absolute;display:none;z-index:500;border:none;border-radius:999px;background:#1e293b;color:#fff;font:600 14px "Be Vietnam Pro",sans-serif;padding:7px 14px;box-shadow:0 6px 18px rgba(0,0,0,.25);cursor:pointer;white-space:nowrap}
 /* ===== nền trang đăng nhập: file nen.jpg cạnh index.html trên GitHub ===== */
 #login{background:linear-gradient(rgba(15,23,42,.42),rgba(15,23,42,.6)),url("nen.jpg") center 15%/cover no-repeat!important}
 #login{align-items:flex-end!important;padding-bottom:28px!important}
@@ -1031,6 +1044,7 @@ body.sv-ls #lsbody>.lssec ~ .lssec{margin-top:64px!important}
 </style>
 </head>
 <body class="locked">
+<div id="lsPal" class="hidden"><button class="c-blue" data-c="blue" aria-label="Xanh"></button><button class="c-yellow" data-c="yellow" aria-label="Vàng"></button><button class="c-pink" data-c="pink" aria-label="Hồng"></button><button class="c-green" data-c="green" aria-label="Xanh lá"></button><button class="c-none" data-c="none" aria-label="Bỏ tô">✕</button></div>
 <div id="lsFloatWrap"><div id="lsFloatMenu"><div style="font-weight:800;margin:2px 4px 4px">Câu đã đánh dấu</div><div id="lsFloatList"></div></div><button id="lsFloat" type="button" aria-label="Câu đã đánh dấu">🚩<span class="cnt" id="lsFloatN">0</span></button></div>
 <div id="lsModal" class="hidden" onclick="if(event.target===this)lsCloseResult()"><div class="lmbox" role="dialog" aria-label="Kết quả và đáp án"><button class="lmx" onclick="lsCloseResult()" aria-label="Đóng">✕</button><div id="lsmBody"></div></div></div>
 <div id="login"><div class="lbox">
@@ -1544,7 +1558,18 @@ function goPanel(i,instant){
   ps.forEach(p=>p.classList.remove("enter"));
   requestAnimationFrame(()=>ps[i].classList.add("enter"));
 }
-function chooseChap(n){ hideChooser(); if(/^ls[123]$/.test(n)){ setLs(+n[2]); lsRender(); showTab("ls"); return; } showTab(n==="amin"?"learn":n); }
+const LS_NOTE_PREFIX='lsnotes:';
+let lsStoreUser=null;
+function lsStoreLoad(){
+  if(lsStoreUser===curUser) return; lsStoreUser=curUser;
+  let all={}; try{ all=JSON.parse(localStorage.getItem(LS_NOTE_PREFIX+(curUser||'anon'))||'{}'); }catch(e){ all={}; }
+  [1,2,3].forEach(n=>{ LS_STATES[n].hl=(all[n]&&all[n].hl)||{}; LS_STATES[n].notes=(all[n]&&all[n].notes)||{}; });
+}
+function lsStoreSave(){
+  try{ const all={}; [1,2,3].forEach(n=>{ all[n]={hl:LS_STATES[n].hl||{}, notes:LS_STATES[n].notes||{}}; });
+    localStorage.setItem(LS_NOTE_PREFIX+(curUser||'anon'), JSON.stringify(all)); }catch(e){}
+}
+function chooseChap(n){ lsStoreLoad(); hideChooser(); if(/^ls[123]$/.test(n)){ setLs(+n[2]); lsRender(); showTab("ls"); return; } showTab(n==="amin"?"learn":n); }
 function choose(n){ chooseChap(n); }
 function choose(n){ document.getElementById("chooser").classList.add("hidden"); showTab(n); }
 // render tĩnh
@@ -1884,35 +1909,6 @@ function toggleDrop(){
 document.addEventListener("click",e=>{ if(!e.target.closest(".tabwrap")) closeDrop(); });
 renderPage();
 
-/* ===== Bôi đen → "🔎 Hỏi Google": tìm trên Google, phần AI tóm tắt của Google hiện ngay ===== */
-(function(){
-  const btn=document.createElement("button");
-  btn.type="button"; btn.className="askbtn"; btn.textContent="🔎 Hỏi Google";
-  document.body.appendChild(btn);
-  let picked="";
-  const hideBtn=()=>{ btn.style.display="none"; };
-  function place(){
-    const sel=window.getSelection();
-    const txt=sel?sel.toString().trim():"";
-    if(!sel||!sel.rangeCount||txt.length<2){ hideBtn(); return; }
-    const n=sel.anchorNode, el=n&&(n.nodeType===1?n:n.parentElement);
-    if(!el||!el.closest("main")||document.body.classList.contains("locked")){ hideBtn(); return; }
-    picked=txt.slice(0,200);
-    const r=sel.getRangeAt(0).getBoundingClientRect();
-    btn.style.display="block";
-    btn.style.left=Math.max(8,Math.min(window.scrollX+r.left,window.scrollX+innerWidth-150))+"px";
-    btn.style.top=(window.scrollY+r.top-42)+"px";
-  }
-  let timer;
-  document.addEventListener("selectionchange",()=>{ clearTimeout(timer); timer=setTimeout(place,250); });
-  document.addEventListener("scroll",hideBtn,{passive:true});
-  btn.addEventListener("mousedown",e=>e.preventDefault());
-  btn.addEventListener("click",()=>{
-    window.open("https://www.google.com/search?q="+encodeURIComponent(picked+" là gì, hóa học lớp 12"),"_blank","noopener");
-    hideBtn();
-  });
-})();
-
 /* ===== LỊCH SỬ · BÀI 1 LIÊN HỢP QUỐC (giữa kì) ===== */
 /* Phần I: 24 câu × 0,25đ. Phần II: 4 câu đúng–sai, mỗi câu 4 ý: đúng 1 ý 0,1 · 2 ý 0,25 · 3 ý 0,5 · 4 ý 1đ */
 const LS1_MCQ=[{"q": "Đầu năm 1945, đâu là vấn đề cấp bách đặt ra cho các nước Đồng minh chống phát xít?", "o": ["Phân chia lại thuộc địa của các nước.", "Tổ chức lại thế giới sau chiến tranh.", "Thiết lập trật tự thế giới mới hai cực.", "Phục hồi và phát triển kinh tế thế giới."], "a": 1, "e": "Đầu 1945, chiến tranh sắp kết thúc, các nước Đồng minh phải lo tổ chức lại thế giới sau chiến tranh (Hội nghị Ianta, 2/1945). Nhớ: 'tổ chức lại thế giới' là vấn đề cấp bách nhất lúc đó."}, {"q": "Yêu cầu bức thiết nào sau đây được đặt ra cho các nước Đồng minh khi cuộc chiến tranh thế giới thứ hai bước vào giai đoạn cuối?", "o": ["Đẩy mạnh xu thế khu vực hóa và toàn cầu hóa kinh tế.", "Thành lập tổ chức Hội Quốc liên để ngăn chặn chiến tranh.", "Tiêu diệt hoàn toàn chủ nghĩa phát xít và tổ chức lại thế giới.", "Thủ tiêu tất cả các hình thức của chế độ phân biệt chủng tộc."], "a": 2, "e": "Cuối Chiến tranh thế giới thứ hai, yêu cầu bức thiết là tiêu diệt hoàn toàn chủ nghĩa phát xít và tổ chức lại thế giới. Nhớ: vừa đánh bại phát xít, vừa xây dựng trật tự mới."}, {"q": "Trong giai đoạn cuối của Chiến tranh thế giới thứ hai, một trong những vấn đề cấp bách đặt ra là", "o": ["giúp đỡ các nước Đông Âu xây dựng cơ sở vật chất của chủ nghĩa xã hội.", "liên minh giữa Liên Xô và Mĩ để thiết lập trật tự thế giới mới sau chiến tranh.", "thành lập một ủy ban giúp đỡ các nước phát xít khắc phục hậu quả chiến tranh.", "thành lập một tổ chức quốc tế nhằm duy trì hòa bình và trật tự thế giới mới."], "a": 3, "e": "Giai đoạn cuối Chiến tranh thế giới II, vấn đề cấp bách là thành lập một tổ chức quốc tế để duy trì hòa bình và trật tự thế giới mới, tiền đề của Liên hợp quốc. Nhớ: đáp án D."}, {"q": "Bản Hiến chương Liên hợp quốc đã được thông qua khi cuộc chiến tranh thế giới thứ hai", "o": ["bước vào giai đoạn quyết liệt.", "bước vào giai đoạn kết thúc.", "bắt đầu lan ra khu vực châu Á.", "bắt đầu lan ra khu vực châu Phi."], "a": 1, "e": "Hiến chương được thông qua (6/1945) khi Chiến tranh thế giới II bước vào giai đoạn kết thúc: Đức đầu hàng 8/5/1945, Nhật đầu hàng 8–9/1945. Nhớ: 1945 là năm chiến tranh kết thúc."}, {"q": "Tổ chức Liên hợp quốc được thành lập năm 1945 nhằm đáp ứng nhu cầu nào sau đây của toàn thể nhân loại?", "o": ["Bảo vệ hòa bình, an ninh toàn thế giới.", "Chống biến đổi khí hậu trên toàn cầu.", "Nâng cao đời sống tinh thần con người.", "Thúc đẩy khoa học công nghệ phát triển."], "a": 0, "e": "Liên hợp quốc ra đời năm 1945 nhằm bảo vệ hòa bình, an ninh thế giới, mục tiêu hàng đầu của tổ chức. Nhớ: 'duy trì hòa bình và an ninh quốc tế'."}, {"q": "Sự kiện nào đánh dấu tổ chức Liên hợp quốc chính thức được thành lập?", "o": ["Hội nghị Ianta (Liên Xô) quyết định thành lập tổ chức Liên hợp quốc.", "Bản “Tuyên bố Liên hợp quốc” được đại diện 26 nước kí kết tại Oa-sinh-tơn (Mĩ).", "Đại diện 50 nước họp ở Xan Phran-xi-xcô (Mĩ) thông qua Hiến chương Liên hợp quốc.", "Hiến chương Liên hợp quốc được Quốc hội các nước thành viên phê chuẩn."], "a": 3, "e": "Hiến chương Liên hợp quốc được các nước thành viên phê chuẩn (trong đó có 5 nước thường trực Hội đồng Bảo an), đánh dấu LHQ chính thức ra đời ngày 24/10/1945. Hội nghị San Francisco (4–6/1945) chỉ thông qua Hiến chương, chưa phải thời điểm tổ chức chính thức hoạt động. Nhớ: phê chuẩn Hiến chương = LHQ ra đời."}, {"q": "Ngày 24/10 hàng năm được lấy là ngày Liên hợp quốc gắn liền với sự kiện lịch sử nào sau đây?", "o": ["Liên hợp quốc thông qua 17 mục tiêu Chương trình nghị sự 2030.", "Trung Quốc trở thành ủy viên thường trực của Hội đồng bảo an.", "Hội nghị Thượng đỉnh Thiên niên kỉ Liên hợp quốc được triệu tập.", "Hiến chương Liên hợp quốc được Quốc hội các nước phê chuẩn."], "a": 3, "e": "Ngày 24/10/1945, Hiến chương Liên hợp quốc chính thức có hiệu lực sau khi được các nước phê chuẩn. Ngày 24/10 hằng năm là Ngày Liên hợp quốc. Nhớ: 24/10/1945."}, {"q": "Tổ chức Liên hợp quốc ra đời không phải là kết quả của những quyết định tại hội nghị nào?", "o": ["Tê-hê-ran (I-ran, năm 1943).", "I-an-ta (Liên Xô, năm 1945).", "Muy-ních (Đức, năm 1938).", "Xan Phran-xi-xcô (Mĩ, năm 1945)."], "a": 2, "e": "Hội nghị Muy-ních (1938) là sự nhượng bộ của Anh, Pháp với Đức, không liên quan đến việc thành lập Liên hợp quốc. Tê-hê-ran (1943), I-an-ta (1945) và San Francisco (1945) đều là các hội nghị quyết định việc thành lập tổ chức này."}, {"q": "Nội dung nào sau đây không phản ánh đúng bối cảnh lịch sử hình thành tổ chức Liên hợp quốc?", "o": ["Nhân dân thế giới có khát vọng được chung sống hòa bình.", "Chủ nghĩa phát xít xuất hiện và cầm quyền ở nhiều nước.", "Ý thức của các nước Đồng minh về việc tổ chức thế giới.", "Nhu cầu thành lập tổ chức quốc tế mới thay thế tổ chức cũ."], "a": 1, "e": "Đáp án B. Khát vọng hòa bình của nhân dân, ý thức của các nước Đồng minh về việc tổ chức thế giới và nhu cầu thay thế Hội Quốc liên đều là bối cảnh hình thành LHQ. Câu này dễ nhầm, nên đối chiếu lại SGK và đáp án của giáo viên trước khi công bố."}, {"q": "Nhận xét nào sau đây phản ánh không đúng về sự thành lập tổ chức Liên hợp quốc?", "o": ["Phù hợp với khát vọng hòa bình chung của nhân dân thế giới.", "Quá trình hình thành trải qua nhiều hội nghị quốc tế khác nhau.", "Các cường quốc Đồng minh giữ vai trò chủ đạo trong việc thành lập.", "Quá trình thành lập lâu dài và chịu ảnh hưởng của chiến tranh lạnh."], "a": 3, "e": "Chiến tranh Lạnh (khoảng 1947–1991) bắt đầu sau khi Liên hợp quốc đã được thành lập (1945), nên không thể ảnh hưởng đến quá trình thành lập. Nhớ mốc: Chiến tranh Lạnh bắt đầu sau 1945."}, {"q": "Nhận xét nào sau đây phản ánh đúng về sự thành lập tổ chức Liên hợp quốc?", "o": ["Là kết quả của những thỏa thuận giữa Liên Xô và Anh.", "Phù hợp với khát vọng hòa bình chung của nhân dân thế giới.", "Các nước phát xít giữ vai trò chủ đạo trong việc thành lập.", "Quá trình thành lập lâu dài và chịu ảnh hưởng của Chiến tranh lạnh."], "a": 1, "e": "Nhận xét đúng: sự ra đời của Liên hợp quốc phù hợp khát vọng hòa bình chung của nhân dân thế giới. Các nhận xét khác sai: không phải thỏa thuận Liên Xô–Anh, phe phát xít không giữ vai trò chủ đạo, và Chiến tranh Lạnh diễn ra sau khi thành lập."}, {"q": "Mục tiêu nào sau đây của Liên hợp quốc là cơ sở cho các mục tiêu khác?", "o": ["duy trì hòa bình an ninh quốc tế.", "thúc đẩy quan hệ hữu nghị giữa các dân tộc.", "giải quyết các vấn đề về an ninh kinh tế xã hội.", "đảm bảo quyền con người, không phân biệt chủng tộc."], "a": 0, "e": "Mục tiêu duy trì hòa bình và an ninh quốc tế là mục tiêu hàng đầu (Điều 1 Hiến chương), là cơ sở để thực hiện các mục tiêu khác. Nhớ: mục tiêu số 1."}, {"q": "Đâu là một trong những mục tiêu của tổ chức Liên hợp quốc?", "o": ["Cân bằng quyền lực các nước.", "Xoá bỏ chế độ thực dân kiểu cũ.", "Duy trì hòa bình, an ninh thế giới.", "Thực hiện quyền tự do hàng hải."], "a": 2, "e": "Mục tiêu của Liên hợp quốc gồm: duy trì hòa bình và an ninh thế giới; phát triển quan hệ hữu nghị giữa các dân tộc; hợp tác quốc tế về kinh tế, xã hội, văn hóa, nhân đạo; trở thành trung tâm phối hợp hành động. Nhớ: 'duy trì hòa bình, an ninh' là mục tiêu cốt lõi."}, {"q": "Mục tiêu và nguyên tắc hoạt động của Liên hợp quốc được quy định bởi văn kiện quan trọng nào?", "o": ["Hiến chương.", "Hiến pháp.", "Hiệp định.", "Tuyên ngôn."], "a": 0, "e": "Mục tiêu và nguyên tắc hoạt động của Liên hợp quốc được quy định trong Hiến chương (Điều 1 và Điều 2). Nhớ: văn kiện nền tảng của LHQ là Hiến chương."}, {"q": "Đâu là một trong những nội dung của mục tiêu, hành động mang tính toàn cầu đến nay của Liên hợp quốc?", "o": ["Chống chiến tranh.", "Quyền tự do ngôn luận.", "Chống bạo lực gia đình.", "Chất lượng giáo dục."], "a": 3, "e": "Đáp án D. Chất lượng giáo dục là một trong 17 mục tiêu phát triển bền vững (SDG 4) của Chương trình nghị sự 2030 mà LHQ đang thúc đẩy trên toàn cầu."}, {"q": "Việt Nam có thể vận dụng nguyên tắc hoạt động nào của Liên hợp quốc để giải quyết vấn đề ở Biển Đông?", "o": ["Giải quyết các tranh chấp bằng biện pháp hoà bình.", "Sự nhất trí của các nước thường trực Hội đồng bảo an.", "Quyền bình đẳng giữa các thành viên Liên hợp quốc.", "Không đe doạ dùng vũ lực tấn công các quốc gia khác."], "a": 0, "e": "Việt Nam có thể vận dụng nguyên tắc giải quyết tranh chấp bằng biện pháp hòa bình (Điều 2, khoản 3, Hiến chương) để giải quyết vấn đề Biển Đông, dựa trên luật pháp quốc tế. Nhớ: hòa bình, không dùng vũ lực."}, {"q": "Nội dung nào là cơ sở để tổ chức Liên hợp quốc đề ra nguyên tắc “Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình”?", "o": ["Hòa bình là nguyện vọng, xu thế của các dân tộc trên thế giới.", "Hòa bình là điều kiện quyết định để duy trì chế độ chính trị.", "Mục đích của Liên hợp quốc là cân bằng lợi ích của các nước.", "Tranh chấp, xung đột xảy ra ở hầu hết các khu vực trên thế giới."], "a": 0, "e": "Hòa bình là nguyện vọng và xu thế chung của các dân tộc, là cơ sở để Liên hợp quốc đề ra nguyên tắc giải quyết tranh chấp bằng biện pháp hòa bình. Nhớ: cơ sở của nguyên tắc là khát vọng hòa bình."}, {"q": "Cơ quan nào của Liên hợp quốc chịu trách nhiệm chính trong việc duy trì hoà bình và an ninh thế giới?", "o": ["Đại hội đồng.", "Ban thư ký.", "Hội đồng bảo an.", "Tòa án quốc tế."], "a": 2, "e": "Hội đồng Bảo an chịu trách nhiệm chính trong việc duy trì hòa bình và an ninh thế giới. Nhớ: 5 thành viên thường trực (Mĩ, Anh, Pháp, Nga, Trung Quốc) có quyền phủ quyết."}, {"q": "Hiện nay, một trong những cuộc xung đột trên thế giới mà Liên hợp quốc vẫn chưa giải quyết được là ở", "o": ["En Xan-va-đo.", "Trung Đông.", "Goa-tê-ma-la.", "Mô-dăm-bích."], "a": 1, "e": "Trung Đông là khu vực xung đột kéo dài (ví dụ xung đột Israel–Palestine), Liên hợp quốc chưa giải quyết triệt để. Nhớ: xung đột Trung Đông là vấn đề tồn tại đến nay."}, {"q": "Một trong những điểm giống về mục tiêu của Liên hợp quốc so với các tổ chức quốc tế và khu vực khác là", "o": ["tập hợp thành viên vào liên minh quân sự.", "đem lại lợi ích cho các nước thành viên.", "thực hiện quyền tự do dân chủ, dân quyền.", "trao đổi về vốn, khoa học và kinh nghiệm."], "a": 1, "e": "Điểm chung về mục tiêu của Liên hợp quốc so với các tổ chức khác là đem lại lợi ích cho các nước thành viên, hướng tới hòa bình và hợp tác. Nhớ: mục tiêu hướng tới lợi ích chung của các thành viên."}, {"q": "Tổ chức quốc tế được xem như tiền thân của Liên hợp quốc là", "o": ["Hội Quốc liên.", "Liên minh châu Âu.", "Khối Đồng minh.", "Khối Hiệp ước."], "a": 0, "e": "Hội Quốc liên (1920–1946) được xem là tiền thân của Liên hợp quốc. Nhớ: Hội Quốc liên là tổ chức quốc tế đầu tiên, sau Chiến tranh thế giới I."}, {"q": "Nhằm duy trì hoà bình và an ninh thế giới sau chiến tranh, Hội nghị I-an-ta (2-1945) có quyết định quan trọng nào sau đây?", "o": ["Thành lập Ban Thư kí Liên hợp quốc.", "Thành lập tổ chức Hội Quốc liên.", "Thành lập tổ chức Liên hợp quốc.", "Duy trì và mở rộng Hội Quốc liên."], "a": 2, "e": "Hội nghị I-an-ta (2/1945) đã quyết định thành lập tổ chức Liên hợp quốc. Nhớ: I-an-ta là hội nghị của ba cường quốc Liên Xô, Mĩ, Anh."}, {"q": "Từ cuối tháng 4 đến cuối tháng 6-1945, 50 nước họp tại Xan Phran-xi-xcô (Mỹ) thông qua nội dung nào sau đây?", "o": ["Tiêu diệt tận gốc phát xít Nhật.", "Xét xử tội phạm chiến tranh thế giới.", "Kết thúc chiến tranh Triều Tiên.", "Hiến chương Liên hợp quốc."], "a": 3, "e": "Từ cuối 4/1945 đến cuối 6/1945, 50 nước họp tại San Francisco (Mĩ) và thông qua Hiến chương Liên hợp quốc. Nhớ: San Francisco – Hiến chương."}, {"q": "Một trong những quốc gia có vai trò quan trọng trong quá trình hình thành Liên hợp quốc là", "o": ["Liên Xô.", "Thái Lan.", "Lào.", "Nhật Bản."], "a": 0, "e": "Liên Xô là một trong những cường quốc Đồng minh đóng vai trò quan trọng trong quá trình hình thành Liên hợp quốc (cùng Mĩ, Anh, Trung Quốc). Nhớ: các nước Liên Xô, Mĩ, Anh, Trung Quốc là bốn cường quốc khởi xướng."}];
@@ -1923,7 +1919,7 @@ const LS3_MCQ=[{"q": "Xu thế toàn cầu hóa là hệ quả của", "o": ["s�
 const LS3_DS=[{"p": "Đọc tư liệu sau:\nNguy cơ chiến tranh thế giới bị đẩy lùi, song hòa bình ở nhiều khu vực vẫn bị đe dọa, thậm chí nhiều nơi xung đột diễn ra nghiêm trọng và chiều hướng ngày càng rối loạn. Có người còn tỏ ra bi quan cho rằng đây là “thời kỳ hỗn loạn”, “thế giới ngày nay bạo loạn bùng nổ, cắt không dứt, dẹp vẫn loạn”. Bởi “xiềng xích của cuộc xung đột Đông - Tây đã mất đi, chỉ còn lại những lợi ích dân tộc đấu tranh với nhau\".\n(Lý Thực Cốc - Mỹ thay đổi lớn chiến lược toàn cầu, NXB Chính trị Quốc gia Hà Nội, 1996, tr.25)", "s": ["Sau Chiến tranh lạnh, thế giới vẫn xảy ra những xung đột “lợi ích dân tộc” ở nhiều nơi.", "Nhìn chung, thế giới sau Chiến tranh lạnh là \"thời kỳ hỗn loạn\" với những bạo loạn bùng nổ.", "\"...những lợi ích dân tộc đấu tranh với nhau\" đã đưa đến sự rạn nứt giữa dân tộc và quốc gia ngày càng lớn.", "Sự phức tạp của vấn đề dân tộc do hậu quả thực dân phương Tây phân chia thuộc địa, khu vực ảnh hưởng dựa trên sự phân bố dân cư các chủng tộc, dân tộc."], "ans": [true, false, false, false], "e": ["", "", "", ""]}, {"p": "Đọc tư liệu sau:\nSự chấm dứt Chiến tranh lạnh và sự sụp đổ của hệ thống xã hội chủ nghĩa (XHCN) thế giới đã kết thúc thời kỳ thế giới hai cực, chấm dứt sự đối đầu giữa hai hệ thống chính trị, kinh tế, xã hội, mở ra một thời kỳ hội nhập kinh tế toàn cầu thực sự với sự chuyển đổi của hầu hết các quốc gia đã từng là XHCN, các quốc gia đang phát triển sang kinh tế thị trường, mở cửa hội nhập kinh tế quốc tế, xu thế hòa bình, hợp tác phát triển đã trở thành xu thế chính của thời đại. Đây là đặc trưng cực kỳ quan trọng.\n(Võ Đại Lược: Những vấn đề lớn về toàn cầu hoá kinh tế, Tạp chí Những vấn đề kinh tế và chính trị thế giới, số 9(125)-2006, tr.9.)", "s": ["Chiến tranh lạnh thực sự kết thúc khi Liên Xô tan rã và trật tự hai cực sụp đổ.", "Sự chấm dứt Chiến tranh lạnh mở ra xu thế toàn cầu hóa và một thời kỳ hội nhập quốc tế toàn cầu thực sự.", "Hòa bình, hợp tác và phát triển là dòng chảy chính của thời đại, phổ biến của sự phát triển thế giới.", "Chấm dứt sự đối đầu giữa hai hệ thống chính trị, kinh tế, xã hội đã đưa đến sự xác lập của trật tự thế giới đa cực nhiều trung tâm."], "ans": [true, true, true, false], "e": ["", "", "", ""]}];
 let LS_MCQ=LS1_MCQ, LS_DS=LS1_DS;
 const LS_META={1:{title:"Lịch sử 12 · Bài 1: Liên Hợp Quốc",tag:"GK1"},2:{title:"Lịch sử 12 · Bài 2: Trật tự thế giới trong Chiến tranh lạnh",tag:"GK1"},3:{title:"Lịch sử 12 · Bài 3: Thế giới sau Chiến tranh lạnh",tag:"GK1"}};
-const LS_STATES={1:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}}},2:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}}},3:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}}}};
+const LS_STATES={1:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{}},2:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{}},3:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{}}};
 let LS_CUR=1;
 const LS_DS_PTS=[0,0.1,0.25,0.5,1];
 let lsS=LS_STATES[1];
@@ -1968,17 +1964,20 @@ function lsRender(){
   h+='<div class="lssec">Phần I. Trắc nghiệm nhiều lựa chọn</div>';
   LS_MCQ.forEach((it,i)=>{
     const ch=lsS.mcq[i], done=ch!==undefined, ok=done&&ch===it.a;
-    h+='<div class="lsq'+(lsS.fresh==='m'+i?' fresh':'')+(lsS.glow==='m'+i?' glow':'')+'" data-m="'+i+'"><div class="lsqt"><span class="qn">Câu '+(i+1)+'</span>'+esc(it.q)+'</div>';
+    const noteM=lsS.notes[ 'm'+i ];
+    h+='<div class="lsq'+(lsS.fresh==='m'+i?' fresh':'')+(lsS.glow==='m'+i?' glow':'')+'" data-m="'+i+'">'+(noteM?'<div class="lsnote">📝 '+esc(noteM)+'</div>':'')+'<div class="lsqt" data-hk="q'+i+'"><span class="qn">Câu '+(i+1)+'</span>'+esc(it.q)+'</div>';
     it.o.forEach((o,oi)=>{
       let cls="";
       if(done){ if(oi===it.a) cls="okc"; else if(oi===ch) cls="badc"; }
-      h+='<button class="lsopt '+cls+'" '+((done||lsS.sub)?'disabled':'')+' onclick="lsPickMcq('+i+','+oi+')"><b>'+"ABCD"[oi]+'</b><span>'+esc(o)+'</span>'+'</button>';
+      h+='<button class="lsopt '+cls+'" '+((done||lsS.sub)?'disabled':'')+' onclick="lsPickMcq('+i+','+oi+')"><b>'+"ABCD"[oi]+'</b><span data-hk="o'+i+'-'+oi+'">'+esc(o)+'</span>'+'</button>';
     });
     if(done){
       h+='<div class="lsexp '+(ok?'ok':'bad')+'"><b>'+(ok?'✅ Đúng · +'+f2(LS_PER()).replace('.',',')+' điểm':'❌ Sai · +0 điểm. Đáp án đúng: '+"ABCD"[it.a]+'. '+esc(it.o[it.a]))+'</b>'+(it.e?'<br>💡 '+esc(it.e):'')+'</div>';
     }
     const flM=!!lsS.flag.mcq[i];
     h+='<button class="lsflag'+(flM?' on':'')+'" title="Đánh dấu xem lại" aria-label="Đánh dấu xem lại" onclick="lsToggleFlag(\'m\','+i+')">🚩</button>';
+    h+='<button class="lsnbtn" title="Ghi chú" aria-label="Ghi chú" onclick="lsNoteToggle(\'m'+i+'\')">📝</button>';
+    if(lsS.noteEdit==='m'+i) h+=lsNoteEditor('m'+i);
     h+='</div>';
   });
   h+='<div class="lssec">Phần II. Trắc nghiệm đúng – sai</div>';
@@ -1986,18 +1985,22 @@ function lsRender(){
     const st=lsS.ds[j]||{}, p=lsDsPts(j), locked=lsS.sub;
     const nDone=Object.keys(st).length;
     h+='<div class="lsq lsds'+(lsS.fresh==='d'+j?' fresh':'')+'"><div class="lsqt"><span class="qn">Câu '+(j+1)+'</span>Đọc tư liệu và xác định Đúng/Sai cho từng ý</div>'
-      +'<div class="lsds-grid"><div class="lspass"><div class="lspass-h">📜 Tư liệu</div>'+lsPass(d.p)+'</div><div class="lsstmts">';
+      +'<div class="lsds-grid"><div class="lspass"><div class="lspass-h">📜 Tư liệu</div>'+'<div data-hk="p'+j+'">'+lsPass(d.p)+'</div></div><div class="lsstmts">';
     d.s.forEach((s,k)=>{
       const v=st[k], done=v!==undefined, ans=d.ans[k], ok=done&&v===ans;
+      const nkD='d'+j+'-'+k, noteD=lsS.notes[nkD];
       const dis=(done||locked)?'disabled':'';
       const cT=done?(ans===true?'okc':(v===true?'badc':'')):'';
       const cF=done?(ans===false?'okc':(v===false?'badc':'')):'';
       h+='<div class="lsst '+(done?(ok?'st-ok':'st-bad'):'')+(lsS.glow==='d'+j+'-'+k?' glow':'')+'" data-d="'+j+'-'+k+'">'
-        +'<div class="lsst-t"><span class="lsl">'+"abcd"[k]+'</span><span>'+esc(s)+'</span></div>'
+        +(noteD?'<div class="lsnote">📝 '+esc(noteD)+'</div>':'')
+        +'<div class="lsst-t"><span class="lsl">'+"abcd"[k]+'</span><span data-hk="s'+j+'-'+k+'">'+esc(s)+'</span></div>'
         +'<div class="lsseg"><button class="'+cT+'" '+dis+' onclick="lsPickDs('+j+','+k+',true)">✓ Đúng</button>'
         +'<button class="'+cF+'" '+dis+' onclick="lsPickDs('+j+','+k+',false)">✗ Sai</button></div>';
       const flD=!!(lsS.flag.ds[j]&&lsS.flag.ds[j][k]);
       h+='<button class="lsflag'+(flD?' on':'')+'" title="Đánh dấu xem lại" aria-label="Đánh dấu xem lại" onclick="lsToggleFlag(\'d\','+j+','+k+')">🚩</button>';
+      h+='<button class="lsnbtn" title="Ghi chú" aria-label="Ghi chú" onclick="lsNoteToggle(\'d'+j+'-'+k+'\')">📝</button>';
+      if(lsS.noteEdit==='d'+j+'-'+k) h+=lsNoteEditor('d'+j+'-'+k);
       if(done) h+='<div class="lsexp '+(ok?'ok':'bad')+'"><b>'+(ok?'✅ Đúng':'❌ Sai')+' · đáp án: '+(ans?'Đúng':'Sai')+'</b><br>💡 '+esc(d.e[k])+'</div>';
       h+='</div>';
     });
@@ -2007,7 +2010,7 @@ function lsRender(){
   });
   h+='<div class="lsres">'+(lsS.sub?lsSummary():'')+'</div>';
   h+='<div class="nav">'+(lsCount('wrong')?'<button id="lsReviewBtn" class="btn" onclick="lsOpenReview(\'wrong\')">ÔN TẬP LẠI NHỮNG CÂU SAI</button>':'')+'<button class="btn ghost" onclick="lsReset()">🔄 Làm lại</button></div>';
-  el.innerHTML=h;
+  el.innerHTML=h; lsApplyAllHL();
   lsUpdBar(); lsUpdFloat();
 }
 function lsPickMcq(i,oi){
@@ -2102,6 +2105,21 @@ function lsGlow(t,j,k){
   if(el){ el.classList.add('glow'); el.scrollIntoView({behavior:'smooth',block:'center'}); }
 }
 (function(){
+  const pal=document.getElementById('lsPal'), body=document.getElementById('lsbody');
+  body.addEventListener('mouseup',()=>setTimeout(lsShowPal,0));
+  body.addEventListener('touchend',()=>setTimeout(lsShowPal,250));
+  body.addEventListener('contextmenu',e=>{ e.preventDefault(); setTimeout(lsShowPal,0); });
+  pal.addEventListener('mousedown',e=>e.preventDefault());
+  pal.addEventListener('touchstart',e=>e.preventDefault(),{passive:false});
+  pal.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b||!palSel) return;
+    const c=b.dataset.c;
+    lsApplyHL(palSel.key,palSel.s,palSel.e,c==='none'?null:c);
+    palSel=null; pal.classList.add('hidden'); window.getSelection().removeAllRanges();
+  });
+  document.addEventListener('mousedown',e=>{ if(!pal.contains(e.target)) pal.classList.add('hidden'); });
+})();
+(function(){
   const w=document.getElementById('lsFloatWrap'), btn=document.getElementById('lsFloat'), menu=document.getElementById('lsFloatMenu');
   let drag=null, moved=false;
   function place(x,y){
@@ -2117,6 +2135,54 @@ function lsGlow(t,j,k){
   document.addEventListener('pointerdown',e=>{ if(!w.contains(e.target)) menu.classList.remove('open'); });
   addEventListener('resize',()=>{ if(w.style.left) place(parseFloat(w.style.left),parseFloat(w.style.top)); });
 })();
+function lsOffsetIn(root,node,off){ const r=document.createRange(); r.selectNodeContents(root); r.setEnd(node,off); return r.toString().length; }
+function lsSubtract(list,s,e){ const out=[]; list.forEach(x=>{ if(x.e<=s||x.s>=e){ out.push(x); return; } if(x.s<s) out.push({s:x.s,e:s,c:x.c}); if(x.e>e) out.push({s:e,e:x.e,c:x.c}); }); return out; }
+function lsWrapRange(root,s,e,c){
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT); const parts=[]; let pos=0, n;
+  while((n=walker.nextNode())){ const L=n.nodeValue.length; const a=Math.max(s,pos), b=Math.min(e,pos+L); if(a<b) parts.push({n,from:a-pos,to:b-pos}); pos+=L; }
+  parts.forEach(({n,from,to})=>{ let t=n; if(from>0) t=t.splitText(from); if(to-from<t.nodeValue.length) t.splitText(to-from);
+    const m=document.createElement('mark'); m.className='hl hl-'+c; t.parentNode.insertBefore(m,t); m.appendChild(t); });
+}
+function lsApplyAllHL(){
+  const H=LS_STATES[LS_CUR].hl||{};
+  document.querySelectorAll('#lsbody [data-hk]').forEach(el=>{ (H[el.dataset.hk]||[]).forEach(x=>lsWrapRange(el,x.s,x.e,x.c)); });
+}
+let palSel=null;
+function lsCaptureSel(){
+  const sel=window.getSelection(); if(!sel||sel.isCollapsed||!sel.rangeCount) return null;
+  const r=sel.getRangeAt(0), root=r.commonAncestorContainer;
+  const el=(root.nodeType===1?root:root.parentElement)&&(root.nodeType===1?root:root.parentElement).closest('[data-hk]');
+  if(!el||!el.contains(r.startContainer)||!el.contains(r.endContainer)) return null;
+  const s=lsOffsetIn(el,r.startContainer,r.startOffset), e=lsOffsetIn(el,r.endContainer,r.endOffset);
+  if(e<=s) return null;
+  return {key:el.dataset.hk,s,e,rect:r.getBoundingClientRect()};
+}
+function lsShowPal(){
+  const pal=document.getElementById('lsPal'), info=lsCaptureSel();
+  if(!info){ pal.classList.add('hidden'); palSel=null; return; }
+  palSel=info;
+  pal.style.left=Math.max(8,Math.min(scrollX+info.rect.left,scrollX+innerWidth-230))+'px';
+  pal.style.top=Math.max(8,scrollY+info.rect.top-52)+'px';
+  pal.classList.remove('hidden');
+}
+function lsApplyHL(key,s,e,c){
+  const H=LS_STATES[LS_CUR].hl=LS_STATES[LS_CUR].hl||{};
+  let list=lsSubtract(H[key]||[],s,e); if(c) list.push({s,e,c}); list.sort((a,b)=>a.s-b.s);
+  if(list.length) H[key]=list; else delete H[key];
+  lsStoreSave(); lsRender();
+}
+function lsNoteToggle(key){ lsS.noteEdit = lsS.noteEdit===key ? null : key; lsRender(); }
+function lsNoteEditor(key){
+  const cur=lsS.notes[key]||'';
+  return '<div class="lsnoteEd"><textarea id="lsNoteTa" rows="3" placeholder="Ghi chú cho câu này...">'+esc(cur)+'</textarea>'
+    +'<div class="lsnoteBtns"><button onclick="lsNoteSave(\''+key+'\')">Lưu</button><button onclick="lsNoteDel(\''+key+'\')">Xóa ghi chú</button><button onclick="lsNoteToggle(\''+key+'\')">Hủy</button></div></div>';
+}
+function lsNoteSave(key){
+  const ta=document.getElementById('lsNoteTa'), v=ta?ta.value.trim():'';
+  if(v) lsS.notes[key]=v; else delete lsS.notes[key];
+  lsS.noteEdit=null; lsStoreSave(); lsRender();
+}
+function lsNoteDel(key){ delete lsS.notes[key]; lsS.noteEdit=null; lsStoreSave(); lsRender(); }
 function lsSummary(){
   const m=lsMcqPts(), d=lsDsTotal(), miss=LS_DS.filter((_,j)=>lsDsPts(j)===null).length;
   return '<h3 style="margin:0 0 6px">Kết quả: '+f2(m+d)+' / '+f2(LS_MAXT())+'</h3>'
