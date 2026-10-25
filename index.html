@@ -131,8 +131,29 @@ body.locked #app{display:none}
 #login .lbox{background:#fff;border-radius:26px;padding:30px 24px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25);animation:up .5s both}
 #login input{width:100%;padding:14px;font:inherit;font-size:1.15rem;font-weight:700;border:2px solid var(--line);border-radius:16px;text-align:center;outline:none;margin-top:8px}
 #login input:focus{border-color:#8b5cf6}
-#login .lbox.spin{animation:lspin .6s ease-in-out both}
-@keyframes lspin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+#lsModal{position:fixed;inset:0;background:rgba(15,23,42,.6);z-index:300;display:flex;align-items:flex-start;justify-content:center;padding:24px 14px;overflow:auto}
+#lsModal.hidden{display:none}
+#lsModal .lmbox{background:#fff;color:#1e293b;border-radius:18px;max-width:860px;width:100%;padding:26px 24px 22px;position:relative;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+#lsModal .lmx{position:absolute;top:10px;right:12px;width:36px;height:36px;border-radius:50%;border:none;background:#f1f5f9;color:#334155;font-size:1.1rem;cursor:pointer;line-height:1}
+#lsModal .lmx:hover{background:#e2e8f0}
+#lsModal h3{margin:0 0 4px;font-size:1.2rem;padding-right:40px}
+#lsModal .lmsec{margin:22px 0 8px;font-weight:800;color:#4338ca;text-transform:uppercase;font-size:.85rem;letter-spacing:.6px}
+#lsModal .lmq{border-top:1px solid #e2e8f0;padding:14px 0}
+#lsModal .lmq b.n{color:#4338ca}
+#lsModal .lmq p{margin:4px 0 8px;font-weight:600;white-space:pre-line}
+#lsModal .lmo{display:flex;gap:10px;padding:7px 11px;border:1px solid #e2e8f0;border-radius:10px;margin:5px 0;font-size:.97rem}
+#lsModal .lmo.ok{background:#dcfce7;border-color:#22c55e}
+#lsModal .lmo.bad{background:#fee2e2;border-color:#ef4444}
+#lsModal .lmb{display:inline-block;padding:5px 11px;border:1px solid #e2e8f0;border-radius:10px;margin-left:6px;font-size:.92rem;background:#fff}
+#lsModal .lmb.ok{background:#dcfce7;border-color:#22c55e}
+#lsModal .lmb.bad{background:#fee2e2;border-color:#ef4444}
+#lsModal .lmseg{white-space:nowrap}
+#lsModal .lmex{font-size:.9rem;color:#475569;background:#f8fafc;border-radius:10px;padding:8px 10px;margin-top:6px}
+#lsModal .lmst{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed #e2e8f0;font-size:.97rem}
+#lsModal .lmst .r{white-space:nowrap;font-weight:700}
+#lsModal .lmpass{background:#f8fafc;border-left:4px solid #6366f1;padding:10px 12px;border-radius:8px;font-size:.95rem;white-space:pre-line;margin-bottom:8px}
+#login .lbox.spin{animation:lspin .6s ease-in-out both!important}
+@keyframes lspin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .lerr{color:#be123c;font-weight:800;min-height:26px;margin-top:8px}
 @media(max-width:640px){
  header{padding:18px 12px}
@@ -996,6 +1017,7 @@ body.sv-ls #lsbody>.lssec ~ .lssec{margin-top:64px!important}
 </style>
 </head>
 <body class="locked">
+<div id="lsModal" class="hidden" onclick="if(event.target===this)lsCloseResult()"><div class="lmbox" role="dialog" aria-label="Kết quả và đáp án"><button class="lmx" onclick="lsCloseResult()" aria-label="Đóng">✕</button><div id="lsmBody"></div></div></div>
 <div id="login"><div class="lbox">
   <div class="lbrand">WEBSITE HỌC TẬP CỦA LÒ TÔN</div>
   <div class="brandsub dark"><i>Được Khoa Nguyễn phát triển</i></div>
@@ -1926,6 +1948,7 @@ function lsPass(t){
 function lsRender(){
   const el=document.getElementById("lsbody");
   let h='';
+  h+='<div class="nav" style="margin-top:4px"><button class="btn" onclick="lsShowResult()">📋 Xem đáp án</button></div>';
   h+='<div class="lshead">'+(LS_META[LS_CUR].tag?'<span class="lstag">'+LS_META[LS_CUR].tag+'</span>':'')+'<h2>'+LS_META[LS_CUR].title+'</h2></div>';
   h+='<div class="lssec">Phần I. Trắc nghiệm nhiều lựa chọn</div>';
   LS_MCQ.forEach((it,i)=>{
@@ -1998,6 +2021,43 @@ function setLs(n){
   LS_CUR=n; const D={1:[LS1_MCQ,LS1_DS],2:[LS2_MCQ,LS2_DS],3:[LS3_MCQ,LS3_DS]}[n]; LS_MCQ=D[0]; LS_DS=D[1]; lsS=LS_STATES[n];
   const ol=document.querySelector("#lsbar .lsof"); if(ol) ol.textContent="/ "+g2(LS_MAXT());
 }
+function lsResultHTML(){
+  const m=lsMcqPts(), d=lsDsTotal();
+  let h='<h3>'+esc(LS_META[LS_CUR].title)+'</h3>';
+  h+='<div style="color:#475569">Điểm: <b>'+f2(m+d)+'</b> / '+g2(LS_MAXT())+'</div>';
+  h+='<div class="lmsec">Phần I. Trắc nghiệm nhiều lựa chọn</div>';
+  LS_MCQ.forEach((it,i)=>{
+    const ch=lsS.mcq[i];
+    h+='<div class="lmq"><p><b class="n">Câu '+(i+1)+'.</b> '+esc(it.q)+'</p>';
+    it.o.forEach((o,oi)=>{
+      let cls='';
+      if(oi===it.a) cls='ok';
+      else if(oi===ch) cls='bad';
+      h+='<div class="lmo '+cls+'"><b>'+"ABCD"[oi]+'.</b><span>'+esc(o)+'</span></div>';
+    });
+    h+='</div>';
+  });
+  h+='<div class="lmsec">Phần II. Trắc nghiệm đúng – sai</div>';
+  LS_DS.forEach((dd,j)=>{
+    const st=lsS.ds[j]||{};
+    h+='<div class="lmq"><p><b class="n">Câu '+(j+1)+'.</b></p><div class="lmpass">'+lsPass(dd.p)+'</div>';
+    dd.s.forEach((s,k)=>{
+      const v=st[k], ans=dd.ans[k];
+      const cT=ans===true?'ok':(v===true?'bad':''), cF=ans===false?'ok':(v===false?'bad':'');
+      h+='<div class="lmst"><span><b>'+"abcd"[k]+'.</b> '+esc(s)+'</span><span class="lmseg"><span class="lmb '+cT+'">✓ Đúng</span><span class="lmb '+cF+'">✗ Sai</span></span></div>';
+    });
+    h+='</div>';
+  });
+  return h;
+}
+function lsShowResult(){
+  document.getElementById("lsmBody").innerHTML=lsResultHTML();
+  document.getElementById("lsModal").classList.remove("hidden");
+  document.body.style.overflow="hidden";
+  document.querySelector("#lsModal").scrollTop=0;
+}
+function lsCloseResult(){ document.getElementById("lsModal").classList.add("hidden"); document.body.style.overflow=""; }
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") lsCloseResult(); });
 function lsReset(){ lsS.mcq={}; lsS.ds={}; lsS.sub=false; lsS.last=0; lsRender(); window.scrollTo({top:0,behavior:"smooth"}); }
 
 
