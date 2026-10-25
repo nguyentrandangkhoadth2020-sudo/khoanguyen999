@@ -189,6 +189,10 @@ mark.hl-blue{background:#93c5fd}mark.hl-yellow{background:#fde047}mark.hl-pink{b
 .lsmac{border-color:#c7d2fe}
 #lsbody .lsopt.picked,#lsbody .lsseg button.picked,#lsbody .lsst .lsseg button.picked{background:#c7d2fe!important;border:2px solid #4338ca!important;color:#1e1b4b!important;box-shadow:none!important;font-weight:700}
 .lsexpass{background:#f8fafc;border-left:4px solid #6366f1;padding:10px 12px;border-radius:8px;white-space:pre-line;margin:8px 0;font-size:.95rem;line-height:1.6}
+.lsmacmenu{background:#f8fafc;border:1px solid #c7d2fe;border-radius:12px;padding:10px;margin-top:8px;max-height:260px;overflow:auto}
+.lsmacmenu-h{font-weight:700;color:#312e81;margin-bottom:6px}
+.lsmacmenu button{display:block;width:100%;text-align:left;background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:7px 10px;margin:4px 0;font:inherit;cursor:pointer;color:#1e293b}
+.lsmacmenu button:hover{background:#eef2ff}
 #login .lbox.spin{animation:lspin .6s ease-in-out both!important}
 @keyframes lspin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .lerr{color:#be123c;font-weight:800;min-height:26px;margin-top:8px}
@@ -1975,7 +1979,7 @@ function lsRender(){
   const el=document.getElementById("lsbody");
   let h='';
   h+='<div class="nav" style="margin-top:4px"><button class="btn ghost" onclick="navBack()">⬅ Quay lại</button><button class="btn ghost" onclick="lsClearHL()">🧹 Xóa tất cả tô màu</button><button class="btn" onclick="lsShowResult()">📋 Xem đáp án</button><button class="btn" onclick="lsExamStart()">🎯 Thi thử</button></div>';
-  if(lsS.linkFrom) h+='<div class="lsmacbanner">🔗 Bấm vào câu bị nhầm với <b>'+lsKeyLabel(lsS.linkFrom)+'</b> · <button onclick="lsLinkCancel()">Hủy</button></div>';
+  if(false) h+='<div class="lsmacbanner">🔗 Bấm vào câu bị nhầm với <b>'+lsKeyLabel(lsS.linkFrom)+'</b> · <button onclick="lsLinkCancel()">Hủy</button></div>';
   h+='<div class="lshead">'+(LS_META[LS_CUR].tag?'<span class="lstag">'+LS_META[LS_CUR].tag+'</span>':'')+'<h2>'+LS_META[LS_CUR].title+'</h2></div>';
   h+='<div class="lssec">Phần I. Trắc nghiệm nhiều lựa chọn</div>';
   LS_MCQ.forEach((it,i)=>{
@@ -1994,6 +1998,7 @@ function lsRender(){
     h+='<button class="lsflag'+(flM?' on':'')+'" title="Đánh dấu xem lại" aria-label="Đánh dấu xem lại" onclick="lsToggleFlag(\'m\','+i+')">🚩</button>';
     h+='<button class="lsnbtn" title="Ghi chú" aria-label="Ghi chú" onclick="lsNoteToggle(\'m'+i+'\')">📝</button>';
     h+='<button class="lsnbtn lsmac" title="Gắn mác nhầm lẫn" aria-label="Gắn mác nhầm lẫn" onclick="lsLinkStart(\'m'+i+'\')">🔗</button>';
+    if(lsS.linkMenu==='m'+i) h+=lsLinkMenu('m'+i);
     if(lsS.noteEdit==='m'+i) h+=lsNoteEditor('m'+i);
     h+='</div>';
   });
@@ -2018,6 +2023,7 @@ function lsRender(){
       h+='<button class="lsflag'+(flD?' on':'')+'" title="Đánh dấu xem lại" aria-label="Đánh dấu xem lại" onclick="lsToggleFlag(\'d\','+j+','+k+')">🚩</button>';
       h+='<button class="lsnbtn" title="Ghi chú" aria-label="Ghi chú" onclick="lsNoteToggle(\'d'+j+'-'+k+'\')">📝</button>';
       h+='<button class="lsnbtn lsmac" title="Gắn mác nhầm lẫn" aria-label="Gắn mác nhầm lẫn" onclick="lsLinkStart(\'d'+j+'-'+k+'\')">🔗</button>';
+      if(lsS.linkMenu==='d'+j+'-'+k) h+=lsLinkMenu('d'+j+'-'+k);
       if(lsS.noteEdit==='d'+j+'-'+k) h+=lsNoteEditor('d'+j+'-'+k);
       if(done) h+='<div class="lsexp '+(ok?'ok':'bad')+'"><b>'+(ok?'✅ Đúng':'❌ Sai')+' · đáp án: '+(ans?'Đúng':'Sai')+'</b><br>💡 '+esc(d.e[k])+'</div>';
       h+='</div>';
@@ -2207,7 +2213,7 @@ function lsTimerText(){
   return lsFmt(((st.tEnd||Date.now())-st.t0)/1000);
 }
 setInterval(()=>{ const el=document.getElementById("lsTimer"); if(el&&!document.getElementById("ls").classList.contains("hidden")) el.textContent="⏱ "+lsTimerText(); },250);
-function lsKeyLabel(k){ if(k[0]==="m") return "Câu "+(parseInt(k.slice(1))+1); const p=k.slice(1).split("-"); return "Câu "+(parseInt(p[0])+1)+" ý "+"abcd"[parseInt(p[1])]; }
+function lsKeyLabel(k){ if(k[0]==="m") return "Câu "+(parseInt(k.slice(1))+1); const p=k.slice(1).split("-"); return "Câu "+(parseInt(p[0])+1)+"abcd"[parseInt(p[1])]; }
 function lsTopBits(key){
   let h='';
   const note=lsS.notes[key]; if(note) h+='<div class="lsnote">📝 '+esc(note)+'</div>';
@@ -2217,8 +2223,20 @@ function lsTopBits(key){
   return h;
 }
 function lsClearHL(){ lsS.hl={}; lsRender(); }
-function lsLinkStart(key){ lsS.linkFrom = lsS.linkFrom===key ? null : key; lsRender(); }
-function lsLinkCancel(){ lsS.linkFrom=null; lsRender(); }
+function lsLinkStart(key){ lsS.linkMenu = lsS.linkMenu===key ? null : key; lsRender(); }
+function lsLinkPick(a,b){
+  lsS.conf=lsS.conf||[];
+  if(!lsS.conf.some(p=>(p.a===a&&p.b===b)||(p.a===b&&p.b===a))) lsS.conf.push({a:a,b:b});
+  lsS.linkMenu=null; lsStoreSave(); lsRender();
+}
+function lsLinkMenu(from){
+  const items=[];
+  LS_MCQ.forEach((_,i)=>{ const k='m'+i; if(k!==from) items.push({k:k, t:'Câu '+(i+1)+' · trắc nghiệm'}); });
+  LS_DS.forEach((d,j)=>d.s.forEach((_,k)=>{ const kk='d'+j+'-'+k; if(kk!==from) items.push({k:kk, t:'Câu '+(j+1)+"abcd"[k]+' · đúng sai'}); }));
+  return '<div class="lsmacmenu"><div class="lsmacmenu-h">Chọn câu bị nhầm với '+lsKeyLabel(from)+'</div>'
+    +items.map(x=>'<button onclick="lsLinkPick(\''+from+'\',\''+x.k+'\')">'+x.t+'</button>').join('')+'</div>';
+}
+function lsLinkCancel(){ lsS.linkMenu=null; lsRender(); }
 function lsConfDel(a,b){ lsS.conf=(lsS.conf||[]).filter(p=>!((p.a===a&&p.b===b)||(p.a===b&&p.b===a))); lsStoreSave(); lsRender(); }
 function lsJumpKey(key){
   lsS.glow=key;
