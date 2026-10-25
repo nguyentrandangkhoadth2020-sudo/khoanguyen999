@@ -1071,24 +1071,27 @@ html.fnt-tnr body, html.fnt-tnr body *{font-family:"Times New Roman",Times,serif
 .dupnote{color:#991b1b;font-size:.88rem;margin:-2px 0 8px}
 .duptag{display:inline-block;background:#fee2e2;color:#991b1b;font-weight:700;font-size:.86rem;padding:4px 10px;border-radius:999px;margin-bottom:8px}
 </style>
+<style>
+#lsbody .nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:14px;align-items:stretch}
+#lsbody .nav .btn{margin:0;flex:none;width:100%;padding:12px 10px;font-size:.95rem;white-space:normal;text-align:center}
+#lsbody .nav .btn.ghost{background:#fff;color:#4338ca}
+#lsbar2{margin-top:6px}
+.lfont{font-size:.85rem;text-align:right;margin-bottom:6px;color:#475569}
+.lfont select{font:inherit;padding:4px 8px;border-radius:10px;border:1px solid #cbd5e1;background:#fff;color:#1e1b4b}
+.lwelcome{font-weight:800;font-size:1.02rem;text-align:center;line-height:1.35;margin:10px 0 6px;color:#6d28d9;animation:popIn .8s both,lwPulse 2.4s ease-in-out infinite}
+@keyframes lwPulse{0%,100%{color:#6d28d9;text-shadow:0 0 0 rgba(219,39,119,0)}50%{color:#db2777;text-shadow:0 0 14px rgba(219,39,119,.35)}}
+</style>
 </head>
 <body class="locked">
 <div id="lsPal" class="hidden"><button class="c-blue" data-c="blue" aria-label="Xanh"></button><button class="c-yellow" data-c="yellow" aria-label="Vàng"></button><button class="c-pink" data-c="pink" aria-label="Hồng"></button><button class="c-green" data-c="green" aria-label="Xanh lá"></button><button class="c-none" data-c="none" aria-label="Bỏ tô">✕</button></div>
 <div id="lsFloatWrap"><div id="lsFloatMenu"><div style="font-weight:800;margin:2px 4px 4px">Câu đã đánh dấu</div><div id="lsFloatList"></div></div><button id="lsFloat" type="button" aria-label="Câu đã đánh dấu">🚩<span class="cnt" id="lsFloatN">0</span></button></div>
 <div id="lsModal" class="hidden" onclick="if(event.target===this)lsCloseResult()"><div class="lmbox" role="dialog" aria-label="Kết quả và đáp án"><button class="lmx" onclick="lsCloseResult()" aria-label="Đóng">✕</button><div id="lsmBody"></div></div></div>
-<div id="fontPop" class="fpop"><div class="fbox"><h3>Chọn font chữ</h3>
-  <label><input type="radio" name="fnt" value="sys" checked> Mặc định (theo máy)</label>
-  <label><input type="radio" name="fnt" value="tnr"> Times New Roman</label>
-  <button type="button" onclick="fontPopOk()">Tiếp tục</button></div></div>
 <div id="login"><div class="lbox">
+  <div class="lfont">Font chữ: <select id="fontSel" onchange="applyFont(this.value)"><option value="sys">Mặc định (theo máy)</option><option value="tnr">Times New Roman</option></select></div>
   <div class="lbrand">WEBSITE HỌC TẬP CỦA LÒ TÔN</div>
   <div class="brandsub dark"><i>Được Khoa Nguyễn phát triển</i></div>
-  <h2>Đăng nhập</h2>
-  <label class="llabel" for="lname">Chọn tên của bạn</label>
-  <select id="lname" onchange="loginSpin()">
-    <option value="" selected disabled>Chọn tên…</option>
-    <option value="khoa">Khoa</option><option value="kn">Kn</option><option value="thu">Thư</option><option value="cim">Cim</option><option value="thuy">Thúy</option>
-  </select>
+  <div class="lwelcome">CHÀO MỪNG ĐẾN VỚI HỆ THỐNG ÔN TẬP THI CỬ CỦA KHOA NGUYỄN 999</div>
+  <button class="btn" type="button" onclick="loginSpin()" style="width:100%;margin-top:16px">Vào học</button>
   </div></div>
 <div id="app">
 <div id="chooser" class="chooser hidden"><div class="cbox" role="dialog" aria-label="Menu">
@@ -1159,6 +1162,7 @@ html.fnt-tnr body, html.fnt-tnr body *{font-family:"Times New Roman",Times,serif
     <div class="lsbar-sticky" id="lsbar">
       <div class="lsbar-row"><span class="lsnow">Điểm: <b id="lsv" class="lsv r">0.00</b> <span class="lsof">/ 10</span></span><span class="lsmini" id="lsmini"></span><span class="lsmini" id="lsTimer">⏱ 00:00</span></div>
       <div class="lsbar"><i id="lsfill" style="width:0%"></i></div>
+      <div id="lsbar2" class="hidden"><div class="lsbar-row"><span class="lsnow">Đúng sai: <b id="lsv2" class="lsv">0.00</b> <span class="lsof" id="lsof2">/ 4</span></span></div><div class="lsbar"><i id="lsfill2" style="width:0%"></i></div></div>
     </div>
     <div id="lsbody"></div>
   </section>
@@ -1437,7 +1441,6 @@ function isoSlideHTML(k){
 }
 
 /* ===== ĐĂNG NHẬP ===== */
-const USERS={khoa:{name:"Khoa"},kn:{name:"Kn"},thu:{name:"Thư"},cim:{name:"Cim"},thuy:{name:"Thúy"}};
 let curUser="";
 /* chọn font: hiện khi mở trang, mặc định là font theo máy */
 function applyFont(v){
@@ -1446,22 +1449,15 @@ function applyFont(v){
   document.documentElement.classList.toggle('fnt-sys', v!=='tnr');
   try{ localStorage.setItem('siteFont', v); }catch(e){}
 }
-function fontPopOk(){
-  const r=document.querySelector('input[name="fnt"]:checked');
-  applyFont(r?r.value:'sys');
-  document.getElementById('fontPop').classList.add('hidden');
-}
-(function(){ let v='sys'; try{ v=localStorage.getItem('siteFont')||'sys'; }catch(e){} applyFont(v); })();
+(function(){ let v='sys'; try{ v=localStorage.getItem('siteFont')||'sys'; }catch(e){} applyFont(v); const sel=document.getElementById('fontSel'); if(sel) sel.value=v; })();
 function unlock(name){ curUser=name; document.body.classList.remove("locked"); document.getElementById("who").textContent="👤 "+name; document.getElementById("hello").textContent=name; showChooser(); }
 let loginBusy=false;
 function loginSpin(){
-  if(loginBusy) return; const sel=document.getElementById("lname"); const u=USERS[sel.value]; if(!u) return;
-  loginBusy=true; const box=document.querySelector("#login .lbox"); box.classList.add("spin");
-  setTimeout(()=>{ box.classList.remove("spin"); sel.selectedIndex=0; unlock(u.name); loginBusy=false; }, 600);
+  if(loginBusy) return; loginBusy=true; const box=document.querySelector("#login .lbox"); box.classList.add("spin");
+  setTimeout(()=>{ box.classList.remove("spin"); unlock("Khách"); loginBusy=false; }, 600);
 }
-function doLogin(e){ const sel=document.getElementById("lname"), u=USERS[sel.value]; if(!u) return; sel.selectedIndex=0; unlock(u.name); }
 // đăng xuất: khóa lại
-function logout(){ document.body.classList.add("locked"); hideChooser(); curUser=""; document.getElementById("lname").selectedIndex=0; }
+function logout(){ document.body.classList.add("locked"); hideChooser(); curUser=""; }
 
 /* ===== BUNG CÁCH GHÉP TÊN ===== */
 const PART_RULES=[
@@ -1994,9 +1990,9 @@ const LS_DATA={1:[LS1_MCQ,LS1_DS],2:[LS2_MCQ,LS2_DS],3:[LS3_MCQ,LS3_DS],4:[LS4_M
 const LS_DS_PTS=[0,0.1,0.25,0.5,1];
 let lsS=LS_STATES[1];
 const f2=x=>Number(x).toFixed(2);
-function LS_UNIT(){ return LS_DS.length>=10 ? 5/LS_DS.length : 1; }
+function LS_UNIT(){ return 1; }
 function LS_MAXD(){ return LS_DS.length*LS_UNIT(); }
-function LS_MAXM(){ return 10-LS_MAXD(); }
+function LS_MAXM(){ return LS_COMBO ? 10 : 10-LS_MAXD(); }
 function LS_PER(){ return LS_MAXM()/LS_MCQ.length; }
 function LS_MAXT(){ return 10; }
 const g2=x=>Number(Number(x).toFixed(2));
@@ -2008,12 +2004,12 @@ function lsUpdBar(){
   if(lsS.exam){ const ex=lsS.exam, v=document.getElementById("lsv"), fill=document.getElementById("lsfill"), mini=document.getElementById("lsmini");
     if(!v) return;
     v.className="lsv"; v.dataset.tok='exam';
-    if(ex.submitted){ const sc=lsMcqPts()+lsDsTotal(); v.textContent=f2(sc); fill.style.width=(sc/LS_MAXT()*100)+"%"; }
-    else { v.textContent="—"; fill.style.width="0%"; }
+    if(ex.submitted){ const mt=lsMcqPts(), dt=lsDsTotal(), sc=LS_COMBO?mt:mt+dt; v.textContent=f2(sc); fill.style.width=(sc/LS_MAXT()*100)+"%"; lsSetBar2(dt); }
+    else { v.textContent="—"; fill.style.width="0%"; lsSetBar2(0); }
     const nM=Object.keys(lsS.mcq).length, nD=LS_DS.filter((_,j)=>lsDsPts(j)!==null).length;
     mini.textContent="Thi thử · đã làm "+nM+"/"+LS_MCQ.length+" + "+nD+"/"+LS_DS.length;
     return; }
-  const mt=lsMcqPts(), dt=lsDsTotal(), tot=mt+dt;
+  const mt=lsMcqPts(), dt=lsDsTotal(), tot=LS_COMBO?mt:mt+dt;
   const nM=Object.keys(lsS.mcq).length, nD=LS_DS.filter((_,j)=>lsDsPts(j)!==null).length;
   if(!lsS.t0&&(nM||nD)) lsS.t0=Date.now();
   if(lsS.t0&&!lsS.tEnd&&lsDone()) lsS.tEnd=Date.now();
@@ -2023,6 +2019,7 @@ function lsUpdBar(){
   v.className="lsv "+cls; { const from=parseFloat(v.dataset.n||0); v.dataset.n=tot; const tok=Math.random(); v.dataset.tok=tok; const t0=performance.now(); (function stp(t){ if(v.dataset.tok!=tok) return; const k=Math.min(1,(t-t0)/450); v.textContent=f2(from+(tot-from)*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(stp); })(t0); }
   fill.className=cls; fill.style.width=(rt*100)+"%";
   mini.textContent="TN "+f2(mt)+"/"+g2(LS_MAXM())+" · Đ-S "+f2(dt)+"/"+g2(LS_MAXD())+" · đã làm "+nM+"/"+LS_MCQ.length+" + "+nD+"/"+LS_DS.length;
+  lsSetBar2(dt);
   const prev=lsS.last||0; lsS.last=tot;
   if(tot>prev+1e-9){
     const sp=document.createElement("span"); sp.className="lsplus"; sp.textContent="+"+f2(tot-prev);
@@ -2099,7 +2096,7 @@ function lsRender(){
     h+='</div></div></div>';
   });
   h+='<div class="lsres">'+(exOn?(ex.submitted?lsExamResultHTML():''):(lsS.sub?lsSummary():''))+'</div>';
-  h+='<div class="nav">'+((shown&&lsCount('wrong'))?'<button id="lsReviewBtn" class="btn" onclick="lsOpenReview(\'wrong\')">ÔN TẬP LẠI NHỮNG CÂU SAI</button>':'')+'<button class="btn ghost" onclick="lsOpenNotes()">📒 Xem lại ghi chú & tô màu</button>'
+  h+='<div class="nav">'+((!exOn&&!lsS.sub)?'<button class="btn" onclick="lsSubmit()">NỘP BÀI</button>':'')+((shown&&lsCount('wrong'))?'<button id="lsReviewBtn" class="btn" onclick="lsOpenReview(\'wrong\')">ÔN TẬP LẠI NHỮNG CÂU SAI</button>':'')+'<button class="btn ghost" onclick="lsOpenNotes()">📒 Xem lại ghi chú & tô màu</button>'
     +(exOn?(ex.submitted?'<button class="btn" onclick="lsExamStart()">🔁 Thi lại (trộn lại)</button>':''):'<button class="btn ghost" onclick="lsReset()">🔄 Làm lại</button>')+'</div>';
   el.innerHTML=h; lsApplyAllHL();
   lsUpdBar(); lsUpdFloat();
@@ -2382,11 +2379,11 @@ function lsExamExit(){ lsOpen(LS_NS,false); lsRender(); window.scrollTo({top:0,b
 function lsExamSubmit(){
   const ex=lsS.exam; if(!ex||ex.submitted) return;
   ex.submitted=true; ex.tEnd=Date.now();
-  ex.result={score:lsMcqPts()+lsDsTotal(), name:curUser||'(chưa rõ)', secs:(ex.tEnd-ex.t0)/1000};
+  ex.result={score:lsMcqPts()+lsDsTotal(), m:lsMcqPts(), d:lsDsTotal(), name:curUser||'(chưa rõ)', secs:(ex.tEnd-ex.t0)/1000};
   lsRender(); window.scrollTo({top:0,behavior:'smooth'});
 }
 function lsExamResultHTML(){ const r=lsS.exam.result;
-  return '<h3 style="margin:0 0 6px">Kết quả thi thử</h3><div>Điểm: <b>'+f2(r.score)+'</b> / '+g2(LS_MAXT())+'</div><div>Tên: <b>'+esc(r.name)+'</b></div><div>Thời gian làm: <b>'+lsFmt(r.secs)+'</b></div>'; }
+  return '<h3 style="margin:0 0 6px">Kết quả thi thử</h3>'+lsResLine(r.m,r.d)+'<div>Tên: <b>'+esc(r.name)+'</b></div><div>Thời gian làm: <b>'+lsFmt(r.secs)+'</b></div>'; }
 
 /* ---- nút quay lại: nhớ tab / bài trước đó ---- */
 let NAV_STACK=[], NAV_CUR=null, NAV_RESTORING=false;
@@ -2405,17 +2402,28 @@ function navBack(){
 
 function lsSummary(){
   const m=lsMcqPts(), d=lsDsTotal(), miss=LS_DS.filter((_,j)=>lsDsPts(j)===null).length;
-  return '<h3 style="margin:0 0 6px">Kết quả: '+f2(m+d)+' / '+f2(LS_MAXT())+'</h3>'
+  return (LS_COMBO?'<h3 style="margin:0 0 6px">Kết quả</h3>':'<h3 style="margin:0 0 6px">Kết quả: '+f2(m+d)+' / '+f2(LS_MAXT())+'</h3>')
     +'<div>Phần I (trắc nghiệm): <b>'+f2(m)+'</b> / '+f2(LS_MAXM())+' · Phần II (đúng–sai): <b>'+f2(d)+'</b> / '+f2(LS_MAXD())+'</div>'
     +(miss?' · còn '+miss+' câu đúng–sai chưa đủ 4 ý':'')+'</div>';
 }
+/* thanh điểm thứ hai (đúng–sai) khi làm bài kết hợp */
+function lsSetBar2(dt){
+  const box=document.getElementById('lsbar2'); if(!box) return;
+  const on=LS_COMBO&&(!lsS.exam||lsS.exam.submitted);
+  box.classList.toggle('hidden',!on); if(!on) return;
+  const mx=LS_MAXD()||1;
+  document.getElementById('lsv2').textContent=f2(dt);
+  document.getElementById('lsof2').textContent='/ '+f2(LS_MAXD());
+  document.getElementById('lsfill2').style.width=Math.min(100,dt/mx*100)+'%';
+}
+function lsResLine(m,d){ return LS_COMBO ? '<div>Trắc nghiệm: <b>'+f2(m)+'</b> / 10.00 · Đúng sai: <b>'+f2(d)+'</b> / '+f2(LS_MAXD())+'</div>' : '<div>Điểm: <b>'+f2(m+d)+'</b> / 10.00</div>'; }
 function lsSubmit(){ lsS.sub=true; lsRender(); document.getElementById("ls").scrollIntoView({behavior:"smooth",block:"start"}); }
 function setLs(n){ lsOpen([n],false); }
 
 function lsResultHTML(){
   const m=lsMcqPts(), d=lsDsTotal();
   let h='<h3>'+esc(lsHead().title)+'</h3>';
-  h+='<div style="color:#475569">Điểm: <b>'+f2(m+d)+'</b> / '+g2(LS_MAXT())+'</div>';
+  h+='<div style="color:#475569">'+lsResLine(m,d)+'</div>';
   h+='<div class="lmsec">Phần I. Trắc nghiệm nhiều lựa chọn</div>';
   LS_MCQ.forEach((it,i)=>{
     const ch=lsS.mcq[i];
