@@ -181,6 +181,14 @@ mark.hl-blue{background:#93c5fd}mark.hl-yellow{background:#fde047}mark.hl-pink{b
 .lsnoteBtns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 .lsnoteBtns button{border:none;border-radius:10px;padding:6px 12px;font:inherit;cursor:pointer;background:#e2e8f0}
 .lsnoteBtns button:first-child{background:#4338ca;color:#fff}
+.lsmacbanner{background:#e0e7ff;border:1px solid #6366f1;color:#312e81;border-radius:12px;padding:10px 12px;margin:10px 0;font-weight:600}
+.lsmacbanner button{margin-left:8px;border:none;border-radius:8px;padding:4px 10px;background:#fff;cursor:pointer;font:inherit}
+.lsconf{display:flex;align-items:center;gap:6px;margin:0 0 10px}
+.lsconf span{background:#fee2e2;color:#991b1b;border-radius:999px;padding:4px 10px;cursor:pointer;font-weight:600;font-size:.92rem}
+.lsconf button{border:none;background:#f1f5f9;border-radius:50%;width:24px;height:24px;cursor:pointer}
+.lsmac{border-color:#c7d2fe}
+#lsbody .lsopt.picked,#lsbody .lsseg button.picked,#lsbody .lsst .lsseg button.picked{background:#c7d2fe!important;border:2px solid #4338ca!important;color:#1e1b4b!important;box-shadow:none!important;font-weight:700}
+.lsexpass{background:#f8fafc;border-left:4px solid #6366f1;padding:10px 12px;border-radius:8px;white-space:pre-line;margin:8px 0;font-size:.95rem;line-height:1.6}
 #login .lbox.spin{animation:lspin .6s ease-in-out both!important}
 @keyframes lspin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .lerr{color:#be123c;font-weight:800;min-height:26px;margin-top:8px}
@@ -1111,7 +1119,7 @@ body.sv-ls #lsbody>.lssec ~ .lssec{margin-top:64px!important}
 <main>
   <section id="ls" class="hidden">
     <div class="lsbar-sticky" id="lsbar">
-      <div class="lsbar-row"><span class="lsnow">Điểm hiện tại: <b id="lsv" class="lsv r">0.00</b> <span class="lsof">/ 10</span></span><span class="lsmini" id="lsmini"></span></div>
+      <div class="lsbar-row"><span class="lsnow">Điểm: <b id="lsv" class="lsv r">0.00</b> <span class="lsof">/ 10</span></span><span class="lsmini" id="lsmini"></span><span class="lsmini" id="lsTimer">⏱ 00:00</span></div>
       <div class="lsbar"><i id="lsfill" style="width:0%"></i></div>
     </div>
     <div id="lsbody"></div>
@@ -1562,13 +1570,10 @@ const LS_NOTE_PREFIX='lsnotes:';
 let lsStoreUser=null;
 function lsStoreLoad(){
   if(lsStoreUser===curUser) return; lsStoreUser=curUser;
-  let all={}; try{ all=JSON.parse(localStorage.getItem(LS_NOTE_PREFIX+(curUser||'anon'))||'{}'); }catch(e){ all={}; }
-  [1,2,3].forEach(n=>{ LS_STATES[n].hl=(all[n]&&all[n].hl)||{}; LS_STATES[n].notes=(all[n]&&all[n].notes)||{}; });
+  try{ Object.keys(localStorage).filter(k=>k.indexOf(LS_NOTE_PREFIX)===0).forEach(k=>localStorage.removeItem(k)); }catch(e){}
+  [1,2,3].forEach(n=>{ LS_STATES[n].hl={}; LS_STATES[n].notes={}; LS_STATES[n].conf=[]; });
 }
-function lsStoreSave(){
-  try{ const all={}; [1,2,3].forEach(n=>{ all[n]={hl:LS_STATES[n].hl||{}, notes:LS_STATES[n].notes||{}}; });
-    localStorage.setItem(LS_NOTE_PREFIX+(curUser||'anon'), JSON.stringify(all)); }catch(e){}
-}
+function lsStoreSave(){ /* ghi chú / tô màu chỉ giữ trong lúc mở trang, tải lại là trống */ }
 function chooseChap(n){ lsStoreLoad(); hideChooser(); if(/^ls[123]$/.test(n)){ setLs(+n[2]); lsRender(); showTab("ls"); return; } showTab(n==="amin"?"learn":n); }
 function choose(n){ chooseChap(n); }
 function choose(n){ document.getElementById("chooser").classList.add("hidden"); showTab(n); }
@@ -1919,7 +1924,7 @@ const LS3_MCQ=[{"q": "Xu thế toàn cầu hóa là hệ quả của", "o": ["s�
 const LS3_DS=[{"p": "Đọc tư liệu sau:\nNguy cơ chiến tranh thế giới bị đẩy lùi, song hòa bình ở nhiều khu vực vẫn bị đe dọa, thậm chí nhiều nơi xung đột diễn ra nghiêm trọng và chiều hướng ngày càng rối loạn. Có người còn tỏ ra bi quan cho rằng đây là “thời kỳ hỗn loạn”, “thế giới ngày nay bạo loạn bùng nổ, cắt không dứt, dẹp vẫn loạn”. Bởi “xiềng xích của cuộc xung đột Đông - Tây đã mất đi, chỉ còn lại những lợi ích dân tộc đấu tranh với nhau\".\n(Lý Thực Cốc - Mỹ thay đổi lớn chiến lược toàn cầu, NXB Chính trị Quốc gia Hà Nội, 1996, tr.25)", "s": ["Sau Chiến tranh lạnh, thế giới vẫn xảy ra những xung đột “lợi ích dân tộc” ở nhiều nơi.", "Nhìn chung, thế giới sau Chiến tranh lạnh là \"thời kỳ hỗn loạn\" với những bạo loạn bùng nổ.", "\"...những lợi ích dân tộc đấu tranh với nhau\" đã đưa đến sự rạn nứt giữa dân tộc và quốc gia ngày càng lớn.", "Sự phức tạp của vấn đề dân tộc do hậu quả thực dân phương Tây phân chia thuộc địa, khu vực ảnh hưởng dựa trên sự phân bố dân cư các chủng tộc, dân tộc."], "ans": [true, false, false, false], "e": ["", "", "", ""]}, {"p": "Đọc tư liệu sau:\nSự chấm dứt Chiến tranh lạnh và sự sụp đổ của hệ thống xã hội chủ nghĩa (XHCN) thế giới đã kết thúc thời kỳ thế giới hai cực, chấm dứt sự đối đầu giữa hai hệ thống chính trị, kinh tế, xã hội, mở ra một thời kỳ hội nhập kinh tế toàn cầu thực sự với sự chuyển đổi của hầu hết các quốc gia đã từng là XHCN, các quốc gia đang phát triển sang kinh tế thị trường, mở cửa hội nhập kinh tế quốc tế, xu thế hòa bình, hợp tác phát triển đã trở thành xu thế chính của thời đại. Đây là đặc trưng cực kỳ quan trọng.\n(Võ Đại Lược: Những vấn đề lớn về toàn cầu hoá kinh tế, Tạp chí Những vấn đề kinh tế và chính trị thế giới, số 9(125)-2006, tr.9.)", "s": ["Chiến tranh lạnh thực sự kết thúc khi Liên Xô tan rã và trật tự hai cực sụp đổ.", "Sự chấm dứt Chiến tranh lạnh mở ra xu thế toàn cầu hóa và một thời kỳ hội nhập quốc tế toàn cầu thực sự.", "Hòa bình, hợp tác và phát triển là dòng chảy chính của thời đại, phổ biến của sự phát triển thế giới.", "Chấm dứt sự đối đầu giữa hai hệ thống chính trị, kinh tế, xã hội đã đưa đến sự xác lập của trật tự thế giới đa cực nhiều trung tâm."], "ans": [true, true, true, false], "e": ["", "", "", ""]}];
 let LS_MCQ=LS1_MCQ, LS_DS=LS1_DS;
 const LS_META={1:{title:"Lịch sử 12 · Bài 1: Liên Hợp Quốc",tag:"GK1"},2:{title:"Lịch sử 12 · Bài 2: Trật tự thế giới trong Chiến tranh lạnh",tag:"GK1"},3:{title:"Lịch sử 12 · Bài 3: Thế giới sau Chiến tranh lạnh",tag:"GK1"}};
-const LS_STATES={1:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{}},2:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{}},3:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{}}};
+const LS_STATES={1:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{},conf:[]},2:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{},conf:[]},3:{mcq:{},ds:{},sub:false,flag:{mcq:{},ds:{}},rev:{mcq:{},ds:{}},hl:{},notes:{},conf:[]}};
 let LS_CUR=1;
 const LS_DS_PTS=[0,0.1,0.25,0.5,1];
 let lsS=LS_STATES[1];
@@ -1934,12 +1939,21 @@ function lsDsPts(j){ const st=lsS.ds[j]||{}; if(Object.keys(st).length<1) return
 function lsDsTotal(){ let t=0; LS_DS.forEach((_,j)=>{ const p=lsDsPts(j); if(p!==null) t+=p; }); return t; }
 /* điểm thời gian thực: số + thanh + màu theo mức + "+điểm" bật lên */
 function lsUpdBar(){
+  if(lsS.exam){ const ex=lsS.exam, v=document.getElementById("lsv"), fill=document.getElementById("lsfill"), mini=document.getElementById("lsmini");
+    if(!v) return;
+    v.dataset.tok='exam';
+    if(ex.submitted){ v.textContent=f2(ex.result.score); fill.style.width=(ex.result.score/10*100)+"%"; } else { v.textContent="—"; fill.style.width="0%"; }
+    const nM=Object.keys(ex.ans.mcq).length, nD=LS_DS.filter((d,j)=>Object.keys(ex.ans.ds[j]||{}).length===d.s.length).length;
+    mini.textContent="Thi thử · đã làm "+nM+"/"+LS_MCQ.length+" + "+nD+"/"+LS_DS.length;
+    return; }
   const mt=lsMcqPts(), dt=lsDsTotal(), tot=mt+dt;
   const nM=Object.keys(lsS.mcq).length, nD=LS_DS.filter((_,j)=>lsDsPts(j)!==null).length;
+  if(!lsS.t0&&(nM||nD)) lsS.t0=Date.now();
+  if(lsS.t0&&!lsS.tEnd&&lsDone()) lsS.tEnd=Date.now();
   const v=document.getElementById("lsv"), fill=document.getElementById("lsfill"), mini=document.getElementById("lsmini"), bar=document.getElementById("lsbar");
   if(!v) return;
   const rt=tot/LS_MAXT(); const cls=rt>=0.85?"g":(rt>=0.7?"b":(rt>=0.5?"o":"r"));
-  v.className="lsv "+cls; { const from=parseFloat(v.dataset.n||0); v.dataset.n=tot; const t0=performance.now(); (function stp(t){ const k=Math.min(1,(t-t0)/450); v.textContent=f2(from+(tot-from)*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(stp); })(t0); }
+  v.className="lsv "+cls; { const from=parseFloat(v.dataset.n||0); v.dataset.n=tot; const tok=Math.random(); v.dataset.tok=tok; const t0=performance.now(); (function stp(t){ if(v.dataset.tok!=tok) return; const k=Math.min(1,(t-t0)/450); v.textContent=f2(from+(tot-from)*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(stp); })(t0); }
   fill.className=cls; fill.style.width=(rt*100)+"%";
   mini.textContent="TN "+f2(mt)+"/"+g2(LS_MAXM())+" · Đ-S "+f2(dt)+"/"+g2(LS_MAXD())+" · đã làm "+nM+"/"+LS_MCQ.length+" + "+nD+"/"+LS_DS.length;
   const prev=lsS.last||0; lsS.last=tot;
@@ -1957,15 +1971,17 @@ function lsPass(t){
   }).join("\n");
 }
 function lsRender(){
+  if(lsS.exam){ lsRenderExam(); return; }
   const el=document.getElementById("lsbody");
   let h='';
-  h+='<div class="nav" style="margin-top:4px"><button class="btn" onclick="lsShowResult()">📋 Xem đáp án</button></div>';
+  h+='<div class="nav" style="margin-top:4px"><button class="btn ghost" onclick="navBack()">⬅ Quay lại</button><button class="btn ghost" onclick="lsClearHL()">🧹 Xóa tất cả tô màu</button><button class="btn" onclick="lsShowResult()">📋 Xem đáp án</button><button class="btn" onclick="lsExamStart()">🎯 Thi thử</button></div>';
+  if(lsS.linkFrom) h+='<div class="lsmacbanner">🔗 Bấm vào câu bị nhầm với <b>'+lsKeyLabel(lsS.linkFrom)+'</b> · <button onclick="lsLinkCancel()">Hủy</button></div>';
   h+='<div class="lshead">'+(LS_META[LS_CUR].tag?'<span class="lstag">'+LS_META[LS_CUR].tag+'</span>':'')+'<h2>'+LS_META[LS_CUR].title+'</h2></div>';
   h+='<div class="lssec">Phần I. Trắc nghiệm nhiều lựa chọn</div>';
   LS_MCQ.forEach((it,i)=>{
     const ch=lsS.mcq[i], done=ch!==undefined, ok=done&&ch===it.a;
     const noteM=lsS.notes[ 'm'+i ];
-    h+='<div class="lsq'+(lsS.fresh==='m'+i?' fresh':'')+(lsS.glow==='m'+i?' glow':'')+'" data-m="'+i+'">'+(noteM?'<div class="lsnote">📝 '+esc(noteM)+'</div>':'')+'<div class="lsqt" data-hk="q'+i+'"><span class="qn">Câu '+(i+1)+'</span>'+esc(it.q)+'</div>';
+    h+='<div class="lsq'+(lsS.fresh==='m'+i?' fresh':'')+(lsS.glow==='m'+i?' glow':'')+'" data-m="'+i+'">'+lsTopBits('m'+i)+'<div class="lsqt" data-hk="q'+i+'"><span class="qn">Câu '+(i+1)+'</span>'+esc(it.q)+'</div>';
     it.o.forEach((o,oi)=>{
       let cls="";
       if(done){ if(oi===it.a) cls="okc"; else if(oi===ch) cls="badc"; }
@@ -1977,6 +1993,7 @@ function lsRender(){
     const flM=!!lsS.flag.mcq[i];
     h+='<button class="lsflag'+(flM?' on':'')+'" title="Đánh dấu xem lại" aria-label="Đánh dấu xem lại" onclick="lsToggleFlag(\'m\','+i+')">🚩</button>';
     h+='<button class="lsnbtn" title="Ghi chú" aria-label="Ghi chú" onclick="lsNoteToggle(\'m'+i+'\')">📝</button>';
+    h+='<button class="lsnbtn lsmac" title="Gắn mác nhầm lẫn" aria-label="Gắn mác nhầm lẫn" onclick="lsLinkStart(\'m'+i+'\')">🔗</button>';
     if(lsS.noteEdit==='m'+i) h+=lsNoteEditor('m'+i);
     h+='</div>';
   });
@@ -1993,13 +2010,14 @@ function lsRender(){
       const cT=done?(ans===true?'okc':(v===true?'badc':'')):'';
       const cF=done?(ans===false?'okc':(v===false?'badc':'')):'';
       h+='<div class="lsst '+(done?(ok?'st-ok':'st-bad'):'')+(lsS.glow==='d'+j+'-'+k?' glow':'')+'" data-d="'+j+'-'+k+'">'
-        +(noteD?'<div class="lsnote">📝 '+esc(noteD)+'</div>':'')
+        +lsTopBits('d'+j+'-'+k)
         +'<div class="lsst-t"><span class="lsl">'+"abcd"[k]+'</span><span data-hk="s'+j+'-'+k+'">'+esc(s)+'</span></div>'
         +'<div class="lsseg"><button class="'+cT+'" '+dis+' onclick="lsPickDs('+j+','+k+',true)">✓ Đúng</button>'
         +'<button class="'+cF+'" '+dis+' onclick="lsPickDs('+j+','+k+',false)">✗ Sai</button></div>';
       const flD=!!(lsS.flag.ds[j]&&lsS.flag.ds[j][k]);
       h+='<button class="lsflag'+(flD?' on':'')+'" title="Đánh dấu xem lại" aria-label="Đánh dấu xem lại" onclick="lsToggleFlag(\'d\','+j+','+k+')">🚩</button>';
       h+='<button class="lsnbtn" title="Ghi chú" aria-label="Ghi chú" onclick="lsNoteToggle(\'d'+j+'-'+k+'\')">📝</button>';
+      h+='<button class="lsnbtn lsmac" title="Gắn mác nhầm lẫn" aria-label="Gắn mác nhầm lẫn" onclick="lsLinkStart(\'d'+j+'-'+k+'\')">🔗</button>';
       if(lsS.noteEdit==='d'+j+'-'+k) h+=lsNoteEditor('d'+j+'-'+k);
       if(done) h+='<div class="lsexp '+(ok?'ok':'bad')+'"><b>'+(ok?'✅ Đúng':'❌ Sai')+' · đáp án: '+(ans?'Đúng':'Sai')+'</b><br>💡 '+esc(d.e[k])+'</div>';
       h+='</div>';
@@ -2009,7 +2027,7 @@ function lsRender(){
     h+='</div></div></div>';
   });
   h+='<div class="lsres">'+(lsS.sub?lsSummary():'')+'</div>';
-  h+='<div class="nav">'+(lsCount('wrong')?'<button id="lsReviewBtn" class="btn" onclick="lsOpenReview(\'wrong\')">ÔN TẬP LẠI NHỮNG CÂU SAI</button>':'')+'<button class="btn ghost" onclick="lsReset()">🔄 Làm lại</button></div>';
+  h+='<div class="nav">'+(lsCount('wrong')?'<button id="lsReviewBtn" class="btn" onclick="lsOpenReview(\'wrong\')">ÔN TẬP LẠI NHỮNG CÂU SAI</button>':'')+'<button class="btn ghost" onclick="lsOpenNotes()">📒 Xem lại ghi chú & tô màu</button><button class="btn ghost" onclick="lsReset()">🔄 Làm lại</button></div>';
   el.innerHTML=h; lsApplyAllHL();
   lsUpdBar(); lsUpdFloat();
 }
@@ -2183,6 +2201,143 @@ function lsNoteSave(key){
   lsS.noteEdit=null; lsStoreSave(); lsRender();
 }
 function lsNoteDel(key){ delete lsS.notes[key]; lsS.noteEdit=null; lsStoreSave(); lsRender(); }
+function lsFmt(secs){ const s=Math.max(0,Math.floor(secs)); return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); }
+function lsTimerText(){
+  const st=lsS.exam?lsS.exam:lsS; if(!st.t0) return "00:00";
+  return lsFmt(((st.tEnd||Date.now())-st.t0)/1000);
+}
+setInterval(()=>{ const el=document.getElementById("lsTimer"); if(el&&!document.getElementById("ls").classList.contains("hidden")) el.textContent="⏱ "+lsTimerText(); },250);
+function lsKeyLabel(k){ if(k[0]==="m") return "Câu "+(parseInt(k.slice(1))+1); const p=k.slice(1).split("-"); return "Câu "+(parseInt(p[0])+1)+" ý "+"abcd"[parseInt(p[1])]; }
+function lsTopBits(key){
+  let h='';
+  const note=lsS.notes[key]; if(note) h+='<div class="lsnote">📝 '+esc(note)+'</div>';
+  (lsS.conf||[]).filter(p=>p.a===key||p.b===key).map(p=>p.a===key?p.b:p.a).forEach(x=>{
+    h+='<div class="lsconf"><span onclick="lsJumpKey(\''+x+'\')">⚠ Nhầm với '+lsKeyLabel(x)+'</span><button onclick="lsConfDel(\''+key+'\',\''+x+'\')" aria-label="Bỏ gắn">×</button></div>';
+  });
+  return h;
+}
+function lsClearHL(){ lsS.hl={}; lsRender(); }
+function lsLinkStart(key){ lsS.linkFrom = lsS.linkFrom===key ? null : key; lsRender(); }
+function lsLinkCancel(){ lsS.linkFrom=null; lsRender(); }
+function lsConfDel(a,b){ lsS.conf=(lsS.conf||[]).filter(p=>!((p.a===a&&p.b===b)||(p.a===b&&p.b===a))); lsStoreSave(); lsRender(); }
+function lsJumpKey(key){
+  lsS.glow=key;
+  document.querySelectorAll('#lsbody .glow').forEach(e=>e.classList.remove('glow'));
+  const el = key[0]==="m" ? document.querySelector('#lsbody [data-m="'+key.slice(1)+'"]') : document.querySelector('#lsbody [data-d="'+key.slice(1)+'"]');
+  if(el){ el.classList.add('glow'); el.scrollIntoView({behavior:'smooth',block:'center'}); }
+}
+document.getElementById('lsbody').addEventListener('click',function(e){
+  if(!lsS.linkFrom) return;
+  if(e.target.closest('.lsmac,.lsnbtn,.lsflag,.lsconf,.lsmacbanner,.lsnoteEd')) return;
+  const card=e.target.closest('[data-m],[data-d]'); if(!card) return;
+  const key = card.dataset.m!==undefined ? 'm'+card.dataset.m : 'd'+card.dataset.d;
+  e.preventDefault(); e.stopPropagation();
+  if(key===lsS.linkFrom) return;
+  const a=lsS.linkFrom; lsS.conf=lsS.conf||[];
+  if(!lsS.conf.some(p=>(p.a===a&&p.b===key)||(p.a===key&&p.b===a))) lsS.conf.push({a:a,b:key});
+  lsS.linkFrom=null; lsStoreSave(); lsRender();
+},true);
+const LS_COLOR_NAME={blue:'Xanh dương',yellow:'Vàng',pink:'Hồng',green:'Xanh lá'};
+function lsHkOrd(hk){ const t=hk[0], p=hk.slice(1).split('-').map(Number); if(t==='q') return [0,p[0],0]; if(t==='o') return [0,p[0],1+p[1]]; if(t==='p') return [1,p[0],-1]; return [1,p[0],p[1]]; }
+function lsHkLabel(hk){ const t=hk[0], p=hk.slice(1).split('-').map(Number);
+  if(t==='q') return 'Câu '+(p[0]+1)+' · đề'; if(t==='o') return 'Câu '+(p[0]+1)+' · đáp án '+"ABCD"[p[1]];
+  if(t==='p') return 'Câu '+(p[0]+1)+' · tư liệu'; return 'Câu '+(p[0]+1)+' ý '+"abcd"[p[1]]; }
+function lsHkCard(hk){ const t=hk[0], p=hk.slice(1).split('-').map(Number);
+  if(t==='q'||t==='o') return 'm'+p[0]; return 'd'+p[0]+'-'+(t==='s'?p[1]:0); }
+function lsOrd(k){ if(k[0]==='m') return [0,parseInt(k.slice(1)),0]; const p=k.slice(1).split('-').map(Number); return [1,p[0],p[1]]; }
+function lsCmp(a,b){ for(let i=0;i<3;i++){ if(a[i]!==b[i]) return a[i]-b[i]; } return 0; }
+function lsOpenNotes(){
+  const notes=Object.keys(lsS.notes||{}).map(k=>({ord:lsOrd(k), card:k, html:'<b>'+lsKeyLabel(k)+'</b><br>📝 '+esc(lsS.notes[k])}));
+  const hls=[];
+  Object.keys(lsS.hl||{}).forEach(hk=>{
+    const el=document.querySelector('#lsbody [data-hk="'+hk+'"]'), txt=el?el.textContent:'';
+    (lsS.hl[hk]||[]).forEach(x=>{ hls.push({ord:lsHkOrd(hk), card:lsHkCard(hk), html:'<b>'+lsHkLabel(hk)+'</b><br><mark class="hl hl-'+x.c+'">'+esc(txt.slice(x.s,x.e))+'</mark> · '+(LS_COLOR_NAME[x.c]||x.c)}); });
+  });
+  notes.sort((a,b)=>lsCmp(a.ord,b.ord)); hls.sort((a,b)=>lsCmp(a.ord,b.ord));
+  let h='<h3>Ghi chú & tô màu đã ghi</h3>';
+  h+='<div class="lmsec">Ghi chú</div>';
+  h+= notes.length ? notes.map(n=>'<button class="lmo lmnav" onclick="lsNotesGo(\''+n.card+'\')">'+n.html+'</button>').join('') : '<div style="color:#64748b">Chưa có ghi chú.</div>';
+  h+='<div class="lmsec">Tô màu</div>';
+  h+= hls.length ? hls.map(n=>'<button class="lmo lmnav" onclick="lsNotesGo(\''+n.card+'\')">'+n.html+'</button>').join('') : '<div style="color:#64748b">Chưa tô màu đoạn nào.</div>';
+  document.getElementById('lsmBody').innerHTML=h;
+  document.getElementById('lsModal').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+  document.querySelector('#lsModal').scrollTop=0;
+}
+function lsNotesGo(card){ lsCloseResult(); setTimeout(()=>lsJumpKey(card),60); }
+
+/* ---- thi thử: trộn thứ tự câu + đáp án (trắc nghiệm), trộn thứ tự câu + ý a–d (đúng-sai) ---- */
+function lsShuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function lsExamStart(){
+  const ex={ mcqOrder:lsShuffle(LS_MCQ.map((_,i)=>i)), optPerm:{}, dsOrder:lsShuffle(LS_DS.map((_,j)=>j)), stPerm:{}, ans:{mcq:{},ds:{}}, t0:Date.now(), tEnd:null, submitted:false, result:null };
+  LS_MCQ.forEach((_,i)=>{ ex.optPerm[i]=lsShuffle([0,1,2,3]); });
+  LS_DS.forEach((d,j)=>{ ex.stPerm[j]=lsShuffle(d.s.map((_,k)=>k)); });
+  lsS.exam=ex; lsRender(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function lsExamExit(){ lsS.exam=null; lsRender(); window.scrollTo({top:0,behavior:'smooth'}); }
+function lsExamPick(i,oi){ const ex=lsS.exam; if(!ex||ex.submitted) return; ex.ans.mcq[i]=oi; lsRenderExam(true); }
+function lsExamDs(j,k,v){ const ex=lsS.exam; if(!ex||ex.submitted) return; (ex.ans.ds[j]=ex.ans.ds[j]||{})[k]=v; lsRenderExam(true); }
+function lsExamScore(){
+  const ex=lsS.exam; let m=0; LS_MCQ.forEach((it,i)=>{ if(ex.ans.mcq[i]===it.a) m++; });
+  let dp=0; LS_DS.forEach((d,j)=>{ const st=ex.ans.ds[j]||{}; const c=d.s.filter((_,k)=>st[k]===d.ans[k]).length; dp+=LS_DS_PTS[c]; });
+  return m*LS_PER()+dp;
+}
+function lsExamSubmit(){
+  const ex=lsS.exam; if(!ex||ex.submitted) return;
+  ex.submitted=true; ex.tEnd=Date.now();
+  ex.result={score:lsExamScore(), name:curUser||'(chưa rõ)', secs:(ex.tEnd-ex.t0)/1000};
+  lsRenderExam(false); window.scrollTo({top:0,behavior:'smooth'});
+}
+function lsRenderExam(keep){
+  const ex=lsS.exam, y=window.scrollY, el=document.getElementById('lsbody'); let h='';
+  h+='<div class="nav" style="margin-top:4px"><button class="btn ghost" onclick="lsExamExit()">⬅ Thoát thi thử</button></div>';
+  h+='<div class="lshead"><h2>Thi thử · '+esc(LS_META[LS_CUR].title)+'</h2></div>';
+  if(ex.submitted){
+    h+='<div class="lsres"><h3>Kết quả thi thử</h3><div>Điểm: <b>'+f2(ex.result.score)+'</b> / '+g2(10)+'</div><div>Tên: <b>'+esc(ex.result.name)+'</b></div><div>Thời gian làm: <b>'+lsFmt(ex.result.secs)+'</b></div></div>';
+  }
+  h+='<div class="lssec">Phần I. Trắc nghiệm nhiều lựa chọn</div>';
+  ex.mcqOrder.forEach((i,idx)=>{
+    const it=LS_MCQ[i], pick=ex.ans.mcq[i];
+    h+='<div class="lsq"><div class="lsqt"><span class="qn">Câu '+(idx+1)+'</span>'+esc(it.q)+'</div>';
+    ex.optPerm[i].forEach((oi,p)=>{
+      h+='<button class="lsopt'+(pick===oi?' picked':'')+'" '+(ex.submitted?'disabled':'')+' onclick="lsExamPick('+i+','+oi+')"><b>'+"ABCD"[p]+'</b><span>'+esc(it.o[oi])+'</span></button>';
+    });
+    h+='</div>';
+  });
+  h+='<div class="lssec">Phần II. Trắc nghiệm đúng – sai</div>';
+  ex.dsOrder.forEach((j,idx)=>{
+    const d=LS_DS[j], st=ex.ans.ds[j]||{};
+    h+='<div class="lsq lsds"><div class="lsqt"><span class="qn">Câu '+(idx+1)+'</span>Đọc tư liệu và xác định Đúng/Sai cho từng ý</div>'
+      +'<div class="lsds-grid"><div class="lspass"><div class="lspass-h">📜 Tư liệu</div>'+lsPass(d.p)+'</div><div class="lsstmts">';
+    ex.stPerm[j].forEach((k,p)=>{
+      const v=st[k];
+      h+='<div class="lsst"><div class="lsst-t"><span class="lsl">'+"abcd"[p]+'</span><span>'+esc(d.s[k])+'</span></div>'
+        +'<div class="lsseg"><button class="'+(v===true?'picked':'')+'" '+(ex.submitted?'disabled':'')+' onclick="lsExamDs('+j+','+k+',true)">✓ Đúng</button>'
+        +'<button class="'+(v===false?'picked':'')+'" '+(ex.submitted?'disabled':'')+' onclick="lsExamDs('+j+','+k+',false)">✗ Sai</button></div></div>';
+    });
+    h+='</div></div></div>';
+  });
+  h+='<div class="nav">'+(ex.submitted?'<button class="btn" onclick="lsExamStart()">🔁 Thi lại (trộn lại)</button>':'<button class="btn" onclick="lsExamSubmit()">NỘP BÀI</button>')+'</div>';
+  el.innerHTML=h;
+  lsUpdBar();
+  if(keep) window.scrollTo(0,y);
+}
+
+/* ---- nút quay lại: nhớ tab / bài trước đó ---- */
+let NAV_STACK=[], NAV_CUR=null, NAV_RESTORING=false;
+(function(){ const st=showTab; showTab=function(n){
+  if(!NAV_RESTORING && NAV_CUR){ NAV_STACK.push(NAV_CUR); if(NAV_STACK.length>30) NAV_STACK.shift(); }
+  st(n);
+  NAV_CUR = n==='ls' ? {ls:LS_CUR} : {tab:n};
+}; })();
+function navBack(){
+  const t=NAV_STACK.pop();
+  if(!t){ showChooser(); return; }
+  NAV_RESTORING=true;
+  if(t.ls){ setLs(t.ls); lsRender(); showTab('ls'); } else { showTab(t.tab); }
+  NAV_RESTORING=false;
+}
+
 function lsSummary(){
   const m=lsMcqPts(), d=lsDsTotal(), miss=LS_DS.filter((_,j)=>lsDsPts(j)===null).length;
   return '<h3 style="margin:0 0 6px">Kết quả: '+f2(m+d)+' / '+f2(LS_MAXT())+'</h3>'
@@ -2231,7 +2386,7 @@ function lsShowResult(){
 }
 function lsCloseResult(){ document.getElementById("lsModal").classList.add("hidden"); document.body.style.overflow=""; }
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") lsCloseResult(); });
-function lsReset(){ lsS.mcq={}; lsS.ds={}; lsS.sub=false; lsS.flag={mcq:{},ds:{}}; lsS.rev={mcq:{},ds:{}}; lsS.last=0; lsRender(); window.scrollTo({top:0,behavior:"smooth"}); }
+function lsReset(){ lsS.mcq={}; lsS.ds={}; lsS.sub=false; lsS.flag={mcq:{},ds:{}}; lsS.rev={mcq:{},ds:{}}; lsS.last=0; lsS.t0=null; lsS.tEnd=null; lsS.notes={}; lsS.noteEdit=null; lsS.linkFrom=null; lsStoreSave(); lsRender(); window.scrollTo({top:0,behavior:"smooth"}); }
 
 
 function setNavH(){ const n=document.querySelector("nav.tabs"); document.documentElement.style.setProperty("--navh",(innerWidth>640&&n?n.offsetHeight:0)+"px"); }
