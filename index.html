@@ -2465,5 +2465,1193 @@ addEventListener("resize",setNavH); addEventListener("load",setNavH); setNavH();
 
 (function(){ const st=showTab; showTab=function(n){ st(n); document.body.classList.toggle("sv-ls",n==="ls"); }; })();
 </script>
+<!-- ==================== BẢN CẬP NHẬT CUỐI: FULL 3D GAME RPG ĐỒNG BỘ TOÀN TRANG ==================== -->
+<style>
+/* ===== 1. ĐỒNG BỘ FONT CHỮ & NỀN VŨ TRỤ 3D TOÀN TRANG ===== */
+html:not(.fnt-tnr) body,
+html:not(.fnt-tnr) body *:not(.mono) {
+  font-family: "Be Vietnam Pro", "Lexend", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+html:not(.fnt-tnr) .mono,
+html:not(.fnt-tnr) .fx,
+html:not(.fnt-tnr) .gcf,
+html:not(.fnt-tnr) .bigf,
+html:not(.fnt-tnr) .tok,
+html:not(.fnt-tnr) .bung,
+html:not(.fnt-tnr) .lsv,
+html:not(.fnt-tnr) .exclock {
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+:root {
+  --bg: #070514 !important;
+  --page: #070514 !important;
+  --surface: rgba(17, 24, 48, 0.84) !important;
+  --bd: rgba(139, 92, 246, 0.42) !important;
+  --line: rgba(139, 92, 246, 0.35) !important;
+  --acc: #8b5cf6 !important;
+  --acc-s: rgba(139, 92, 246, 0.22) !important;
+  --pur: #c084fc !important;
+  --pur-s: rgba(139, 92, 246, 0.25) !important;
+  --teal: #2dd4bf !important;
+  --teal-s: rgba(20, 184, 166, 0.25) !important;
+  --amb: #fbbf24 !important;
+  --amb-s: rgba(245, 158, 11, 0.25) !important;
+  --grn: #4ade80 !important;
+  --grn-s: rgba(34, 197, 94, 0.25) !important;
+  --pink: #f472b6 !important;
+  --pink-s: rgba(236, 72, 153, 0.25) !important;
+  --blue: #38bdf8 !important;
+  --blue-s: rgba(56, 189, 248, 0.25) !important;
+  --ink: #f8fafc !important;
+  --ink2: #cbd5e1 !important;
+  --muted: #94a3b8 !important;
+}
+
+html, body {
+  background: #070514 !important;
+  color: #f8fafc !important;
+  overflow-x: hidden;
+}
+
+/* Canvas 3D chuyển động phía sau toàn bộ trang */
+#bg3dCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  display: block;
+}
+
+/* Lưới không gian 3D dưới đáy màn hình */
+#cyberGrid3D {
+  position: fixed;
+  left: -50%;
+  right: -50%;
+  bottom: -35vh;
+  height: 75vh;
+  background-image:
+    linear-gradient(to right, rgba(168, 85, 247, 0.28) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.28) 1px, transparent 1px);
+  background-size: 55px 55px;
+  transform: perspective(500px) rotateX(68deg);
+  animation: gridMove3D 6s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.95) 10%, transparent 90%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.95) 10%, transparent 90%);
+}
+@keyframes gridMove3D {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 55px; }
+}
+
+#app, header, nav.tabs, main, footer.vfoot {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== 2. HEADER & THANH ĐIỀU HƯỚNG 3D GAME HUD ===== */
+header {
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.92), rgba(46, 16, 101, 0.92), rgba(15, 23, 42, 0.92)) !important;
+  border-bottom: 2px solid #a855f7 !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 25px rgba(168, 85, 247, 0.45) !important;
+  backdrop-filter: blur(12px) !important;
+  padding: 12px 18px !important;
+}
+header h1 {
+  color: #fde047 !important;
+  text-shadow: 0 0 12px rgba(250, 204, 21, 0.75), 0 2px 4px #000 !important;
+  font-size: 1.08rem !important;
+  letter-spacing: 1px !important;
+}
+.brandsub { color: #38bdf8 !important; font-weight: 600; }
+
+.menubtn, .who button {
+  background: linear-gradient(180deg, #7c3aed 0%, #4c1d95 100%) !important;
+  border: 1.5px solid #c084fc !important;
+  border-bottom: 4px solid #2e1065 !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  padding: 7px 14px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 6px 15px rgba(124, 58, 237, 0.45) !important;
+  transition: all 0.15s ease !important;
+}
+.menubtn:hover, .who button:hover {
+  transform: translateY(-2px) !important;
+  filter: brightness(1.15);
+  box-shadow: 0 10px 22px rgba(168, 85, 247, 0.7) !important;
+}
+.menubtn:active, .who button:active {
+  transform: translateY(2px) !important;
+  border-bottom-width: 1.5px !important;
+}
+.who span {
+  background: rgba(56, 189, 248, 0.18) !important;
+  border: 1px solid rgba(56, 189, 248, 0.5) !important;
+  color: #fde047 !important;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+}
+
+nav.tabs {
+  background: rgba(15, 23, 42, 0.88) !important;
+  border-bottom: 1.5px solid rgba(56, 189, 248, 0.35) !important;
+  backdrop-filter: blur(14px) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65) !important;
+  gap: 8px !important;
+  padding: 10px !important;
+}
+.tab {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border: 1.5px solid rgba(148, 163, 184, 0.3) !important;
+  border-bottom: 4px solid #0f172a !important;
+  color: #cbd5e1 !important;
+  border-radius: 12px !important;
+  padding: 9px 16px !important;
+  font-weight: 800 !important;
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.tab:hover {
+  background: rgba(88, 28, 135, 0.7) !important;
+  border-color: #c084fc !important;
+  color: #fff !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.4) !important;
+}
+.tab.active {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%) !important;
+  border-color: #fef08a !important;
+  border-bottom: 4px solid #78350f !important;
+  color: #0f172a !important;
+  box-shadow: 0 0 22px rgba(245, 158, 11, 0.65) !important;
+  transform: translateY(-2px) !important;
+}
+.caretbtn {
+  background: rgba(139, 92, 246, 0.3) !important;
+  border: 1.5px solid #a855f7 !important;
+  color: #fde047 !important;
+}
+.dropmenu {
+  background: rgba(15, 23, 42, 0.96) !important;
+  border: 2px solid #8b5cf6 !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(139, 92, 246, 0.45) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+/* ===== 3. ĐĂNG NHẬP 3D CỔNG KHÔNG GIAN ===== */
+#login {
+  perspective: 1200px !important;
+  background: radial-gradient(ellipse at center, rgba(49, 16, 66, 0.75) 0%, rgba(7, 5, 20, 0.92) 100%) !important;
+  overflow: hidden !important;
+}
+#login .lbox {
+  background: linear-gradient(145deg, rgba(23, 19, 64, 0.92), rgba(11, 15, 35, 0.96)) !important;
+  border: 2px solid #a855f7 !important;
+  border-bottom: 8px solid #4c1d95 !important;
+  border-radius: 28px !important;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.9), 0 0 45px rgba(168, 85, 247, 0.55), inset 0 2px 18px rgba(255,255,255,0.18) !important;
+  transform: rotateX(10deg) translateY(0) !important;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s !important;
+  color: #fff !important;
+  text-align: center !important;
+}
+#login .lbox:hover {
+  transform: rotateX(0deg) translateY(-10px) scale(1.03) !important;
+  box-shadow: 0 40px 85px rgba(0,0,0,0.95), 0 0 65px rgba(56, 189, 248, 0.75) !important;
+  border-color: #38bdf8 !important;
+}
+#login .lbrand {
+  color: #fde047 !important;
+  font-size: 1.35rem !important;
+  text-shadow: 0 0 16px rgba(253, 224, 71, 0.85) !important;
+  letter-spacing: 1.5px !important;
+}
+#login .brandsub.dark, #login .lfont { color: #cbd5e1 !important; }
+#login .lfont select {
+  background: rgba(15, 23, 42, 0.9) !important;
+  color: #fde047 !important;
+  border: 1px solid #8b5cf6 !important;
+}
+#login .lwelcome {
+  color: #38bdf8 !important;
+  text-shadow: 0 0 14px rgba(56, 189, 248, 0.75) !important;
+  font-size: 1.06rem !important;
+  margin: 16px 0 !important;
+}
+#login .btn {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%) !important;
+  border: 2px solid #fef08a !important;
+  border-bottom: 7px solid #78350f !important;
+  border-radius: 16px !important;
+  color: #0f172a !important;
+  font-weight: 900 !important;
+  font-size: 1.18rem !important;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  box-shadow: 0 14px 28px rgba(245, 158, 11, 0.55), 0 0 25px rgba(250, 204, 21, 0.5) !important;
+  transition: all 0.15s !important;
+}
+#login .btn:hover { filter: brightness(1.12); transform: translateY(-3px) scale(1.02) !important; }
+#login .btn:active { transform: translateY(4px) !important; border-bottom-width: 2px !important; }
+
+/* ===== 4. TOÀN BỘ KHUNG HỌC & LÀM BÀI 3D PHÁT SÁNG (HÓA & SỬ) ===== */
+.card, .lsq, .qcard, .lshead, .lsres:not(:empty), .scorebox {
+  background: linear-gradient(160deg, rgba(22, 28, 58, 0.88) 0%, rgba(12, 16, 36, 0.94) 100%) !important;
+  border: 1.5px solid rgba(139, 92, 246, 0.45) !important;
+  border-bottom: 6px solid rgba(76, 29, 149, 0.9) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.75), 0 0 22px rgba(139, 92, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(12px) !important;
+  color: #f8fafc !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+.lsq:hover, .qcard:hover {
+  border-color: rgba(56, 189, 248, 0.7) !important;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.85), 0 0 28px rgba(56, 189, 248, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+}
+
+h2, .lshead h2 {
+  color: #fde047 !important;
+  text-shadow: 0 0 12px rgba(250, 204, 21, 0.45) !important;
+}
+h3, .fred {
+  color: #38bdf8 !important;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.4) !important;
+}
+
+/* Thanh tiến độ / Thanh Máu & EXP 3D */
+.progsticky, .lsbar-sticky {
+  background: rgba(11, 15, 34, 0.92) !important;
+  border: 2px solid rgba(56, 189, 248, 0.5) !important;
+  border-bottom: 5px solid #0369a1 !important;
+  border-radius: 18px !important;
+  padding: 12px 18px !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.8), 0 0 24px rgba(56, 189, 248, 0.3) !important;
+  backdrop-filter: blur(14px) !important;
+  margin-bottom: 16px !important;
+}
+.progress, .lsbar {
+  height: 14px !important;
+  background: rgba(15, 23, 42, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 99px !important;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.8) !important;
+  overflow: hidden !important;
+}
+.progress-bar, #lsfill, #lsfill2 {
+  background: linear-gradient(90deg, #38bdf8, #a855f7, #ec4899, #facc15) !important;
+  background-size: 200% 100% !important;
+  animation: sh 2.2s linear infinite !important;
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.85) !important;
+}
+.progtxt, .stepcount, .lsnow, .lsmini {
+  color: #e2e8f0 !important;
+}
+.progtxt b, .lsv {
+  color: #fde047 !important;
+  text-shadow: 0 0 12px rgba(250, 204, 21, 0.7) !important;
+}
+
+/* Nút đáp án 3D (Trắc nghiệm Hóa & Sử) */
+.opt, .lsopt, .lsseg button, .lsbtns button, .stepbtn, .pk, .exbtn {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.92) 0%, rgba(15, 23, 42, 0.96) 100%) !important;
+  border: 1.5px solid rgba(148, 163, 184, 0.38) !important;
+  border-bottom: 5px solid #090d16 !important;
+  border-radius: 14px !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.55) !important;
+  transition: all 0.18s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.opt:hover:not(:disabled),
+.lsopt:hover:not(:disabled),
+.lsseg button:hover:not(:disabled),
+.stepbtn:hover:not(.locked),
+.exbtn:hover {
+  background: linear-gradient(180deg, rgba(76, 29, 149, 0.85) 0%, rgba(46, 16, 101, 0.92) 100%) !important;
+  border-color: #38bdf8 !important;
+  border-bottom-color: #1e1b4b !important;
+  color: #fff !important;
+  transform: translateY(-3px) scale(1.01) !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.75), 0 0 18px rgba(56, 189, 248, 0.45) !important;
+}
+.opt:active:not(:disabled),
+.lsopt:active:not(:disabled),
+.lsseg button:active:not(:disabled) {
+  transform: translateY(2px) !important;
+  border-bottom-width: 2px !important;
+}
+
+/* Nút tròn A B C D trong câu hỏi */
+.lsopt b, .lsl, .rn {
+  background: linear-gradient(135deg, #6366f1, #a855f7) !important;
+  color: #fff !important;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.6) !important;
+}
+.qn, .qno {
+  color: #38bdf8 !important;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.45);
+  font-weight: 800 !important;
+}
+.lsqt, .qtext {
+  color: #ffffff !important;
+}
+
+/* Khi chọn Đúng / Sai: Phát sáng Neon rực rỡ */
+.opt.correct, .lsopt.okc, .lsseg button.okc, .lsstmts .lsst.st-ok {
+  background: linear-gradient(180deg, rgba(22, 101, 52, 0.92) 0%, rgba(20, 83, 45, 0.96) 100%) !important;
+  border-color: #4ade80 !important;
+  border-bottom: 5px solid #052e16 !important;
+  color: #ecfdf5 !important;
+  box-shadow: 0 0 24px rgba(74, 222, 128, 0.55) !important;
+}
+.lsopt.okc b {
+  background: #22c55e !important;
+  color: #052e16 !important;
+  box-shadow: 0 0 12px #4ade80 !important;
+}
+.opt.wrong, .lsopt.badc, .lsseg button.badc, .lsstmts .lsst.st-bad {
+  background: linear-gradient(180deg, rgba(159, 18, 57, 0.92) 0%, rgba(136, 19, 55, 0.96) 100%) !important;
+  border-color: #fb7185 !important;
+  border-bottom: 5px solid #4c0519 !important;
+  color: #fff1f2 !important;
+  box-shadow: 0 0 24px rgba(251, 113, 133, 0.55) !important;
+}
+.lsopt.badc b {
+  background: #f43f5e !important;
+  color: #fff !important;
+}
+#lsbody .lsopt.picked, #lsbody .lsseg button.picked, .opt.on {
+  background: linear-gradient(180deg, #4338ca, #312e81) !important;
+  border: 2px solid #fde047 !important;
+  border-bottom: 5px solid #1e1b4b !important;
+  color: #fde047 !important;
+  box-shadow: 0 0 18px rgba(250, 204, 21, 0.5) !important;
+}
+
+/* Giải thích & Tư liệu Lịch sử 3D */
+.exp, .lsexp {
+  background: rgba(15, 23, 42, 0.92) !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.45) !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6) !important;
+}
+.exp.ok, .lsexp.ok {
+  background: rgba(6, 78, 59, 0.88) !important;
+  border-color: #34d399 !important;
+  color: #d1fae5 !important;
+}
+.exp.bad, .lsexp.bad {
+  background: rgba(127, 29, 29, 0.88) !important;
+  border-color: #f87171 !important;
+  color: #fee2e2 !important;
+}
+.lspass {
+  background: linear-gradient(160deg, rgba(30, 27, 75, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%) !important;
+  border: 1.5px solid rgba(250, 204, 21, 0.45) !important;
+  border-left: 5px solid #f59e0b !important;
+  color: #f8fafc !important;
+  box-shadow: inset 0 0 25px rgba(245, 158, 11, 0.12), 0 12px 28px rgba(0,0,0,0.65) !important;
+}
+.lspass-h {
+  color: #fde047 !important;
+  text-shadow: 0 0 8px rgba(250, 204, 21, 0.5);
+}
+.lscite { color: #94a3b8 !important; }
+.lsstmts .lsst {
+  background: rgba(15, 23, 42, 0.78) !important;
+  border: 1.5px solid rgba(139, 92, 246, 0.35) !important;
+  color: #f8fafc !important;
+}
+
+/* Tô màu (Highlight) nổi bật trên nền tối */
+mark.hl {
+  color: #090d16 !important;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+/* Các khối kiến thức Hóa học (Sơ đồ, Bảng, Thẻ gốc, Đồng phân) */
+.dbox, .iso, .gc, .cg, .nt, .rs, .tryit, .bacbox, .chip {
+  background: rgba(15, 23, 42, 0.88) !important;
+  border: 1.5px solid rgba(139, 92, 246, 0.45) !important;
+  border-bottom: 5px solid #311042 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.6) !important;
+}
+.dbox .cap, .gcm, .mini, .kd { color: #cbd5e1 !important; }
+.gcn, .cg b { color: #fde047 !important; }
+.gcf, .bigf, .iso .fx { color: #38bdf8 !important; }
+.kc.k1 { background: rgba(88, 28, 135, 0.45) !important; border-color: #a855f7 !important; }
+.kc.k2 { background: rgba(19, 78, 74, 0.45) !important; border-color: #2dd4bf !important; }
+.kc.k3 { background: rgba(124, 45, 18, 0.45) !important; border-color: #fb923c !important; }
+.kc.k4 { background: rgba(131, 24, 67, 0.45) !important; border-color: #f472b6 !important; }
+.kc .kt { color: #fde047 !important; }
+.kc .ke { background: rgba(15, 23, 42, 0.85) !important; color: #38bdf8 !important; }
+
+.callout.pur { background: rgba(88, 28, 135, 0.45) !important; border: 1px solid #a855f7; color: #f3e8ff !important; }
+.callout.amb { background: rgba(120, 53, 15, 0.45) !important; border: 1px solid #f59e0b; color: #fef3c7 !important; }
+.callout.grn { background: rgba(20, 83, 45, 0.45) !important; border: 1px solid #22c55e; color: #dcfce7 !important; }
+.hl { color: #fde047 !important; }
+
+table {
+  background: rgba(15, 23, 42, 0.9) !important;
+  border: 1.5px solid rgba(139, 92, 246, 0.45) !important;
+}
+th {
+  background: rgba(88, 28, 135, 0.6) !important;
+  color: #fde047 !important;
+}
+td { color: #f8fafc !important; border-bottom-color: rgba(139, 92, 246, 0.25) !important; }
+
+/* SVG Hóa học phát sáng trên nền tối */
+svg polygon { fill: rgba(88, 28, 135, 0.35) !important; stroke: #38bdf8 !important; }
+svg line, svg polyline { stroke: #cbd5e1 !important; }
+svg text { fill: #fde047 !important; }
+svg circle[fill="#fff"] { fill: #1e293b !important; }
+svg circle[fill="#ede9fe"] { fill: #3b0764 !important; stroke: #c084fc !important; }
+
+/* Nút điều hướng chính (.btn) */
+.btn {
+  background: linear-gradient(180deg, #8b5cf6 0%, #6d28d9 100%) !important;
+  border: 1.5px solid #c4b5fd !important;
+  border-bottom: 5px solid #3b0764 !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 10px 22px rgba(109, 40, 217, 0.5) !important;
+  transition: all 0.15s ease !important;
+}
+.btn:hover:not(:disabled) {
+  filter: brightness(1.15);
+  transform: translateY(-3px) !important;
+  box-shadow: 0 14px 28px rgba(168, 85, 247, 0.75) !important;
+}
+.btn:active:not(:disabled) {
+  transform: translateY(2px) !important;
+  border-bottom-width: 2px !important;
+}
+.btn.ghost {
+  background: rgba(30, 41, 59, 0.88) !important;
+  border: 1.5px solid #38bdf8 !important;
+  border-bottom: 5px solid #0c4a6e !important;
+  color: #38bdf8 !important;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.5) !important;
+}
+.btn:disabled {
+  background: rgba(51, 65, 85, 0.6) !important;
+  border-color: rgba(100, 116, 139, 0.4) !important;
+  border-bottom-color: #1e293b !important;
+  color: #94a3b8 !important;
+  box-shadow: none !important;
+}
+
+/* Nút công cụ phụ (Cờ, Ghi chú, Nhầm lẫn) */
+.lsflag, .lsnbtn {
+  background: rgba(30, 41, 59, 0.9) !important;
+  border: 1px solid rgba(148, 163, 184, 0.4) !important;
+  color: #f8fafc !important;
+}
+.lsflag.on {
+  background: rgba(245, 158, 11, 0.25) !important;
+  border-color: #fbbf24 !important;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
+}
+.lsnote {
+  background: rgba(120, 53, 15, 0.45) !important;
+  border-left: 4px solid #fbbf24 !important;
+  color: #fef3c7 !important;
+}
+.lsnoteEd, .lsmacmenu {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border: 1.5px solid #8b5cf6 !important;
+  color: #f8fafc !important;
+}
+.lsnoteEd textarea, .sain {
+  background: rgba(9, 13, 28, 0.95) !important;
+  border: 1.5px solid #6366f1 !important;
+  color: #fde047 !important;
+}
+.lsmacmenu-h { color: #fde047 !important; }
+.lsmacmenu button {
+  background: rgba(30, 41, 59, 0.9) !important;
+  border-color: rgba(139, 92, 246, 0.35) !important;
+  color: #f1f5f9 !important;
+}
+.lsmacmenu button:hover { background: rgba(88, 28, 135, 0.7) !important; }
+
+/* Modal Xem Đáp Án / Ôn Tập / Flashcard */
+#lsModal .lmbox, .lbox2, .stkbox {
+  background: linear-gradient(160deg, #131836 0%, #090d1f 100%) !important;
+  border: 2px solid #a855f7 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.95), 0 0 40px rgba(168, 85, 247, 0.45) !important;
+}
+#lsModal .lmq, #lsModal .lmst { border-color: rgba(139, 92, 246, 0.28) !important; }
+#lsModal .lmq b.n, #lsModal .lmsec { color: #fde047 !important; }
+#lsModal .lmo, #lsModal button.lmo, #lsModal .lmb, #lsModal button.lmb {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(148, 163, 184, 0.35) !important;
+  color: #f1f5f9 !important;
+}
+#lsModal .lmo.ok, #lsModal .lmb.ok {
+  background: rgba(22, 101, 52, 0.85) !important;
+  border-color: #4ade80 !important;
+  color: #dcfce7 !important;
+}
+#lsModal .lmo.bad, #lsModal .lmb.bad {
+  background: rgba(159, 18, 57, 0.85) !important;
+  border-color: #fb7185 !important;
+  color: #ffe4e6 !important;
+}
+#lsModal .lmpass {
+  background: rgba(30, 27, 75, 0.75) !important;
+  border-left: 4px solid #f59e0b !important;
+  color: #e2e8f0 !important;
+}
+#lsModal .lmx, .xbtn {
+  background: rgba(239, 68, 68, 0.25) !important;
+  border: 1px solid #f87171 !important;
+  color: #fff !important;
+}
+
+/* ===== 5. THÁP 3D LEO ĐỈNH (NÂNG CẤP HIỆU ỨNG XOAY & TIA NĂNG LƯỢNG) ===== */
+#chooser {
+  background: radial-gradient(circle at 50% 15%, rgba(68, 18, 102, 0.88) 0%, rgba(12, 8, 32, 0.94) 60%, rgba(5, 2, 12, 0.98) 100%) !important;
+  perspective: 1400px !important;
+  overflow: hidden !important;
+}
+#chooser > .cbox { display: none !important; }
+
+#tower3DWrap {
+  position: relative;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: space-between;
+  padding: 16px 14px 20px;
+  color: #fff;
+  user-select: none;
+  z-index: 10;
+}
+.tw-clouds {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.25), transparent 45%),
+    radial-gradient(circle at 80% 25%, rgba(56, 189, 248, 0.22), transparent 45%),
+    radial-gradient(circle at 50% 10%, rgba(250, 204, 21, 0.22), transparent 40%);
+  animation: auraPulse 6s ease-in-out infinite alternate;
+}
+@keyframes auraPulse {
+  0% { opacity: 0.7; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.06); }
+}
+
+.tw-hud {
+  width: 100%; max-width: 820px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 2px solid rgba(168, 85, 247, 0.65);
+  border-bottom: 5px solid #4c1d95;
+  border-radius: 20px;
+  padding: 10px 18px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.75), 0 0 25px rgba(168, 85, 247, 0.35);
+  z-index: 5;
+}
+.tw-player { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1rem; color: #fde047; }
+.tw-avatar {
+  width: 42px; height: 42px; border-radius: 14px;
+  background: linear-gradient(135deg, #f59e0b, #ec4899, #7c3aed);
+  display: grid; place-items: center; font-size: 1.4rem;
+  box-shadow: 0 0 16px rgba(236, 72, 153, 0.8);
+}
+.tw-alt {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  padding: 6px 16px; border-radius: 999px;
+  font-weight: 800; font-size: 0.92rem; color: #38bdf8;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.35);
+}
+.tw-close {
+  border: 1.5px solid #f87171;
+  border-bottom: 4px solid #7f1d1d;
+  background: linear-gradient(180deg, #ef4444, #b91c1c); color: #fff;
+  border-radius: 12px; padding: 7px 14px;
+  font-weight: 800; cursor: pointer; transition: 0.15s;
+}
+.tw-close:hover { filter: brightness(1.15); transform: translateY(-2px); }
+
+.tw-stage {
+  position: relative;
+  width: 100%; max-width: 820px;
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  perspective: 1200px;
+  z-index: 3;
+  overflow: visible;
+}
+
+/* Cột trụ Tháp 3D trung tâm phát tia năng lượng */
+.tw-pillar {
+  position: absolute;
+  width: 260px; height: 94%;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.06) 0 2px, transparent 2px 36px),
+    linear-gradient(180deg, rgba(250,204,21,0.45) 0%, rgba(168,85,247,0.35) 50%, rgba(15,23,42,0.9) 100%);
+  border-left: 3px solid rgba(56, 189, 248, 0.65);
+  border-right: 3px solid rgba(56, 189, 248, 0.65);
+  transform: rotateX(18deg) translateZ(-100px);
+  box-shadow: 0 0 80px rgba(168, 85, 247, 0.55), inset 0 0 50px rgba(56, 189, 248, 0.35);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 28px 28px 0 0;
+}
+.tw-pillar::before {
+  content: "👑 ĐỈNH THÁP TRI THỨC 999";
+  position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(90deg, #fde047, #f59e0b, #fde047);
+  color: #090d16; font-weight: 900; font-size: 0.8rem;
+  padding: 5px 16px; border-radius: 999px; white-space: nowrap;
+  box-shadow: 0 0 28px #facc15;
+  letter-spacing: 1.2px;
+}
+
+.tw-floor-view {
+  position: relative; z-index: 2;
+  width: 100%; max-height: 75vh;
+  overflow-y: auto; overflow-x: hidden;
+  padding: 14px 12px 22px;
+  transform-style: preserve-3d;
+  animation: twClimbUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes twClimbUp {
+  0% { opacity: 0; transform: translateY(85px) rotateX(28deg) scale(0.88); filter: brightness(1.8); }
+  100% { opacity: 1; transform: translateY(0) rotateX(5deg) scale(1); filter: brightness(1); }
+}
+
+.tw-title-box { text-align: center; margin-bottom: 16px; }
+.tw-floor-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #f59e0b, #ec4899, #8b5cf6);
+  color: #fff; font-weight: 900; font-size: 0.8rem;
+  padding: 5px 16px; border-radius: 999px;
+  letter-spacing: 1.4px; text-transform: uppercase;
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.65);
+}
+.tw-title-box h2 {
+  color: #fde047 !important; font-size: 1.7rem !important;
+  margin: 8px 0 4px !important;
+  text-shadow: 0 0 18px rgba(250, 204, 21, 0.65), 0 4px 12px #000 !important;
+}
+.tw-title-box p { color: #e2e8f0; font-size: 0.94rem; margin: 0; }
+
+.tw-gates {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+  max-width: 700px; margin: 0 auto;
+}
+.tw-gate-card {
+  position: relative;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-bottom: 9px solid #3b0764;
+  border-radius: 24px;
+  padding: 22px 20px;
+  background: linear-gradient(145deg, rgba(49, 46, 129, 0.9), rgba(15, 23, 42, 0.95));
+  color: #fff; text-align: left; cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.35);
+  transform: rotateX(8deg) translateY(0);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, border-color 0.25s;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.tw-gate-card:hover {
+  transform: rotateX(0deg) translateY(-10px) scale(1.04);
+  border-color: #fde047;
+  box-shadow: 0 28px 55px rgba(0,0,0,0.85), 0 0 35px rgba(250, 204, 21, 0.6);
+}
+.tw-gate-card.chem {
+  background: linear-gradient(145deg, rgba(6, 95, 70, 0.92), rgba(15, 23, 42, 0.95));
+  border-color: #34d399;
+  border-bottom-color: #064e3b;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.75), 0 0 25px rgba(52, 211, 153, 0.3);
+}
+.tw-gate-card.hist {
+  background: linear-gradient(145deg, rgba(154, 52, 18, 0.92), rgba(15, 23, 42, 0.95));
+  border-color: #fb923c;
+  border-bottom-color: #7c2d12;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.75), 0 0 25px rgba(251, 146, 60, 0.3);
+}
+.tw-gate-icon { font-size: 2.7rem; filter: drop-shadow(0 0 14px rgba(255,255,255,0.5)); }
+.tw-gate-name { font-size: 1.28rem; font-weight: 900; color: #fde047; text-shadow: 0 0 10px rgba(250,204,21,0.5); }
+.tw-gate-desc { font-size: 0.92rem; color: #e2e8f0; line-height: 1.45; }
+.tw-gate-go {
+  margin-top: 8px; align-self: flex-start;
+  background: linear-gradient(90deg, #f59e0b, #eab308);
+  padding: 6px 14px; border-radius: 999px;
+  font-size: 0.82rem; font-weight: 900; color: #090d16;
+  box-shadow: 0 0 14px rgba(250, 204, 21, 0.6);
+}
+
+.tw-stairs {
+  display: flex; flex-direction: column; gap: 12px;
+  max-width: 640px; margin: 0 auto;
+}
+.tw-step-btn {
+  position: relative;
+  display: flex; align-items: center; gap: 14px;
+  width: 100%; padding: 14px 18px;
+  border: 2px solid rgba(56, 189, 248, 0.5);
+  border-bottom: 6px solid #1e1b4b;
+  border-radius: 18px;
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.94), rgba(49, 46, 129, 0.9));
+  color: #fff; text-align: left; cursor: pointer;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.65), 0 0 15px rgba(56, 189, 248, 0.2);
+  transform: rotateX(6deg);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.tw-step-btn:hover {
+  transform: rotateX(0deg) translateY(-5px) scale(1.02);
+  border-color: #fde047;
+  box-shadow: 0 18px 34px rgba(0,0,0,0.8), 0 0 26px rgba(250, 204, 21, 0.55);
+}
+.tw-step-btn.boss {
+  background: linear-gradient(90deg, rgba(127, 29, 29, 0.95), rgba(153, 27, 27, 0.92));
+  border-color: #f87171; border-bottom-color: #450a0a;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.7), 0 0 22px rgba(248, 113, 113, 0.45);
+}
+.tw-step-lvl {
+  flex: 0 0 50px; height: 50px; border-radius: 14px;
+  background: linear-gradient(135deg, #fde047, #f59e0b);
+  color: #090d16; font-weight: 900; font-size: 0.85rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  line-height: 1.1; box-shadow: 0 0 14px rgba(250, 204, 21, 0.6);
+}
+.tw-step-info { flex: 1; min-width: 0; }
+.tw-step-info b { display: block; font-size: 1.06rem; color: #fef08a; }
+.tw-step-info small { color: #cbd5e1; font-size: 0.85rem; }
+.tw-step-enter {
+  background: linear-gradient(180deg, #38bdf8, #0284c7); color: #090d16;
+  font-weight: 900; font-size: 0.84rem;
+  padding: 8px 14px; border-radius: 12px; white-space: nowrap;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
+
+.tw-top-actions {
+  display: flex; justify-content: space-between; align-items: center;
+  max-width: 640px; margin: 0 auto 12px;
+}
+.tw-back-btn {
+  border: 1.5px solid #38bdf8;
+  border-bottom: 4px solid #0369a1;
+  background: rgba(15, 23, 42, 0.85); color: #38bdf8;
+  padding: 7px 16px; border-radius: 999px;
+  font-weight: 800; cursor: pointer; transition: 0.2s;
+}
+.tw-back-btn:hover { background: #38bdf8; color: #090d16; transform: translateX(-3px); }
+
+.tw-drives {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  margin-top: 14px;
+}
+.tw-drives a {
+  text-decoration: none; color: #fde047;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1.5px solid rgba(253, 224, 71, 0.55);
+  padding: 8px 15px; border-radius: 12px;
+  font-weight: 800; font-size: 0.88rem; transition: 0.2s;
+}
+.tw-drives a:hover { background: rgba(253, 224, 71, 0.2); transform: translateY(-2px); box-shadow: 0 0 15px rgba(250,204,21,0.4); }
+
+.tw-boss-list {
+  max-width: 580px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.tw-boss-item {
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1.5px solid rgba(168, 85, 247, 0.5);
+  padding: 12px 16px; border-radius: 14px;
+  cursor: pointer; font-weight: 700; color: #f8fafc;
+  transition: 0.2s;
+}
+.tw-boss-item:hover { border-color: #fde047; box-shadow: 0 0 15px rgba(250,204,21,0.3); }
+.tw-boss-item input { width: 20px; height: 20px; accent-color: #f59e0b; }
+
+.tw-footer {
+  width: 100%; max-width: 660px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1.5px solid rgba(168, 85, 247, 0.45);
+  padding: 10px 22px; border-radius: 999px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.7);
+  z-index: 5;
+}
+.tw-node { display: flex; align-items: center; gap: 6px; font-size: 0.86rem; font-weight: 800; color: #64748b; }
+.tw-node.active { color: #fde047; text-shadow: 0 0 12px rgba(250,204,21,0.8); }
+.tw-node.done { color: #4ade80; text-shadow: 0 0 10px rgba(74,222,128,0.6); }
+.tw-line { flex: 1; height: 3px; background: rgba(255,255,255,0.18); margin: 0 10px; border-radius: 99px; }
+
+/* Hiệu ứng dịch chuyển tức thời (Warp Flash) khi vào ải */
+#warpFlash {
+  position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  background: radial-gradient(circle, rgba(56,189,248,0.85), rgba(168,85,247,0.9), transparent 80%);
+  opacity: 0; transition: opacity 0.35s ease;
+}
+#warpFlash.go { opacity: 1; }
+
+@media(max-width: 640px) {
+  .tw-title-box h2 { font-size: 1.3rem !important; }
+  .tw-step-btn { padding: 11px 12px; }
+  .tw-step-enter { display: none; }
+}
+</style>
+
+<script>
+(function(){
+  /* ===== 1. TẠO BACKGROUND 3D CHUYỂN ĐỘNG (PARTICLES + ENERGY CRYSTALS + GRID) ===== */
+  const canvas = document.createElement('canvas');
+  canvas.id = 'bg3dCanvas';
+  document.body.prepend(canvas);
+
+  const grid = document.createElement('div');
+  grid.id = 'cyberGrid3D';
+  document.body.prepend(grid);
+
+  const warp = document.createElement('div');
+  warp.id = 'warpFlash';
+  document.body.appendChild(warp);
+
+  window.triggerWarp = function() {
+    warp.classList.add('go');
+    setTimeout(() => warp.classList.remove('go'), 320);
+  };
+
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  });
+
+  const COLORS = ['#fde047', '#38bdf8', '#c084fc', '#f472b6', '#4ade80'];
+  const NUM_STARS = 110;
+  const stars = Array.from({length: NUM_STARS}, () => ({
+    x: (Math.random() - 0.5) * W * 1.8,
+    y: (Math.random() - 0.5) * H * 1.8,
+    z: Math.random() * 1000 + 100,
+    size: Math.random() * 2.5 + 1,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    vy: -(Math.random() * 1.2 + 0.4)
+  }));
+
+  let mouseX = 0, mouseY = 0;
+  window.addEventListener('mousemove', e => {
+    mouseX = (e.clientX - W / 2) * 0.08;
+    mouseY = (e.clientY - H / 2) * 0.08;
+  });
+
+  function draw3DBackground() {
+    ctx.clearRect(0, 0, W, H);
+    // Vẽ quầng sáng trung tâm đỉnh tháp
+    const grad = ctx.createRadialGradient(W * 0.5 + mouseX, H * 0.25 + mouseY, 10, W * 0.5, H * 0.5, Math.max(W, H) * 0.75);
+    grad.addColorStop(0, 'rgba(88, 28, 135, 0.32)');
+    grad.addColorStop(0.5, 'rgba(15, 23, 42, 0.18)');
+    grad.addColorStop(1, 'rgba(7, 5, 20, 0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    const cx = W / 2 + mouseX;
+    const cy = H / 2 + mouseY;
+
+    for (let i = 0; i < NUM_STARS; i++) {
+      const s = stars[i];
+      // Bay về phía trước (3D Z-depth) và bay lên đỉnh tháp
+      s.z -= 2.2;
+      s.y += s.vy * 3;
+      if (s.z <= 20 || s.y < -H) {
+        s.z = 1000;
+        s.x = (Math.random() - 0.5) * W * 1.8;
+        s.y = H * 0.9;
+      }
+      const scale = 520 / s.z;
+      const px = cx + s.x * scale;
+      const py = cy + s.y * scale;
+      if (px < -50 || px > W + 50 || py < -50 || py > H + 50) continue;
+
+      const r = s.size * scale;
+      ctx.save();
+      ctx.beginPath();
+      ctx.fillStyle = s.color;
+      ctx.shadowColor = s.color;
+      ctx.shadowBlur = 12;
+      ctx.arc(px, py, Math.max(0.6, r), 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    requestAnimationFrame(draw3DBackground);
+  }
+  draw3DBackground();
+
+  /* ===== 2. NÂNG CẤP ĐĂNG NHẬP & CỔNG THÁP 3D ===== */
+  const lbrand = document.querySelector('#login .lbrand');
+  if(lbrand) lbrand.innerHTML = '🏰 THÁP TRI THỨC LÒ TÔN 3D';
+  const lbtn = document.querySelector('#login .btn');
+  if(lbtn) lbtn.innerHTML = '⚔️ KHỞI ĐỘNG & BƯỚC VÀO THÁP';
+  const menuBtn = document.querySelector('header .menubtn');
+  if(menuBtn) menuBtn.innerHTML = '🏰 Bản Đồ Tháp 3D';
+
+  const chooser = document.getElementById('chooser');
+  if(!chooser) return;
+
+  const wrap = document.createElement('div');
+  wrap.id = 'tower3DWrap';
+  wrap.innerHTML = `
+    <div class="tw-clouds"></div>
+    <div class="tw-hud">
+      <div class="tw-player">
+        <div class="tw-avatar">🧙‍♂️</div>
+        <div>
+          <div style="font-size:0.72rem;color:#38bdf8;text-transform:uppercase;font-weight:800">Chiến Binh Tri Thức</div>
+          <span id="twUser">Khách</span>
+        </div>
+      </div>
+      <div class="tw-alt" id="twAlt">⛰️ Độ cao: Tầng 1 / 3</div>
+      <button class="tw-close" onclick="hideChooser()">✕ Đóng Bản Đồ</button>
+    </div>
+
+    <div class="tw-stage">
+      <div class="tw-pillar"></div>
+      <div class="tw-floor-view" id="twFloorView"></div>
+    </div>
+
+    <div class="tw-footer">
+      <div class="tw-node active" id="twN1">1. Chân Tháp</div>
+      <div class="tw-line"></div>
+      <div class="tw-node" id="twN2">2. Chọn Ải</div>
+      <div class="tw-line"></div>
+      <div class="tw-node" id="twN3">3. Đỉnh Tháp</div>
+    </div>
+  `;
+  chooser.appendChild(wrap);
+
+  function setTowerProgress(floor) {
+    const alt = document.getElementById('twAlt');
+    const heights = {1: 'Tầng 1 · Chân Tháp (100m)', 2: 'Tầng 2 · Thân Tháp (500m)', 3: 'Tầng 3 · Đỉnh Tháp (999m)'};
+    if(alt) alt.textContent = '⛰️ ' + (heights[floor] || '');
+    [1,2,3].forEach(n => {
+      const el = document.getElementById('twN'+n);
+      if(!el) return;
+      el.classList.toggle('active', n === floor);
+      el.classList.toggle('done', n < floor);
+    });
+  }
+
+  window.enterStage3D = function(chapOrTab, isDirectTab) {
+    triggerWarp();
+    if (isDirectTab) {
+      hideChooser();
+      showTab(chapOrTab);
+    } else {
+      chooseChap(chapOrTab);
+    }
+  };
+
+  window.renderTowerFloor = function(floor, subject) {
+    const view = document.getElementById('twFloorView');
+    if(!view) return;
+    const u = document.getElementById('hello');
+    const twU = document.getElementById('twUser');
+    if(u && twU) twU.textContent = u.textContent || 'Chiến Binh';
+
+    view.style.animation = 'none';
+    void view.offsetWidth;
+    view.style.animation = 'twClimbUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both';
+
+    if(floor === 1) {
+      setTowerProgress(1);
+      view.innerHTML = `
+        <div class="tw-title-box">
+          <span class="tw-floor-badge">🔥 TẦNG 1 · CHÂN THÁP KHỞI ĐẦU</span>
+          <h2>CHỌN CỔNG SỨC MẠNH ĐỂ LEO LÊN</h2>
+          <p>Mỗi cánh cổng mở ra các bậc thang 3D dẫn lên đỉnh cao tri thức</p>
+        </div>
+        <div class="tw-gates">
+          <button class="tw-gate-card chem" onclick="renderTowerFloor(2, 'chem')">
+            <div class="tw-gate-icon">🧪</div>
+            <div class="tw-gate-name">THÁP GIẢ KIM · HÓA HỌC</div>
+            <div class="tw-gate-desc">Chinh phục chuyên đề Amin, đồng phân C1→C7, danh pháp, đề 7A và Boss 15 phút.</div>
+            <span class="tw-gate-go">Leo lên tầng Hóa Học ➔</span>
+          </button>
+          <button class="tw-gate-card hist" onclick="renderTowerFloor(2, 'hist')">
+            <div class="tw-gate-icon">🏛️</div>
+            <div class="tw-gate-name">THÁP THỜI GIAN · LỊCH SỬ</div>
+            <div class="tw-gate-desc">5 ải Lịch sử 12 (Liên Hợp Quốc, Chiến tranh lạnh, ASEAN) & Đấu Trùm Đỉnh Tháp.</div>
+            <span class="tw-gate-go">Leo lên tầng Lịch Sử ➔</span>
+          </button>
+        </div>
+      `;
+    } else if(floor === 2 && subject === 'chem') {
+      setTowerProgress(2);
+      view.innerHTML = `
+        <div class="tw-top-actions">
+          <button class="tw-back-btn" onclick="renderTowerFloor(1)">⬇ Xuống Tầng 1</button>
+          <span class="tw-floor-badge">🧪 TẦNG 2 · THÁP GIẢ KIM (HÓA HỌC)</span>
+        </div>
+        <div class="tw-title-box">
+          <h2>CHỌN BẬC THANG ĐỂ VÀO CHIẾN ĐẤU</h2>
+          <p>Toàn bộ giao diện học tập bên trong đã được nâng cấp 3D phát sáng đồng bộ</p>
+        </div>
+        <div class="tw-stairs">
+          <button class="tw-step-btn" onclick="enterStage3D('amin', false)">
+            <div class="tw-step-lvl"><span>ẢNH</span><b>01</b></div>
+            <div class="tw-step-info">
+              <b>CHUYÊN ĐỀ AMIN · LÝ THUYẾT & GỌI TÊN 3D</b>
+              <small>Học từng bước từ C1 → C7, Flashcard 3D & Nghe giảng</small>
+            </div>
+            <span class="tw-step-enter">Vào Học ⚔️</span>
+          </button>
+          <button class="tw-step-btn" onclick="enterStage3D('7a', true)">
+            <div class="tw-step-lvl"><span>ẢNH</span><b>02</b></div>
+            <div class="tw-step-info">
+              <b>LUYỆN 13 CÂU TRÍCH ĐỀ 7A</b>
+              <small>Trắc nghiệm phản xạ nhanh có giải thích chi tiết</small>
+            </div>
+            <span class="tw-step-enter">Khiêu Chiến ⚔️</span>
+          </button>
+          <button class="tw-step-btn boss" onclick="enterStage3D('ext', true)">
+            <div class="tw-step-lvl"><span>BOSS</span><b>03</b></div>
+            <div class="tw-step-info">
+              <b>ĐỀ LÀM THÊM NGOÀI · 15 PHÚT TỰ NỘP</b>
+              <small>9 câu trắc nghiệm + 4 câu điền số tính điểm chuẩn</small>
+            </div>
+            <span class="tw-step-enter">Đấu Boss 🔥</span>
+          </button>
+        </div>
+        <div class="tw-drives">
+          <a href="https://drive.google.com/file/d/1gLAi7WXnP9py2cHRoOsShtgh7D8ZU9ig/view?usp=sharing" target="_blank" rel="noopener">📘 Kho Bí Kíp Lý Thuyết (Drive) ↗</a>
+          <a href="https://drive.google.com/file/d/1vyD_5N8d87zSUnlMLNM6zqBlO0fMWreh/view?usp=sharing" target="_blank" rel="noopener">📝 Kho Bài Tập Rèn Luyện (Drive) ↗</a>
+        </div>
+      `;
+    } else if(floor === 2 && subject === 'hist') {
+      setTowerProgress(2);
+      view.innerHTML = `
+        <div class="tw-top-actions">
+          <button class="tw-back-btn" onclick="renderTowerFloor(1)">⬇ Xuống Tầng 1</button>
+          <span class="tw-floor-badge">🏛️ TẦNG 2 · THÁP THỜI GIAN (LỊCH SỬ)</span>
+        </div>
+        <div class="tw-title-box">
+          <h2>LEO TỪNG BẬC THANG LỊCH SỬ 12</h2>
+          <p>Bấm vào bậc thang để dịch chuyển vào đấu trường câu hỏi</p>
+        </div>
+        <div class="tw-stairs">
+          <button class="tw-step-btn" onclick="enterStage3D('ls1', false)">
+            <div class="tw-step-lvl"><span>BẬC</span><b>01</b></div>
+            <div class="tw-step-info">
+              <b>Bài 1 · Liên Hợp Quốc</b>
+              <small>24 câu trắc nghiệm · 4 câu đúng/sai</small>
+            </div>
+            <span class="tw-step-enter">Vượt Ải ⚔️</span>
+          </button>
+          <button class="tw-step-btn" onclick="enterStage3D('ls2', false)">
+            <div class="tw-step-lvl"><span>BẬC</span><b>02</b></div>
+            <div class="tw-step-info">
+              <b>Bài 2 · Trật tự thế giới trong Chiến tranh lạnh</b>
+              <small>18 câu trắc nghiệm · 2 câu đúng/sai</small>
+            </div>
+            <span class="tw-step-enter">Vượt Ải ⚔️</span>
+          </button>
+          <button class="tw-step-btn" onclick="enterStage3D('ls3', false)">
+            <div class="tw-step-lvl"><span>BẬC</span><b>03</b></div>
+            <div class="tw-step-info">
+              <b>Bài 3 · Thế giới sau Chiến tranh lạnh</b>
+              <small>20 câu trắc nghiệm · 2 câu đúng/sai</small>
+            </div>
+            <span class="tw-step-enter">Vượt Ải ⚔️</span>
+          </button>
+          <button class="tw-step-btn" onclick="enterStage3D('ls4', false)">
+            <div class="tw-step-lvl"><span>BẬC</span><b>04</b></div>
+            <div class="tw-step-info">
+              <b>Bài 4 · Hiệp hội các quốc gia Đông Nam Á (ASEAN)</b>
+              <small>35 câu trắc nghiệm · 4 câu đúng/sai</small>
+            </div>
+            <span class="tw-step-enter">Vượt Ải ⚔️</span>
+          </button>
+          <button class="tw-step-btn" onclick="enterStage3D('ls5', false)">
+            <div class="tw-step-lvl"><span>BẬC</span><b>05</b></div>
+            <div class="tw-step-info">
+              <b>Bài 5 · ASEAN - Từ ý tưởng đến hiện thực</b>
+              <small>24 câu trắc nghiệm · 4 câu đúng/sai</small>
+            </div>
+            <span class="tw-step-enter">Vượt Ải ⚔️</span>
+          </button>
+          <button class="tw-step-btn boss" onclick="renderTowerFloor(3)">
+            <div class="tw-step-lvl"><span>ĐỈNH</span><b>👑</b></div>
+            <div class="tw-step-info">
+              <b>LEO LÊN ĐỈNH THÁP · KẾT HỢP KIỂM TRA</b>
+              <small>Ghép nhiều bài thành 1 đại đề tổng hợp để thử sức</small>
+            </div>
+            <span class="tw-step-enter">Lên Đỉnh 🔥</span>
+          </button>
+        </div>
+      `;
+    } else if(floor === 3) {
+      setTowerProgress(3);
+      view.innerHTML = `
+        <div class="tw-top-actions">
+          <button class="tw-back-btn" onclick="renderTowerFloor(2, 'hist')">⬇ Xuống Tầng 2</button>
+          <span class="tw-floor-badge">👑 TẦNG 3 · ĐỈNH THÁP TỐI THƯỢNG</span>
+        </div>
+        <div class="tw-title-box">
+          <h2>ĐẤU TRÙM · KẾT HỢP KIỂM TRA</h2>
+          <p>Chọn các ải muốn gộp chung thành một đề đại chiến (Thang điểm 10)</p>
+        </div>
+        <div class="tw-boss-list">
+          <label class="tw-boss-item"><input type="checkbox" class="tw-khchk" value="1"> ⚔️ Bài 1 · Liên Hợp Quốc</label>
+          <label class="tw-boss-item"><input type="checkbox" class="tw-khchk" value="2"> ⚔️ Bài 2 · Trật tự thế giới trong Chiến tranh lạnh</label>
+          <label class="tw-boss-item"><input type="checkbox" class="tw-khchk" value="3"> ⚔️ Bài 3 · Thế giới sau Chiến tranh lạnh</label>
+          <label class="tw-boss-item"><input type="checkbox" class="tw-khchk" value="4"> ⚔️ Bài 4 · Hiệp hội các quốc gia Đông Nam Á</label>
+          <label class="tw-boss-item"><input type="checkbox" class="tw-khchk" value="5"> ⚔️ Bài 5 · ASEAN - Từ ý tưởng đến hiện thực</label>
+          <div id="twKhMsg" style="color:#fda4af;font-weight:700;text-align:center;min-height:22px"></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+            <button class="btn" style="flex:1" onclick="twStartCombo(false)">📖 Làm có đáp án</button>
+            <button class="btn" style="flex:1;background:linear-gradient(180deg,#f59e0b,#d97706)!important;color:#090d16!important;border-color:#fef08a!important;border-bottom-color:#78350f!important" onclick="twStartCombo(true)">🔥 Thi thử trên Đỉnh Tháp</button>
+          </div>
+        </div>
+      `;
+    }
+  };
+
+  window.twStartCombo = function(exam) {
+    const picked = [...document.querySelectorAll('.tw-khchk:checked')].map(x => x.value);
+    if(!picked.length) {
+      const msg = document.getElementById('twKhMsg');
+      if(msg) msg.textContent = '⚠️ Hãy tích chọn ít nhất 1 ải để bắt đầu!';
+      return;
+    }
+    document.querySelectorAll('.khchk').forEach(chk => {
+      chk.checked = picked.includes(chk.value);
+    });
+    triggerWarp();
+    khStart(exam);
+  };
+
+  const origShowChooser = window.showChooser;
+  window.showChooser = function() {
+    if(origShowChooser) origShowChooser();
+    renderTowerFloor(1);
+  };
+
+  renderTowerFloor(1);
+})();
+</script>
+<!-- ==================== KẾT THÚC BẢN CẬP NHẬT CUỐI ==================== -->
+
 </body>
 </html>
